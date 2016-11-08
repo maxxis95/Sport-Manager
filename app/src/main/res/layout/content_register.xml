@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.foi.air1603.sport_manager.RegisterActivity"
+        tools:showIn="@layout/app_bar_register">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="56dp"
+            android:id="@+id/etMail"
+            android:hint="E-mail" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_below="@+id/etMail"
+            android:layout_alignEnd="@+id/etMail"
+            android:layout_marginTop="15dp"
+            android:id="@+id/etUsernameR"
+            android:hint="Korisničko ime" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_below="@+id/etUsernameR"
+            android:layout_alignStart="@+id/etUsernameR"
+            android:layout_marginTop="13dp"
+            android:id="@+id/etPasswordR1"
+            android:hint="Lozinka" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_below="@+id/etPasswordR2"
+            android:layout_alignEnd="@+id/etPasswordR2"
+            android:layout_marginTop="14dp"
+            android:id="@+id/etName"
+            android:hint="Ime" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_below="@+id/etName"
+            android:layout_alignStart="@+id/etName"
+            android:layout_marginTop="15dp"
+            android:id="@+id/etLastName"
+            android:hint="Prezime" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_marginTop="16dp"
+            android:id="@+id/etPasswordR2"
+            android:layout_below="@+id/etPasswordR1"
+            android:layout_alignStart="@+id/etPasswordR1"
+            android:hint="Ponovite lozinku" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:layout_below="@+id/etLastName"
+            android:layout_alignStart="@+id/etLastName"
+            android:layout_marginTop="12dp"
+            android:id="@+id/etAddress"
+            android:hint="Adresa" />
+
+        <Button
+            android:text="Registracija"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bRegistracija"
+            android:layout_marginTop="103dp"
+            android:layout_marginBottom="50dp"
+            android:layout_below="@+id/etAddress"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:layout_marginTop="17dp"
+            android:id="@+id/etPhoneNumber"
+            android:layout_below="@+id/etAddress"
+            android:layout_alignStart="@+id/etAddress"
+            android:hint="Broj telefona" />
+    </RelativeLayout>
+</ScrollView>

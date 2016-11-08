@@ -1,6 +1,5 @@
 package com.foi.air1603.sport_manager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,13 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity
+public class RegisterActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,18 +44,14 @@ public class LoginActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);   //et is short for EditText
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button bPrijava = (Button) findViewById(R.id.bPrijava);   //b is short for Button
-        final TextView twRegistracija = (TextView) findViewById(R.id.twRegistracija);   //tw is short for TextView
-
-        twRegistracija.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
-            }
-        });
+        final EditText etUsernameR = (EditText) findViewById(R.id.etUsernameR);   //et is short for EditText
+        final EditText etPasswordR1 = (EditText) findViewById(R.id.etPasswordR1);
+        final EditText etPasswordR2 = (EditText) findViewById(R.id.etPasswordR2);
+        final EditText etName = (EditText) findViewById(R.id.etName);
+        final EditText etLastName = (EditText) findViewById(R.id.etLastName);
+        final EditText etAddress = (EditText) findViewById(R.id.etAddress);
+        final EditText etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
+        final Button bRegistracija = (Button) findViewById(R.id.bRegistracija);   //b is short for Button
     }
 
     @Override
@@ -72,7 +67,7 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
+        getMenuInflater().inflate(R.menu.register, menu);
         return true;
     }
 
