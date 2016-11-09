@@ -17,8 +17,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.webservice.DataLoadedListener;
+import com.example.webservice.DataLoader;
+import com.example.webservice.Discount;
+import com.example.webservice.Store;
+import com.example.webservice.WsDataLoader;
+
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +68,7 @@ public class LoginActivity extends AppCompatActivity
 
         DataLoader dataLoader;
         dataLoader = new WsDataLoader();
-        dataLoader.loadData(this);
+        dataLoader.loadData( this);
     }
 
     @Override
@@ -118,5 +126,10 @@ public class LoginActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
+
     }
 }
