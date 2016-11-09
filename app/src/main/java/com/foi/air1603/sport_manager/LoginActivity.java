@@ -19,8 +19,7 @@ import android.widget.TextView;
 
 import com.example.webservice.DataLoadedListener;
 import com.example.webservice.DataLoader;
-import com.example.webservice.Discount;
-import com.example.webservice.Store;
+import com.example.webservice.User;
 import com.example.webservice.WsDataLoader;
 
 import java.util.ArrayList;
@@ -128,8 +127,20 @@ public class LoginActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Metoda koja se izvršava kad se vrate podaci s web servisa
+     * @param result
+     */
     @Override
-    public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
+    public void onDataLoaded(Object result) {
+        System.out.println("eto me nazad u viewu");
+        
+        if (result instanceof User) {
+            User user = (User) result;
+            System.out.println(user.firstName);
+        }
+
+
 
     }
 }
