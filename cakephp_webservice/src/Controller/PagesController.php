@@ -40,7 +40,7 @@ class PagesController extends AppController
     public function home()
     {
 		$this->viewBuilder()->layout('ajax');
-
+		
 		$response = [];
 		$response["statusCode"] = $response["message"] = $response["data"] = null;
 
@@ -49,18 +49,18 @@ class PagesController extends AppController
 		} else if (!empty($this->request->data)){
 			$fromClient = $this->request->data;
 		} else {
-			//testni podaci
-			die();
+			$errorMsg = "[ERROR] No GET/POST parameters!";
+			$this->logAndRespond($errorMsg);
 		}
-
+		
 		if(!empty($fromClient["data"])){
 			$data = json_decode($fromClient["data"], true);
 		} else {
 			$data = null;
 		}
-
-
-
+		
+		
+		
 		$timestamp = date('d.m.Y. H:i:s', time());
 		$logFile = "[$timestamp] ";
 		if(!empty($fromClient["data"]) && $data == NULL ){
@@ -69,49 +69,53 @@ class PagesController extends AppController
 		$logFile .= json_encode($fromClient) . "\n\n\n\n". file_get_contents('log_file.txt');
 		file_put_contents('log_file.txt', $logFile);
 		$logFile = "";
-
-
+		
+		
 		if(!empty($fromClient["data"]) && $data == NULL ){
 			echo "[ERROR] Could not parse json data! Use json validator!";
 			die();
 		}
-
+		
 		$needsArgs = ["getUserById", "getUserByUsername", "getAllUserIdData"];
 		$needsData = ["setUserData"];
-
+		
 		if(in_array($fromClient["method"], $needsArgs)){
-
+			
 			if(!empty($fromClient["args"])){
-
+				
 				if($fromClient["method"] == "getUserById"){
 					$workingTable = TableRegistry::get("Users");
 					$result = $workingTable->findById($fromClient["args"])->first();
 					$errorMsg = "[ERROR] No user with specified id found \n";
 				}
-
+				
 				if($fromClient["method"] == "getUserByUsername"){
 					$workingTable = TableRegistry::get("Users");
 					$result = $workingTable->findByUsername($fromClient["args"])->first();
 					$errorMsg = "[ERROR] No user with specified username found \n";
 				}
-
+				
 				if($result){
-					$user = $result->toArray();
+					$result = $result->toArray();
 					foreach($result as $key => $value){
 						$javaKey = $this->CapsTo_($key ,1);
 						$javaKey = lcfirst($javaKey);
-
+						
 						$result[$javaKey] = $value;
 						if($key!= $javaKey){
 							unset($result[$key]);
 						}
-					}
-					$this->logAndRespond($errorMsg, $result);
+					} 
+					// dump($workingTable);
+					// die();
+					$result = json_encode($result);
+					$this->logAndRespond("", $result, $workingTable->registryAlias(), 200);
+					
 					/* echo json_encode($result);
 					die(); */
 				}
-
-				$this->logAndExit($errorMsg);
+				
+				$this->logAndRespond($errorMsg);
 			} else {
 				$errorMsg = "[ERROR] Missing method arguments!";
 				$this->logAndRespond($errorMsg, $data);
@@ -124,49 +128,50 @@ class PagesController extends AppController
 					$this->firstLevel($key, $data[$key]);
 				}
 			}
-
+			
 		}
-
-
+		
+		
 		$errorMsg = "[ERROR] Unknown method!";
 		$this->logAndRespond($errorMsg);
     }
-
-	private function logAndRespond($msg, $data = null, $statusCode=404){
+	
+	private function logAndRespond($msg, $data = null, $table=null, $statusCode=404){
 		$logFile = "";
 		$response = [];
-		$logFile .= $msg. file_get_contents('log_file.txt');
+		$logFile .= $msg."\n". file_get_contents('log_file.txt');
 		file_put_contents('log_file.txt', $logFile);
-
+		
 		$response["statusCode"] = $statusCode;
 		$response["message"] = $msg;
-		$response["data"] = null;
-
+		$response["data"] = $data;
+		$response["table"] = $table;
+		
 		echo json_encode($response);
-
+		
 		die();
 	}
-
+	
 	private function logAndExit($msg){
 		$logFile = "";
-
+		
 		$logFile .= $msg. file_get_contents('log_file.txt');
 		file_put_contents('log_file.txt', $logFile);
 		die();
 	}
 
-
+	
 	private function firstLevel($klj, $vr){
 		$workingTable = TableRegistry::get($klj);
 		$newRow = $workingTable->newEntity();
-
+		
 		$forInsert = $vr[0];
-
-
+		
+	
 		foreach ($forInsert as $key => $value) {
 			$key = $this->CapsTo_($key);
 			$key = strtolower($key);
-
+			
 			if($this->checkForTable($key)){
 				$newRow->set($key, $this->lastLevel($key, $value));
 			} else {
@@ -174,26 +179,26 @@ class PagesController extends AppController
 			}
 
 		}
-		dump($newRow);die();
+		dump($newRow);die();	
 	}
-
+	
 	private function lastLevel($klj, $vr){
 		$workingTable = TableRegistry::get($klj);
 		$newRow = $workingTable->newEntity();
 		$forInsert = $vr;
-
+	
 		foreach ($forInsert as $key => $value) {
 			$key = $this->CapsTo_($key);
 			$key = strtolower($key);
 			$newRow->set($key, $value);
 		}
-
+		
 		return $newRow;
 	}
-
+	
 	private function checkForTable($a){
-		$targets = array('users', 'store', 'users','places','appointments',"teams_users","teams", "reservations", "sports");
-		foreach($targets as $t)
+		$targets = array('discounts', 'store', 'users','places','appointments',"teams_users","teams", "reservations", "sports");
+		foreach($targets as $t) 
 		{
 			if ($a == $t) {
 				return true;
@@ -201,7 +206,7 @@ class PagesController extends AppController
 		}
 		return false;
 	}
-
+	
 	private function CapsTo_($key, $direction = NULL){
 		if($direction == NULL){
 			$key = preg_replace('/\B([A-Z])/', '_$1', $key);
@@ -209,6 +214,6 @@ class PagesController extends AppController
 		} else {
 			return str_replace('_','',ucwords($key,'_'));
 		}
-
+		
 	}
 }
