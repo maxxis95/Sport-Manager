@@ -28,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="56dp"
             android:id="@+id/etMail"
-            android:hint="E-mail" />
+            android:hint="@string/e_mail" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_alignEnd="@+id/etMail"
             android:layout_marginTop="15dp"
             android:id="@+id/etUsernameR"
-            android:hint="Korisničko ime" />
+            android:hint="@string/korisnicko_imeR" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:layout_alignStart="@+id/etUsernameR"
             android:layout_marginTop="13dp"
             android:id="@+id/etPasswordR1"
-            android:hint="Lozinka" />
+            android:hint="@string/lozinkaR" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_alignEnd="@+id/etPasswordR2"
             android:layout_marginTop="14dp"
             android:id="@+id/etName"
-            android:hint="Ime" />
+            android:hint="@string/imeR" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
             android:layout_alignStart="@+id/etName"
             android:layout_marginTop="15dp"
             android:id="@+id/etLastName"
-            android:hint="Prezime" />
+            android:hint="@string/prezimeR" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:id="@+id/etPasswordR2"
             android:layout_below="@+id/etPasswordR1"
             android:layout_alignStart="@+id/etPasswordR1"
-            android:hint="Ponovite lozinku" />
+            android:hint="@string/ponovite_lozinkuR" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -94,10 +94,10 @@
             android:layout_alignStart="@+id/etLastName"
             android:layout_marginTop="12dp"
             android:id="@+id/etAddress"
-            android:hint="Adresa" />
+            android:hint="@string/adresaR" />
 
         <Button
-            android:text="Registracija"
+            android:text="@string/registracijaR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bRegistracija"
@@ -115,6 +115,6 @@
             android:id="@+id/etPhoneNumber"
             android:layout_below="@+id/etAddress"
             android:layout_alignStart="@+id/etAddress"
-            android:hint="Broj telefona" />
+            android:hint="@string/broj_telefonaR" />
     </RelativeLayout>
 </ScrollView>

@@ -11,18 +11,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.foi.air1603.sport_manager.LoginActivity"
+    android:background="@color/background"
     tools:showIn="@layout/app_bar_login">
 
-    <EditText
+    <TextView
+        android:text="@string/nemate_racun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_above="@+id/bPrijava"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="111dp"
-        android:id="@+id/etUsername"
-        android:hint="Korisničko ime" />
+        android:id="@+id/twRegistracija"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/prijava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bPrijava"
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/twRegistracija"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,25 +38,28 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/etPassword"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/etUsername"
-        android:hint="Lozinka" />
+        android:hint="@string/lozinka"
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/bPrijava"
+        android:layout_alignStart="@+id/etUsername" />
 
-    <Button
-        android:text="Prijava"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bPrijava"
-        android:layout_above="@+id/twRegistracija"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="41dp" />
-
-    <TextView
-        android:text="Nemate račun? Registrirajte se."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/twRegistracija"
-        android:layout_marginBottom="66dp"
-        android:layout_alignParentBottom="true"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginBottom="17dp"
+        android:id="@+id/etUsername"
+        android:hint="@string/korisnicko_ime"
+        android:layout_above="@+id/etPassword"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/imageView2"
+        android:layout_above="@+id/etUsername"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>
