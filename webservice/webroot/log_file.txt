@@ -1,3 +1,134 @@
+[09.11.2016. 09:17:04] {"method":"getUserByUsername","args":"marmar"}
+
+
+
+[ERROR] Missing method arguments![09.11.2016. 09:16:58] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Unknown method![09.11.2016. 09:16:54] {"method":"getUserByUsefdsfsd"}
+
+
+
+[ERROR] Unknown method![09.11.2016. 09:16:44] {"method":"getUserByUserneame"}
+
+
+
+[ERROR] Unknown method![09.11.2016. 09:16:39] {"method":"getUserByUserneame"}
+
+
+
+[ERROR] Missing method arguments![09.11.2016. 09:16:36] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Missing method arguments![09.11.2016. 09:15:59] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Missing method arguments! 
+[09.11.2016. 09:14:51] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Missing method arguments! 
+[09.11.2016. 09:14:40] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Missing method arguments! 
+[09.11.2016. 09:14:22] {"method":"getUserByUsername"}
+
+
+
+[ERROR] Missing method arguments! 
+[09.11.2016. 09:12:38] {"method":"getUserByUsername"}
+
+
+
+[09.11.2016. 09:11:05] {"method":"getUserByUsername"}
+
+
+
+[09.11.2016. 09:11:05] {"method":"getUserByUsername"}
+
+
+
+[09.11.2016. 09:11:03] {"method":"getUserByUsername"}
+
+
+
+[09.11.2016. 09:10:19] {"method":"getUserByUsername"}
+
+
+
+[09.11.2016. 07:16:22] {"method":"getUserByUsername","args":"marmar"}
+
+
+
+[09.11.2016. 07:16:12] {"method":"getUserById","args":"1"}
+
+
+
+[09.11.2016. 07:13:59] {"method":"getUserById","args":"1"}
+
+
+
+[ERROR] No user with specified id found 
+[09.11.2016. 07:13:54] {"method":"getUserById","args":"5"}
+
+
+
+[ERROR] No user with specified id found 
+[09.11.2016. 07:08:44] {"method":"getUserById","args":"5"}
+
+
+
+[09.11.2016. 07:08:39] {"method":"getUserById","args":""}
+
+
+
+[09.11.2016. 07:08:36] {"method":"getUserById","args":""}
+
+
+
+[09.11.2016. 07:07:17] {"method":"getUserById","args":""}
+
+
+
+[09.11.2016. 07:07:15] {"method":"getUserById","args":"1"}
+
+
+
+[09.11.2016. 07:07:11] {"method":"getUserById","args":"1"}
+
+
+
+[09.11.2016. 07:05:45] {"method":"getUserById","args":"1"}
+
+
+
+[09.11.2016. 07:05:29] {"method":"getUserById","pass":"1"}
+
+
+
+[09.11.2016. 06:59:46] null
+
+
+
+[ERROR] No user with specified id found 
+[09.11.2016. 06:55:26] {"method":"getUserById","pass":5}
+
+
+
+[09.11.2016. 06:55:17] {"method":"getUserById","pass":5}
+
+
+
+[09.11.2016. 06:54:45] {"method":"getUserById","pass":5}
+
+
+
 [ERROR] No user with specified id found 
 [08.11.2016. 20:03:28] {"method":"getUserById","pass":5}
 

@@ -90,6 +90,10 @@ class UsersTable extends Table
             ->dateTime('suspension')
             ->allowEmpty('suspension');
 
+        $validator
+            ->requirePresence('username', 'create')
+            ->notEmpty('username');
+
         return $validator;
     }
 
@@ -103,6 +107,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['username']));
 
         return $rules;
     }

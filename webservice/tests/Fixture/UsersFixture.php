@@ -25,6 +25,7 @@ class UsersFixture extends TestFixture
         'phone' => ['type' => 'string', 'length' => 45, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'type' => ['type' => 'integer', 'length' => 4, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'suspension' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'username' => ['type' => 'string', 'length' => 55, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -49,7 +50,8 @@ class UsersFixture extends TestFixture
             'email' => 'Lorem ipsum dolor sit a',
             'phone' => 'Lorem ipsum dolor sit amet',
             'type' => 1,
-            'suspension' => '2016-10-31 18:59:38'
+            'suspension' => '2016-11-09 07:15:59',
+            'username' => 'Lorem ipsum dolor sit amet'
         ],
     ];
 }

@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $phone
  * @property int $type
  * @property \Cake\I18n\Time $suspension
+ * @property string $username
  *
  * @property \App\Model\Entity\Place[] $places
  * @property \App\Model\Entity\Team[] $teams

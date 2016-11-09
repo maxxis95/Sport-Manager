@@ -40,6 +40,9 @@ class PagesController extends AppController
     public function home()
     {
 		$this->viewBuilder()->layout('ajax');
+		
+		$response = [];
+		$response["statusCode"] = $response["message"] = $response["data"] = null;
 
 		if(!empty($this->request->query)){
 			$fromClient = $this->request->query;
@@ -47,9 +50,7 @@ class PagesController extends AppController
 			$fromClient = $this->request->data;
 		} else {
 			//testni podaci
-			// $fromClient["data"] = file_get_contents('rawJson.txt');
-			$fromClient["method"] = "getUserById";
-			$fromClient["pass"] = 5;
+			die();
 		}
 		
 		if(!empty($fromClient["data"])){
@@ -58,7 +59,7 @@ class PagesController extends AppController
 			$data = null;
 		}
 		
-
+		
 		
 		$timestamp = date('d.m.Y. H:i:s', time());
 		$logFile = "[$timestamp] ";
@@ -75,41 +76,84 @@ class PagesController extends AppController
 			die();
 		}
 		
-		if($fromClient["method"] == "getUserById"){
+		$needsArgs = ["getUserById", "getUserByUsername", "getAllUserIdData"];
+		$needsData = ["setUserData"];
+		
+		if(in_array($fromClient["method"], $needsArgs)){
 			
-			if(!empty($fromClient["pass"])){
-				$workingTable = TableRegistry::get("Users");
-				$user = $workingTable->findById($fromClient["pass"])->first();
-				if($user){
-					$user = $user->toArray();
-					foreach($user as $key => $value){
+			if(!empty($fromClient["args"])){
+				
+				if($fromClient["method"] == "getUserById"){
+					$workingTable = TableRegistry::get("Users");
+					$result = $workingTable->findById($fromClient["args"])->first();
+					$errorMsg = "[ERROR] No user with specified id found \n";
+				}
+				
+				if($fromClient["method"] == "getUserByUsername"){
+					$workingTable = TableRegistry::get("Users");
+					$result = $workingTable->findByUsername($fromClient["args"])->first();
+					$errorMsg = "[ERROR] No user with specified username found \n";
+				}
+				
+				if($result){
+					$user = $result->toArray();
+					foreach($result as $key => $value){
 						$javaKey = $this->CapsTo_($key ,1);
 						$javaKey = lcfirst($javaKey);
 						
-						$user[$javaKey] = $value;
+						$result[$javaKey] = $value;
 						if($key!= $javaKey){
-							unset($user[$key]);
+							unset($result[$key]);
 						}
 					} 
-					echo json_encode($user);
-					die();
+					$this->logAndRespond($errorMsg, $result);
+					/* echo json_encode($result);
+					die(); */
 				}
-				$logFile .= "[ERROR] No user with specified id found \n". file_get_contents('log_file.txt');
-				file_put_contents('log_file.txt', $logFile);
-				die();
+				
+				$this->logAndExit($errorMsg);
+			} else {
+				$errorMsg = "[ERROR] Missing method arguments!";
+				$this->logAndRespond($errorMsg, $data);
 			}
+		} else if(in_array($fromClient["method"], $needsData)) {
+			//Parsira primljene podatke u data paremetru nazad u polje
+			foreach($data as $key=>$array_member){
+				$data[$key] = json_decode($data[$key], true);
+				if($this->checkForTable($key)){
+					$this->firstLevel($key, $data[$key]);
+				}
+			}
+			
 		}
 		
-		//Parsira primljene podatke u data paremetru nazad u polje
-		foreach($data as $key=>$array_member){
-			$data[$key] = json_decode($data[$key], true);
-			if($this->checkForTable($key)){
-				$this->firstLevel($key, $data[$key]);
-			}
-		}
-
-		die();
+		
+		$errorMsg = "[ERROR] Unknown method!";
+		$this->logAndRespond($errorMsg);
     }
+	
+	private function logAndRespond($msg, $data = null, $statusCode=404){
+		$logFile = "";
+		$response = [];
+		$logFile .= $msg. file_get_contents('log_file.txt');
+		file_put_contents('log_file.txt', $logFile);
+		
+		$response["statusCode"] = $statusCode;
+		$response["message"] = $msg;
+		$response["data"] = null;
+		
+		echo json_encode($response);
+		
+		die();
+	}
+	
+	private function logAndExit($msg){
+		$logFile = "";
+		
+		$logFile .= $msg. file_get_contents('log_file.txt');
+		file_put_contents('log_file.txt', $logFile);
+		die();
+	}
 
 	
 	private function firstLevel($klj, $vr){
