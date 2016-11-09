@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity
 
         DataLoader dataLoader;
         dataLoader = new WsDataLoader();
-        dataLoader.loadData( this);
+        dataLoader.loadData(this, "getUserById", "1", User.class);
     }
 
     @Override
@@ -129,18 +130,16 @@ public class LoginActivity extends AppCompatActivity
 
     /**
      * Metoda koja se izvršava kad se vrate podaci s web servisa
-     * @param result
+     * @param result sadrži podatke s web servisa u obliku objekta, trenutno radi samo za User klasu
      */
     @Override
     public void onDataLoaded(Object result) {
         System.out.println("eto me nazad u viewu");
-        
+
         if (result instanceof User) {
             User user = (User) result;
-            System.out.println(user.firstName);
+            System.out.println("Moje ime je: " + user.firstName + " " + user.lastName);
         }
-
-
 
     }
 }
