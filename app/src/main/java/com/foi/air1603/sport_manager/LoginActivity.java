@@ -57,6 +57,10 @@ public class LoginActivity extends AppCompatActivity
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
+
+        DataLoader dataLoader;
+        dataLoader = new WsDataLoader();
+        dataLoader.loadData(this);
     }
 
     @Override
