@@ -1,0 +1,220 @@
+[ERROR] No user with specified id found 
+[08.11.2016. 20:03:28] {"method":"getUserById","pass":5}
+
+
+
+[08.11.2016. 19:45:12] {"method":"getAppointmentsByPlace","pass_":"3"}
+
+
+
+[08.11.2016. 19:44:33] {"method":"getAllAppointments"}
+
+
+
+[08.11.2016. 19:44:08] {"method":"getAllUserIdData","pass":"1"}
+
+
+
+[08.11.2016. 19:43:53] {"method":"getAllUserIdData","pass":"5"}
+
+
+
+[08.11.2016. 19:43:40] {"method":"getAllUserIdData","pass":"1"}
+
+
+
+[08.11.2016. 19:43:34] {"method":"getAllUserIdData=1"}
+
+
+
+[08.11.2016. 19:43:30] {"method":"getAllUserIdData"}
+
+
+
+[08.11.2016. 19:42:45] {"method":"getUserById=1"}
+
+
+
+[08.11.2016. 19:42:28] {"method":"getUserById","pass":"1"}
+
+
+
+[ERROR] No user with specified id found 
+[08.11.2016. 19:42:19] {"method":"getUserById","pass":"5"}
+
+
+
+[08.11.2016. 19:41:57] {"method":"getUserById=1"}
+
+
+
+[ERROR] No user with specified id found 
+[08.11.2016. 19:32:05] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[08.11.2016. 19:31:16] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[08.11.2016. 19:04:30] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:52:38] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:42:56] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:42:28] {"method":"getUserById","pass":5}
+
+
+
+[06.11.2016. 12:41:04] {"method":"getAllPlaces,getAllReservations,getAllTeams"}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:39:35] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:39:32] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:39:31] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:39:26] {"method":"getUserById","pass":5}
+
+
+
+[06.11.2016. 12:36:25] {"method":"getUserById"}
+
+
+
+[ERROR] No user with specified id found 
+[06.11.2016. 12:34:41] {"method":"getUserById","pass":5}
+
+
+
+[06.11.2016. 12:32:16] {"method":"getUserById","pass":5}
+
+
+
+[06.11.2016. 12:24:13] {"method":"getUserById","pass":5}
+
+
+
+[31.10.2016. 21:01:59] {"method":"getUserById","pass":"1"}
+
+
+
+[ERROR] No user with specified id found 
+[31.10.2016. 21:01:56] {"method":"getUserById","pass":"2"}
+
+
+
+[31.10.2016. 21:01:46] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 21:01:06] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 21:00:27] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 21:00:21] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 21:00:13] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:59:22] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:59:10] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:57:58] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:57:29] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:57:22] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:56:07] {"method":"getUserById","pass":"1"}
+
+
+
+[31.10.2016. 20:50:24] {"method":"getUserById","pass":"1"}
+
+
+
+[ERROR] No user with specified id found 
+[31.10.2016. 20:49:17] {"method":"getUserById","pass":"12"}
+
+
+
+[ERROR] No user with specified id found 
+[31.10.2016. 20:49:10] {"method":"getUserById","pass":"5"}
+
+
+
+[ERROR] No user with specified id found 
+[31.10.2016. 20:48:42] {"method":"getUserById","pass":5}
+
+
+
+[ERROR] No user with specified id found 
+[31.10.2016. 20:48:06] {"method":"getUserById","parametar":5}
+
+
+
+[ERROR] No user with specified id found 
+
+[31.10.2016. 20:47:55] {"method":"getUserById","parametar":5}
+
+
+
+[ERROR] No user with specified id found 
+
+[31.10.2016. 20:47:43] {"method":"getUserById","parametar":5}
+
+[ERROR] No user with specified id found 
+
+[31.10.2016. 20:47:40] {"method":"getUserById","parametar":5}
+
+[ERROR] No user with specified id found 
+
+[31.10.2016. 20:47:24] {"method":"getUserById","parametar":5}
+
+[ERROR] No user with specified id found 
+
+[31.10.2016. 20:47:22] {"method":"getUserById","parametar":5}
+
