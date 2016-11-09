@@ -6,4 +6,19 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="korisnicko_ime">Korisničko ime</string>
+    <string name="lozinka">Lozinka</string>
+    <string name="nemate_racun">Nemate račun? Registrirajte se.</string>
+    <string name="prijava">Prijava</string>
+    <string name="e_mail">E-mail</string>
+    <string name="korisnicko_imeR">Korisničko ime</string>
+    <string name="adresaR">Adresa</string>
+    <string name="broj_telefonaR">Broj telefona</string>
+    <string name="imeR">Ime</string>
+    <string name="lozinkaR">Lozinka</string>
+    <string name="ponovite_lozinkuR">Ponovite lozinku</string>
+    <string name="prezimeR">Prezime</string>
+    <string name="registracijaR">Registracija</string>
+
+    <color name="background">#FFFFFF</color>
 </resources>
