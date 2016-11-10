@@ -1,10 +1,14 @@
 package com.foi.air1603.sport_manager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +29,8 @@ import com.example.webservice.User;
 import com.example.webservice.WsDataLoader;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener{
@@ -35,7 +42,7 @@ public class LoginActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,10 +60,49 @@ public class LoginActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);   //et is short for EditText
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
+        //final EditText etUsername = (EditText) findViewById(R.id.etUsername);   //et is short for EditText
+        //final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bPrijava = (Button) findViewById(R.id.bPrijava);   //b is short for Button
         final TextView twRegistracija = (TextView) findViewById(R.id.twRegistracija);   //tw is short for TextView
+
+        final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
+        final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
+
+        usernameWrapper.setHint("Korisničko ime");
+        passwordWrapper.setHint("Lozinka");
+
+        bPrijava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //hideKeyboard();
+
+                String username = usernameWrapper.getEditText().getText().toString();
+                String password = passwordWrapper.getEditText().getText().toString();
+
+                if(!validateUsername(username)){
+                    usernameWrapper.setError("Neispravno korisničko ime!");
+                }
+                else if(!validatePassword(password)){
+                    passwordWrapper.setError("Minimalno 6 znakova (brojevi i slova)!");
+                }
+                else{
+                    usernameWrapper.setErrorEnabled(false);
+                    passwordWrapper.setErrorEnabled(false);
+
+                    //usernameWrapper.setError(null);
+                    //passwordWrapper.setError(null);
+                }
+            }
+
+            /*
+            private void hideKeyboard() {
+                View view = getCurrentFocus();
+                if (view != null) {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+            */
+        });
 
         twRegistracija.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,4 +188,50 @@ public class LoginActivity extends AppCompatActivity
         }
 
     }
+
+    public boolean validateUsername(String username){
+        /*
+        if(username.length()<2 || username.length()>45){
+            return false;
+        }
+        else return true;
+        */
+
+        return username.length() > 5;
+    }
+
+    private static final String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$";
+    private Pattern pattern = Pattern.compile(passwordPattern);
+    private Matcher matcher;
+
+    public boolean validatePassword(String password){
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    /*
+    private class TextCheck implements TextWatcher{
+
+        private View view;
+
+        private TextCheck(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    }
+    */
 }
