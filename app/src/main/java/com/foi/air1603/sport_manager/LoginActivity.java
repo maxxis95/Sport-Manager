@@ -88,9 +88,6 @@ public class LoginActivity extends AppCompatActivity
                 else{
                     usernameWrapper.setErrorEnabled(false);
                     passwordWrapper.setErrorEnabled(false);
-
-                    //usernameWrapper.setError(null);
-                    //passwordWrapper.setError(null);
                 }
             }
 
@@ -190,12 +187,6 @@ public class LoginActivity extends AppCompatActivity
     }
 
     public boolean validateUsername(String username){
-        /*
-        if(username.length()<2 || username.length()>45){
-            return false;
-        }
-        else return true;
-        */
 
         return username.length() > 5;
     }
@@ -208,30 +199,4 @@ public class LoginActivity extends AppCompatActivity
         matcher = pattern.matcher(password);
         return matcher.matches();
     }
-
-    /*
-    private class TextCheck implements TextWatcher{
-
-        private View view;
-
-        private TextCheck(View view){
-            this.view = view;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    }
-    */
 }
