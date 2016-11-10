@@ -1,8 +1,9 @@
 package com.example.webservice;
 
 /**
- * Created by Karlo on 9.11.2016..
+ * Created by Generalko on 10.11.2016..
  */
+
 public class User {
     int id;
     public String firstName;
@@ -11,5 +12,6 @@ public class User {
     public String phone;
     public String suspension;
     public String address;
-
+    public String password;
+    public String username;
 }

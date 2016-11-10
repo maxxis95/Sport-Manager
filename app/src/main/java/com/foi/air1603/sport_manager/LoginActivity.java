@@ -1,14 +1,9 @@
 package com.foi.air1603.sport_manager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,22 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.User;
-import com.example.webservice.WsDataLoader;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
+import com.foi.air1603.sport_manager.view.LoginView;
 
 public class LoginActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, LoginView{
+
+    private LoginPresenterImpl presenter;
+    private Button btnLogin;
+    private TextView txtViewRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,48 +52,20 @@ public class LoginActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //final EditText etUsername = (EditText) findViewById(R.id.etUsername);   //et is short for EditText
-        //final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button bPrijava = (Button) findViewById(R.id.bPrijava);   //b is short for Button
-        final TextView twRegistracija = (TextView) findViewById(R.id.twRegistracija);   //tw is short for TextView
+        //instance the presenter class
+        presenter = new LoginPresenterImpl(this);
+        // set values to private variables
+        btnLogin = (Button) findViewById(R.id.bPrijava);
 
-        final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
-        final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
+        txtViewRegistration = (TextView) findViewById(R.id.twRegistracija);   //tw is short for TextView
 
-        usernameWrapper.setHint("Korisničko ime");
-        passwordWrapper.setHint("Lozinka");
-
-        bPrijava.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //hideKeyboard();
-
-                String username = usernameWrapper.getEditText().getText().toString();
-                String password = passwordWrapper.getEditText().getText().toString();
-
-                if(!validateUsername(username)){
-                    usernameWrapper.setError("Neispravno korisničko ime!");
-                }
-                else if(!validatePassword(password)){
-                    passwordWrapper.setError("Minimalno 6 znakova (brojevi i slova)!");
-                }
-                else{
-                    usernameWrapper.setErrorEnabled(false);
-                    passwordWrapper.setErrorEnabled(false);
-                }
+                 presenter.validateUserLogin();
             }
-
-            /*
-            private void hideKeyboard() {
-                View view = getCurrentFocus();
-                if (view != null) {
-                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                }
-            }
-            */
         });
-
-        twRegistracija.setOnClickListener(new View.OnClickListener() {
+        txtViewRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -109,9 +73,6 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        DataLoader dataLoader;
-        dataLoader = new WsDataLoader();
-        dataLoader.loadData(this, "getUserById", "1", User.class);
     }
 
     @Override
@@ -171,32 +132,21 @@ public class LoginActivity extends AppCompatActivity
         return true;
     }
 
-    /**
-     * Metoda koja se izvršava kad se vrate podaci s web servisa
-     * @param result sadrži podatke s web servisa u obliku objekta, trenutno radi samo za User klasu
-     */
     @Override
-    public void onDataLoaded(Object result) {
-        System.out.println("eto me nazad u viewu");
-
-        if (result instanceof User) {
-            User user = (User) result;
-            System.out.println("Moje ime je: " + user.firstName + " " + user.lastName);
-        }
-
+    public String getUsernameFromEditText() {
+        EditText usernameInput = (EditText) findViewById(R.id.etUsername);
+        return usernameInput.getText().toString();
     }
 
-    public boolean validateUsername(String username){
-
-        return username.length() > 5;
+    @Override
+    public String getPasswordFromEditText() {
+        EditText passwordInput = (EditText) findViewById(R.id.etPassword);
+        return passwordInput.getText().toString();
     }
 
-    private static final String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$";
-    private Pattern pattern = Pattern.compile(passwordPattern);
-    private Matcher matcher;
-
-    public boolean validatePassword(String password){
-        matcher = pattern.matcher(password);
-        return matcher.matches();
+    @Override
+    public void displayError() {
+       //todo: implement error xml business logic
+        System.out.println("ERROOOOOR LOL");
     }
 }
