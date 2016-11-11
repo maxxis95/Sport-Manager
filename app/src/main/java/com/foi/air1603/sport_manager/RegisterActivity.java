@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 if(presenter.validateUserRegister()) {
-
+                    //todo: poziv na login screen
                     System.out.println("Sve radi");
                 }
             }

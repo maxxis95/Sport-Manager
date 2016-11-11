@@ -4,6 +4,7 @@ import com.example.webservice.DataLoadedListener;
 import com.example.webservice.DataLoader;
 import com.example.webservice.User;
 import com.example.webservice.WsDataLoader;
+import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -12,9 +13,13 @@ import com.example.webservice.WsDataLoader;
 public class UserModel implements ModelHandler, DataLoadedListener {
 
     private User mUserObject;
+    private DataLoader dataLoader;
+
 
     public UserModel(){
-        callWsDataLoader();
+
+        dataLoader = new WsDataLoader();
+
     }
 
     @Override
@@ -23,17 +28,17 @@ public class UserModel implements ModelHandler, DataLoadedListener {
 
         if (result instanceof User) {
             mUserObject = (User) result;
+
         }
     }
 
-    @Override
+
     public User getUserObject() {
         return this.mUserObject;
     }
 
-    private void callWsDataLoader(){
-        DataLoader dataLoader;
-        dataLoader = new WsDataLoader();
-        dataLoader.loadData(this, "getUserById", "1", User.class);
+    public void setUserObject(User user){
+
+        dataLoader.loadData(this, "setUserById", "1", User.class);
     }
 }
