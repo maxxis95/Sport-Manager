@@ -9,21 +9,21 @@ import java.util.ArrayList;
 public abstract class DataLoader {
 
 
-    public User user;
+   // public Object result;
 
     protected DataLoadedListener mDataLoadedListener;
 
-    public void loadData(DataLoadedListener dataLoadedListener, String method, String args, Type entityType) {
+    public void callWebService(DataLoadedListener dataLoadedListener, String method, String args, Type entityType, Object data) {
         this.mDataLoadedListener = dataLoadedListener;
     }
 
-    public boolean dataLoaded(){
-        if(user == null){
+    /*public boolean dataLoaded(){
+        if(result == null){
             return false;
         }
         else{
             return true;
         }
-    }
+    }*/
 
 }

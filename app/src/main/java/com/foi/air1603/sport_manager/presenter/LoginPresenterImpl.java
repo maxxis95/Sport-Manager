@@ -11,14 +11,14 @@ import com.foi.air1603.sport_manager.view.LoginView;
  * Created by Generalko on 10.11.2016..
  */
 
-public class LoginPresenterImpl implements LoginPresenter {
+public class LoginPresenterImpl implements LoginPresenter{
     private final LoginView view;
     UserModel userModel;
 
 
     public LoginPresenterImpl(LoginView loginView) {
         this.view = loginView;
-        this.userModel = new UserModel();
+        //this.userModel = new UserModel(this);
     }
 
     @Override

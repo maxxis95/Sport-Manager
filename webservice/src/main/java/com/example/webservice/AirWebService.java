@@ -13,6 +13,6 @@ public interface AirWebService {
 
     @FormUrlEncoded
     @POST("/")
-    Call<AirWebServiceResponse> getData(@Field("method") String method, @Field("args") String args);
+    Call<AirWebServiceResponse> getData(@Field("method") String method, @Field("args") String args, @Field("data") String data);
 
 }

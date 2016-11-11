@@ -49,8 +49,12 @@ class PagesController extends AppController
 		} else if (!empty($this->request->data)){
 			$fromClient = $this->request->data;
 		} else {
-			$errorMsg = "[ERROR] No GET/POST parameters!";
-			$this->logAndRespond($errorMsg);
+			
+			$fromClient["method"] = "setUserData";
+			$fromClient["data"] = "{\"address\":\"gv\",\"email\":\"gv\",\"firstName\":\"cc\",\"id\":0,\"lastName\":\"bv\",\"phone\":\"99\"}";
+			
+			/* $errorMsg = "[ERROR] No GET/POST parameters!";
+			$this->logAndRespond($errorMsg); */
 		}
 		
 		if(!empty($fromClient["data"])){
@@ -58,6 +62,8 @@ class PagesController extends AppController
 		} else {
 			$data = null;
 		}
+		
+		
 		
 		
 		
@@ -122,14 +128,18 @@ class PagesController extends AppController
 			}
 		} else if(in_array($fromClient["method"], $needsData)) {
 			//Parsira primljene podatke u data paremetru nazad u polje
+			/* dump($data);die();
 			foreach($data as $key=>$array_member){
 				$data[$key] = json_decode($data[$key], true);
 				if($this->checkForTable($key)){
 					$this->firstLevel($key, $data[$key]);
 				}
-			}
+			} */
+			
+			$this->firstLevel("Users", $data);
 			
 		}
+		
 		
 		
 		$errorMsg = "[ERROR] Unknown method!";
@@ -165,7 +175,8 @@ class PagesController extends AppController
 		$workingTable = TableRegistry::get($klj);
 		$newRow = $workingTable->newEntity();
 		
-		$forInsert = $vr[0];
+		// $forInsert = $vr[0];
+		$forInsert = $vr;
 		
 	
 		foreach ($forInsert as $key => $value) {
@@ -179,7 +190,16 @@ class PagesController extends AppController
 			}
 
 		}
-		dump($newRow);die();	
+		if($newRow->id==null){
+			unset($newRow->id);
+		}
+		
+		// dump($newRow);die();	
+		if($workingTable->save($newRow)){
+			$this->logAndRespond("New user is successfully saved!", null, null, 200);
+		} else {
+			$this->logAndRespond("[ERROR] Saving new user failed!");
+		}
 	}
 	
 	private function lastLevel($klj, $vr){

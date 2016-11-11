@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.example.webservice.AirWebServiceResponse;
 import com.example.webservice.User;
 import com.foi.air1603.sport_manager.model.UserModel;
 
@@ -9,7 +10,7 @@ import com.foi.air1603.sport_manager.view.RegisterView;
  * Created by Robert on 11-Nov-16.
  */
 
-public class RegisterPresenterImpl implements RegisterPresenter {
+public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandler {
 
     private final RegisterView view;
     boolean pass = false;
@@ -22,7 +23,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     public RegisterPresenterImpl(RegisterView registerView) {
 
         this.view = registerView;
-        this.userModel = new UserModel();
+        this.userModel = new UserModel(this);
     }
     @Override
     public boolean validateUserRegister() {
@@ -100,10 +101,11 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             String editTextName = "etPhoneNumber";
             view.displayError(editTextName, message);
         }
-        //todo: ako je validacija dobra salji na bazu. else greska
-        if(validation){
 
-           userModel.setUserObject(createNewUserObject());
+        //todo: ako je validacija dobra salji na bazu. else greska
+        if(true){
+            System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
+            userModel.setUserObject(createNewUserObject());
         }
         return validation;
     }
@@ -127,12 +129,15 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     }
 
-    public void onDataLoaded(User user){
 
-        //todo:vracam prema view prema loginu.
+
+    @Override
+    public void getResponseData(Object result) {
+        System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");
+        AirWebServiceResponse test = (AirWebServiceResponse) result;
+        System.out.println("Status code: " + test.getStatusCode());
+
     }
-
-
 }
 
 

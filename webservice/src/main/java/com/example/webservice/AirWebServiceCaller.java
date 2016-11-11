@@ -2,7 +2,10 @@ package com.example.webservice;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.squareup.okhttp.OkHttpClient;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 
@@ -46,11 +49,12 @@ public class AirWebServiceCaller {
      * @param args Argumenti koji s kojima se metoda ne web servisu poziva
      * @param entityType Klasa prema kojoj će GSON parsirati json
      */
-    public void getData(String method, String args, final Type entityType){
+    public void getData(String method, String args, final Type entityType, Object data){
 
         AirWebService serviceCaller = retrofit.create(AirWebService.class);
         Call<AirWebServiceResponse> call;
-        call = serviceCaller.getData(method, "1");
+        Gson gson = new Gson();
+        call = serviceCaller.getData(method, args, gson.toJson(data, entityType));
 
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {
@@ -78,12 +82,11 @@ public class AirWebServiceCaller {
                 .setDateFormat("yyyy-MM-dd") // response JSON format
                 .create();
 
+        System.out.println("----------------->5. AirWebServiceCaller:handleResponse");
         System.out.println(gson.toJson(response.body(), AirWebServiceResponse.class));
 
-        User user = gson.fromJson(response.body().getData(), User.class);
-
         if(mAirWebServiceHandler != null){
-            mAirWebServiceHandler.onDataArrived(user, true);
+            mAirWebServiceHandler.onDataArrived(response.body(), true);
         }
 
     }

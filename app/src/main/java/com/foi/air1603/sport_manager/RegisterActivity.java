@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
 import com.foi.air1603.sport_manager.view.RegisterView;
 
@@ -25,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RegisterView {
 
 
-    private RegisterPresenterImpl presenter;
+    private RegisterPresenter presenter;
     private Button btnRegister;
 
     @Override
@@ -62,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                System.out.println("----------------->1. RegisterActivity:onClickListener");
                 if(presenter.validateUserRegister()) {
                     //todo: poziv na login screen
                     System.out.println("Sve radi");
