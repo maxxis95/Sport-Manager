@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,12 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
+import com.foi.air1603.sport_manager.view.RegisterView;
+
 public class RegisterActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RegisterView {
+
+
+    private RegisterPresenterImpl presenter;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +53,22 @@ public class RegisterActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final EditText etUsernameR = (EditText) findViewById(R.id.etUsernameR);   //et is short for EditText
-        final EditText etPasswordR1 = (EditText) findViewById(R.id.etPasswordR1);
-        final EditText etPasswordR2 = (EditText) findViewById(R.id.etPasswordR2);
-        final EditText etName = (EditText) findViewById(R.id.etName);
-        final EditText etLastName = (EditText) findViewById(R.id.etLastName);
-        final EditText etAddress = (EditText) findViewById(R.id.etAddress);
-        final EditText etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
-        final Button bRegistracija = (Button) findViewById(R.id.bRegistracija);   //b is short for Button
+        //instance the presenter class
+        presenter = new RegisterPresenterImpl(this);
+        btnRegister = (Button) findViewById(R.id.bRegistracija);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                if(presenter.validateUserRegister()) {
+
+                    System.out.println("Sve radi");
+                }
+            }
+
+        });
     }
 
     @Override
@@ -110,4 +127,79 @@ public class RegisterActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public String getEmailFromEditText() {
+        EditText emailInput = (EditText) findViewById(R.id.etMail);
+        return emailInput.getText().toString();
+    }
+
+
+    public String getUsernameFromEditText() {
+        EditText usernameInput = (EditText) findViewById(R.id.etUsernameR);
+        return usernameInput.getText().toString();
+    }
+
+
+    public String getPasswordFromEditText() {
+        EditText passwordInput = (EditText) findViewById(R.id.etPasswordR1);
+        return passwordInput.getText().toString();
+    }
+    public String getPassword1FromEditText() {
+        EditText password1Input = (EditText) findViewById(R.id.etPasswordR2);
+        return password1Input.getText().toString();
+    }
+    public String getNameFromEditText() {
+        EditText nameInput = (EditText) findViewById(R.id.etName);
+        return nameInput.getText().toString();
+    }
+    public String getLastNameFromEditText() {
+        EditText lastNameInput = (EditText) findViewById(R.id.etLastName);
+        return lastNameInput.getText().toString();
+    }
+
+    public String getAddressFromEditText() {
+        EditText addressInput = (EditText) findViewById(R.id.etAddress);
+        return addressInput.getText().toString();
+    }
+    public String getPhoneNumberFromEditText() {
+        EditText phoneNumberInput = (EditText) findViewById(R.id.etPhoneNumber);
+        return phoneNumberInput.getText().toString();
+    }
+
+    @Override
+    public void displayError(String editTextName, String message) {
+
+        switch (editTextName) {
+
+            case "etMail": EditText etMail = (EditText) findViewById(R.id.etMail);
+                etMail.setError(message);
+                break;
+            case "etUsernameR": EditText etUsernameR = (EditText) findViewById(R.id.etUsernameR);
+                etUsernameR.setError(message);
+                break;
+            case "etPasswordR1": EditText etPasswordR1 = (EditText) findViewById(R.id.etPasswordR1);
+                etPasswordR1.setError(message);
+                break;
+            case "etPasswordR2": EditText etPasswordR2 = (EditText) findViewById(R.id.etPasswordR2);
+                etPasswordR2.setError(message);
+                break;
+            case "etName": EditText etName = (EditText) findViewById(R.id.etName);
+                etName.setError(message);
+                break;
+            case "etLastName": EditText etLastName = (EditText) findViewById(R.id.etLastName);
+                etLastName.setError(message);
+                break;
+            case "etAddress": EditText etAddress = (EditText) findViewById(R.id.etAddress);
+                etAddress.setError(message);
+                break;
+            case "etPhoneNumber": EditText etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
+                etPhoneNumber.setError(message);
+                break;
+
+        }
+
+
+    }
+
 }
+
