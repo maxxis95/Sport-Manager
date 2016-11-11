@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.example.webservice.User;
 import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
@@ -19,6 +20,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
 
     public RegisterPresenterImpl(RegisterView registerView) {
+
         this.view = registerView;
         this.userModel = new UserModel();
     }
@@ -44,6 +46,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                 view.displayError(editTextName, message);
             }
         }
+
         if (view.getUsernameFromEditText().isEmpty()) {
             validation = false;
             String message = "Polje je obavezno";
@@ -97,7 +100,11 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             String editTextName = "etPhoneNumber";
             view.displayError(editTextName, message);
         }
+        //todo: ako je validacija dobra salji na bazu. else greska
+        if(validation){
 
+           userModel.setUserObject(createNewUserObject());
+        }
         return validation;
     }
 
@@ -106,6 +113,23 @@ public class RegisterPresenterImpl implements RegisterPresenter {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(emailFromEditText);
         return m.matches();
+    }
+
+    private User createNewUserObject(){
+        User user = new User();
+        user.address = view.getAddressFromEditText();
+        user.email = view.getEmailFromEditText();
+        user.firstName = view.getNameFromEditText();
+        user.lastName = view.getLastNameFromEditText();
+        user.phone = view.getPhoneNumberFromEditText();
+
+        return user;
+
+    }
+
+    public void onDataLoaded(User user){
+
+        //todo:vracam prema view prema loginu.
     }
 
 
