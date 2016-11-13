@@ -11,6 +11,7 @@ public class AirWebServiceResponse {
     public String data;
 
     public String getMessage() {
+
         return message;
     }
 

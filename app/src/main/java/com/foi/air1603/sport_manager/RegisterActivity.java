@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
@@ -65,12 +67,28 @@ public class RegisterActivity extends AppCompatActivity
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 System.out.println("----------------->1. RegisterActivity:onClickListener");
                 if(presenter.validateUserRegister()) {
-                    //todo: poziv na login screen
-                    System.out.println("Sve radi");
+                    System.out.println("Validacija je dobro prosla");
+
+                } else {
+                    System.out.println("Validacija nije prosla");
                 }
+
+
             }
 
         });
+    }
+
+    public void returnResponseCode (int statusCode, String message) {
+        if(statusCode == 200) {
+            Toast.makeText(RegisterActivity.this,
+                    "Uspješno ste se registrirali!", Toast.LENGTH_LONG).show();
+                    Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    RegisterActivity.this.startActivity(loginIntent);
+        } else {
+            Toast.makeText(RegisterActivity.this,
+                    "Registracija nije uspjela:"+message, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
