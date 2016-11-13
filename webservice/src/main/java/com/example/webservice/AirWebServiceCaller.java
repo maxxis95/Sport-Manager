@@ -54,7 +54,13 @@ public class AirWebServiceCaller {
         AirWebService serviceCaller = retrofit.create(AirWebService.class);
         Call<AirWebServiceResponse> call;
         Gson gson = new Gson();
-        call = serviceCaller.getData(method, args, gson.toJson(data, entityType));
+
+        if(data != null){
+            call = serviceCaller.getData(method, args, gson.toJson(data, entityType));
+        } else {
+            call = serviceCaller.getData(method, args, null);
+        }
+
 
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {

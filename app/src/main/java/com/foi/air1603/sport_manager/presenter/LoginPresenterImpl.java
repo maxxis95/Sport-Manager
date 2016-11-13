@@ -20,7 +20,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     public LoginPresenterImpl(LoginView loginView) {
         this.view = loginView;
-        this.userInteractor = new UserInteractorImpl();
+        this.userInteractor = new UserInteractorImpl(this);
     }
 
     @Override
