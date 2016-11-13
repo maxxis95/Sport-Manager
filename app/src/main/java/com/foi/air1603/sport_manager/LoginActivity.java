@@ -17,15 +17,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoginView{
 
+    // private variables
     private LoginPresenterImpl presenter;
     private Button btnLogin;
     private TextView txtViewRegistration;
+    private EditText usernameInput;
+    private EditText passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +58,14 @@ public class LoginActivity extends AppCompatActivity
 
         //instance the presenter class
         presenter = new LoginPresenterImpl(this);
-        // set values to private variables
-        btnLogin = (Button) findViewById(R.id.bPrijava);
+        setValuesToTextViews();
 
         txtViewRegistration = (TextView) findViewById(R.id.twRegistracija);   //tw is short for TextView
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 presenter.validateUserLogin();
+                 presenter.checkIfInputDataIsEmpty();
             }
         });
         txtViewRegistration.setOnClickListener(new View.OnClickListener() {
@@ -134,19 +137,28 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public String getUsernameFromEditText() {
-        EditText usernameInput = (EditText) findViewById(R.id.etUsername);
         return usernameInput.getText().toString();
     }
 
     @Override
     public String getPasswordFromEditText() {
-        EditText passwordInput = (EditText) findViewById(R.id.etPassword);
         return passwordInput.getText().toString();
     }
 
     @Override
-    public void displayError() {
-       //todo: implement error xml business logic
-        System.out.println("ERROOOOOR LOL");
+    public void displayError(LoginViewEnums textView, String message) {
+        switch (textView){
+            case Username: usernameInput.setError(message);
+            case Password: passwordInput.setError(message);
+        }
+    }
+
+    /**
+     * Sets the values to private fields of Text Views on XML
+     */
+    private void setValuesToTextViews(){
+        btnLogin = (Button) findViewById(R.id.bPrijava);
+        usernameInput = (EditText) findViewById(R.id.etUsername);
+        passwordInput = (EditText) findViewById(R.id.etPassword);
     }
 }

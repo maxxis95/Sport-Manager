@@ -52,9 +52,8 @@ public class UserModel implements ModelHandler, DataLoadedListener {
         }
     }
 
+    @Override
     public User getUserObject() {
         return this.mUserObject;
     }
-
-
 }

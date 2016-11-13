@@ -8,6 +8,6 @@ import com.example.webservice.User;
  */
 
 public interface ModelHandler {
-
+    User getUserObject();
 
 }

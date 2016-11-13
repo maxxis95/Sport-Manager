@@ -8,5 +8,5 @@ public interface LoginPresenter {
     /**
      * Validate user login
      */
-    void validateUserLogin();
+    void checkIfInputDataIsEmpty();
 }
