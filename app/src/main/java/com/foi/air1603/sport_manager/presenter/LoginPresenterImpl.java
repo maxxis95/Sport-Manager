@@ -34,9 +34,12 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         if (view.getUsernameFromEditText().isEmpty()) {
             view.displayError(Username, "Unesite vrijednost");
         }
-        else if (view.getPasswordFromEditText().isEmpty()) {
+        if (view.getPasswordFromEditText().isEmpty()) {
             view.displayError(Password, "Unesite vrijednost");
-        } else {
+        }
+        if (!view.getUsernameFromEditText().isEmpty() && !view.getPasswordFromEditText().isEmpty()){
+            view.removeError(Username);
+            view.removeError(Password);
             compareInputTextToData();
         }
     }
@@ -69,8 +72,11 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         if (user == null) {
             onUsernameError();
         } else{
+            view.removeError(Username);
             if(!view.getPasswordFromEditText().equals(user.password)){
                 onPasswordError();
+            } else{
+                view.removeError(Password);
             }
         }
     }

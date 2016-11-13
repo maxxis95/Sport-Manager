@@ -151,26 +151,24 @@ public class LoginActivity extends AppCompatActivity
         final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
         final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
 
-        /*
-        switch (textView){
-            case Username: usernameWrapper.setError(message);
-            case Password: passwordWrapper.setError(message);
-            default: usernameWrapper.setErrorEnabled(false);
-                passwordWrapper.setErrorEnabled(false);
-        }
-        */
-
         if(textView == LoginViewEnums.Username){
             usernameWrapper.setError(message);
         }
         else if(textView == LoginViewEnums.Password){
             passwordWrapper.setError(message);
         }
-        else{
-            usernameWrapper.setErrorEnabled(false);
-            passwordWrapper.setErrorEnabled(false);
-        }
     }
+
+    @Override
+    public void removeError(LoginViewEnums textView) {
+        final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
+        final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
+
+        usernameWrapper.setErrorEnabled(false);
+        passwordWrapper.setErrorEnabled(false);
+
+    }
+
 
     /**
      * Sets the values to private fields of Text Views on XML

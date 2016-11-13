@@ -10,4 +10,5 @@ public interface LoginView {
      String getUsernameFromEditText();
      String getPasswordFromEditText();
      void displayError(LoginViewEnums textView, String message);
+     void removeError(LoginViewEnums textView);
 }
