@@ -24,9 +24,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     private UserInteractor userInteractor;
     private User user;
 
-    //final TextInputLayout usernameWrapper = (TextInputLayout) view.
-    //final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
-
     public LoginPresenterImpl(LoginView loginView) {
         this.view = loginView;
         this.userInteractor = new UserInteractorImpl(this);
@@ -66,15 +63,14 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void getResponseData(Object result) {
-        //to dodju rezultati od webservisa
         AirWebServiceResponse response = (AirWebServiceResponse) result;
         user = new Gson().fromJson(response.getData(), User.class);
 
-        if (user != null) {
-            if (!view.getPasswordFromEditText().equals(user.password)) {
+        if (user == null) {
+            onUsernameError();
+        } else{
+            if(!view.getPasswordFromEditText().equals(user.password)){
                 onPasswordError();
-            } else if (!view.getUsernameFromEditText().equals(user.username)) {
-                onUsernameError();
             }
         }
     }

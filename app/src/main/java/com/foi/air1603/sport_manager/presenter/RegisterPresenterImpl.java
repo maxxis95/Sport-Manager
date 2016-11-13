@@ -135,8 +135,6 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
     }
 
-
-
     @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");
