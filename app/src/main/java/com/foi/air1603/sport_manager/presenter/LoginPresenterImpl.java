@@ -1,9 +1,16 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import android.provider.Settings;
+import android.support.design.widget.TextInputLayout;
+import android.view.View;
+
+import com.example.webservice.AirWebServiceResponse;
 import com.example.webservice.User;
+import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
+import com.google.gson.Gson;
 
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
@@ -17,6 +24,8 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     private UserInteractor userInteractor;
     private User user;
 
+    //final TextInputLayout usernameWrapper = (TextInputLayout) view.
+    //final TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.txiPasswordL);
 
     public LoginPresenterImpl(LoginView loginView) {
         this.view = loginView;
@@ -57,12 +66,15 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void getResponseData(Object result) {
-        //todo: to dodju rezultati od webservise
+        //to dodju rezultati od webservisa
+        AirWebServiceResponse response = (AirWebServiceResponse) result;
+        user = new Gson().fromJson(response.getData(), User.class);
+
         if (user != null) {
             if (!view.getPasswordFromEditText().equals(user.password)) {
-                view.displayError(Password, "Unijeli ste krivu lozinku");
+                onPasswordError();
             } else if (!view.getUsernameFromEditText().equals(user.username)) {
-                view.displayError(Username, "Unijeli ste krivo korisničko ime");
+                onUsernameError();
             }
         }
     }
