@@ -1,10 +1,14 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.example.webservice.AirWebServiceResponse;
 import com.example.webservice.User;
 import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
+
 
 /**
  * Created by Robert on 11-Nov-16.
@@ -103,7 +107,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         }
 
         //todo: ako je validacija dobra salji na bazu. else greska
-        if(true){
+        if(validation){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
             userModel.setUserObject(createNewUserObject());
         }
@@ -119,11 +123,13 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
     private User createNewUserObject(){
         User user = new User();
+        user.username = view.getUsernameFromEditText();
         user.address = view.getAddressFromEditText();
         user.email = view.getEmailFromEditText();
         user.firstName = view.getNameFromEditText();
         user.lastName = view.getLastNameFromEditText();
         user.phone = view.getPhoneNumberFromEditText();
+        user.password = view.getPasswordFromEditText();
 
         return user;
 
@@ -135,9 +141,11 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
     public void getResponseData(Object result) {
         System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");
         AirWebServiceResponse test = (AirWebServiceResponse) result;
-        System.out.println("Status code: " + test.getStatusCode());
-
+        view.returnResponseCode(test.getStatusCode(),test.getMessage());
     }
+
+
+
 }
 
 

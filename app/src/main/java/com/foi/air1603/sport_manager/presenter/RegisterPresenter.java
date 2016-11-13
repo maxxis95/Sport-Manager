@@ -9,4 +9,5 @@ public interface RegisterPresenter {
      * @return
      */
     boolean validateUserRegister();
+
 }

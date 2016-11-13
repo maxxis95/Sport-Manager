@@ -14,4 +14,5 @@ public interface RegisterView {
     String getAddressFromEditText();
     String getPhoneNumberFromEditText();
     void displayError(String editTextName, String message);
+    void returnResponseCode(int statusCode, String message);
 }
