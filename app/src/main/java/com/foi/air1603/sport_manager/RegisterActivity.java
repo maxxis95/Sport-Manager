@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
 import com.foi.air1603.sport_manager.view.RegisterView;
@@ -218,6 +220,11 @@ public class RegisterActivity extends AppCompatActivity
 
         }
 
+
+    }
+
+    @Override
+    public void removeError(LoginViewEnums textView) {
 
     }
 

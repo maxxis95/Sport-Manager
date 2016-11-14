@@ -19,102 +19,156 @@
         tools:context="com.foi.air1603.sport_manager.RegisterActivity"
         tools:showIn="@layout/app_bar_register">
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:layout_alignParentTop="true"
+            android:layout_marginBottom="17dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="56dp"
-            android:id="@+id/etMail"
-            android:hint="@string/e_mail" />
+            android:id="@+id/txiMailR">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/etMail"
+                android:hint="@string/e_mail" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:layout_below="@+id/etMail"
-            android:layout_alignEnd="@+id/etMail"
-            android:layout_marginTop="15dp"
-            android:id="@+id/etUsernameR"
-            android:hint="@string/korisnicko_imeR" />
+            android:layout_below="@+id/txiMailR"
+            android:layout_alignEnd="@+id/txiMailR"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiUsernameR">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/etUsernameR"
+                android:hint="@string/korisnicko_imeR" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:layout_below="@+id/etUsernameR"
-            android:layout_alignStart="@+id/etUsernameR"
-            android:layout_marginTop="13dp"
-            android:id="@+id/etPasswordR1"
-            android:hint="@string/lozinkaR" />
+            android:layout_below="@+id/txiUsernameR"
+            android:layout_alignStart="@+id/txiUsernameR"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiPasswordR1">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etPasswordR1"
+                android:hint="@string/lozinkaR" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:layout_below="@+id/etPasswordR2"
-            android:layout_alignEnd="@+id/etPasswordR2"
-            android:layout_marginTop="14dp"
-            android:id="@+id/etName"
-            android:hint="@string/imeR" />
+            android:layout_below="@+id/txiPasswordR1"
+            android:layout_alignStart="@+id/txiPasswordR1"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiPasswordR2">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etPasswordR2"
+                android:hint="@string/ponovite_lozinkuR" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:layout_below="@+id/etName"
-            android:layout_alignStart="@+id/etName"
-            android:layout_marginTop="15dp"
-            android:id="@+id/etLastName"
-            android:hint="@string/prezimeR" />
+            android:layout_below="@+id/txiPasswordR2"
+            android:layout_alignStart="@+id/txiPasswordR2"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiImeR">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/etName"
+                android:hint="@string/imeR" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:layout_marginTop="16dp"
-            android:id="@+id/etPasswordR2"
-            android:layout_below="@+id/etPasswordR1"
-            android:layout_alignStart="@+id/etPasswordR1"
-            android:hint="@string/ponovite_lozinkuR" />
+            android:layout_below="@+id/txiImeR"
+            android:layout_alignStart="@+id/txiImeR"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiPrezimeR">
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/etLastName"
+                android:hint="@string/prezimeR" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:layout_below="@+id/etLastName"
-            android:layout_alignStart="@+id/etLastName"
-            android:layout_marginTop="12dp"
-            android:id="@+id/etAddress"
-            android:hint="@string/adresaR" />
+            android:layout_below="@+id/txiPrezimeR"
+            android:layout_alignStart="@+id/txiPrezimeR"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiAdresaR">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etAddress"
+                android:hint="@string/adresaR" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txiAdresaR"
+            android:layout_alignStart="@+id/txiAdresaR"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/txiBrojTelefonaR">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/etPhoneNumber"
+                android:hint="@string/broj_telefonaR" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:text="@string/registracijaR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bRegistracija"
-            android:layout_marginTop="103dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="50dp"
-            android:layout_below="@+id/etAddress"
+            android:layout_below="@+id/txiBrojTelefonaR"
             android:layout_centerHorizontal="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:ems="10"
-            android:layout_marginTop="17dp"
-            android:id="@+id/etPhoneNumber"
-            android:layout_below="@+id/etAddress"
-            android:layout_alignStart="@+id/etAddress"
-            android:hint="@string/broj_telefonaR" />
     </RelativeLayout>
 </ScrollView>
