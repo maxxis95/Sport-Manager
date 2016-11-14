@@ -103,7 +103,6 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
             view.displayError(editTextName, message);
         }
 
-        //todo: ako je validacija dobra salji na bazu. else greska
         if(validation){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
             userModel.setUserObject(createNewUserObject());
