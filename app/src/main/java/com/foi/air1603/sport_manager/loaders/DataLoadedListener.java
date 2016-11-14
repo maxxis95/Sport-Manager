@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.foi.air1603.sport_manager.loaders;
 
 import java.util.ArrayList;
 

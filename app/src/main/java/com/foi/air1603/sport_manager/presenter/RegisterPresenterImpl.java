@@ -1,10 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import com.example.webservice.AirWebServiceResponse;
-import com.example.webservice.User;
+import com.foi.air1603.sport_manager.model.User;
 import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;

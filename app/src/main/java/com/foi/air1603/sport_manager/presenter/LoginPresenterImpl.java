@@ -1,12 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import android.provider.Settings;
-import android.support.design.widget.TextInputLayout;
-import android.view.View;
-
 import com.example.webservice.AirWebServiceResponse;
-import com.example.webservice.User;
-import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.model.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;

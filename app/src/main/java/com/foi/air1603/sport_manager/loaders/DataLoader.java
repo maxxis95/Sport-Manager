@@ -1,7 +1,6 @@
-package com.example.webservice;
+package com.foi.air1603.sport_manager.loaders;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * Created by Karlo on 9.11.2016..

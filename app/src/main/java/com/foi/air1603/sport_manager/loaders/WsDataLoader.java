@@ -1,4 +1,7 @@
-package com.example.webservice;
+package com.foi.air1603.sport_manager.loaders;
+
+import com.example.webservice.AirWebServiceCaller;
+import com.example.webservice.AirWebServiceHandler;
 
 import java.lang.reflect.Type;
 

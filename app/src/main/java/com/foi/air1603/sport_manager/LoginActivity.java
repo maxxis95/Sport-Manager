@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
+import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoginView{
 
     // private variables
-    private LoginPresenterImpl presenter;
+    private LoginPresenter presenter;
     private Button btnLogin;
     private TextView txtViewRegistration;
     private EditText usernameInput;

@@ -1,22 +1,9 @@
 package com.foi.air1603.sport_manager.model;
 
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.User;
-import com.example.webservice.WsDataLoader;
+import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
+import com.foi.air1603.sport_manager.loaders.DataLoader;
+import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.PresenterHandler;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -52,8 +39,12 @@ public class UserModel implements ModelHandler, DataLoadedListener {
         }
     }
 
-    @Override
+    /**
+     * NIGDJE SE NE KORISTI?!
+     * @return
+     */
+   /* @Override
     public User getUserObject() {
         return this.mUserObject;
-    }
+    }*/
 }
