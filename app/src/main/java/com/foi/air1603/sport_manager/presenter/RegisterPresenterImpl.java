@@ -6,6 +6,14 @@ import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
 
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.AddressR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.EmailR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.LastNameR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.NameR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.PasswordR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.PasswordR1;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.PhoneNumberR;
+import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.UsernameR;
 
 /**
  * Created by Robert on 11-Nov-16.
@@ -14,110 +22,111 @@ import com.foi.air1603.sport_manager.view.RegisterView;
 public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandler {
 
     private final RegisterView view;
-    boolean pass = false;
-    boolean email = false;
     boolean valid = false;
-    boolean validation = true;
+    boolean e, u, p, p1, n, l, a, pn = false;
     UserModel userModel;
-
 
     public RegisterPresenterImpl(RegisterView registerView) {
 
         this.view = registerView;
         this.userModel = new UserModel(this);
     }
-    @Override
-    public boolean validateUserRegister() {
 
+    @Override
+    public void validateUserRegister() {
 
         if (view.getEmailFromEditText().isEmpty()) {
-            String message = "Polje je obavezno";
-            String editTextName = "etMail";
-            view.displayError(editTextName, message);
-            validation = false;
+            view.displayError(EmailR, "Polje je obavezno");
+            e = false;
 
         } else {
             valid = isValidEmailAddress(view.getEmailFromEditText());
 
             if (valid) {
-                email = true;
+                view.removeError(EmailR);
+                e = true;
             } else {
-                validation = false;
-                String message = "Email nije validan";
-                String editTextName = "etMail";
-                view.displayError(editTextName, message);
+                view.displayError(EmailR, "Email nije validan");
+                e = false;
             }
         }
 
         if (view.getUsernameFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etUsernameR";
-            view.displayError(editTextName, message);
+            view.displayError(UsernameR, "Polje je obavezno");
+            u = false;
+        } else {
+            view.removeError(UsernameR);
+            u = true;
         }
 
         if (view.getPasswordFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etPasswordR1";
-            view.displayError(editTextName, message);
+            view.displayError(PasswordR, "Polje je obavezno");
+            p = false;
+        } else {
+            view.removeError(PasswordR);
+            p = true;
         }
+
         if (view.getPassword1FromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etPasswordR2";
-            view.displayError(editTextName, message);
+            view.displayError(PasswordR1, "Polje je obavezno");
+            p1 = false;
         } else {
             if (view.getPasswordFromEditText().equals(view.getPassword1FromEditText())) {
-                pass = true;
-
+                p1 = true;
+                view.removeError(PasswordR1);
             } else {
-                validation = false;
-                String message = "Lozinke se moraju podudarati!";
-                String editTextName = "etPasswordR2";
-                view.displayError(editTextName, message);
+                p1 = false;
+                view.displayError(PasswordR1, "Lozinke se ne podudaraju");
             }
         }
+
         if (view.getNameFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etName";
-            view.displayError(editTextName, message);
-        }
-        if (view.getLastNameFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etLastName";
-            view.displayError(editTextName, message);
-        }
-        if (view.getAddressFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etAddress";
-            view.displayError(editTextName, message);
-        }
-        if (view.getPhoneNumberFromEditText().isEmpty()) {
-            validation = false;
-            String message = "Polje je obavezno";
-            String editTextName = "etPhoneNumber";
-            view.displayError(editTextName, message);
+            view.displayError(NameR, "Polje je obavezno");
+            n = false;
+        } else {
+            n = true;
+            view.removeError(NameR);
         }
 
-        if(validation){
+        if (view.getLastNameFromEditText().isEmpty()) {
+            view.displayError(LastNameR, "Polje je obavezno");
+            l = false;
+        } else {
+            view.removeError(LastNameR);
+            l = true;
+        }
+
+        if (view.getAddressFromEditText().isEmpty()) {
+            view.displayError(AddressR, "Polje je obavezno");
+            a = false;
+        } else {
+            view.removeError(AddressR);
+            a = true;
+        }
+
+        if (view.getPhoneNumberFromEditText().isEmpty()) {
+            view.displayError(PhoneNumberR, "Polje je obavezno");
+            pn = false;
+        } else{
+            view.removeError(PhoneNumberR);
+            pn = true;
+        }
+
+        if(e && u && p && p1 && n && l && a && pn){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
             userModel.setUserObject(createNewUserObject());
         }
-        return validation;
+
     }
 
     private boolean isValidEmailAddress(String emailFromEditText) {
-        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        String ePattern = "^[^@]+@[^@]+\\.[^@]+$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(emailFromEditText);
         return m.matches();
     }
 
-    private User createNewUserObject(){
+    private User createNewUserObject() {
         User user = new User();
         user.username = view.getUsernameFromEditText();
         user.address = view.getAddressFromEditText();
@@ -128,18 +137,14 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         user.password = view.getPasswordFromEditText();
 
         return user;
-
     }
 
     @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");
         AirWebServiceResponse test = (AirWebServiceResponse) result;
-        view.returnResponseCode(test.getStatusCode(),test.getMessage());
+        view.returnResponseCode(test.getStatusCode(), test.getMessage());
     }
-
-
-
 }
 
 

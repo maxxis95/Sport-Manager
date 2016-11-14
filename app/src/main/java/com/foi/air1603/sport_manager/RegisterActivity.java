@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
+import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
 import com.foi.air1603.sport_manager.view.RegisterView;
@@ -68,14 +68,7 @@ public class RegisterActivity extends AppCompatActivity
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 System.out.println("----------------->1. RegisterActivity:onClickListener");
-                if(presenter.validateUserRegister()) {
-                    System.out.println("Validacija je dobro prosla");
-
-                } else {
-                    System.out.println("Validacija nije prosla");
-                }
-
-
+                presenter.validateUserRegister();
             }
 
         });
@@ -155,19 +148,17 @@ public class RegisterActivity extends AppCompatActivity
         return emailInput.getText().toString();
     }
 
-
     public String getUsernameFromEditText() {
         EditText usernameInput = (EditText) findViewById(R.id.etUsernameR);
         return usernameInput.getText().toString();
     }
 
-
     public String getPasswordFromEditText() {
-        EditText passwordInput = (EditText) findViewById(R.id.etPasswordR1);
+        EditText passwordInput = (EditText) findViewById(R.id.etPasswordR);
         return passwordInput.getText().toString();
     }
     public String getPassword1FromEditText() {
-        EditText password1Input = (EditText) findViewById(R.id.etPasswordR2);
+        EditText password1Input = (EditText) findViewById(R.id.etPasswordR1);
         return password1Input.getText().toString();
     }
     public String getNameFromEditText() {
@@ -189,44 +180,62 @@ public class RegisterActivity extends AppCompatActivity
     }
 
     @Override
-    public void displayError(String editTextName, String message) {
+    public void displayError(RegisterViewEnums textView, String message) {
+        final TextInputLayout mailRWrapper = (TextInputLayout) findViewById(R.id.txiMailR);
+        final TextInputLayout usernameRWrapper = (TextInputLayout) findViewById(R.id.txiUsernameR);
+        final TextInputLayout passwordRWrapper = (TextInputLayout) findViewById(R.id.txiPasswordR);
+        final TextInputLayout passwordR1Wrapper = (TextInputLayout) findViewById(R.id.txiPasswordR1);
+        final TextInputLayout nameRWrapper = (TextInputLayout) findViewById(R.id.txiImeR);
+        final TextInputLayout lastNameRWrapper = (TextInputLayout) findViewById(R.id.txiPrezimeR);
+        final TextInputLayout addressRWrapper = (TextInputLayout) findViewById(R.id.txiAdresaR);
+        final TextInputLayout phoneNumberRWrapper = (TextInputLayout) findViewById(R.id.txiBrojTelefonaR);
 
-        switch (editTextName) {
-
-            case "etMail": EditText etMail = (EditText) findViewById(R.id.etMail);
-                etMail.setError(message);
-                break;
-            case "etUsernameR": EditText etUsernameR = (EditText) findViewById(R.id.etUsernameR);
-                etUsernameR.setError(message);
-                break;
-            case "etPasswordR1": EditText etPasswordR1 = (EditText) findViewById(R.id.etPasswordR1);
-                etPasswordR1.setError(message);
-                break;
-            case "etPasswordR2": EditText etPasswordR2 = (EditText) findViewById(R.id.etPasswordR2);
-                etPasswordR2.setError(message);
-                break;
-            case "etName": EditText etName = (EditText) findViewById(R.id.etName);
-                etName.setError(message);
-                break;
-            case "etLastName": EditText etLastName = (EditText) findViewById(R.id.etLastName);
-                etLastName.setError(message);
-                break;
-            case "etAddress": EditText etAddress = (EditText) findViewById(R.id.etAddress);
-                etAddress.setError(message);
-                break;
-            case "etPhoneNumber": EditText etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
-                etPhoneNumber.setError(message);
-                break;
-
+        if(textView == RegisterViewEnums.UsernameR){
+            usernameRWrapper.setError(message);
         }
-
+        else if(textView == RegisterViewEnums.PasswordR){
+            passwordRWrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.PasswordR1){
+            passwordR1Wrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.EmailR){
+            mailRWrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.NameR){
+            nameRWrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.LastNameR){
+            lastNameRWrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.AddressR){
+            addressRWrapper.setError(message);
+        }
+        else if(textView == RegisterViewEnums.PhoneNumberR){
+            phoneNumberRWrapper.setError(message);
+        }
 
     }
 
     @Override
-    public void removeError(LoginViewEnums textView) {
+    public void removeError(RegisterViewEnums textView) {
+        final TextInputLayout mailRWrapper = (TextInputLayout) findViewById(R.id.txiMailR);
+        final TextInputLayout usernameRWrapper = (TextInputLayout) findViewById(R.id.txiUsernameR);
+        final TextInputLayout passwordRWrapper = (TextInputLayout) findViewById(R.id.txiPasswordR);
+        final TextInputLayout passwordR1Wrapper = (TextInputLayout) findViewById(R.id.txiPasswordR1);
+        final TextInputLayout nameRWrapper = (TextInputLayout) findViewById(R.id.txiImeR);
+        final TextInputLayout lastNameRWrapper = (TextInputLayout) findViewById(R.id.txiPrezimeR);
+        final TextInputLayout addressRWrapper = (TextInputLayout) findViewById(R.id.txiAdresaR);
+        final TextInputLayout phoneNumberRWrapper = (TextInputLayout) findViewById(R.id.txiBrojTelefonaR);
 
+        mailRWrapper.setErrorEnabled(false);
+        usernameRWrapper.setErrorEnabled(false);
+        passwordRWrapper.setErrorEnabled(false);
+        passwordR1Wrapper.setErrorEnabled(false);
+        nameRWrapper.setErrorEnabled(false);
+        lastNameRWrapper.setErrorEnabled(false);
+        addressRWrapper.setErrorEnabled(false);
+        phoneNumberRWrapper.setErrorEnabled(false);
     }
-
 }
 

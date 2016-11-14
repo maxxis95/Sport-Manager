@@ -167,9 +167,7 @@ public class LoginActivity extends AppCompatActivity
 
         usernameWrapper.setErrorEnabled(false);
         passwordWrapper.setErrorEnabled(false);
-
     }
-
 
     /**
      * Sets the values to private fields of Text Views on XML

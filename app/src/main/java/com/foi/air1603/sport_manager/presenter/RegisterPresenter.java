@@ -8,6 +8,6 @@ public interface RegisterPresenter {
      * Validate new registered user
      * @return
      */
-    boolean validateUserRegister();
+    void validateUserRegister();
 
 }

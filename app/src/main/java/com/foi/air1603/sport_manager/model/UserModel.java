@@ -38,13 +38,4 @@ public class UserModel implements ModelHandler, DataLoadedListener {
             mUserObject = (User) result;
         }
     }
-
-    /**
-     * NIGDJE SE NE KORISTI?!
-     * @return
-     */
-   /* @Override
-    public User getUserObject() {
-        return this.mUserObject;
-    }*/
 }

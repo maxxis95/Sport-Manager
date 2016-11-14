@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
+            android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/txiMailR">
 
@@ -60,6 +61,24 @@
             android:layout_below="@+id/txiUsernameR"
             android:layout_alignStart="@+id/txiUsernameR"
             android:layout_marginBottom="17dp"
+            android:id="@+id/txiPasswordR">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etPasswordR"
+                android:hint="@string/lozinkaR" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txiPasswordR"
+            android:layout_alignStart="@+id/txiPasswordR"
+            android:layout_marginBottom="17dp"
             android:id="@+id/txiPasswordR1">
 
             <EditText
@@ -68,8 +87,7 @@
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/etPasswordR1"
-                android:hint="@string/lozinkaR" />
-
+                android:hint="@string/ponovite_lozinkuR" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -77,23 +95,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txiPasswordR1"
             android:layout_alignStart="@+id/txiPasswordR1"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiPasswordR2">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/etPasswordR2"
-                android:hint="@string/ponovite_lozinkuR" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txiPasswordR2"
-            android:layout_alignStart="@+id/txiPasswordR2"
             android:layout_marginBottom="17dp"
             android:id="@+id/txiImeR">
 

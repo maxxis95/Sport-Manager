@@ -1,6 +1,6 @@
 package com.foi.air1603.sport_manager.view;
 
-import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
+import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 
 /**
  * Created by Robert on 11-Nov-16.
@@ -15,7 +15,7 @@ public interface RegisterView {
     String getLastNameFromEditText();
     String getAddressFromEditText();
     String getPhoneNumberFromEditText();
-    void displayError(String editTextName, String message);
-    void removeError(LoginViewEnums textView);
+    void displayError(RegisterViewEnums textView, String message);
+    void removeError(RegisterViewEnums textView);
     void returnResponseCode(int statusCode, String message);
 }

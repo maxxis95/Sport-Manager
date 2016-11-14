@@ -10,7 +10,6 @@ public class User {
     public String lastName;
     public String email;
     public String phone;
-    public String suspension;
     public String address;
     public String password;
     public String username;
