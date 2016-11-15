@@ -13,7 +13,7 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
 
     private DataLoader dataLoader;
     private PresenterHandler mPresenterHandler;
-    private OnLoginFinishedListener mListener;
+    private UserInteractor.OnLoginFinishedListener mListener;
 
     public UserInteractorImpl(PresenterHandler presenterHandler) {
         mPresenterHandler = presenterHandler;
@@ -24,7 +24,11 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
     public void getUserObject(OnLoginFinishedListener listener, String method, String args) {
         //todo: get webservice to work to get object.
         mListener = listener;
-        dataLoader.callWebService(this, method, args, User.class, null);
+        try{
+            dataLoader.callWebService(this, null, args, User.class, null);
+        }catch (Exception ex){
+            mListener.onWebServiceError(ex.getMessage());
+        }
     }
 
     @Override

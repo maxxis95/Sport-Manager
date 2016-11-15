@@ -7,8 +7,13 @@ import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
  */
 
 public interface LoginView {
-     String getUsernameFromEditText();
-     String getPasswordFromEditText();
-     void displayError(LoginViewEnums textView, String message);
-     void removeError(LoginViewEnums textView);
+    String getUsernameFromEditText();
+
+    String getPasswordFromEditText();
+
+    void displayError(LoginViewEnums textView, String message);
+
+    void dataLoadingError(String message);
+
+    void removeError(LoginViewEnums textView);
 }

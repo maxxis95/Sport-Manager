@@ -50,6 +50,11 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     }
 
     @Override
+    public void onWebServiceError(String message) {
+        view.dataLoadingError(message);
+    }
+
+    @Override
     public void onSuccess() {
         //todo: go to the next screen
     }

@@ -5,10 +5,15 @@ package com.foi.air1603.sport_manager.model;
  */
 
 public interface UserInteractor {
-     interface OnLoginFinishedListener{
+    interface OnLoginFinishedListener {
         void onUsernameError();
+
         void onPasswordError();
+
+        void onWebServiceError(String message);
+
         void onSuccess();
     }
+
     void getUserObject(OnLoginFinishedListener listener, String method, String args);
 }

@@ -1,19 +1,22 @@
 package com.foi.air1603.sport_manager;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import com.foi.air1603.sport_manager.view.LoginView;
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoginView{
 
+    // activity context
+    final Context context = this;
     // private variables
     private LoginPresenter presenter;
     private Button btnLogin;
@@ -160,6 +165,15 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Call a pop-up window and notifies the User if there is data loading problem occured
+     * on the web service
+     */
+    @Override
+    public void dataLoadingError(String message) {
+        buildAlertDialogForWebServiceError(message);
+    }
+
     @Override
     public void removeError(LoginViewEnums textView) {
         final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
@@ -176,5 +190,27 @@ public class LoginActivity extends AppCompatActivity
         btnLogin = (Button) findViewById(R.id.bPrijava);
         usernameInput = (EditText) findViewById(R.id.etUsername);
         passwordInput = (EditText) findViewById(R.id.etPassword);
+    }
+
+    /**
+     * alert dialog for webservice error handling
+     * @param message
+     */
+    private void buildAlertDialogForWebServiceError(String message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        //setting the title
+        alertDialogBuilder.setTitle("Greška u dohvaćanju podataka!");
+        //setting a dialog message
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
