@@ -25,7 +25,7 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
         //todo: get webservice to work to get object.
         mListener = listener;
         try{
-            dataLoader.callWebService(this, method, args, User.class, null);
+            dataLoader.loadData(this, method, args, User.class, null);
         }catch (Exception ex){
             mListener.onWebServiceError(ex.getMessage());
         }

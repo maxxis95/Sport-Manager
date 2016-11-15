@@ -26,7 +26,7 @@ public class UserModel implements ModelHandler, DataLoadedListener {
     public void setUserObject(User user){
         System.out.println("----------------->3. UserModel:setUserObject");
 
-        dataLoader.callWebService(this, "setUserData", null, User.class, user);
+        dataLoader.loadData(this, "setUserData", null, User.class, user);
     }
 
     @Override
