@@ -23,102 +23,113 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
     private final RegisterView view;
     boolean valid = false;
-    boolean e, u, p, p1, n, l, a, pn = false;
+    boolean emailFlag, usernameFlag, passwordFlag, password1Flag, nameFlag, lastNameFlag, addressFlag, phoneNumberFlag = false;
     UserModel userModel;
 
+    /**
+     * Setter
+     */
     public RegisterPresenterImpl(RegisterView registerView) {
 
         this.view = registerView;
         this.userModel = new UserModel(this);
     }
 
+    /**
+     * Validates entered data in the Registration window and depending on the input
+     * sets the associated flags to the value of true or false
+     */
     @Override
     public void validateUserRegister() {
 
         if (view.getEmailFromEditText().isEmpty()) {
             view.displayError(EmailR, "Polje je obavezno");
-            e = false;
+            emailFlag = false;
 
         } else {
             valid = isValidEmailAddress(view.getEmailFromEditText());
 
             if (valid) {
                 view.removeError(EmailR);
-                e = true;
+                emailFlag = true;
             } else {
                 view.displayError(EmailR, "Email nije validan");
-                e = false;
+                emailFlag = false;
             }
         }
 
         if (view.getUsernameFromEditText().isEmpty()) {
             view.displayError(UsernameR, "Polje je obavezno");
-            u = false;
+            usernameFlag = false;
         } else {
             view.removeError(UsernameR);
-            u = true;
+            usernameFlag = true;
         }
 
         if (view.getPasswordFromEditText().isEmpty()) {
             view.displayError(PasswordR, "Polje je obavezno");
-            p = false;
+            passwordFlag = false;
         } else {
             view.removeError(PasswordR);
-            p = true;
+            passwordFlag = true;
         }
 
         if (view.getPassword1FromEditText().isEmpty()) {
             view.displayError(PasswordR1, "Polje je obavezno");
-            p1 = false;
+            password1Flag = false;
         } else {
             if (view.getPasswordFromEditText().equals(view.getPassword1FromEditText())) {
-                p1 = true;
+                password1Flag = true;
                 view.removeError(PasswordR1);
             } else {
-                p1 = false;
+                password1Flag = false;
                 view.displayError(PasswordR1, "Lozinke se ne podudaraju");
             }
         }
 
         if (view.getNameFromEditText().isEmpty()) {
             view.displayError(NameR, "Polje je obavezno");
-            n = false;
+            nameFlag = false;
         } else {
-            n = true;
+            nameFlag = true;
             view.removeError(NameR);
         }
 
         if (view.getLastNameFromEditText().isEmpty()) {
             view.displayError(LastNameR, "Polje je obavezno");
-            l = false;
+            lastNameFlag = false;
         } else {
             view.removeError(LastNameR);
-            l = true;
+            lastNameFlag = true;
         }
 
         if (view.getAddressFromEditText().isEmpty()) {
             view.displayError(AddressR, "Polje je obavezno");
-            a = false;
+            addressFlag = false;
         } else {
             view.removeError(AddressR);
-            a = true;
+            addressFlag = true;
         }
 
         if (view.getPhoneNumberFromEditText().isEmpty()) {
             view.displayError(PhoneNumberR, "Polje je obavezno");
-            pn = false;
+            phoneNumberFlag = false;
         } else{
             view.removeError(PhoneNumberR);
-            pn = true;
+            phoneNumberFlag = true;
         }
 
-        if(e && u && p && p1 && n && l && a && pn){
+        if(emailFlag && usernameFlag && passwordFlag && password1Flag && nameFlag && lastNameFlag && addressFlag && phoneNumberFlag){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
             userModel.setUserObject(createNewUserObject());
         }
 
     }
 
+    /**
+     * Checks the entered E-mail address with a regex pattern
+     * and returns the true or false value depending on the output
+     */
     private boolean isValidEmailAddress(String emailFromEditText) {
         String ePattern = "^[^@]+@[^@]+\\.[^@]+$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -126,6 +137,10 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         return m.matches();
     }
 
+    /**
+     * Creates a new User object if the data entered in the Registration window
+     * matches the given set of rules;
+     */
     private User createNewUserObject() {
         User user = new User();
         user.username = view.getUsernameFromEditText();
@@ -139,6 +154,10 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         return user;
     }
 
+    /**
+     * Depending on the success of the update operation on the database,
+     * it returns a status code
+     */
     @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");

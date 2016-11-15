@@ -142,16 +142,28 @@ public class LoginActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Returns the entered string from the Username field
+     */
     @Override
     public String getUsernameFromEditText() {
         return usernameInput.getText().toString();
     }
 
+    /**
+     * Returns the entered string from the Password field
+     */
     @Override
     public String getPasswordFromEditText() {
         return passwordInput.getText().toString();
     }
 
+    /**
+     * Displays error message underneath the Username or Password fields which were caused
+     * by a set of incorrectly entered characters or by not entering any of them
+     * @param textView
+     * @param message
+     */
     @Override
     public void displayError(LoginViewEnums textView, String message) {
         final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);
@@ -174,6 +186,11 @@ public class LoginActivity extends AppCompatActivity
         buildAlertDialogForWebServiceError(message);
     }
 
+    /**
+     * Removes error messages underneath the Username or Password fields which were caused
+     * by a set of incorrectly entered characters or by not entering any of them
+     * @param textView
+     */
     @Override
     public void removeError(LoginViewEnums textView) {
         final TextInputLayout usernameWrapper = (TextInputLayout) findViewById(R.id.txiUsernameL);

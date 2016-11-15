@@ -143,42 +143,76 @@ public class RegisterActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Returns the entered string from the Email field
+     */
     public String getEmailFromEditText() {
         EditText emailInput = (EditText) findViewById(R.id.etMail);
         return emailInput.getText().toString();
     }
 
+    /**
+     * Returns the entered string from the Username field
+     */
     public String getUsernameFromEditText() {
         EditText usernameInput = (EditText) findViewById(R.id.etUsernameR);
         return usernameInput.getText().toString();
     }
 
+    /**
+     * Returns the entered string from the Password field
+     */
     public String getPasswordFromEditText() {
         EditText passwordInput = (EditText) findViewById(R.id.etPasswordR);
         return passwordInput.getText().toString();
     }
+
+    /**
+     * Returns the entered string from the Password matching field
+     */
     public String getPassword1FromEditText() {
         EditText password1Input = (EditText) findViewById(R.id.etPasswordR1);
         return password1Input.getText().toString();
     }
+
+    /**
+     * Returns the entered string from the Name field
+     */
     public String getNameFromEditText() {
         EditText nameInput = (EditText) findViewById(R.id.etName);
         return nameInput.getText().toString();
     }
+
+    /**
+     * Returns the entered string from the Last Name field
+     */
     public String getLastNameFromEditText() {
         EditText lastNameInput = (EditText) findViewById(R.id.etLastName);
         return lastNameInput.getText().toString();
     }
 
+    /**
+     * Returns the entered string from the Address field
+     */
     public String getAddressFromEditText() {
         EditText addressInput = (EditText) findViewById(R.id.etAddress);
         return addressInput.getText().toString();
     }
+
+    /**
+     * Returns the entered string from the Phone Number field
+     */
     public String getPhoneNumberFromEditText() {
         EditText phoneNumberInput = (EditText) findViewById(R.id.etPhoneNumber);
         return phoneNumberInput.getText().toString();
     }
 
+    /**
+     * Displays error messages underneath the fields in the Registration window
+     * which were caused by a set of incorrectly entered characters or by not
+     * entering any of them
+     * @param textView
+     */
     @Override
     public void displayError(RegisterViewEnums textView, String message) {
         final TextInputLayout mailRWrapper = (TextInputLayout) findViewById(R.id.txiMailR);
@@ -217,6 +251,12 @@ public class RegisterActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Removes error messages underneath the fields in the Registration window
+     * which were caused by a set of incorrectly entered characters or by not
+     * entering any of them
+     * @param textView
+     */
     @Override
     public void removeError(RegisterViewEnums textView) {
         final TextInputLayout mailRWrapper = (TextInputLayout) findViewById(R.id.txiMailR);
