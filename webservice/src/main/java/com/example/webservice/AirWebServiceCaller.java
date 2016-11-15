@@ -24,17 +24,15 @@ public class AirWebServiceCaller {
     AirWebServiceHandler mAirWebServiceHandler;
     Retrofit retrofit;
 
-    //private final String baseUrl = "http://cortex.foi.hr/mtl/courses/air/";
     private final String baseUrl = "http://sportmanager.fitforev.lin25.host25.com/";
 
+    /**
+     * @param airWebServiceHandler Handler kojeg se poziva nakon što dođu podaci s web servisa
+     */
     public AirWebServiceCaller(AirWebServiceHandler airWebServiceHandler){
         this.mAirWebServiceHandler = airWebServiceHandler;
 
-        //To verify what's sending over the network, use Interceptors
         OkHttpClient client = new OkHttpClient();
-
-        // for debuggint use HttpInterceptor
-        //client.interceptors().add(new HttpInterceptor());
 
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -44,10 +42,11 @@ public class AirWebServiceCaller {
     }
 
     /**
-     * Metoda koja poziva web servis s definiranim prametrima
+     * Metoda koja poziva web servis preko retrofita s definiranim prametrima
      * @param method Naziv metode koju servis podržava
      * @param args Argumenti koji s kojima se metoda ne web servisu poziva
      * @param entityType Klasa prema kojoj će GSON parsirati json
+     * @param data Podaci koji se šalju web servisu kroz get parametar npr. objekt tipa User
      */
     public void getData(String method, String args, final Type entityType, Object data){
 
@@ -60,7 +59,6 @@ public class AirWebServiceCaller {
         } else {
             call = serviceCaller.getData(method, args, null);
         }
-
 
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {
@@ -83,6 +81,10 @@ public class AirWebServiceCaller {
     }
 
 
+    /**
+     * Metoda koju se poziva nakon što Retrofit vrati inicijalni odgovor
+     * @param response tipa AirWebServiceResponse kojeg vraća Retrofit
+     */
     private void handleResponse(Response<AirWebServiceResponse> response) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd") // response JSON format

@@ -10,9 +10,7 @@ import retrofit.http.POST;
  */
 
 public interface AirWebService {
-
     @FormUrlEncoded
     @POST("/")
     Call<AirWebServiceResponse> getData(@Field("method") String method, @Field("args") String args, @Field("data") String data);
-
 }
