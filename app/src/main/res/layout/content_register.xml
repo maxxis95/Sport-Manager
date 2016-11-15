@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txiAdresaR"
             android:layout_alignStart="@+id/txiAdresaR"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="30dp"
             android:id="@+id/txiBrojTelefonaR">
 
             <EditText
@@ -166,8 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bRegistracija"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:layout_below="@+id/txiBrojTelefonaR"
             android:layout_centerHorizontal="true" />
 
