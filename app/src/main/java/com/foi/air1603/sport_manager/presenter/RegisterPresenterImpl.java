@@ -1,7 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.example.webservice.AirWebServiceResponse;
-import com.foi.air1603.sport_manager.model.User;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 

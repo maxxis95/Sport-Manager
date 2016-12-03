@@ -59,10 +59,10 @@ public class LoginFragment extends android.app.Fragment
         txtViewRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new RegisterFragment(), "HELLO");
-                ft.addToBackStack(null);
-                ft.commit();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, new RegisterFragment());
+            ft.addToBackStack(null);
+            ft.commit();
 
             }
         });
@@ -124,6 +124,14 @@ public class LoginFragment extends android.app.Fragment
 
         usernameWrapper.setErrorEnabled(false);
         passwordWrapper.setErrorEnabled(false);
+    }
+
+    @Override
+    public void loginSuccesful() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new AllPlacesFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.foi.air1603.sport_manager.model;
 
-import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
-import com.foi.air1603.sport_manager.presenter.PresenterHandler;
+import com.foi.air1603.sport_manager.entities.User;
 
 /**
  * Created by Generalko on 12.11.2016..

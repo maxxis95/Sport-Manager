@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.model;
 
 import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
@@ -23,13 +24,13 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
     }
 
     @Override
-    public void getUserObject(OnLoginFinishedListener listener, String searchBy, String args) {
+    public void getUserObject(OnLoginFinishedListener listener, String searchBy, String value) {
 
         System.out.println("----------------->3. UserInteractorImpl:getUserObject");
 
         mListener = listener;
         try{
-            dataLoader.loadData(this, "getData", "Users", searchBy, args, User.class, null);
+            dataLoader.loadData(this, "getData", "Users", searchBy, value, User.class, null);
         }catch (Exception ex){
             mListener.onWebServiceError(ex.getMessage());
         }

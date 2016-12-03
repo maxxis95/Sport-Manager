@@ -1,4 +1,4 @@
-package com.foi.air1603.sport_manager.model;
+package com.foi.air1603.sport_manager.entities;
 
 /**
  * Created by Generalko on 10.11.2016..

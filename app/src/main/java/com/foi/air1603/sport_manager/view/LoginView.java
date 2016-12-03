@@ -16,4 +16,6 @@ public interface LoginView {
     void dataLoadingError(String message);
 
     void removeError(LoginViewEnums textView);
+
+    void loginSuccesful();
 }
