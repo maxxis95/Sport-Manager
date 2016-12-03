@@ -52,10 +52,8 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
     public void onDataLoaded(AirWebServiceResponse result) {
         System.out.println("----------------->7. UserInteractorImpl:onDataLoaded");
 
-        User user = new Gson().fromJson(result.getData(), User.class);
-        mPresenterHandler.getResponseData(user);
+        mPresenterHandler.getResponseData(result);
 
-       // System.out.println(result.getData());
 
     }
 

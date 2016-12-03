@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.fragments;
 
 import android.app.FragmentTransaction;;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
 import com.foi.air1603.sport_manager.presenter.LoginPresenter;
@@ -128,10 +130,8 @@ public class LoginFragment extends android.app.Fragment
 
     @Override
     public void loginSuccesful() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new AllPlacesFragment());
-        ft.addToBackStack(null);
-        ft.commit();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 
     /**

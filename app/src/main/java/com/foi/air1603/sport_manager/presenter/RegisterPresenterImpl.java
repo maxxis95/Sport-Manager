@@ -6,6 +6,7 @@ import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
+import com.google.gson.Gson;
 
 import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.AddressR;
 import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.EmailR;
@@ -166,7 +167,9 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
     @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->7. RegisterPresenterImpl:getResponseData");
+
         AirWebServiceResponse test = (AirWebServiceResponse) result;
+
         view.returnResponseCode(test.getStatusCode(), test.getMessage());
     }
 }

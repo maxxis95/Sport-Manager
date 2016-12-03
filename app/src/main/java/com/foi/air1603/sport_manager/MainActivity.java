@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        LoginFragment login = new LoginFragment();
-        //AllPlacesFragment login = new AllPlacesFragment();
+        AllPlacesFragment login = new AllPlacesFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
 

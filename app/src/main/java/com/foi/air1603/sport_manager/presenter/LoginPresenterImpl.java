@@ -4,6 +4,7 @@ package com.foi.air1603.sport_manager.presenter;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.fragments.RegisterFragment;
@@ -13,6 +14,7 @@ import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
+import com.google.gson.Gson;
 
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
@@ -104,7 +106,9 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     public void getResponseData(Object result) {
         System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
 
-        user = (User) result;
+        AirWebServiceResponse response = (AirWebServiceResponse) result;
+        user = new Gson().fromJson(response.getData(), User.class);
+
 
         if (user == null) {
             onUsernameError();

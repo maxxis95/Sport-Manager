@@ -24,8 +24,8 @@ public class AirWebServiceCaller {
     AirWebServiceHandler mAirWebServiceHandler;
     Retrofit retrofit;
 
-    // private final String baseUrl = "http://sportmanager.fitforev.lin25.host25.com/";
-    private final String baseUrl = "http://192.168.178.20/";
+    private final String baseUrl = "http://sportmanager.fitforev.lin25.host25.com/";
+    // private final String baseUrl = "http://192.168.178.20/";
 
     /**
      * @param airWebServiceHandler Handler kojeg se poziva nakon što dođu podaci s web servisa
