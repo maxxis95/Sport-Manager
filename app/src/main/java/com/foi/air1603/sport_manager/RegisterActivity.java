@@ -27,7 +27,8 @@ import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
 import com.foi.air1603.sport_manager.view.RegisterView;
 
 public class RegisterActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, RegisterView {
+        //implements NavigationView.OnNavigationItemSelectedListener, RegisterView
+{
 
 
     private RegisterPresenter presenter;
