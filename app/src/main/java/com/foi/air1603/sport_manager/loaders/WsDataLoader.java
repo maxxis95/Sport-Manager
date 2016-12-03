@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.loaders;
 
 import com.example.webservice.AirWebServiceCaller;
 import com.example.webservice.AirWebServiceHandler;
+import com.example.webservice.AirWebServiceResponse;
 
 import java.lang.reflect.Type;
 
@@ -37,7 +38,7 @@ public class WsDataLoader extends DataLoader{
         public void onDataArrived(Object result, boolean ok) {
             System.out.println("----------------->6. WsDataLoader:responseHandler");
             if(ok){
-                mDataLoadedListener.onDataLoaded(result);
+                mDataLoadedListener.onDataLoaded((AirWebServiceResponse) result);
             }
         }
     };

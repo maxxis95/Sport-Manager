@@ -1,5 +1,8 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
@@ -95,10 +98,9 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
      */
     @Override
     public void getResponseData(Object result) {
-        AirWebServiceResponse response = (AirWebServiceResponse) result;
-        user = new Gson().fromJson(response.getData(), User.class);
-
         System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
+
+        user = (User) result;
 
         if (user == null) {
             onUsernameError();
@@ -108,6 +110,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
                 onPasswordError();
             } else{
                 view.removeError(Password);
+
             }
         }
     }

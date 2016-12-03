@@ -4,7 +4,6 @@ import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
-import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
 
@@ -33,9 +32,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
      * Setter
      */
     public RegisterPresenterImpl(RegisterView registerView) {
-
         this.view = registerView;
-       // this.userModel = new UserModel(this);
         this.userInteractor = new UserInteractorImpl(this);
     }
 
@@ -53,6 +50,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
             emailFlag = false;
 
         } else {
+            //TODO: Malo mi se činio zbuganim pa sam ga zakomentirao. Možda bolji regex? Karlo
             //valid = isValidEmailAddress(view.getEmailFromEditText());
             valid = true;
 

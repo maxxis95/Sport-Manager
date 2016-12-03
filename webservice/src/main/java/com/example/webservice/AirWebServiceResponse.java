@@ -9,17 +9,16 @@ public class AirWebServiceResponse {
     public String message;
     public int statusCode;
     public String data;
+    public String table;
 
-    public String getMessage() {
+    public String getTable() { return table; }
 
-        return message;
-    }
+    public String getMessage() { return message; }
 
     public int getStatusCode() {
         return statusCode;
     }
 
-    public String getData() {
-        return data;
-    }
+    public String getData() { return data;}
+
 }

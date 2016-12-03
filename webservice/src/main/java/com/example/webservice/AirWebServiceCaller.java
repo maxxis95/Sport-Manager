@@ -86,16 +86,10 @@ public class AirWebServiceCaller {
      * @param response tipa AirWebServiceResponse kojeg vraća Retrofit
      */
     private void handleResponse(Response<AirWebServiceResponse> response) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd") // response JSON format
-                .create();
-
         System.out.println("----------------->5. AirWebServiceCaller:handleResponse");
-        System.out.println(gson.toJson(response.body(), AirWebServiceResponse.class));
 
         if(mAirWebServiceHandler != null){
             mAirWebServiceHandler.onDataArrived(response.body(), true);
         }
-
     }
 }

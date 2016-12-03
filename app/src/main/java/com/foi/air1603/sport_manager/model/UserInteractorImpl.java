@@ -1,11 +1,11 @@
 package com.foi.air1603.sport_manager.model;
 
-import android.provider.Settings;
-
+import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.PresenterHandler;
+import com.google.gson.Gson;
 
 /**
  * Created by Generalko on 12.11.2016..
@@ -48,9 +48,14 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
     }
 
     @Override
-    public void onDataLoaded(Object result) {
+    public void onDataLoaded(AirWebServiceResponse result) {
         System.out.println("----------------->7. UserInteractorImpl:onDataLoaded");
-        mPresenterHandler.getResponseData(result);
+
+        User user = new Gson().fromJson(result.getData(), User.class);
+        mPresenterHandler.getResponseData(user);
+
+       // System.out.println(result.getData());
+
     }
 
 }
