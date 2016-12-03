@@ -24,7 +24,8 @@ public class AirWebServiceCaller {
     AirWebServiceHandler mAirWebServiceHandler;
     Retrofit retrofit;
 
-    private final String baseUrl = "http://sportmanager.fitforev.lin25.host25.com/";
+    // private final String baseUrl = "http://sportmanager.fitforev.lin25.host25.com/";
+    private final String baseUrl = "http://192.168.178.20/";
 
     /**
      * @param airWebServiceHandler Handler kojeg se poziva nakon što dođu podaci s web servisa
@@ -44,20 +45,19 @@ public class AirWebServiceCaller {
     /**
      * Metoda koja poziva web servis preko retrofita s definiranim prametrima
      * @param method Naziv metode koju servis podržava
-     * @param args Argumenti koji s kojima se metoda ne web servisu poziva
      * @param entityType Klasa prema kojoj će GSON parsirati json
      * @param data Podaci koji se šalju web servisu kroz get parametar npr. objekt tipa User
      */
-    public void getData(String method, String args, final Type entityType, Object data){
+    public void getData(String method, String tableName, String searchBy, String value, final Type entityType, Object data){
 
         AirWebService serviceCaller = retrofit.create(AirWebService.class);
         Call<AirWebServiceResponse> call;
         Gson gson = new Gson();
 
         if(data != null){
-            call = serviceCaller.getData(method, args, gson.toJson(data, entityType));
+            call = serviceCaller.getData(method, tableName, searchBy, value, gson.toJson(data, entityType));
         } else {
-            call = serviceCaller.getData(method, args, null);
+            call = serviceCaller.getData(method, tableName, searchBy, value, null);
         }
 
         if(call != null){

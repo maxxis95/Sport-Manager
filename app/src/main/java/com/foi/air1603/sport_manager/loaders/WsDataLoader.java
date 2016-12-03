@@ -15,18 +15,17 @@ public class WsDataLoader extends DataLoader{
      * Implementira metodu apstraktne klase DataLoader koja služi za pozivanje podataka
      * @param dataLoadedListener Listner tipa DataLoadedListener na kojeg će se slati nazad podaci
      * @param method Metoda koja se poziva za dohvaćanje podataka
-     * @param args Argumenti s kojima se poziva metoda
      * @param entityType Tip objekta koji se očekuje kao rezultat
      * @param data Podaci koji se šalju na spremanje
      */
     @Override
-    public void loadData(DataLoadedListener dataLoadedListener, String method, String args, Type entityType, Object data) {
-        super.loadData(dataLoadedListener, method, args, entityType, data);
+    public void loadData(DataLoadedListener dataLoadedListener, String method, String tableName, String searchBy, String value, Type entityType, Object data) {
+        super.loadData(dataLoadedListener, method, tableName, searchBy, value, entityType, data);
 
         System.out.println("----------------->4. WsDataLoader:loadData");
         AirWebServiceCaller call = new AirWebServiceCaller(responseHandler);
 
-        call.getData(method, args, entityType, data);
+        call.getData(method, tableName, searchBy, value, entityType, data);
     }
 
     /**

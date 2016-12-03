@@ -12,5 +12,5 @@ import retrofit.http.POST;
 public interface AirWebService {
     @FormUrlEncoded
     @POST("/")
-    Call<AirWebServiceResponse> getData(@Field("method") String method, @Field("args") String args, @Field("data") String data);
+    Call<AirWebServiceResponse> getData(@Field("method") String method, @Field("table_name") String tableName, @Field("search_by") String searchBy, @Field("value") String value, @Field("data") String data);
 }

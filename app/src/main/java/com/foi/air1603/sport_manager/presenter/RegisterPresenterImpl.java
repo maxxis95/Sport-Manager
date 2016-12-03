@@ -2,6 +2,8 @@ package com.foi.air1603.sport_manager.presenter;
 
 import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.User;
+import com.foi.air1603.sport_manager.model.UserInteractor;
+import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.model.UserModel;
 
 import com.foi.air1603.sport_manager.view.RegisterView;
@@ -23,8 +25,9 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
     private final RegisterView view;
     boolean valid = false;
-    boolean emailFlag, usernameFlag, passwordFlag, password1Flag, nameFlag, lastNameFlag, addressFlag, phoneNumberFlag = false;
-    UserModel userModel;
+    boolean emailFlag, usernameFlag, passwordFlag, password1Flag, nameFlag, lastNameFlag, addressFlag, phoneNumberFlag = true;
+    //UserModel userModel;
+    UserInteractor userInteractor;
 
     /**
      * Setter
@@ -32,7 +35,8 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
     public RegisterPresenterImpl(RegisterView registerView) {
 
         this.view = registerView;
-        this.userModel = new UserModel(this);
+       // this.userModel = new UserModel(this);
+        this.userInteractor = new UserInteractorImpl(this);
     }
 
     /**
@@ -41,13 +45,16 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
      */
     @Override
     public void validateUserRegister() {
+        emailFlag = usernameFlag = passwordFlag = password1Flag = nameFlag = lastNameFlag = addressFlag = phoneNumberFlag = true;
+
 
         if (view.getEmailFromEditText().isEmpty()) {
             view.displayError(EmailR, "Polje je obavezno");
             emailFlag = false;
 
         } else {
-            valid = isValidEmailAddress(view.getEmailFromEditText());
+            //valid = isValidEmailAddress(view.getEmailFromEditText());
+            valid = true;
 
             if (valid) {
                 view.removeError(EmailR);
@@ -121,7 +128,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
         if(emailFlag && usernameFlag && passwordFlag && password1Flag && nameFlag && lastNameFlag && addressFlag && phoneNumberFlag){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
-            userModel.setUserObject(createNewUserObject());
+            userInteractor.setUserObject(createNewUserObject());
         }
 
     }

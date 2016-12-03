@@ -86,7 +86,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
      * It gets an User object via the getUserByUsername method
      */
     private void compareInputTextToData() {
-        userInteractor.getUserObject(this, "getUserByUsername", view.getUsernameFromEditText());
+        userInteractor.getUserObject(this, "username", view.getUsernameFromEditText());
     }
 
     /**
@@ -97,6 +97,8 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     public void getResponseData(Object result) {
         AirWebServiceResponse response = (AirWebServiceResponse) result;
         user = new Gson().fromJson(response.getData(), User.class);
+
+        System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
 
         if (user == null) {
             onUsernameError();

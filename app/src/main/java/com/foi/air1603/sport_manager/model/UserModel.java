@@ -9,9 +9,10 @@ import com.foi.air1603.sport_manager.presenter.PresenterHandler;
  * Created by Generalko on 10.11.2016..
  */
 
-public class UserModel implements ModelHandler, DataLoadedListener {
+public class UserModel //implements ModelHandler, DataLoadedListener
+{
 
-    private User mUserObject;
+    /*private User mUserObject;
     private DataLoader dataLoader;
     private PresenterHandler mPresenterHandler;
 
@@ -26,7 +27,7 @@ public class UserModel implements ModelHandler, DataLoadedListener {
     public void setUserObject(User user){
         System.out.println("----------------->3. UserModel:setUserObject");
 
-        dataLoader.loadData(this, "setUserData", null, User.class, user);
+       dataLoader.loadData(this, "setData", "Users", null, null, User.class, user);
     }
 
     @Override
@@ -37,5 +38,5 @@ public class UserModel implements ModelHandler, DataLoadedListener {
         if (result instanceof User) {
             mUserObject = (User) result;
         }
-    }
+    }*/
 }
