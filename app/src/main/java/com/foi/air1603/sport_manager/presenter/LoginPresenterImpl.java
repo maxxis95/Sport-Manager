@@ -1,14 +1,10 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import android.content.Context;
-import android.widget.Toast;
 
-import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
-import com.google.gson.Gson;
 
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
