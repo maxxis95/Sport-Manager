@@ -65,6 +65,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
         if(places != null)  {
             for (final Place place : places) {
                 System.out.println(place.getName());
+                view.showTestToast("aaa");
             }
         }
 
