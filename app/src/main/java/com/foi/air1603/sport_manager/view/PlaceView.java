@@ -6,5 +6,6 @@ import java.util.List;
  * Created by Karlo on 3.12.2016..
  */
 public interface PlaceView {
-    public void showTestToast(List<String> name, List<String> address );
+    void showTestToast(List<String> name, List<String> address );
+    void changeFragment();
 }

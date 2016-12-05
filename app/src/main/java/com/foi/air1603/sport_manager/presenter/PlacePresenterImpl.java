@@ -61,7 +61,6 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
         try {
             Type collectionType = new TypeToken<List<Place>>(){}.getType();
             places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
-            System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         }
         catch (JsonParseException e) {
             System.out.println(e);

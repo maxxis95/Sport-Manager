@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.adapters;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.fragments.LoginFragment;
+import com.foi.air1603.sport_manager.fragments.RegisterFragment;
 import com.foi.air1603.sport_manager.view.PlaceView;
 
 import java.util.List;
@@ -61,8 +65,10 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View view) {
-            return;
+            context.changeFragment();
+
         }
+
 
     }
 }

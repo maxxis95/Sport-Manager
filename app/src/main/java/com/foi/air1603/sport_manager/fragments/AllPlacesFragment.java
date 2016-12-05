@@ -1,5 +1,8 @@
 package com.foi.air1603.sport_manager.fragments;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,5 +65,23 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
 
         recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, this));
+    }
+
+    @Override
+    public void changeFragment() {
+
+        System.out.println("kurac kurac kurac radi!!!!!!!!");
+        // Create new fragment and transaction
+        Fragment newFragment = new LoginFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack if needed
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+// Commit the transaction
+        transaction.commit();
+
     }
 }
