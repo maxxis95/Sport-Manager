@@ -11,16 +11,18 @@ import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.PlaceView;
 
+import java.util.List;
+
 /**
  * Created by Korisnik on 04-Dec-16.
  */
 
 public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    String[] place_name;
-    String[] place_address;
+    List<String> place_name;
+    List<String> place_address;
     AllPlacesFragment context;
 
-    public PlaceRecycleAdapter(String[] place_name, String[] place_address, AllPlacesFragment context){
+    public PlaceRecycleAdapter(List<String> place_name, List<String> place_address, AllPlacesFragment context){
         this.place_name = place_name;
         this.place_address = place_address;
         this.context = context;
@@ -36,13 +38,13 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((PlaceViewHolder) holder).place_name.setText(place_name[position]);
-        ((PlaceViewHolder) holder).place_address.setText(place_name[position]);
+       ((PlaceViewHolder) holder).place_name.setText(place_name.get(position));
+        ((PlaceViewHolder) holder).place_address.setText(place_address.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return place_name.length;
+        return place_name.size();
     }
 
     public class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -54,7 +56,7 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(view);
             view.setOnClickListener(this);
             place_name = (TextView) view.findViewById(R.id.place_name);
-            place_address = (TextView) view.findViewById(R.id.place_name);
+            place_address = (TextView) view.findViewById(R.id.place_address);
         }
 
         @Override

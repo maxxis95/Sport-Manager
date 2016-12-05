@@ -17,6 +17,8 @@ import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 
 import com.foi.air1603.sport_manager.view.PlaceView;
 
+import java.util.List;
+
 /**
  * Created by Karlo on 3.12.2016..
  */
@@ -51,11 +53,14 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, this));
+
+
     }
 
     @Override
-    public void showTestToast(String message) {
+    public void showTestToast(List<String> name, List<String> address) {
 
+
+        recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, this));
     }
 }

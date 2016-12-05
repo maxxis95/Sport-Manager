@@ -11,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
 
     private final PlaceView view; // TODO: Ne znam jel ovo treba uopće
     PlaceInteractor placeInteractor;
+    List<String> name = new ArrayList<String>();
+    List<String> address = new ArrayList<String>();
 
     public PlacePresenterImpl(PlaceView placeView) {
         this.view = placeView;
@@ -58,15 +61,18 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
         try {
             Type collectionType = new TypeToken<List<Place>>(){}.getType();
             places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
+            System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         }
         catch (JsonParseException e) {
             System.out.println(e);
         }
         if(places != null)  {
             for (final Place place : places) {
-                System.out.println(place.getName());
-                view.showTestToast("aaa");
+                name.add(place.getName());
+                address.add(place.getAddress());
+                System.out.println(place.getAddress());
             }
+            view.showTestToast(name,address);
         }
 
 
