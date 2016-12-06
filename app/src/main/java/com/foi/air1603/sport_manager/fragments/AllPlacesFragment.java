@@ -31,12 +31,6 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
     PlacePresenter presenter;
 
-    private String[] name = {"TTTTTS", "Graberje", "Arena",
-            "2.gimnazija", "1.gimnazija"};
-
-    private String[] address = {"ivana markovica 22", "Graberje 30", "ivana severa 18",
-            "halerova aleja 12", "Petra Preradovića 14"};
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,9 +64,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     @Override
     public void changeFragment() {
 
-        System.out.println("kurac kurac kurac radi!!!!!!!!");
         // Create new fragment and transaction
-        Fragment newFragment = new LoginFragment();
+        Fragment newFragment = new PlaceDetails();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
 // Replace whatever is in the fragment_container view with this fragment,

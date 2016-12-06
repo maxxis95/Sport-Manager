@@ -1,15 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
 import com.example.webservice.AirWebServiceResponse;
-import com.foi.air1603.sport_manager.MainActivity;
-import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.fragments.RegisterFragment;
-import com.foi.air1603.sport_manager.model.PlaceInteractor;
-import com.foi.air1603.sport_manager.model.PlaceInteractorImpl;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
@@ -118,7 +110,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
                 onPasswordError();
             } else{
                 view.removeError(Password);
-                view.loginSuccesful();
+                view.loginSuccessful();
             }
         }
     }

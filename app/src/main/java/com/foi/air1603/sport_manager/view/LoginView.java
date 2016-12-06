@@ -17,5 +17,5 @@ public interface LoginView {
 
     void removeError(LoginViewEnums textView);
 
-    void loginSuccesful();
+    void loginSuccessful();
 }

@@ -129,7 +129,7 @@ public class LoginFragment extends android.app.Fragment
     }
 
     @Override
-    public void loginSuccesful() {
+    public void loginSuccessful() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }
