@@ -77,7 +77,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
                 onPasswordError();
             } else{
                 view.removeError(Password);
-                view.loginSuccessful();
+                view.loginSuccessful(user);
             }
         }
     }

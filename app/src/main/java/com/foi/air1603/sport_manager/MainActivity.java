@@ -14,7 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 
 /**
@@ -23,6 +25,13 @@ import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    public enum Permits{
+        Admin,
+        User,
+        Owner
+    }
+    private User user;
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +54,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        this.user = getIntent().getExtras().getParcelable("User");
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        setUserDataToHeaderView();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -57,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //region Activity methods
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -113,6 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    //endregion
 
+    private void setUserDataToHeaderView(){
+        View header = navigationView.getHeaderView(0);
+        TextView firstLastName = (TextView)header.findViewById(R.id.textViewFirstLastName);
+        TextView email = (TextView)header.findViewById(R.id.textViewUserEmail);
 
+        firstLastName.setText(user.first_name + ' ' + user.last_name + ' ');
+        email.setText(user.email);
+    }
 }

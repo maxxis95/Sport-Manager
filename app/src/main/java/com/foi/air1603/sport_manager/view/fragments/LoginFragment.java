@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
 import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
@@ -106,8 +107,8 @@ public class LoginFragment extends android.app.Fragment
     }
 
     @Override
-    public void loginSuccessful() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
+    public void loginSuccessful(User userObject) {
+        Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User",userObject);
         startActivity(intent);
     }
 

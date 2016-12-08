@@ -4,9 +4,7 @@ import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
-
 import com.foi.air1603.sport_manager.view.RegisterView;
-import com.google.gson.Gson;
 
 import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.AddressR;
 import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.EmailR;
@@ -152,8 +150,8 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         user.username = view.getUsernameFromEditText();
         user.address = view.getAddressFromEditText();
         user.email = view.getEmailFromEditText();
-        user.firstName = view.getNameFromEditText();
-        user.lastName = view.getLastNameFromEditText();
+        user.first_name = view.getNameFromEditText();
+        user.last_name = view.getLastNameFromEditText();
         user.phone = view.getPhoneNumberFromEditText();
         user.password = view.getPasswordFromEditText();
 

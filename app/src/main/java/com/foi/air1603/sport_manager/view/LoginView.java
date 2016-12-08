@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view;
 
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.LoginViewEnums;
 
 /**
@@ -17,5 +18,5 @@ public interface LoginView {
 
     void removeError(LoginViewEnums textView);
 
-    void loginSuccessful();
+    void loginSuccessful(User userObject);
 }
