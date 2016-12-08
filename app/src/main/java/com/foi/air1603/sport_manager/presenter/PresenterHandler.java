@@ -8,9 +8,5 @@ package com.foi.air1603.sport_manager.presenter;
  * Interface with the methods which all the presenters will use
  */
 public interface PresenterHandler {
-    /**
-     * fetched data from the webservice
-     * @param result
-     */
     void getResponseData(Object result);
 }

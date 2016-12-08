@@ -14,7 +14,6 @@ public interface UserInteractor {
 
         void onWebServiceError(String message);
 
-        void onSuccess();
     }
 
     void getUserObject(OnLoginFinishedListener listener, String searchBy, String value);

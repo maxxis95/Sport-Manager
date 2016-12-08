@@ -15,8 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.foi.air1603.sport_manager.fragments.AllPlacesFragment;
-import com.foi.air1603.sport_manager.fragments.LoginFragment;
+import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 
 /**
  * Created by Karlo on 3.12.2016..

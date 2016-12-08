@@ -1,4 +1,4 @@
-package com.foi.air1603.sport_manager.fragments;
+package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.FragmentTransaction;;
 import android.content.DialogInterface;
@@ -35,7 +35,6 @@ public class LoginFragment extends android.app.Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /** Inflating the layout for this fragment **/
         View v = inflater.inflate(R.layout.fragment_login, null);
         return v;
     }
@@ -44,7 +43,6 @@ public class LoginFragment extends android.app.Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //instance the presenter class
         presenter = new LoginPresenterImpl(this);
         setValuesToTextViews();
 
@@ -53,7 +51,7 @@ public class LoginFragment extends android.app.Fragment
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.checkIfInputDataIsEmpty();
+                presenter.checkInputData();
             }
         });
 
@@ -70,28 +68,16 @@ public class LoginFragment extends android.app.Fragment
         });
     }
 
-    /**
-     * Returns the entered string from the Username field
-     */
     @Override
     public String getUsernameFromEditText() {
         return usernameInput.getText().toString();
     }
 
-    /**
-     * Returns the entered string from the Password field
-     */
     @Override
     public String getPasswordFromEditText() {
         return passwordInput.getText().toString();
     }
 
-    /**
-     * Displays error message underneath the Username or Password fields which were caused
-     * by a set of incorrectly entered characters or by not entering any of them
-     * @param textView
-     * @param message
-     */
     @Override
     public void displayError(LoginViewEnums textView, String message) {
         final TextInputLayout usernameWrapper = (TextInputLayout) getView().findViewById(R.id.txiUsernameL);
@@ -105,20 +91,11 @@ public class LoginFragment extends android.app.Fragment
         }
     }
 
-    /**
-     * Call a pop-up window and notifies the User if there is data loading problem occured
-     * on the web service
-     */
     @Override
     public void dataLoadingError(String message) {
         buildAlertDialogForWebServiceError(message);
     }
 
-    /**
-     * Removes error messages underneath the Username or Password fields which were caused
-     * by a set of incorrectly entered characters or by not entering any of them
-     * @param textView
-     */
     @Override
     public void removeError(LoginViewEnums textView) {
         final TextInputLayout usernameWrapper = (TextInputLayout) getView().findViewById(R.id.txiUsernameL);
@@ -134,24 +111,15 @@ public class LoginFragment extends android.app.Fragment
         startActivity(intent);
     }
 
-    /**
-     * Sets the values to private fields of Text Views on XML
-     */
     private void setValuesToTextViews(){
         btnLogin = (Button) getView().findViewById(R.id.bPrijava);
         usernameInput = (EditText) getView().findViewById(R.id.etUsername);
         passwordInput = (EditText) getView().findViewById(R.id.etPassword);
     }
 
-    /**
-     * alert dialog for webservice error handling
-     * @param message
-     */
     private void buildAlertDialogForWebServiceError(String message){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        //setting the title
         alertDialogBuilder.setTitle("Greška u dohvaćanju podataka!");
-        //setting a dialog message
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)

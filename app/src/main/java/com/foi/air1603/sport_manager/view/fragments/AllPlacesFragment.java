@@ -1,7 +1,6 @@
-package com.foi.air1603.sport_manager.fragments;
+package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.foi.air1603.sport_manager.fragments.LoginFragment;
+import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 
 /**
  * Created by Karlo on 3.12.2016..

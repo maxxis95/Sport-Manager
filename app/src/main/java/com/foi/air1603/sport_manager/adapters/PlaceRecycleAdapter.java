@@ -1,8 +1,5 @@
 package com.foi.air1603.sport_manager.adapters;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.fragments.AllPlacesFragment;
-import com.foi.air1603.sport_manager.fragments.LoginFragment;
-import com.foi.air1603.sport_manager.fragments.RegisterFragment;
-import com.foi.air1603.sport_manager.view.PlaceView;
+import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 
 import java.util.List;
 

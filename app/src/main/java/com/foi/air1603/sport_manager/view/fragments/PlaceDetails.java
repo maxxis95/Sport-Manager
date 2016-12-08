@@ -1,4 +1,4 @@
-package com.foi.air1603.sport_manager.fragments;
+package com.foi.air1603.sport_manager.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
