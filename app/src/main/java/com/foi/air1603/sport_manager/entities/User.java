@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class User implements Parcelable {
     int id;
     public int type;
+    public String img;
     public String first_name;
     public String last_name;
     public String email;
@@ -27,6 +28,7 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeInt(this.type);
+        dest.writeString(this.img);
         dest.writeString(this.first_name);
         dest.writeString(this.last_name);
         dest.writeString(this.email);
@@ -42,6 +44,7 @@ public class User implements Parcelable {
     protected User(Parcel in) {
         this.id = in.readInt();
         this.type = in.readInt();
+        this.img = in.readString();
         this.first_name = in.readString();
         this.last_name = in.readString();
         this.email = in.readString();

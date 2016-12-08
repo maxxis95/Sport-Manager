@@ -14,10 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.entities.User;
+import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Karlo on 3.12.2016..
@@ -25,13 +28,11 @@ import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public enum Permits{
-        Admin,
-        User,
-        Owner
-    }
-    private User user;
+    public User user;
     private NavigationView navigationView;
+    private  FragmentTransaction fragmentTransaction;
+    private Rights rights;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,17 +55,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        this.user = getIntent().getExtras().getParcelable("User");
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        user = getIntent().getExtras().getParcelable("User");
+        rights = rights.getRightFormInt(user.type);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setUserDataToHeaderView();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        AllPlacesFragment login = new AllPlacesFragment();
-        fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
-        fragmentTransaction.commit();
+        setNavigationView();
 
     }
 
@@ -127,12 +127,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     //endregion
 
-    private void setUserDataToHeaderView(){
+
+    private void setNavigationView(){
+        switch (rights){
+            case User:
+                setUserView();
+            case Admin:
+                //todo: set admin nav and start screen
+            case Owner:
+                //todo: set owner nav and start screen
+        }
+    }
+
+    private void setUserView(){
+        setAllUserDataToHeaderView();
+        initAllPlacesFragment();
+    }
+
+    private void setAllUserDataToHeaderView(){
         View header = navigationView.getHeaderView(0);
         TextView firstLastName = (TextView)header.findViewById(R.id.textViewFirstLastName);
         TextView email = (TextView)header.findViewById(R.id.textViewUserEmail);
+        ImageView userImg = (ImageView)header.findViewById(R.id.imageViewUserPicture);
 
         firstLastName.setText(user.first_name + ' ' + user.last_name + ' ');
         email.setText(user.email);
+        Picasso.with(this).load(user.img).into(userImg);
     }
+
+    private void initAllPlacesFragment(){
+        AllPlacesFragment login = new AllPlacesFragment();
+        fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
+        fragmentTransaction.commit();
+    }
+
+
+
 }
