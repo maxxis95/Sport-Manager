@@ -31,11 +31,9 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
 
-        presenter = new PlacePresenterImpl((PlaceView) this);
 
-        presenter.testGettingSinglePlace();
-        //presenter.testGettingMultiplePlaces();
     }
 
     @Override
