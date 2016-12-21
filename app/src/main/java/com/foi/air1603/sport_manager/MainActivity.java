@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
@@ -31,6 +30,7 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public User user;
+    private  AllPlacesFragment login;
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
@@ -115,7 +115,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
 
         } else if (id == R.id.nav_places_list) {
-            Toast.makeText(this,"Otvori listu sportskih objekt fragment", Toast.LENGTH_LONG).show();
+            if(login != null){
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, login)
+                        .addToBackStack(null)
+                        .commit();
+            }
         } else if (id == R.id.nav_my_reserved) {
 
         } else if (id == R.id.nav_my_reservations) {
@@ -161,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initAllPlacesFragment() {
-        AllPlacesFragment login = new AllPlacesFragment();
+        login = new AllPlacesFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
     }
