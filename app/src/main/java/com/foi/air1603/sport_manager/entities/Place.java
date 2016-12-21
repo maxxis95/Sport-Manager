@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.entities;
 
+import java.sql.Time;
+
 /**
  * Created by Karlo on 3.12.2016..
  */
@@ -11,10 +13,10 @@ public class Place {
     public Integer userId;
     public String imgUrl;
     public String contact;
-    public String workingHoursFrom;
-    public String workingHoursTo;
-   // public Integer lat;
-    //public Integer lon;
+    public Time workingHoursFrom;
+    public Time workingHoursTo;
+    public Integer lat;
+    public Integer lon;
 
 
 
@@ -42,21 +44,21 @@ public class Place {
         return contact;
     }
 
-    public String getWorkingHoursFrom() {
+    public Time getWorkingHoursFrom() {
         return workingHoursFrom;
     }
 
-    public String getWorkingHoursTo() {
+    public Time getWorkingHoursTo() {
         return workingHoursTo;
     }
 
-  /*  public Integer getLat() {
+    public Integer getLat() {
         return lat;
-    }*/
+    }
 
-   /* public Integer getLon() {
+    public Integer getLon() {
         return lon;
-    }*/
+    }
 
 
 

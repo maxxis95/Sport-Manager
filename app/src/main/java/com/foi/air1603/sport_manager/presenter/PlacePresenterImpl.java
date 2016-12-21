@@ -11,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,11 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     List<String> name = new ArrayList<String>();
     List<String> address = new ArrayList<String>();
     List<String> contact = new ArrayList<String>();
-    List<String> workingHoursFrom = new ArrayList<String>();
-    List<String> workingHoursTo = new ArrayList<String>();
+    List<Time> workingHoursFrom = new ArrayList<Time>();
+    List<Time> workingHoursTo = new ArrayList<Time>();
     List<String> imgUrl = new ArrayList<String>();
-    //List<Integer> lat = new ArrayList<Integer>();
-    //List<Integer> lon = new ArrayList<Integer>();
+    List<Integer> lat = new ArrayList<Integer>();
+    List<Integer> lon = new ArrayList<Integer>();
 
 
 
@@ -77,21 +78,21 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
             for (final Place place : places) {
                 name.add(place.getName());
                 address.add(place.getAddress());
+                contact.add(place.getContact());
                 imgUrl.add(place.getImgUrl());
                 workingHoursFrom.add(place.getWorkingHoursFrom());
                 workingHoursTo.add(place.getWorkingHoursTo());
-                contact.add(place.getContact());
-                //lat.add(place.getLat());
-                //lon.add(place.getLon());
+                lat.add(place.getLat());
+                lon.add(place.getLon());
                 System.out.println(place.getAddress());
                 System.out.println(place.getWorkingHoursTo());
                 System.out.println(place.getContact());
                 System.out.println(place.getWorkingHoursTo());
                 System.out.println(place.getImgUrl());
-                //System.out.println(place.getLat());
-                //System.out.println(place.getLon());
+                System.out.println(place.getLat());
+                System.out.println(place.getLon());
             }
-            view.showTestToast(name, address, imgUrl, workingHoursFrom, workingHoursTo, contact/*, lat, lon*/);
+            view.showTestToast(name, address, contact, imgUrl, workingHoursFrom, workingHoursTo,  lat, lon);
         }
 
 
