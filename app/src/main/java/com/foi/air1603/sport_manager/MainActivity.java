@@ -108,17 +108,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.my_profile) {
-            Toast.makeText(this,"RADI", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_my_profile) {
+            Toast.makeText(this,"Otvori profil fragment", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_places_list) {
+            Toast.makeText(this,"Otvori listu sportskih objekt fragment", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_my_reserved) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_my_reservations) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_add_new_reservation) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_settings) {
 
         }
 

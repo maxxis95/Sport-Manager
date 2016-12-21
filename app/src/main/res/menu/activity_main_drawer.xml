@@ -3,24 +3,32 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/my_profile"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_my_profile"
+            android:icon="@drawable/ic_menu_profile"
             android:title="Moj Profil" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_places_list"
+            android:icon="@drawable/ic_menu_places_list"
+            android:title="Popis sportskih objekata" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_my_reserved"
+            android:icon="@drawable/ic_menu_my_reserved"
+            android:title="Moji termini" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_my_reservations"
+            android:icon="@drawable/ic_menu_my_reservations"
+            android:title="Moje rezervacije" />
+        <item
+            android:id="@+id/nav_add_new_reservation"
+            android:icon="@drawable/ic_menu_add_new_reservation"
+            android:title="Dodavanje termina" />
+        <item
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Postavke" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Grupa ako će trebati">
         <menu>
             <item
                 android:id="@+id/nav_share"
