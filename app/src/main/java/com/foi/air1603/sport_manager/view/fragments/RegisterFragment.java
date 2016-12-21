@@ -1,8 +1,10 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
@@ -58,8 +61,9 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         if(statusCode == 200) {
             Toast.makeText(getActivity(),
                     "Uspješno ste se registrirali!", Toast.LENGTH_LONG).show();
-            //Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            //getActivity().startActivity(loginIntent);
+
+            getFragmentManager().popBackStack();
+
         } else {
             Toast.makeText(getActivity(),
                     "Registracija nije uspjela:"+message, Toast.LENGTH_LONG).show();
