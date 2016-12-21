@@ -23,7 +23,7 @@ import com.foi.air1603.sport_manager.view.LoginView;
 
 ;
 
-public class LoginFragment extends android.app.Fragment implements  LoginView{
+public class LoginFragment extends android.app.Fragment implements LoginView{
 
     private LoginPresenter presenter;
     private Button btnLogin;
@@ -53,7 +53,6 @@ public class LoginFragment extends android.app.Fragment implements  LoginView{
             }
         });
 
-
         txtViewRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +60,6 @@ public class LoginFragment extends android.app.Fragment implements  LoginView{
             ft.replace(R.id.fragment_container, new RegisterFragment());
             ft.addToBackStack(null);
             ft.commit();
-
             }
         });
     }

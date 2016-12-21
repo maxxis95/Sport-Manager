@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         setNavigationView();
-
     }
 
     //region Activity methods
@@ -109,7 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_my_profile) {
-            Toast.makeText(this,"Otvori profil fragment", Toast.LENGTH_LONG).show();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, new ProfileFragment());
+            ft.addToBackStack(null);
+            ft.commit();
+
         } else if (id == R.id.nav_places_list) {
             Toast.makeText(this,"Otvori listu sportskih objekt fragment", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_my_reserved) {
@@ -161,6 +165,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
     }
-
-
 }

@@ -22,7 +22,7 @@ public class PlaceInteractorImpl implements PlaceInteractor, DataLoadedListener 
 
     private DataLoader dataLoader;
     private PresenterHandler mPresenterHandler;
-    private PlaceInteractor mListner;
+    private PlaceInteractor mListener;
 
 
     public PlaceInteractorImpl(PresenterHandler mPresenterHandler) {

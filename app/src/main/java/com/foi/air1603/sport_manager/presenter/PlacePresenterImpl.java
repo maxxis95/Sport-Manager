@@ -33,8 +33,6 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     List<String> lat = new ArrayList<String>();
     List<String> lon = new ArrayList<String>();
 
-
-
     public PlacePresenterImpl(PlaceView placeView) {
         this.view = placeView;
         this.placeInteractor = new PlaceInteractorImpl(this);
@@ -95,7 +93,5 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
             }
             view.showTestToast(name, address, contact, imgUrl, workingHoursFrom, workingHoursTo, lat, lon);
         }
-
-
     }
 }

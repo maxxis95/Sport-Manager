@@ -26,7 +26,6 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.place_list_item, parent, false);
@@ -62,7 +61,5 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             context.changeFragment();
 
         }
-
-
     }
 }

@@ -28,8 +28,8 @@ import java.util.List;
  */
 
 public class AllPlacesFragment extends android.app.Fragment implements PlaceView {
-    private RecyclerView recyclerView;
 
+    private RecyclerView recyclerView;
     PlacePresenter presenter;
 
     @Nullable
@@ -51,8 +51,6 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
     }
 
     @Override
@@ -61,9 +59,6 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, this));
     }
 
-
-
-
     @Override
     public void changeFragment() {
 
@@ -71,12 +66,12 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         Fragment newFragment = new PlaceDetails();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack if needed
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
 
-// Commit the transaction
+        // Commit the transaction
         transaction.commit();
 
     }
