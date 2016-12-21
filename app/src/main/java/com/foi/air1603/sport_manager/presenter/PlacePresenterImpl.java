@@ -24,6 +24,14 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     PlaceInteractor placeInteractor;
     List<String> name = new ArrayList<String>();
     List<String> address = new ArrayList<String>();
+    List<String> contact = new ArrayList<String>();
+    List<String> workingHoursFrom = new ArrayList<String>();
+    List<String> workingHoursTo = new ArrayList<String>();
+    List<String> imgUrl = new ArrayList<String>();
+    //List<Integer> lat = new ArrayList<Integer>();
+    //List<Integer> lon = new ArrayList<Integer>();
+
+
 
     public PlacePresenterImpl(PlaceView placeView) {
         this.view = placeView;
@@ -69,9 +77,21 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
             for (final Place place : places) {
                 name.add(place.getName());
                 address.add(place.getAddress());
+                imgUrl.add(place.getImgUrl());
+                workingHoursFrom.add(place.getWorkingHoursFrom());
+                workingHoursTo.add(place.getWorkingHoursTo());
+                contact.add(place.getContact());
+                //lat.add(place.getLat());
+                //lon.add(place.getLon());
                 System.out.println(place.getAddress());
+                System.out.println(place.getWorkingHoursTo());
+                System.out.println(place.getContact());
+                System.out.println(place.getWorkingHoursTo());
+                System.out.println(place.getImgUrl());
+                //System.out.println(place.getLat());
+                //System.out.println(place.getLon());
             }
-            view.showTestToast(name,address);
+            view.showTestToast(name, address, imgUrl, workingHoursFrom, workingHoursTo, contact/*, lat, lon*/);
         }
 
 

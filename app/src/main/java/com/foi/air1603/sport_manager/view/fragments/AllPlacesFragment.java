@@ -54,11 +54,12 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     }
 
     @Override
-    public void showTestToast(List<String> name, List<String> address) {
-
+    public void showTestToast(List<String> name, List<String> address, List<String> imgUrl, List<String> contact, List<String> workingHoursFrom, List<String> workingHoursTo/*, List<Integer> lat, List<Integer> lon*/) {
 
         recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, this));
     }
+
+
 
     @Override
     public void changeFragment() {
