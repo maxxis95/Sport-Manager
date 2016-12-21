@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public User user;
     private NavigationView navigationView;
-    private  FragmentTransaction fragmentTransaction;
+    private FragmentTransaction fragmentTransaction;
     private Rights rights;
 
     @Override
@@ -107,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.my_profile) {
+            Toast.makeText(this,"RADI", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -128,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //endregion
 
 
-    private void setNavigationView(){
-        switch (rights){
+    private void setNavigationView() {
+        switch (rights) {
             case User:
                 setUserView();
             case Admin:
@@ -139,28 +140,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void setUserView(){
-        setAllUserDataToHeaderView();
+    private void setUserView() {
+        setAllUsersDataToHeaderView();
         initAllPlacesFragment();
     }
 
-    private void setAllUserDataToHeaderView(){
+    private void setAllUsersDataToHeaderView() {
         View header = navigationView.getHeaderView(0);
-        TextView firstLastName = (TextView)header.findViewById(R.id.textViewFirstLastName);
-        TextView email = (TextView)header.findViewById(R.id.textViewUserEmail);
-        ImageView userImg = (ImageView)header.findViewById(R.id.imageViewUserPicture);
+        TextView firstLastName = (TextView) header.findViewById(R.id.textViewFirstLastName);
+        TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
+        ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
         firstLastName.setText(user.first_name + ' ' + user.last_name + ' ');
         email.setText(user.email);
         Picasso.with(this).load(user.img).into(userImg);
     }
 
-    private void initAllPlacesFragment(){
+    private void initAllPlacesFragment() {
         AllPlacesFragment login = new AllPlacesFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
     }
-
 
 
 }

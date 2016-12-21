@@ -1,16 +1,12 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.app.FragmentTransaction;;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,8 +21,9 @@ import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 
-public class LoginFragment extends android.app.Fragment
-        implements NavigationView.OnNavigationItemSelectedListener, LoginView{
+;
+
+public class LoginFragment extends android.app.Fragment implements  LoginView{
 
     private LoginPresenter presenter;
     private Button btnLogin;
@@ -132,29 +129,5 @@ public class LoginFragment extends android.app.Fragment
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) getView().findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
