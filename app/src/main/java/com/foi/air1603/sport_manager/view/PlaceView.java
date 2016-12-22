@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface PlaceView {
     void showTestToast(List<String> name, List<String> address, List<String> contact, List<String> imgUrl , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon);
-    void changeFragment();
+    void changeFragment(String place_name, String place_address, String place_contact, String place_imgUrl, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon);
 }

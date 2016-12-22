@@ -21,48 +21,39 @@
         android:id="@+id/reservation_btn" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:id="@+id/txtView_Name_Object" />
-
-    <TextView
         android:text="Kontakt:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_radno_vrijeme"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="17dp"
-        android:id="@+id/textView_Kontakt" />
+        android:id="@+id/textViewKontakt"
+        android:layout_below="@+id/textViewAdress"
+        android:layout_marginTop="27dp" />
 
     <TextView
         android:text="Radno vrijeme:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:id="@+id/textView_radno_vrijeme"
-        android:layout_below="@+id/imageView_place"
+        android:id="@+id/textViewRadnoVrijeme"
+        android:layout_marginBottom="101dp"
+        android:layout_above="@+id/reservation_btn"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="Adresa:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView_value_kontakt"
-        android:layout_alignBaseline="@+id/textView_Kontakt"
-        android:layout_alignBottom="@+id/textView_Kontakt"
-        android:layout_toEndOf="@+id/textView_Kontakt" />
+        android:id="@+id/textViewAdress"
+        android:layout_above="@+id/textViewRadnoVrijeme"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView_radno_vrijeme"
-        android:layout_alignBottom="@+id/textView_radno_vrijeme"
-        android:layout_toEndOf="@+id/textView_radno_vrijeme" />
+        android:layout_marginTop="13dp"
+        android:id="@+id/textViewName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -70,7 +61,8 @@
         app2:srcCompat="@android:drawable/picture_frame"
         android:layout_height="65dp"
         android:id="@+id/imageView_place"
-        android:layout_below="@+id/txtView_Name_Object"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textViewName"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
 
 </RelativeLayout>
