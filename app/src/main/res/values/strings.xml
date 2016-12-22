@@ -40,4 +40,11 @@
     <string name="profileEmail">E-mail</string>
     <string name="profileAddress">Adresa</string>
     <string name="profilePhone">Telefon</string>
+    <string name="nav_my_profile">Moj Profil</string>
+    <string name="nav_places_list">Popis sportskih objekata</string>
+    <string name="nav_my_reserved">Moji termini</string>
+    <string name="nav_my_reservations">Moje rezervacije</string>
+    <string name="nav_add_new_reservation">Dodavanje termina</string>
+    <string name="nav_settings">Postavke</string>
+    <string name="nav_logout">Odjava</string>
 </resources>

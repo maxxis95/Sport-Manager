@@ -5,27 +5,31 @@
         <item
             android:id="@+id/nav_my_profile"
             android:icon="@drawable/ic_menu_profile"
-            android:title="Moj Profil" />
+            android:title="@string/nav_my_profile" />
         <item
             android:id="@+id/nav_places_list"
             android:icon="@drawable/ic_menu_places_list"
-            android:title="Popis sportskih objekata" />
+            android:title="@string/nav_places_list" />
         <item
             android:id="@+id/nav_my_reserved"
             android:icon="@drawable/ic_menu_my_reserved"
-            android:title="Moji termini" />
+            android:title="@string/nav_my_reserved" />
         <item
             android:id="@+id/nav_my_reservations"
             android:icon="@drawable/ic_menu_my_reservations"
-            android:title="Moje rezervacije" />
+            android:title="@string/nav_my_reservations" />
         <item
             android:id="@+id/nav_add_new_reservation"
             android:icon="@drawable/ic_menu_add_new_reservation"
-            android:title="Dodavanje termina" />
+            android:title="@string/nav_add_new_reservation" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"
-            android:title="Postavke" />
+            android:title="@string/nav_settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/nav_logout" />
     </group>
 
     <item android:title="Grupa ako će trebati">

@@ -70,7 +70,6 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
