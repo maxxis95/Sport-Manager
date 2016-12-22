@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
+import com.google.android.gms.maps.MapView;
 
 
 /**
@@ -23,11 +25,14 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
     private TextView txtViewRadnoVrijeme;
     private TextView txtViewKontakt;
     private TextView txtViewAdresa;
+    protected MapView mMapView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_details_place, null);
+        mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
+        mMapView.onCreate(savedInstanceState);
         return v;
     }
 
@@ -48,12 +53,52 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
             showPlace(place_name, place_address, place_contact, place_imgUrl, place_workingHoursFrom, place_workingHoursTo, place_lat, place_lon);
         }
 
-
-
-
-
-
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mMapView != null) {
+            mMapView.onResume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mMapView != null) {
+            try {
+                mMapView.onDestroy();
+            } catch (NullPointerException e) {
+                System.out.println("Error while attempting MapView.onDestroy(), ignoring exception:" + e);
+
+            }
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (mMapView != null) {
+            mMapView.onLowMemory();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mMapView != null) {
+            mMapView.onSaveInstanceState(outState);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (mMapView != null) {
+            mMapView.onPause();
+        }
+        super.onPause();
+    }
+
 
     @Override
     public void showPlace(String place_name, String place_address, String place_contact, String place_imgUrl, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {

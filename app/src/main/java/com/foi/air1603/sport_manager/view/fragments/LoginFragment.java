@@ -34,6 +34,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, null);
+
         return v;
     }
 
