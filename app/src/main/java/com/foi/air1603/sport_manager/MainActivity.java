@@ -33,11 +33,8 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public User user;
-<<<<<<< HEAD
     private AllPlacesFragment login;
-=======
     private AllPlacesFragment allPlacesFragment;
->>>>>>> origin/master
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
