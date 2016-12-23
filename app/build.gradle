@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes {
+        debug {
+            resValue "string", "google_maps_api_key", "AIzaSyDDBwJK77mx85fErIqqEb1vDJ3VlwN3050"
+        }
+        release {
+            resValue "string", "google_maps_api_key", "AIzaSyDDBwJK77mx85fErIqqEb1vDJ3VlwN3050"
+        }
+    }
 }
 
 dependencies {
