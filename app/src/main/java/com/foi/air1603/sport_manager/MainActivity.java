@@ -33,7 +33,11 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public User user;
+<<<<<<< HEAD
     private AllPlacesFragment login;
+=======
+    private AllPlacesFragment allPlacesFragment;
+>>>>>>> origin/master
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
@@ -74,6 +78,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setNavigationView();
     }
 
+    private void setNavigationView() {
+        switch (rights) {
+            case User:
+                setUserView();
+                break;
+            case Admin:
+                setAdminView();
+                break;
+            case Owner:
+                setOwnerView();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setUserView() {
+        setAllUsersDataToHeaderView();
+        hideUserDrawerActionItems();
+        initAllPlacesFragment();
+    }
+
+    private void setAllUsersDataToHeaderView() {
+        View header = navigationView.getHeaderView(0);
+        TextView firstLastName = (TextView) header.findViewById(R.id.textViewFirstLastName);
+        TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
+        ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
+
+        if (!user.first_name.isEmpty()
+                && !user.last_name.isEmpty()) {
+            firstLastName.setText(user.first_name + ' ' + user.last_name + ' ');
+        } else {
+            firstLastName.setText(null);
+        }
+        if (!user.email.isEmpty()) {
+            email.setText(user.email);
+        } else {
+            email.setText(null);
+        }
+        if (!user.img.isEmpty()) {
+            Picasso.with(this).load(user.img).into(userImg);
+        } else {
+            userImg.setImageBitmap(null);
+        }
+
+    }
+
+    private void initAllPlacesFragment() {
+        allPlacesFragment = new AllPlacesFragment();
+        fragmentTransaction.add(R.id.fragment_container, allPlacesFragment, "HELLO");
+        fragmentTransaction.commit();
+    }
+
+    private void hideUserDrawerActionItems() {
+        Menu navMenu = navigationView.getMenu();
+        navMenu.findItem(R.id.nav_add_new_reservation).setVisible(false);
+    }
+
+    private void setAdminView() {
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
+    }
+
+    private void setOwnerView() {
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
+    }
+
+
     //region Activity methods
     @Override
     public void onBackPressed() {
@@ -92,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -107,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -114,19 +189,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_my_profile) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, new ProfileFragment());
-            ft.addToBackStack(null);
-            ft.commit();
-
+            openProfileFragment();
         } else if (id == R.id.nav_places_list) {
-            if(login != null){
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, login)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            openAllPlacesFragment();
         } else if (id == R.id.nav_my_reserved) {
 
         } else if (id == R.id.nav_my_reservations) {
@@ -143,41 +208,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    //endregion
 
+    private void openProfileFragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new ProfileFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 
-    private void setNavigationView() {
-        switch (rights) {
-            case User:
-                setUserView();
-            case Admin:
-                //todo: set admin nav and start screen
-            case Owner:
-                //todo: set owner nav and start screen
+    private void openAllPlacesFragment() {
+        if (allPlacesFragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, allPlacesFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 
-    private void setUserView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
-
-    private void setAllUsersDataToHeaderView() {
-        View header = navigationView.getHeaderView(0);
-        TextView firstLastName = (TextView) header.findViewById(R.id.textViewFirstLastName);
-        TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
-        ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
-
-        firstLastName.setText(user.first_name + ' ' + user.last_name + ' ');
-        email.setText(user.email);
-        Picasso.with(this).load(user.img).into(userImg);
-    }
-
-    private void initAllPlacesFragment() {
-        login = new AllPlacesFragment();
-        fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
-        fragmentTransaction.commit();
-    }
 
     private void logout() {
         pref = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
@@ -191,4 +239,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+    //endregion
+
 }
