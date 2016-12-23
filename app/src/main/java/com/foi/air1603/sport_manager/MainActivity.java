@@ -2,7 +2,9 @@ package com.foi.air1603.sport_manager;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -31,10 +33,12 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public User user;
-    private  AllPlacesFragment login;
+    private AllPlacesFragment login;
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
+
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +180,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
+        pref = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

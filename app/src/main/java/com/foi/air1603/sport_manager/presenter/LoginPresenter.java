@@ -9,4 +9,5 @@ public interface LoginPresenter {
      * Validate user login
      */
     void checkInputData();
+
 }

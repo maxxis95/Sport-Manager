@@ -68,7 +68,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         AirWebServiceResponse response = (AirWebServiceResponse) result;
         user = new Gson().fromJson(response.getData(), User.class);
 
-
         if (user == null) {
             onUsernameError();
         } else{
