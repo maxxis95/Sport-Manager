@@ -17,8 +17,6 @@ public class Place {
     public String lat;
     public String lon;
 
-
-
     public int getId() {
         return id;
     }
@@ -58,7 +56,4 @@ public class Place {
     public String getLon() {
         return lon;
     }
-
-
-
 }

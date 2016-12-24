@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +52,16 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        FloatingActionButton fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new AddPlaceFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
     }
 
     @Override
@@ -84,6 +95,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
         // Commit the transaction
         transaction.commit();
-
     }
+
+
 }
