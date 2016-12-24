@@ -1,19 +1,23 @@
 package com.example.webservice;
 
+import android.net.Uri;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.squareup.okhttp.OkHttpClient;
-
-import org.json.JSONObject;
-
+import java.io.File;
 import java.lang.reflect.Type;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by Karlo on 9.11.2016..
@@ -33,12 +37,16 @@ public class AirWebServiceCaller {
     public AirWebServiceCaller(AirWebServiceHandler airWebServiceHandler){
         this.mAirWebServiceHandler = airWebServiceHandler;
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        client.addInterceptor(loggingInterceptor);
+
 
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
+                .client(client.build())
                 .build();
     }
 
@@ -63,24 +71,65 @@ public class AirWebServiceCaller {
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {
                 @Override
-                public void onResponse(Response<AirWebServiceResponse> response, Retrofit retrofit) {
+                public void onResponse(Call<AirWebServiceResponse> call, Response<AirWebServiceResponse> response) {
                     try {
-                        if(response.isSuccess()){
+                        if(response.isSuccessful()){
                             handleResponse(response);
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
+
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<AirWebServiceResponse> call, Throwable t) {
                     t.printStackTrace();
                 }
+
+
             });
         }
     }
 
+    public void uploadPicture(String fileUri){
+        PicUploadInterface serviceCaller = retrofit.create(PicUploadInterface.class);
+        Call<AirWebServiceResponse> call = null;
+        Gson gson = new Gson();
 
+        System.out.println("----------------->A. AirWebServiceCaller:uploadPicture; fileUri: "+fileUri.toString());
+
+        File file = new File(fileUri);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+
+
+
+
+        if(fileUri != null){
+            call = serviceCaller.postImage(body, name);
+        }
+
+        if(call != null){
+            call.enqueue(new Callback<AirWebServiceResponse>() {
+                @Override
+                public void onResponse(Call<AirWebServiceResponse> call, Response<AirWebServiceResponse> response) {
+                    System.out.println("----------------->B. AirWebServiceCaller:uploadPicture");
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody());
+                }
+
+                @Override
+                public void onFailure(Call<AirWebServiceResponse> call, Throwable t) {
+                    t.printStackTrace();
+                }
+
+            });
+        }
+
+
+    }
     /**
      * Metoda koju se poziva nakon što Retrofit vrati inicijalni odgovor
      * @param response tipa AirWebServiceResponse kojeg vraća Retrofit

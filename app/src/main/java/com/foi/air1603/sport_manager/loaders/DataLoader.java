@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.loaders;
 
+import android.net.Uri;
+
 import java.lang.reflect.Type;
 
 /**
@@ -19,6 +21,11 @@ public abstract class DataLoader {
      * @param data Podaci koji se šalju na spremanje
      */
     public void loadData(DataLoadedListener dataLoadedListener, String method, String tableName, String searchBy, String value, Type entityType, Object data) {
+        this.mDataLoadedListener = dataLoadedListener;
+    }
+
+
+    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri) {
         this.mDataLoadedListener = dataLoadedListener;
     }
 }

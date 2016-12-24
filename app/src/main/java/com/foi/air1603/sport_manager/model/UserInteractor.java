@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.model;
 
+import android.net.Uri;
+
 import com.foi.air1603.sport_manager.entities.User;
 
 /**
@@ -18,4 +20,5 @@ public interface UserInteractor {
 
     void getUserObject(OnLoginFinishedListener listener, String searchBy, String value);
     void setUserObject(User user);
+    void changeUserPicture(String fileUri);
 }

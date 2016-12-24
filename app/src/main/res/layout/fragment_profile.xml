@@ -134,6 +134,14 @@
             android:textColor="#727272"
             android:layout_marginBottom="30dp"/>
 
+        <Button
+            android:text="Change picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/profileName"
+            android:layout_alignEnd="@+id/profileImage"
+            android:id="@+id/btnChangePicture" />
+
     </RelativeLayout>
 
 </ScrollView>

@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.loaders;
 
+import android.net.Uri;
+
 import com.example.webservice.AirWebServiceCaller;
 import com.example.webservice.AirWebServiceHandler;
 import com.example.webservice.AirWebServiceResponse;
@@ -29,6 +31,16 @@ public class WsDataLoader extends DataLoader{
         call.getData(method, tableName, searchBy, value, entityType, data);
     }
 
+    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri) {
+        super.uploadFile(dataLoadedListener, fileUri);
+
+        this.mDataLoadedListener = dataLoadedListener;
+
+        System.out.println("----------------->4. WsDataLoader:uploadFile");
+        AirWebServiceCaller call = new AirWebServiceCaller(responseHandler);
+
+        call.uploadPicture(fileUri);
+    }
     /**
      * Instancira se novi objekt tipa AirWebServiceHandler i odmah se implementira metoda onDataArrived.
      * U metodu onDataArrived se vraćaju rezultati poziva web servisa koji je pozvan instanciranjem objekta ove klase (WsDataLoader)

@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.model;
 
+import android.net.Uri;
+
 import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
@@ -34,6 +36,12 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
         }catch (Exception ex){
             mListener.onWebServiceError(ex.getMessage());
         }
+    }
+
+    public void changeUserPicture(String fileUri){
+        System.out.println("----------------->3. UserInteractorImpl:changeUserPicture");
+        dataLoader.uploadFile(this, fileUri);
+
     }
 
     @Override
