@@ -47,4 +47,13 @@
     <string name="nav_add_new_reservation">Dodavanje termina</string>
     <string name="nav_settings">Postavke</string>
     <string name="nav_logout">Odjava</string>
+    <string name="place_name">Naziv objekta</string>
+    <string name="place_address">Adresa</string>
+    <string name="place_number">Broj telefona</string>
+    <string name="place_working_hours_start">Početak radnog vremena</string>
+    <string name="place_working_hours_end">Kraj radnog vremena</string>
+    <string name="place_image_link">Link na sliku objekta</string>
+    <string name="PlaceAdd">Dodaj objekt</string>
+    <string name="PlaceContinue">Nastavak...</string>
+    <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
 </resources>
