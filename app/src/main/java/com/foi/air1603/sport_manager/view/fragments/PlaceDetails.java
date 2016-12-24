@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,7 +13,18 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -30,16 +43,26 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_details_place, null);
         mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
         mMapView.onCreate(savedInstanceState);
+
+        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(VARAZDIN, 10));
+
+
+        /*if (map != null) {
+                    map.addMarker(new MarkerOptions()
+                    .position(new LatLng(41.40338, 2.17403))
+                    .title("prva gimnazija")
+                    .draggable(false).visible(true));
+        }*/
         return v;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             String place_name = bundle.getString("place_name",null);
@@ -102,16 +125,51 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
 
     @Override
     public void showPlace(String place_name, String place_address, String place_contact, String place_imgUrl, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
-
         txtViewAdresa = (TextView) getView().findViewById(R.id.textViewAdress);
         txtViewName = (TextView) getView().findViewById(R.id.textViewName);
         txtViewRadnoVrijeme = (TextView) getView().findViewById(R.id.textViewRadnoVrijeme);
         txtViewKontakt = (TextView) getView().findViewById(R.id.textViewKontakt);
-
         txtViewAdresa.setText("Adresa: " + place_address);
         txtViewName.setText(place_name);
         txtViewRadnoVrijeme.setText("Radno vrijeme: " + place_workingHoursFrom+" - " + place_workingHoursTo);
         txtViewKontakt.setText("Kontakt: " + place_contact);
 
+
+        try {
+            configureMap(place_address,place_name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
+    private void
+    configureMap(String adresa, String name) throws IOException {
+        GoogleMap map;
+        map = mMapView.getMap();
+        Geocoder coder = new Geocoder(getActivity());
+        List<Address> address;
+        LatLng p1 = null;
+        address = coder.getFromLocationName(adresa, 5);
+
+        Address location = address.get(0);
+        location.getLatitude();
+        location.getLongitude();
+
+        p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        MapsInitializer.initialize(getActivity());
+
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
+        map.addMarker(new MarkerOptions()
+                .position(p1)
+                .title(name)
+                .draggable(false).visible(true));
+       // CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(p1,15);
+        // map.animateCamera(camera);
+    }
+
+
 }
