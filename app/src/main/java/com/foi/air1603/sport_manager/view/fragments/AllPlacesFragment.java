@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.PlaceRecycleAdapter;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
@@ -28,7 +29,6 @@ import java.util.List;
  */
 
 public class AllPlacesFragment extends android.app.Fragment implements PlaceView {
-
     private RecyclerView recyclerView;
     PlacePresenter presenter;
     FloatingActionButton fabAdd;
@@ -39,6 +39,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_places, null);
         return v;
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -46,10 +47,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new PlacePresenterImpl(this);
 
-        //presenter.testGettingSinglePlace();
-        presenter.testGettingMultiplePlaces();
+
         //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,6 +63,12 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
             }
         });
         hideFloatingActionButton();
+
+        //presenter = new PlacePresenterImpl(this);
+        presenter = PlacePresenterImpl.getInstance().Init(this);
+
+        //presenter.testGettingSinglePlace();
+        presenter.testGettingMultiplePlaces();
     }
 
     private void hideFloatingActionButton(){
@@ -76,7 +81,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
     @Override
     public void showTestToast(List<String> name, List<String> address, List<String> contact, List<String> imgUrl , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
-
+        System.out.println("----------------->9. AllPlacesFragment:showTestToast");
         recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, contact,imgUrl, workingHoursFrom,workingHoursTo,lat,lon, this));
     }
 

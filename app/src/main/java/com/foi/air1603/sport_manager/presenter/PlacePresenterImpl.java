@@ -22,7 +22,7 @@ import java.util.List;
 
 public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
 
-    private final PlaceView view; // TODO: Ne znam jel ovo treba uopće
+    private PlaceView view; // TODO: Ne znam jel ovo treba uopće
     PlaceInteractor placeInteractor;
     List<String> name = new ArrayList<String>();
     List<String> address = new ArrayList<String>();
@@ -32,49 +32,83 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     List<String> imgUrl = new ArrayList<String>();
     List<String> lat = new ArrayList<String>();
     List<String> lon = new ArrayList<String>();
+    List<Place> places = null;
+    private static PlacePresenterImpl instance;
 
-    public PlacePresenterImpl(PlaceView placeView) {
+    private PlacePresenterImpl(){
+    }
+
+    // Implementacija singletona da se ne skidaju placesi kod svakog otvaranja fragmenta
+    public static PlacePresenterImpl getInstance(){
+        if(instance == null){
+            instance = new PlacePresenterImpl();
+        }
+        return instance;
+    }
+
+    public PlacePresenter Init(PlaceView placeView) {
         this.view = placeView;
         this.placeInteractor = new PlaceInteractorImpl(this);
-
+        this.instance = this;
+        return this;
     }
 
     public void testGettingSinglePlace(){
-        System.out.println("----------------->2. PlacePresenterImpl:constructor");
+        System.out.println("----------------->2. PlacePresenterImpl:testGettingSinglePlace");
         placeInteractor.getPlaceObject(this, "id", "1");
     }
     public void testGettingMultiplePlaces(){
-        System.out.println("----------------->2. PlacePresenterImpl:constructor");
-        placeInteractor.getAllPlacesObjects(this);
+        System.out.println("----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
+        System.out.println("places variable: "+this.places);
+        if(this.places == null){
+            placeInteractor.getAllPlacesObjects(this);
+        } else {
+
+            //System.out.println(places.getClass() == ArrayList.class);
+            getResponseData(places);
+        }
     }
 
     @Override
     public void getResponseData(Object result) {
+
         System.out.println("----------------->8. PlacePresenterImpl:getResponseData");
+        Boolean placesAlreadyLoaded = false;
 
-        AirWebServiceResponse response = (AirWebServiceResponse) result;
-        Place singlePlace = null;
-        List<Place> places = null;
+        if(result.getClass() == ArrayList.class && ((ArrayList) result).size()>1){
+            placesAlreadyLoaded = true;
+        }
 
-        try {
-            singlePlace = new Gson().fromJson(response.getData(), Place.class);
+        if(!placesAlreadyLoaded){
+            AirWebServiceResponse response = (AirWebServiceResponse) result;
+            Place singlePlace = null;
+
+            try {
+                singlePlace = new Gson().fromJson(response.getData(), Place.class);
+            }
+            catch (JsonParseException e) {
+                System.out.println("[ERROR] " + e);
+            }
+            if(singlePlace != null) {
+                System.out.println(singlePlace.getName());
+            }
+
+            System.out.println(((AirWebServiceResponse) result).getData());
+            try {
+                Type collectionType = new TypeToken<List<Place>>(){}.getType();
+                this.places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
+            }
+            catch (JsonParseException e) {
+                System.out.println("[ERROR] " + e);
+            }
         }
-        catch (JsonParseException e) {
-            System.out.println("[ERROR] " + e);
-        }
-        if(singlePlace != null) {
-            System.out.println(singlePlace.getName());
-        }
-    System.out.println(((AirWebServiceResponse) result).getData());
-        try {
-            Type collectionType = new TypeToken<List<Place>>(){}.getType();
-            places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
-        }
-        catch (JsonParseException e) {
-            System.out.println(e);
-        }
-        if(places != null)  {
-            for (final Place place : places) {
+
+        if(this.places != null)  {
+            for (final Place place : this.places) {
+
+                if(name.contains(place.getName())){
+                   continue;
+                }
                 name.add(place.getName());
                 address.add(place.getAddress());
                 contact.add(place.getContact());
@@ -83,15 +117,11 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 workingHoursTo.add(place.getWorkingHoursTo());
                 lat.add(place.getLat());
                 lon.add(place.getLon());
+
                 System.out.println(place.getAddress());
-               // System.out.println(place.getWorkingHoursTo());
-                System.out.println(place.getContact());
-                //System.out.println(place.getWorkingHoursTo());
-                System.out.println(place.getImgUrl());
-                System.out.println(place.getLat());
-                System.out.println(place.getLon());
+
             }
-            view.showTestToast(name, address, contact, imgUrl, workingHoursFrom, workingHoursTo, lat, lon);
+            this.view.showTestToast(name, address, contact, imgUrl, workingHoursFrom, workingHoursTo, lat, lon);
         }
     }
 }
