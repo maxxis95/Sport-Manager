@@ -5,11 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,9 +19,9 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
-import com.foi.air1603.sport_manager.model.UserInteractor;
-import com.foi.air1603.sport_manager.model.UserInteractorImpl;
-import com.foi.air1603.sport_manager.presenter.PresenterHandler;
+import com.foi.air1603.sport_manager.presenter.ProfilePresenter;
+import com.foi.air1603.sport_manager.presenter.ProfilePresenterImpl;
+import com.foi.air1603.sport_manager.view.ProfileView;
 import com.squareup.picasso.Picasso;
 
 
@@ -33,19 +29,19 @@ import com.squareup.picasso.Picasso;
  * Created by marko on 21.12.2016..
  */
 
-public class ProfileFragment extends Fragment implements PresenterHandler {
+public class ProfileFragment extends Fragment implements ProfileView {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
     public User user;
     private MainActivity activity;
     private Button btnChangeProfilePicture;
     private String filePath = "";
+    private ProfilePresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
 
@@ -57,12 +53,25 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        presenter = new ProfilePresenterImpl(this);
         btnChangeProfilePicture = (Button) getView().findViewById(R.id.btnChangePicture);
 
         btnChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeProfilePicture();
+
+                // Request permissions if not already set
+                if (ContextCompat.checkSelfPermission(activity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                } else {
+                    openImagePicker();
+                }
+
             }
         });
 
@@ -70,25 +79,7 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
         getUserDataForTextView();
     }
 
-    private void changeProfilePicture(){
-
-        //TODO: Treba složiti callback funkciju koja omogoučuje change samo ako korisnik stisne yes
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Should we show an explanation?
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-
-            }
-        }
-
+    public void openImagePicker(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -96,40 +87,30 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openImagePicker();
+                } else {
+                    System.out.println("Couldn't get read files permission!");
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
-            System.out.println("data: "+data);
-            System.out.println("resultcode: "+resultCode);
-
-            //TODO: Ovaj kod za dohvačanje fajl name-a možda prebaciti u UserInteractor?
-            Uri selectedImageUri = data.getData();
-
-            // Will return "image:x*"
-            String wholeID = DocumentsContract.getDocumentId(selectedImageUri);
-
-            // Split at colon, use second item in the array
-            String id = wholeID.split(":")[1];
-            String[] column = { MediaStore.Images.Media.DATA };
-
-            // where id is equal to
-            String sel = MediaStore.Images.Media._ID + "=?";
-            Cursor cursor = getActivity().getContentResolver().
-                    query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            column, sel, new String[]{ id }, null);
-
-            int columnIndex = cursor.getColumnIndex(column[0]);
-            if (cursor.moveToFirst()) {
-                filePath = cursor.getString(columnIndex);
-            }
-            cursor.close();
-
-            System.out.println("----------------->1/2. ProfileFragment:onActivityResult");
-
-            UserInteractor interactor = new UserInteractorImpl(this);
-            interactor.changeUserPicture(filePath);
-
+            System.out.println("----------------->1. ProfileFragment:onActivityResult");
+            presenter.changeProfilePicture(data, activity);
         }
     }
 
@@ -140,7 +121,6 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
         } else {
             imageView.setImageBitmap(null);
         }
-
     }
 
     private void getUserDataForTextView() {
@@ -157,9 +137,4 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
         phoneProfile.setText(user.phone);
     }
 
-
-    @Override
-    public void getResponseData(Object result) {
-
-    }
 }
