@@ -8,5 +8,5 @@ import android.content.Intent;
  */
 
 public interface ProfilePresenter {
-    void changeProfilePicture(Intent data, Activity activity);
+    void changeProfilePicture(Intent data, Integer id, Activity activity);
 }

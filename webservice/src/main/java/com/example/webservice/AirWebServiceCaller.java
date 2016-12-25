@@ -91,33 +91,25 @@ public class AirWebServiceCaller {
         }
     }
 
-    public void uploadPicture(String fileUri){
+    public void uploadPicture(String fileUri, Integer user_id){
         PicUploadInterface serviceCaller = retrofit.create(PicUploadInterface.class);
         Call<AirWebServiceResponse> call = null;
         Gson gson = new Gson();
-
-        System.out.println("----------------->A. AirWebServiceCaller:uploadPicture; fileUri: "+fileUri.toString());
 
         File file = new File(fileUri);
 
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
-
-
-
 
         if(fileUri != null){
-            call = serviceCaller.postImage(body, name);
+            call = serviceCaller.postImage("changeUserPicture", user_id, body);
         }
 
         if(call != null){
             call.enqueue(new Callback<AirWebServiceResponse>() {
                 @Override
                 public void onResponse(Call<AirWebServiceResponse> call, Response<AirWebServiceResponse> response) {
-                    System.out.println("----------------->B. AirWebServiceCaller:uploadPicture");
-                    System.out.println(response.code());
-                    System.out.println(response.errorBody());
+                    handleResponse(response);
                 }
 
                 @Override

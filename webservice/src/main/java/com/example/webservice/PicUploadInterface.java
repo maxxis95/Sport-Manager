@@ -13,10 +13,7 @@ import retrofit2.http.Part;
  */
 
 public interface PicUploadInterface {
-
-
     @Multipart
     @POST("picture-upload")
-    Call<AirWebServiceResponse> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
-
+    Call<AirWebServiceResponse> postImage(@Part("method") String method, @Part("id") Integer id, @Part MultipartBody.Part image);
 }

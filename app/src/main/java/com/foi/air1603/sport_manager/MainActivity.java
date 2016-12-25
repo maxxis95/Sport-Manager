@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             email.setText(null);
         }
-        if (!user.img.isEmpty()) {
+        if (user.img != null && !user.img.isEmpty()) {
             Picasso.with(this).load(user.img).into(userImg);
         } else {
             userImg.setImageBitmap(null);

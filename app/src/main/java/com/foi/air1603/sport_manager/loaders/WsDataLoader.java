@@ -31,15 +31,15 @@ public class WsDataLoader extends DataLoader{
         call.getData(method, tableName, searchBy, value, entityType, data);
     }
 
-    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri) {
-        super.uploadFile(dataLoadedListener, fileUri);
+    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri, Integer user_id) {
+        super.uploadFile(dataLoadedListener, fileUri, user_id);
 
         this.mDataLoadedListener = dataLoadedListener;
 
         System.out.println("----------------->4. WsDataLoader:uploadFile");
         AirWebServiceCaller call = new AirWebServiceCaller(responseHandler);
 
-        call.uploadPicture(fileUri);
+        call.uploadPicture(fileUri, user_id);
     }
     /**
      * Instancira se novi objekt tipa AirWebServiceHandler i odmah se implementira metoda onDataArrived.

@@ -38,9 +38,9 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
         }
     }
 
-    public void changeUserPicture(String fileUri){
+    public void changeUserPicture(String fileUri, Integer user_id){
         System.out.println("----------------->3. UserInteractorImpl:changeUserPicture");
-        dataLoader.uploadFile(this, fileUri);
+        dataLoader.uploadFile(this, fileUri, user_id);
 
     }
 
@@ -61,8 +61,6 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
         System.out.println("----------------->7. UserInteractorImpl:onDataLoaded");
 
         mPresenterHandler.getResponseData(result);
-
-
     }
 
 }

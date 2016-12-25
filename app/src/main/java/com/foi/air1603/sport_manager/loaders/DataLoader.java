@@ -25,7 +25,7 @@ public abstract class DataLoader {
     }
 
 
-    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri) {
+    public void uploadFile(DataLoadedListener dataLoadedListener, String fileUri, Integer user_id) {
         this.mDataLoadedListener = dataLoadedListener;
     }
 }

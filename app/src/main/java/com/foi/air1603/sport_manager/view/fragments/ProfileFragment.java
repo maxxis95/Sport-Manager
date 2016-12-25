@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -75,7 +77,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
             }
         });
 
-        getImageForImageView();
+        getImageForImageView(null);
         getUserDataForTextView();
     }
 
@@ -110,16 +112,23 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
             System.out.println("----------------->1. ProfileFragment:onActivityResult");
-            presenter.changeProfilePicture(data, activity);
+            presenter.changeProfilePicture(data, user.id, activity);
         }
     }
 
-    private void getImageForImageView() {
+    public void getImageForImageView(Uri imageUri) {
+
         ImageView imageView = (ImageView) getView().findViewById(R.id.profileImage);
-        if (!user.img.isEmpty()) {
+
+        if(imageUri != null){
+            imageView.setImageURI(imageUri);
+            return;
+        }
+
+        if (user.img != null && !user.img.isEmpty()) {
             Picasso.with(activity).load(user.img).into(imageView);
         } else {
-            imageView.setImageBitmap(null);
+            imageView.setImageResource(R.drawable.profile_stock);
         }
     }
 

@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.presenter;
 
 
 import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
@@ -72,7 +73,9 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             onUsernameError();
         } else{
             view.removeError(Username);
-            if(!view.getPasswordFromEditText().equals(user.password)){
+            String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
+            System.out.println(userEnteredPassword);
+            if(!userEnteredPassword.equals(user.password)){
                 onPasswordError();
             } else{
                 view.removeError(Password);

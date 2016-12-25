@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
@@ -153,7 +154,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         user.first_name = view.getNameFromEditText();
         user.last_name = view.getLastNameFromEditText();
         user.phone = view.getPhoneNumberFromEditText();
-        user.password = view.getPasswordFromEditText();
+        user.password = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
 
         return user;
     }

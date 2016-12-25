@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 
 public class User implements Parcelable {
-    int id;
+    public int id;
     public int type;
     public String img;
     public String first_name;
