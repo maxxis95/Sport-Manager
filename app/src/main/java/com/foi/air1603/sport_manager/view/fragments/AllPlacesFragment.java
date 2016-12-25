@@ -13,15 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.PlaceRecycleAdapter;
+import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
-
 import com.foi.air1603.sport_manager.view.PlaceView;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -32,6 +31,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
     private RecyclerView recyclerView;
     PlacePresenter presenter;
+    FloatingActionButton fabAdd;
+    Rights rights;
 
     @Nullable
     @Override
@@ -53,7 +54,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FloatingActionButton fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
+        fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -62,6 +63,15 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
                 ft.commit();
             }
         });
+        hideFloatingActionButton();
+    }
+
+    private void hideFloatingActionButton(){
+        rights = rights.getRightFormInt(MainActivity.user.type);
+        switch (rights){
+            case User:
+                fabAdd.hide();
+        }
     }
 
     @Override

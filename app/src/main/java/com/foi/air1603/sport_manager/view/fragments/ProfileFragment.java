@@ -3,7 +3,6 @@ package com.foi.air1603.sport_manager.view.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -28,8 +27,6 @@ import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.presenter.PresenterHandler;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 
 /**
@@ -136,11 +133,14 @@ public class ProfileFragment extends Fragment implements PresenterHandler {
         }
     }
 
-
-
     private void getImageForImageView() {
         ImageView imageView = (ImageView) getView().findViewById(R.id.profileImage);
-        Picasso.with(activity).load(user.img).into(imageView);
+        if (!user.img.isEmpty()) {
+            Picasso.with(activity).load(user.img).into(imageView);
+        } else {
+            imageView.setImageBitmap(null);
+        }
+
     }
 
     private void getUserDataForTextView() {
