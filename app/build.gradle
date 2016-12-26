@@ -48,4 +48,6 @@ dependencies {
     //for google map
     //compile 'com.google.android.gms:play-services-maps:6.5.87'
     compile 'com.google.android.gms:play-services-maps:9.8.0'
+    //CircleImageView
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }
