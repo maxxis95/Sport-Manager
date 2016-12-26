@@ -21,6 +21,7 @@ import java.util.List;
  */
 
 public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    List<Integer> place_id;
     List<String> place_name;
     List<String> place_address;
     List<String> place_contact;
@@ -34,7 +35,8 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    public PlaceRecycleAdapter(List<String> place_name, List<String> place_address, List<String> place_contact, List<String> place_img , List<String> place_workingHoursFrom, List<String> place_workingHoursTo, List<String> place_lat, List<String> place_lon, AllPlacesFragment context){
+    public PlaceRecycleAdapter(List<Integer> place_id, List<String> place_name, List<String> place_address, List<String> place_contact, List<String> place_img , List<String> place_workingHoursFrom, List<String> place_workingHoursTo, List<String> place_lat, List<String> place_lon, AllPlacesFragment context){
+        this.place_id = place_id;
         this.place_name = place_name;
         this.place_address = place_address;
         this.place_contact = place_contact;
@@ -101,7 +103,7 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onClick(View view) {
             int position  =   getAdapterPosition();
-
+            int id = place_id.get(position);
             String workingHoursFrom = place_workingHoursFrom.get(position).toString();
             String workingHoursTo = place_workingHoursTo.get(position).toString();
             String address = place_address.get(position).toString();
@@ -111,7 +113,7 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String lat = place_lat.get(position).toString();
             String lon = place_lon.get(position).toString();
 
-           context.changeFragment(name,address,contact,img,workingHoursFrom,workingHoursTo,lat,lon);
+           context.changeFragment(id,name,address,contact,img,workingHoursFrom,workingHoursTo,lat,lon);
 
         }
     }

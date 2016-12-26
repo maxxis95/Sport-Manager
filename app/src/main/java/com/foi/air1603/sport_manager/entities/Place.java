@@ -6,7 +6,7 @@ package com.foi.air1603.sport_manager.entities;
  */
 
 public class Place {
-    int id;
+    public Integer id;
     public String name;
     public String address;
     public Integer userId;

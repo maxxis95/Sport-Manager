@@ -15,11 +15,17 @@ import com.foi.air1603.sport_manager.R;
 
 public class ReservationFragment extends android.app.Fragment {
 
+
     CalendarView calendar;
+    int id_place;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /** Inflating the layout for this fragment **/
         View v = inflater.inflate(R.layout.fragment_reservation, null);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            id_place = bundle.getInt("place_id");
+        }
         initializeCalendar(v);
         return v;
     }
@@ -41,7 +47,8 @@ public class ReservationFragment extends android.app.Fragment {
 
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 month++;
-               System.out.println(day + "/" + month + "/" + year);
+                System.out.println("tessssssssssss:"+id_place);
+                System.out.println(day + "/" + month + "/" + year);
 
             }
 

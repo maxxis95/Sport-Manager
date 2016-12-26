@@ -93,19 +93,20 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     }
 
     @Override
-    public void showTestToast(List<String> name, List<String> address, List<String> contact, List<String> img , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
+    public void showTestToast(List<Integer> id, List<String> name, List<String> address, List<String> contact, List<String> img , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
         System.out.println("----------------->9. AllPlacesFragment:showTestToast");
-        recyclerView.setAdapter(new PlaceRecycleAdapter(name, address, contact,img, workingHoursFrom,workingHoursTo,lat,lon, this));
+        recyclerView.setAdapter(new PlaceRecycleAdapter(id, name, address, contact,img, workingHoursFrom,workingHoursTo,lat,lon, this));
     }
 
     @Override
-    public void changeFragment(String place_name, String place_address, String place_contact, String place_img, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
+    public void changeFragment(Integer place_id, String place_name, String place_address, String place_contact, String place_img, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
 
         // Create new fragment and transaction
         Fragment newFragment = new PlaceDetails();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
+        bundle.putInt("place_id", place_id);
         bundle.putString("place_name", place_name);
         bundle.putString("place_address", place_address);
         bundle.putString("place_contact", place_contact);

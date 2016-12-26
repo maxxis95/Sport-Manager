@@ -21,6 +21,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
 
     private PlaceView view; // TODO: Ne znam jel ovo treba uopće
     PlaceInteractor placeInteractor;
+    List<Integer> id = new ArrayList<Integer>();
     List<String> name = new ArrayList<String>();
     List<String> address = new ArrayList<String>();
     List<String> contact = new ArrayList<String>();
@@ -106,6 +107,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 if(name.contains(place.getName())){
                    continue;
                 }
+                id.add(place.getId());
                 name.add(place.getName());
                 address.add(place.getAddress());
                 contact.add(place.getContact());
@@ -116,7 +118,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 lon.add(place.getLon());
 
             }
-            this.view.showTestToast(name, address, contact, img, workingHoursFrom, workingHoursTo, lat, lon);
+            this.view.showTestToast(id, name, address, contact, img, workingHoursFrom, workingHoursTo, lat, lon);
 
         }
     }

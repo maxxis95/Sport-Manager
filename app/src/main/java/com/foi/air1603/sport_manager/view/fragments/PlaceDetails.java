@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.location.Address;
@@ -37,13 +38,13 @@ import java.util.List;
 
 public class PlaceDetails extends android.app.Fragment implements PlaceDetailsView {
 
-    PlacePresenter presenter;
     private TextView txtViewName;
     private TextView txtViewRadnoVrijeme;
     private TextView txtViewKontakt;
     private TextView txtViewAdresa;
     protected MapView mMapView;
     private Button reservation_btn;
+    private int id_place;
 
     @Nullable
     @Override
@@ -70,6 +71,7 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
+            id_place = bundle.getInt("place_id");
             String place_name = bundle.getString("place_name",null);
             String place_address = bundle.getString("place_address",null);
             String place_contact = bundle.getString("place_contact",null);
@@ -85,8 +87,12 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
         reservation_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment newFragment = new ReservationFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("place_id", id_place);
+                newFragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new ReservationFragment());
+                ft.replace(R.id.fragment_container, newFragment);
                 ft.addToBackStack(null);
                 ft.commit();
                 System.out.println("----------------->RegisterFragment:onClickListener");
