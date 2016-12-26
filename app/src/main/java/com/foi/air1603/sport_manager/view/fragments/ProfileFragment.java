@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public User user;
     private MainActivity activity;
     private Button btnChangeProfilePicture;
-    private String filePath = "";
     private ProfilePresenter presenter;
 
     @Nullable
@@ -122,6 +121,14 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
         if(imageUri != null){
             imageView.setImageURI(imageUri);
+            user.setUploadedImage(imageUri);
+            return;
+        }
+
+        System.out.println("uploadedImage "+user.getUploadedImage());
+
+        if(user.getUploadedImage() != null){
+            imageView.setImageURI(user.getUploadedImage());
             return;
         }
 

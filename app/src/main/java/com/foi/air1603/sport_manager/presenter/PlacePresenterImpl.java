@@ -5,14 +5,11 @@ import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.model.PlaceInteractor;
 import com.foi.air1603.sport_manager.model.PlaceInteractorImpl;
 import com.foi.air1603.sport_manager.view.PlaceView;
-import com.foi.air1603.sport_manager.view.RegisterView;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +109,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 name.add(place.getName());
                 address.add(place.getAddress());
                 contact.add(place.getContact());
-                imgUrl.add(place.getImgUrl());
+                imgUrl.add(place.getImg());
                 workingHoursFrom.add(place.getWorkingHoursFrom());
                 workingHoursTo.add(place.getWorkingHoursTo());
                 lat.add(place.getLat());

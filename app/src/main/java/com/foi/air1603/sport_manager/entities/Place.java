@@ -33,7 +33,7 @@ public class Place {
         return userId;
     }
 
-    public String getImgUrl() {
+    public String getImg() {
         return imgUrl;
     }
 
