@@ -18,6 +18,9 @@ use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
+// use Cake\I18n\Date;
+use Cake\I18n\FrozenDate;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -41,6 +44,11 @@ class PagesController extends AppController
     {
 		$this->viewBuilder()->layout('ajax');
 		
+		// Time::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any mutable DateTime
+		// Date::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any mutable Date
+		FrozenTime::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any immutable DateTime
+		FrozenDate::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any immutable Date
+		
 		$response = [];
 		$response["statusCode"] = $response["message"] = $response["data"] = null;
 
@@ -49,9 +57,18 @@ class PagesController extends AppController
 		} else if (!empty($this->request->data)){
 			$fromClient = $this->request->data;
 		} else {
+			echo "<a href='/log_file.txt'>log_file.txt</a><br>";
+			echo "<a href='/users'>Users CRUD</a>";
+			die(); 
+			// $fromClient["method"] = "getData"; 
+			// $fromClient["table_name"] = "Appointments";
+			// $fromClient["search_by"] = "place_id;date <=";
+			// $fromClient["value"] = "2;1485528644";
 			
-			$fromClient["method"] = "setUserData";
-			$fromClient["data"] = "{\"address\":\"gv\",\"email\":\"gv\",\"firstName\":\"cc\",\"id\":0,\"lastName\":\"bv\",\"phone\":\"99\"}";
+			// $fromClient["method"] = "setData";
+			// $fromClient["table_name"] = "Places";
+			// $fromClient["data"] = "{\"address\":\"gv 4\",\"name\":\"Novotvorena sportska dvorana\",\"firstName\":\"cc\",\"user_id\":1,\"lastName\":\"bv\",\"phone\":\"99\"}";
+			// $fromClient["data"] = "{\"address\":\"gv\",\"email\":\"gv\",\"firstName\":\"cc\",\"id\":0,\"lastName\":\"bv\",\"phone\":\"99\",\"extra\":[{\"address\":\"gv\",\"email\":\"gv\",\"firstName\":\"cc\",\"id\":0,\"lastName\":\"bv\",\"phone\":\"99\"}]}";
 			
 			/* $errorMsg = "[ERROR] No GET/POST parameters!";
 			$this->logAndRespond($errorMsg); */
@@ -64,9 +81,6 @@ class PagesController extends AppController
 		}
 		
 		
-		
-		
-		
 		$timestamp = date('d.m.Y. H:i:s', time());
 		$logFile = "[$timestamp] ";
 		if(!empty($fromClient["data"]) && $data == NULL ){
@@ -76,76 +90,106 @@ class PagesController extends AppController
 		file_put_contents('log_file.txt', $logFile);
 		$logFile = "";
 		
-		
-		if(!empty($fromClient["data"]) && $data == NULL ){
-			echo "[ERROR] Could not parse json data! Use json validator!";
-			die();
-		}
-		
-		$needsArgs = ["getUserById", "getUserByUsername", "getAllUserIdData"];
-		$needsData = ["setUserData"];
-		
-		if(in_array($fromClient["method"], $needsArgs)){
-			
-			if(!empty($fromClient["args"])){
+		if($fromClient["method"]=="getData"){
+			$workingTable = TableRegistry::get($fromClient["table_name"]);
+			$query = $workingTable->find("all");
+
+			if(!empty($fromClient["search_by"])){
 				
-				if($fromClient["method"] == "getUserById"){
-					$workingTable = TableRegistry::get("Users");
-					$result = $workingTable->findById($fromClient["args"])->first();
-					$errorMsg = "[ERROR] No user with specified id found \n";
-				}
-				
-				if($fromClient["method"] == "getUserByUsername"){
-					$workingTable = TableRegistry::get("Users");
-					$result = $workingTable->findByUsername($fromClient["args"])->first();
-					$errorMsg = "[ERROR] No user with specified username found \n";
-				}
-				
-				if($result){
-					$result = $result->toArray();
-					foreach($result as $key => $value){
-						$javaKey = $this->CapsTo_($key ,1);
-						$javaKey = lcfirst($javaKey);
-						
-						$result[$javaKey] = $value;
-						if($key!= $javaKey){
-							unset($result[$key]);
-						}
-					} 
-					// dump($workingTable);
-					// die();
-					$result = json_encode($result);
-					$this->logAndRespond("", $result, $workingTable->registryAlias(), 200);
+				if(strpos($fromClient["search_by"], ";")){
+					$where_arguments = explode(";", $fromClient["search_by"]);
+					$values = explode(";", $fromClient["value"]);
 					
-					/* echo json_encode($result);
-					die(); */
+					foreach ($values as $key => $value){
+
+						if(strpos($where_arguments[$key], "date") !== false){ 
+							$values[$key] = date("Y-m-d", $values[$key]);
+							// $values[$key] = date("Y-m-d H:i:s", $values[$key]);
+						}
+						$query->where([$where_arguments[$key] => $values[$key]])->limit(1);
+					}
+					
+				} else {
+					$query->where([$fromClient["search_by"] => $fromClient["value"]])->limit(1);
+					
 				}
 				
-				$this->logAndRespond($errorMsg);
-			} else {
-				$errorMsg = "[ERROR] Missing method arguments!";
-				$this->logAndRespond($errorMsg, $data);
-			}
-		} else if(in_array($fromClient["method"], $needsData)) {
-			//Parsira primljene podatke u data paremetru nazad u polje
-			/* dump($data);die();
-			foreach($data as $key=>$array_member){
-				$data[$key] = json_decode($data[$key], true);
-				if($this->checkForTable($key)){
-					$this->firstLevel($key, $data[$key]);
+
+				$query = $query->toArray();
+				if(!empty($query)){
+					$query = $query[0];
 				}
-			} */
+			} else {
+				$query = $query->toArray();
+			}
 			
-			$this->firstLevel("Users", $data);
+		
+			if(count($query)!=0){
+				$response = $this->convertNames($query, true);
+			} else {
+				$errorMsg = "[ERROR] No record found!";
+				$this->logAndRespond($errorMsg);
+			}
+
+			$this->logAndRespond(null, json_encode($response), null, 200);
+
+		} else if($fromClient["method"]=="setData"){
+			$data = $this->convertNames($data, false);
+			$workingTable = TableRegistry::get($fromClient["table_name"]);
+			$newEntity = $workingTable->newEntity();
+			$workingTable->patchEntity($newEntity, $data);
 			
+			if(!$workingTable->save($newEntity)){
+				$errorMsg = "[ERROR] Unable to save entity!";
+				$this->logAndRespond($errorMsg);
+			}
+			
+			$this->logAndRespond("User saved successfully!", null, null, 200);
+		
+		} else {
+			$errorMsg = "[ERROR] Unknown method!";
+			$this->logAndRespond($errorMsg);
 		}
-		
-		
-		
-		$errorMsg = "[ERROR] Unknown method!";
-		$this->logAndRespond($errorMsg);
+		die();
     }
 	
+	
+	private function convertNames($data, $toCamelCase){
+		foreach ($data as $key=>$value){
+
+				if(is_object($value) && get_class($value) == "Cake\I18n\FrozenTime") {
+					$value = $value->format('h:i:s');
+					// die();
+					
+				}
+				if(is_array($value)){
+					$i++;
+					$data[$key] = $this->convertNames($value, $toCamelCase);
+				} else if(is_object($value) && get_class($value) != "Cake\I18n\FrozenTime") {
+
+					$data[$key] = $this->convertNames($value->toArray(), $toCamelCase);
+					
+				} else {
+					
+					if($toCamelCase){
+						$fixed_name = \Cake\Utility\Inflector::camelize($key);
+						$fixed_name = lcfirst($fixed_name);
+						
+						// $fixed_name = $this->CapsTo_($key ,1);
+						// $fixed_name = lcfirst($fixed_name);
+					} else {
+						$fixed_name = \Cake\Utility\Inflector::underscore($key);
+					}
+					
+					if($fixed_name!=$key){
+						$data[$fixed_name] = $value;
+						unset($data[$key]);
+					}
+				}
+		}
+
+		return $data;
+	}
 	private function logAndRespond($msg, $data = null, $table=null, $statusCode=404){
 		$logFile = "";
 		$response = [];
@@ -169,63 +213,6 @@ class PagesController extends AppController
 		file_put_contents('log_file.txt', $logFile);
 		die();
 	}
-
-	
-	private function firstLevel($klj, $vr){
-		$workingTable = TableRegistry::get($klj);
-		$newRow = $workingTable->newEntity();
-		
-		// $forInsert = $vr[0];
-		$forInsert = $vr;
-		
-	
-		foreach ($forInsert as $key => $value) {
-			$key = $this->CapsTo_($key);
-			$key = strtolower($key);
-			
-			if($this->checkForTable($key)){
-				$newRow->set($key, $this->lastLevel($key, $value));
-			} else {
-				$newRow->set($key, $value);
-			}
-
-		}
-		if($newRow->id==null){
-			unset($newRow->id);
-		}
-		
-		// dump($newRow);die();	
-		if($workingTable->save($newRow)){
-			$this->logAndRespond("New user is successfully saved!", null, null, 200);
-		} else {
-			$this->logAndRespond("[ERROR] Saving new user failed!");
-		}
-	}
-	
-	private function lastLevel($klj, $vr){
-		$workingTable = TableRegistry::get($klj);
-		$newRow = $workingTable->newEntity();
-		$forInsert = $vr;
-	
-		foreach ($forInsert as $key => $value) {
-			$key = $this->CapsTo_($key);
-			$key = strtolower($key);
-			$newRow->set($key, $value);
-		}
-		
-		return $newRow;
-	}
-	
-	private function checkForTable($a){
-		$targets = array('discounts', 'store', 'users','places','appointments',"teams_users","teams", "reservations", "sports");
-		foreach($targets as $t) 
-		{
-			if ($a == $t) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	private function CapsTo_($key, $direction = NULL){
 		if($direction == NULL){
@@ -235,5 +222,58 @@ class PagesController extends AppController
 			return str_replace('_','',ucwords($key,'_'));
 		}
 		
+	}
+	
+	public function pictureUpload(){
+		$this->viewBuilder()->layout('ajax');
+
+		if($this->request->data != null){
+			
+			$debug = '<pre>'.print_r($this->request->data["method"],1).'</pre><hr>';
+				file_put_contents("photo_upload.log", $debug, FILE_APPEND);
+			
+			
+			$data = $this->request->data;
+			$data['photo_url'] = $data["upload"];
+			$filename = $data ['photo_url'] ['name'];
+			$newFilename = hash_hmac ( 'sha256', $filename, 'alo' ) . rand(1, 100) . '.jpg';
+			
+			$destination = WWW_ROOT . "img/uploads/users/" . $newFilename;
+			$urlLink = 'uploads/users/' . $newFilename;
+			
+			if (!move_uploaded_file ( $data ['photo_url'] ['tmp_name'], $destination )) {
+				$errorMsg = "[ERROR] Unable to upload picture!";
+				$this->logAndRespond($errorMsg);
+			}
+			
+			if(strpos($data["method"], "changeUserPicture")){
+				$table_name = "Users";
+			} else {
+				$errorMsg = "[ERROR] Invalid change picture method! ".$data["method"];
+				$this->logAndRespond($errorMsg);
+			}
+			
+			$workingTable = TableRegistry::get($table_name);
+			$entity = $workingTable->get($data["id"]);
+			if($entity == null){
+				$errorMsg = "[ERROR] Record not found in table Users! ".$data["method"];
+				$this->logAndRespond($errorMsg);
+			}
+			$entity->img = "http://sportmanager.fitforev.lin25.host25.com/img/".$urlLink;
+			if($workingTable->save($entity)){
+				$debug = '<pre>'.print_r($this->request->data,1).'</pre><hr>';
+				file_put_contents("photo_upload.log", $debug, FILE_APPEND);
+				
+				$this->logAndRespond($entity->img, null, null, 200);				
+			} else {
+				$errorMsg = "[ERROR] Unable to update database record!";
+				$this->logAndRespond($errorMsg);
+			}
+			
+		} else {
+			echo file_get_contents("photo_upload.log");
+		}
+
+		die();
 	}
 }

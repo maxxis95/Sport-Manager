@@ -89,23 +89,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
         getUserDataForTextView();
     }
 
-    public void openImagePicker(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
-            System.out.println("----------------->1. ProfileFragment:onActivityResult");
-            presenter.changeProfilePicture(data, user.id, activity);
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -121,6 +104,23 @@ public class ProfileFragment extends Fragment implements ProfileView {
                 }
                 return;
             }
+        }
+    }
+
+    public void openImagePicker(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
+            System.out.println("----------------->1. ProfileFragment:onActivityResult");
+            presenter.changeProfilePicture(data, user.id, activity);
         }
     }
 
