@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
@@ -39,6 +43,7 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
     private TextView txtViewKontakt;
     private TextView txtViewAdresa;
     protected MapView mMapView;
+    private Button reservation_btn;
 
     @Nullable
     @Override
@@ -75,6 +80,21 @@ public class PlaceDetails extends android.app.Fragment implements PlaceDetailsVi
             String place_lon = bundle.getString("place_lon",null);
             showPlace(place_name, place_address, place_contact, place_imgUrl, place_workingHoursFrom, place_workingHoursTo, place_lat, place_lon);
         }
+        reservation_btn = (Button) getActivity().findViewById(R.id.reservation_btn);
+
+        reservation_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new ReservationFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+                System.out.println("----------------->RegisterFragment:onClickListener");
+            }
+
+        });
+
+
 
     }
     @Override

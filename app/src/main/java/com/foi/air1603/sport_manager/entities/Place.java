@@ -10,7 +10,7 @@ public class Place {
     public String name;
     public String address;
     public Integer userId;
-    public String imgUrl;
+    public String img;
     public String contact;
     public String workingHoursFrom;
     public String workingHoursTo;
@@ -34,7 +34,7 @@ public class Place {
     }
 
     public String getImg() {
-        return imgUrl;
+        return img;
     }
 
     public String getContact() {

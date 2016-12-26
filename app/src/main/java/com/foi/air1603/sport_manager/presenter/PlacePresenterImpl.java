@@ -26,7 +26,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     List<String> contact = new ArrayList<String>();
     List<String> workingHoursFrom = new ArrayList<String>();
     List<String> workingHoursTo = new ArrayList<String>();
-    List<String> imgUrl = new ArrayList<String>();
+    List<String> img = new ArrayList<String>();
     List<String> lat = new ArrayList<String>();
     List<String> lon = new ArrayList<String>();
     List<Place> places = null;
@@ -109,16 +109,15 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 name.add(place.getName());
                 address.add(place.getAddress());
                 contact.add(place.getContact());
-                imgUrl.add(place.getImg());
+                img.add(place.getImg());
                 workingHoursFrom.add(place.getWorkingHoursFrom());
                 workingHoursTo.add(place.getWorkingHoursTo());
                 lat.add(place.getLat());
                 lon.add(place.getLon());
 
-                System.out.println(place.getAddress());
-
             }
-            this.view.showTestToast(name, address, contact, imgUrl, workingHoursFrom, workingHoursTo, lat, lon);
+            this.view.showTestToast(name, address, contact, img, workingHoursFrom, workingHoursTo, lat, lon);
+
         }
     }
 }
