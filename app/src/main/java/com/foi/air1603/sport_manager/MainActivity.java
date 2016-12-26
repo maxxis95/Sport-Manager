@@ -5,13 +5,16 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +23,10 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
+import com.foi.air1603.sport_manager.view.LoginView;
+import com.foi.air1603.sport_manager.view.ProfileView;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +36,8 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
+    private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
     private AllPlacesFragment allPlacesFragment;
     private NavigationView navigationView;
@@ -85,11 +93,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initAllPlacesFragment();
     }
 
+    public void updateHeaderView(){
+        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
+        Log.v(TAG, "Pokušavam refreshat sliku");
+
+        user = getIntent().getExtras().getParcelable("User");
+        setAllUsersDataToHeaderView();
+    }
+
     private void setAllUsersDataToHeaderView() {
         View header = navigationView.getHeaderView(0);
         TextView firstLastName = (TextView) header.findViewById(R.id.textViewFirstLastName);
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
+
+        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
+        Log.v(TAG, "Učitavam sve podatke u header, img url je: "+user.img);
 
         if (!user.first_name.isEmpty()
                 && !user.last_name.isEmpty()) {
@@ -224,4 +243,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
 }

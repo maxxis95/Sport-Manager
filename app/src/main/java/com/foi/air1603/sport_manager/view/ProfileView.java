@@ -7,5 +7,5 @@ import android.net.Uri;
  */
 
 public interface ProfileView {
-    void getImageForImageView(Uri imageUri);
+    void getImageForImageView(String imageUrl, Uri imageUri);
 }

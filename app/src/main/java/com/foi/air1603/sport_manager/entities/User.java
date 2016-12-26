@@ -1,8 +1,11 @@
 package com.foi.air1603.sport_manager.entities;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.foi.air1603.sport_manager.MainActivity;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -19,7 +22,6 @@ public class User implements Parcelable {
     public String address;
     public String password;
     public String username;
-    public Uri uploadedImage;
 
     @Override
     public int describeContents() {
@@ -41,14 +43,6 @@ public class User implements Parcelable {
     }
 
     public User() {
-    }
-
-    public Uri getUploadedImage() {
-        return uploadedImage;
-    }
-
-    public void setUploadedImage(Uri uploadedImage) {
-        this.uploadedImage = uploadedImage;
     }
 
     protected User(Parcel in) {

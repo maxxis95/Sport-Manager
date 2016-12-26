@@ -61,8 +61,8 @@ public class ProfilePresenterImpl implements ProfilePresenter, PresenterHandler 
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-        if(response.getStatusCode() == 200 && fileUri != null){
-            view.getImageForImageView(fileUri);
+        if(response.getStatusCode() == 200 && response.getMessage() != null){
+            view.getImageForImageView(response.getMessage(), fileUri);
         }
 
     }

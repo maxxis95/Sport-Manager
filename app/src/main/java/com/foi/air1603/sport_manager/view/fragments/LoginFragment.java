@@ -54,6 +54,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
         if (pref.contains("User")) {
             Intent intent = new Intent(this.getActivity(), MainActivity.class).putExtra("User", retrieveLoginSession());
+
             startActivity(intent);
         } else {
             presenter = new LoginPresenterImpl(this);
