@@ -40,7 +40,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         int date = view.getDate();
         int id_place = view.getIdPlace();
         String searchBy = "place_id;date";
-        String value = id_place+";"+date;
+        String value = id_place + ";" + date;
         appointmentInteractor.getAppointmentsObjects(this, searchBy, value);
 
     }
@@ -50,29 +50,30 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
-        appointmentss = new Gson().fromJson(response.getData(), Appointment.class);
-       // Type collectionType = new TypeToken<List<Appointment>>(){}.getType();
-        //this.appointments = (List<Appointment>) new Gson().fromJson(response.getData() , collectionType);
+//        appointmentss = new Gson().fromJson(response.getData(), Appointment.class);
+        Type collectionType = new TypeToken<List<Appointment>>() {}.getType();
+        this.appointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
 
-        if(appointmentss !=null){
+       /* if(appointmentss !=null){
             System.out.println("eeeeradi"+appointmentss.getStart());
 
-        }
+        }*/
 
-       /* if(this.appointments != null)  {
+       if (this.appointments != null) {
             for (final Appointment appointment : this.appointments) {
                 id.add(appointment.getId());
                 placeId.add(appointment.getPlaceId());
                 date.add(appointment.getDate());
-                System.out.println("id:"+appointment.getId()+"start:::"+appointment.getStart());
+                System.out.println("id:" + appointment.getId() + "start:::" + appointment.getStart());
                 start.add(appointment.getStart());
                 end.add(appointment.getEnd());
 
-            }*/
-          // this.view.showAppointments(id, placeId, date, start, end);
-    }
+            }
+
+           this.view.showAppointments(id,placeId,date,start,end);
+        }
 
     }
-
+}
 
 
