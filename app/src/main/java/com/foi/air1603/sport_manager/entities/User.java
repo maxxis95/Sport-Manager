@@ -15,8 +15,8 @@ public class User implements Parcelable {
     public int id;
     public int type;
     public String img;
-    public String first_name;
-    public String last_name;
+    public String firstName;
+    public String lastName;
     public String email;
     public String phone;
     public String address;
@@ -33,8 +33,8 @@ public class User implements Parcelable {
         dest.writeInt(this.id);
         dest.writeInt(this.type);
         dest.writeString(this.img);
-        dest.writeString(this.first_name);
-        dest.writeString(this.last_name);
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
         dest.writeString(this.email);
         dest.writeString(this.phone);
         dest.writeString(this.address);
@@ -49,8 +49,8 @@ public class User implements Parcelable {
         this.id = in.readInt();
         this.type = in.readInt();
         this.img = in.readString();
-        this.first_name = in.readString();
-        this.last_name = in.readString();
+        this.firstName = in.readString();
+        this.lastName = in.readString();
         this.email = in.readString();
         this.phone = in.readString();
         this.address = in.readString();

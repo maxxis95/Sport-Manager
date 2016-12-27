@@ -159,8 +159,8 @@ public class ProfileFragment extends Fragment implements ProfileView {
         TextView addressProfile = (TextView) getView().findViewById(R.id.profileAddress);
         TextView phoneProfile = (TextView) getView().findViewById(R.id.profilePhone);
 
-        nameProfile.setText(user.first_name);
-        lastNameProfile.setText(user.last_name);
+        nameProfile.setText(user.firstName);
+        lastNameProfile.setText(user.lastName);
         emailProfile.setText(user.email);
         addressProfile.setText(user.address);
         phoneProfile.setText(user.phone);

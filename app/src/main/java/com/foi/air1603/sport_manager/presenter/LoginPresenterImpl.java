@@ -8,6 +8,10 @@ import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
@@ -67,7 +71,12 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
-        user = new Gson().fromJson(response.getData(), User.class);
+
+        Type collectionType = new TypeToken<List<User>>(){}.getType();
+        List<User> users = (List<User>) new Gson().fromJson(response.getData(), collectionType);
+        user = users.get(0);
+
+        System.out.println(user);
 
         if (user == null) {
             onUsernameError();

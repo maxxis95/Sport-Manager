@@ -79,22 +79,11 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
 
         if(!placesAlreadyLoaded){
             AirWebServiceResponse response = (AirWebServiceResponse) result;
-            Place singlePlace = null;
-
-            try {
-                singlePlace = new Gson().fromJson(response.getData(), Place.class);
-            }
-            catch (JsonParseException e) {
-                System.out.println("[ERROR] " + e);
-            }
-            if(singlePlace != null) {
-                System.out.println(singlePlace.getName());
-            }
 
             System.out.println(((AirWebServiceResponse) result).getData());
             try {
                 Type collectionType = new TypeToken<List<Place>>(){}.getType();
-                this.places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
+                places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
             }
             catch (JsonParseException e) {
                 System.out.println("[ERROR] " + e);

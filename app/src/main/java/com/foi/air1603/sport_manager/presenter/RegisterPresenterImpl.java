@@ -151,8 +151,8 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         user.username = view.getUsernameFromEditText();
         user.address = view.getAddressFromEditText();
         user.email = view.getEmailFromEditText();
-        user.first_name = view.getNameFromEditText();
-        user.last_name = view.getLastNameFromEditText();
+        user.firstName = view.getNameFromEditText();
+        user.lastName = view.getLastNameFromEditText();
         user.phone = view.getPhoneNumberFromEditText();
         user.password = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
 
