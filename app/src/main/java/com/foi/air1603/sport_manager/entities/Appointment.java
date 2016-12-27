@@ -10,6 +10,7 @@ public class Appointment {
     public String date;
     public String start;
     public String end;
+    public Integer maxplayers;
 
 
     public int getId() {
@@ -30,5 +31,8 @@ public class Appointment {
 
     public String getEnd() {
         return end;
+    }
+    public Integer getMaxplayers() {
+        return maxplayers;
     }
 }

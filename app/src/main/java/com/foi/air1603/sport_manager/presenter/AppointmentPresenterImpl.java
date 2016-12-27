@@ -25,8 +25,8 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     List<String> date = new ArrayList<String>();
     List<String> start = new ArrayList<String>();
     List<String> end = new ArrayList<String>();
+    List<Integer> maxplayers = new ArrayList<Integer>();
     List<Appointment> appointments = null;
-    private Appointment appointmentss;
 
 
     public AppointmentPresenterImpl(ReservationView reservationView) {
@@ -47,28 +47,32 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
     @Override
     public void getResponseData(Object result) {
-        System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
+        System.out.println("----------------->8. AppointmentPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
         Type collectionType = new TypeToken<List<Appointment>>() {
         }.getType();
 
         this.appointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
+
         for (final Appointment appointment : this.appointments) {
             id.add(appointment.getId());
             placeId.add(appointment.getPlaceId());
             date.add(appointment.getDate());
             start.add(appointment.getStart());
             end.add(appointment.getEnd());
+            maxplayers.add((appointment.getMaxplayers()));
 
         }
-        this.view.showAppointments(id, placeId, date, start, end);
+
+        this.view.showAppointments(id, placeId, date, start, end, maxplayers);
         appointments.clear();
         id.clear();
         placeId.clear();
         date.clear();
         start.clear();
         end.clear();
+        maxplayers.clear();
 
 
 

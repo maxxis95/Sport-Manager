@@ -14,6 +14,8 @@ public interface ReservationView {
 
     int getIdPlace();
 
-    void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end);
+    void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end, List<Integer> maxplayers);
+
+    void showSports(List<Integer>id, List<String>name );
 
 }
