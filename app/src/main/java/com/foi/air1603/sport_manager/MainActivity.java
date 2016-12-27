@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
         Log.v(TAG, "Učitavam sve podatke u header, img url je: "+user.img);
-   
+        if(true)
+            return;
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
             firstLastName.setText(user.firstName + ' ' + user.lastName + ' ');

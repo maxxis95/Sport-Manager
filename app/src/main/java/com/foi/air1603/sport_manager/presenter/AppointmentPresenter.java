@@ -5,5 +5,7 @@ package com.foi.air1603.sport_manager.presenter;
  */
 
 public interface AppointmentPresenter {
-    void getMultipleAppointments();
+    void loadAllAppointments();
+    void showAppointmentsForDate(Integer date);
+
 }

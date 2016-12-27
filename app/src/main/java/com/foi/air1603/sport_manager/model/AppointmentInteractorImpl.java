@@ -24,17 +24,12 @@ public class AppointmentInteractorImpl implements AppointmentInteractor, DataLoa
 
     @Override
     public void getAppointmentsObjects(Object listener, String searchBy, String value) {
-
         dataLoader.loadData(this, "getData", "Appointments", searchBy, value, Appointment.class, null);
-
     }
-
 
     @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         mPresenterHandler.getResponseData(result);
-
     }
-
 
 }
