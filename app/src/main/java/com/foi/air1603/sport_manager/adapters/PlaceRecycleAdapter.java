@@ -66,15 +66,11 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             Uri uri = Uri.parse(place_img.get(position));
 
-            Picasso.with(cont).load(uri).resize(577, 120).into(((PlaceViewHolder) holder).place_img_view);
-            System.out.println("kurac 1");
+            Picasso.with(cont).load(uri).into(((PlaceViewHolder) holder).place_img_view);
 
         } else {
             ((PlaceViewHolder) holder).place_img_view.setImageResource(R.drawable.place_stock);
         }
-
-
-
 
     }
 
