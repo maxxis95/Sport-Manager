@@ -56,4 +56,10 @@
     <string name="PlaceAdd">Dodaj objekt</string>
     <string name="PlaceContinue">Nastavak...</string>
     <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
+    <string name="tvPlaceName">Naziv objekta</string>
+    <string name="placeAddress">Adresa</string>
+    <string name="placeWorkingHours">Radno vrijeme</string>
+    <string name="place_working_hours">Radno vrijeme</string>
+    <string name="placePhone">Kontakt</string>
+    <string name="placeBook">Rezerviraj termin</string>
 </resources>

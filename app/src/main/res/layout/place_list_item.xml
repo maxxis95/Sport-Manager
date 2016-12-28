@@ -22,12 +22,13 @@
         <TextView
             android:id="@+id/place_name"
             android:textSize="20sp"
-            android:layout_width="220dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:textIsSelectable="false"
             tools:text="Name"
+            android:textColor="#212121"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -40,6 +41,7 @@
             android:layout_below="@+id/place_name"
             android:paddingStart="8dp"
             tools:text="Address"
+            android:textColor="#757575"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"/>
 
         <ImageView

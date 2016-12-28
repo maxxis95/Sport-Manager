@@ -9,7 +9,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +25,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -91,7 +92,7 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
             String place_lon = bundle.getString("place_lon", null);
             showPlace(place_name, place_address, place_contact, place_imgUrl, place_workingHoursFrom, place_workingHoursTo, place_lat, place_lon);
         }
-        reservation_btn = (Button) getActivity().findViewById(R.id.reservation_btn);
+        reservation_btn = (Button) getActivity().findViewById(R.id.buttonPlaceBook);
 
         reservation_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,14 +161,14 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void showPlace(String place_name, String place_address, String place_contact, String place_imgUrl, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
-        txtViewAdresa = (TextView) getView().findViewById(R.id.textViewAdress);
-        txtViewName = (TextView) getView().findViewById(R.id.textViewName);
-        txtViewRadnoVrijeme = (TextView) getView().findViewById(R.id.textViewRadnoVrijeme);
-        txtViewKontakt = (TextView) getView().findViewById(R.id.textViewKontakt);
-        txtViewAdresa.setText("Adresa: " + place_address);
+        txtViewAdresa = (TextView) getView().findViewById(R.id.tvPlaceAddress);
+        txtViewName = (TextView) getView().findViewById(R.id.tvPlaceName);
+        txtViewRadnoVrijeme = (TextView) getView().findViewById(R.id.tvPlaceWorkingHours);
+        txtViewKontakt = (TextView) getView().findViewById(R.id.tvPlacePhone);
+        txtViewAdresa.setText(place_address);
         txtViewName.setText(place_name);
-        txtViewRadnoVrijeme.setText("Radno vrijeme: " + place_workingHoursFrom + " - " + place_workingHoursTo);
-        txtViewKontakt.setText("Kontakt: " + place_contact);
+        txtViewRadnoVrijeme.setText(place_workingHoursFrom.substring(0, 5) + " - " + place_workingHoursTo.substring(0, 5));
+        txtViewKontakt.setText(place_contact);
 
         placeAddress = place_address;
         placeName = place_name;
@@ -223,7 +224,8 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
         map.addMarker(new MarkerOptions()
                 .position(p1)
                 .title(placeName)
-                .draggable(false).visible(true));
+                .draggable(false).visible(true)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             }
         });
 
