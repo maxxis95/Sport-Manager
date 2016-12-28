@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
+import com.foi.air1603.sport_manager.view.MyReservationsView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyReservationsFragment extends android.app.Fragment {
+public class MyReservationsFragment extends android.app.Fragment implements MyReservationsView {
 
+    MyReservationsPresenterImpl myReservationsPresenter;
 
     public MyReservationsFragment() {
         // Required empty public constructor
@@ -27,4 +30,11 @@ public class MyReservationsFragment extends android.app.Fragment {
         return inflater.inflate(R.layout.fragment_my_reservations, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        myReservationsPresenter = new MyReservationsPresenterImpl(this);
+
+    }
 }
