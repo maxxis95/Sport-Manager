@@ -1,7 +1,5 @@
 package com.foi.air1603.sport_manager.view;
 
-import com.foi.air1603.sport_manager.entities.Appointment;
-
 import java.util.List;
 
 /**
@@ -11,8 +9,11 @@ import java.util.List;
 public interface ReservationView {
 
     int getDate();
+
     int getIdPlace();
+
     void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end, List<Integer> maxplayers);
+
     void showSports(List<Integer> id, List<String> name);
 
     void initializeCalendar();

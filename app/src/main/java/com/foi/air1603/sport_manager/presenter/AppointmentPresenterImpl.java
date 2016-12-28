@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by Korisnik on 26-Dec-16.
@@ -23,8 +22,8 @@ import java.util.TimeZone;
 
 public class AppointmentPresenterImpl implements AppointmentPresenter, PresenterHandler {
 
+    private static AppointmentPresenterImpl instance;
     AppointmentInteractor appointmentInteractor;
-    private ReservationView view;
     List<Integer> id = new ArrayList<Integer>();
     List<Integer> placeId = new ArrayList<Integer>();
     List<String> date = new ArrayList<String>();
@@ -32,8 +31,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     List<String> end = new ArrayList<String>();
     List<Integer> maxplayers = new ArrayList<Integer>();
     List<Appointment> appointments = null;
-
-    private static AppointmentPresenterImpl instance;
+    private ReservationView view;
 
     private AppointmentPresenterImpl() {
     }
@@ -69,6 +67,10 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         System.out.println("this.showAppointmentsForDate" + this.appointments);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if (this.appointments == null) {
+            return;
+        }
 
         for (final Appointment appointment : this.appointments) {
             Date dateTmp = null;
@@ -113,30 +115,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
         this.appointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
 
-
         view.initializeCalendar();
-
-
-       /* for (final Appointment appointment : this.appointments) {
-            id.add(appointment.getId());
-            placeId.add(appointment.getPlaceId());
-            date.add(appointment.getDate());
-            start.add(appointment.getStart());
-            end.add(appointment.getEnd());
-            maxplayers.add((appointment.getMaxplayers()));
-
-        }
-
-        this.view.showAppointments(id, placeId, date, start, end, maxplayers);
-       // appointments.clear();
-        id.clear();
-        placeId.clear();
-        date.clear();
-        start.clear();
-        end.clear();
-        maxplayers.clear();*/
-
-
     }
 }
 

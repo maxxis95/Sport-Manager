@@ -42,7 +42,7 @@
     <string name="profilePhone">Telefon</string>
     <string name="nav_my_profile">Moj Profil</string>
     <string name="nav_places_list">Popis sportskih objekata</string>
-    <string name="nav_my_reserved">Moji termini</string>
+    <string name="nav_my_places">Moji sportski objekti</string>
     <string name="nav_my_reservations">Moje rezervacije</string>
     <string name="nav_add_new_reservation">Dodavanje termina</string>
     <string name="nav_settings">Postavke</string>
@@ -56,10 +56,14 @@
     <string name="PlaceAdd">Dodaj objekt</string>
     <string name="PlaceContinue">Nastavak...</string>
     <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
+
     <string name="tvPlaceName">Naziv objekta</string>
     <string name="placeAddress">Adresa</string>
     <string name="placeWorkingHours">Radno vrijeme</string>
     <string name="place_working_hours">Radno vrijeme</string>
     <string name="placePhone">Kontakt</string>
     <string name="placeBook">Rezerviraj termin</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

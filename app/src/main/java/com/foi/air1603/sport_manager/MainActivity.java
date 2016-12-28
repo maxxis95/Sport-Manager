@@ -5,9 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,12 +21,13 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
-import com.foi.air1603.sport_manager.view.LoginView;
-import com.foi.air1603.sport_manager.view.ProfileView;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
-import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
+import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by Karlo on 3.12.2016..
@@ -39,12 +38,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
     private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
+    public static boolean debugLog = true;
+    public static Integer debugCounter = 0;
     private AllPlacesFragment allPlacesFragment;
+    private MyPlacesFragment myPlacesFragment;
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
 
     private SharedPreferences pref;
+
+    public static void consoleLog(Method method, String errorMsg) {
+        if (debugLog) {
+            String TAG = "[" + method.getDeclaringClass().getSimpleName() + ":" + method.getName() + "]("+(debugCounter+1)+")";
+            Log.v(TAG, errorMsg);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +98,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setUserView() {
         setAllUsersDataToHeaderView();
-        hideUserDrawerActionItems();
+        hideMyPlaces();
+        initAllPlacesFragment();
+    }
+    private void setAdminView() {
+        setAllUsersDataToHeaderView();
         initAllPlacesFragment();
     }
 
-    public void updateHeaderView(){
-        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
-        Log.v(TAG, "Pokušavam refreshat sliku");
+    private void setOwnerView() {
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
+    }
+
+    public void updateHeaderView() {
+
+        consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Pokušavam refreshat sliku");
 
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
@@ -107,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
-        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
-        Log.v(TAG, "Učitavam sve podatke u header, img url je: "+user.img);
-        if(true)
-            return;
+        String TAG = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        Log.v(TAG, "Učitavam sve podatke u header, img url je: " + user.img);
+
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
             firstLastName.setText(user.firstName + ' ' + user.lastName + ' ');
@@ -125,9 +143,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (user.img != null && !user.img.isEmpty()) {
             Picasso.with(this).load(user.img).into(userImg);
         } else {
-            userImg.setImageBitmap(null);
+            userImg.setImageResource(R.drawable.profile_stock);
         }
 
+    }
+    private void hideMyPlaces() {
+        Menu navMenu = navigationView.getMenu();
+        navMenu.findItem(R.id.nav_my_places).setVisible(false);
     }
 
     private void initAllPlacesFragment() {
@@ -136,21 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    private void hideUserDrawerActionItems() {
-        Menu navMenu = navigationView.getMenu();
-        navMenu.findItem(R.id.nav_add_new_reservation).setVisible(false);
-    }
-
-
-    private void setAdminView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
-
-    private void setOwnerView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
 
 
     //region Activity methods
@@ -198,12 +205,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             openProfileFragment();
         } else if (id == R.id.nav_places_list) {
             openAllPlacesFragment();
-        } else if (id == R.id.nav_my_reserved) {
-
+        } else if (id == R.id.nav_my_places) {
+            openMyPlacesFragment();
         } else if (id == R.id.nav_my_reservations) {
-
-        } else if (id == R.id.nav_add_new_reservation) {
-
+            openMyReservationsFragment();
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
@@ -230,6 +235,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    private void openMyPlacesFragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new MyPlacesFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    private void openMyReservationsFragment(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new MyReservationsFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     private void logout() {
