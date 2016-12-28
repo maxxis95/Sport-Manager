@@ -56,4 +56,7 @@
     <string name="PlaceAdd">Dodaj objekt</string>
     <string name="PlaceContinue">Nastavak...</string>
     <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

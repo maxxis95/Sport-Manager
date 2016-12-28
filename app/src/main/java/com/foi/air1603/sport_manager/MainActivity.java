@@ -23,6 +23,7 @@ import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -100,6 +101,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hideMyPlaces();
         initAllPlacesFragment();
     }
+    private void setAdminView() {
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
+    }
+
+    private void setOwnerView() {
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
+    }
 
     public void updateHeaderView() {
 
@@ -137,6 +147,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+    private void hideMyPlaces() {
+        Menu navMenu = navigationView.getMenu();
+        navMenu.findItem(R.id.nav_my_places).setVisible(false);
+    }
 
     private void initAllPlacesFragment() {
         allPlacesFragment = new AllPlacesFragment();
@@ -144,21 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    private void hideMyPlaces() {
-        Menu navMenu = navigationView.getMenu();
-        navMenu.findItem(R.id.nav_my_places).setVisible(false);
-    }
-
-    private void setAdminView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-
-    }
-
-    private void setOwnerView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
 
 
     //region Activity methods
@@ -209,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_places) {
             openMyPlacesFragment();
         } else if (id == R.id.nav_my_reservations) {
-
+            openMyReservationsFragment();
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
@@ -241,6 +240,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void openMyPlacesFragment() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new MyPlacesFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    private void openMyReservationsFragment(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new MyReservationsFragment());
         ft.addToBackStack(null);
         ft.commit();
     }
