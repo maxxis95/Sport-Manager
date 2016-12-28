@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
@@ -38,9 +42,17 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     private int dayGet;
     private int id_place;
     private int currentPickedDate;
+
+    private TextView appointmentLabel;
+    private ImageView appointmentImage;
+    private ImageView sportImage;
+    private ImageView playersImage;
     private Spinner spinnerAppointment;
     private Spinner spinnerSport;
     private Spinner spinnerMaxPlayers;
+    private Switch privateSwitch;
+    private Button setAppointmentButton;
+
     private View view;
     List<String> maxPlayers = new ArrayList<String>();
     private Context context;
@@ -69,18 +81,41 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         appointmentPresenter.loadAllAppointments();
 
         this.view = view;
-        calendar = (CalendarView) view.findViewById(R.id.calendarView2);
+        calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
 
         // sets the first day of week according to Calendar.
         calendar.setFirstDayOfWeek(2);
 
         sportPresenter = new SportPresenterImpl(this);
-        spinnerAppointment = (Spinner) view.findViewById(R.id.spinner_appointments);
+
+        spinnerAppointment = (Spinner) view.findViewById(R.id.spinnerAppointments);
         spinnerAppointment.setVisibility(View.GONE);
+        appointmentLabel = (TextView) view.findViewById(R.id.tvReservationAppointmentLabel);
+        appointmentLabel.setVisibility(View.GONE);
+        appointmentImage = (ImageView) view.findViewById(R.id.reservationAppointmentImage);
+        appointmentImage.setVisibility(View.GONE);
+        sportImage = (ImageView) view.findViewById(R.id.reservationSportImage);
+        sportImage.setVisibility(View.GONE);
+        playersImage = (ImageView) view.findViewById(R.id.reservationPlayersImage);
+        playersImage.setVisibility(View.GONE);
+        privateSwitch = (Switch) view.findViewById(R.id.switchAppointmentPrivate);
+        privateSwitch.setVisibility(View.GONE);
+        setAppointmentButton = (Button) view.findViewById(R.id.buttonSetAppointment);
+        setAppointmentButton.setVisibility(View.GONE);
+
         spinnerAppointment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 spinnerMaxPlayers.setVisibility(View.VISIBLE);
+                spinnerSport.setVisibility(View.VISIBLE);
+                appointmentLabel.setVisibility(View.VISIBLE);
+                appointmentImage.setVisibility(View.VISIBLE);
+                sportImage.setVisibility(View.VISIBLE);
+                sportImage.setVisibility(View.VISIBLE);
+                playersImage.setVisibility(View.VISIBLE);
+                privateSwitch.setVisibility(View.VISIBLE);
+                setAppointmentButton.setVisibility(View.VISIBLE);
+
                 int max = Integer.parseInt(maxPlayers.get(position));
 
                 List<Integer> maxPly = new ArrayList<Integer>();
@@ -101,15 +136,11 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             }
 
         });
-        spinnerSport = (Spinner) view.findViewById(R.id.spinner_sports);
+        spinnerSport = (Spinner) view.findViewById(R.id.spinnerSports);
         spinnerSport.setVisibility(View.GONE);
-        spinnerMaxPlayers = (Spinner) view.findViewById(R.id.spinner_maxplayers);
+        spinnerMaxPlayers = (Spinner) view.findViewById(R.id.spinnerPlayers);
         spinnerMaxPlayers.setVisibility(View.GONE);
         sportPresenter.getMultipleSports();
-        System.out.println("2222222222222");
-
-
-
     }
 
     @Override
@@ -143,6 +174,13 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 spinnerAppointment.setVisibility(View.GONE);
                 spinnerSport.setVisibility(View.GONE);
                 spinnerMaxPlayers.setVisibility(View.GONE);
+                appointmentLabel.setVisibility(View.GONE);
+                appointmentImage.setVisibility(View.GONE);
+                sportImage.setVisibility(View.GONE);
+                sportImage.setVisibility(View.GONE);
+                playersImage.setVisibility(View.GONE);
+                privateSwitch.setVisibility(View.GONE);
+                setAppointmentButton.setVisibility(View.GONE);
 
                 currentPickedDate = getDate();
                 appointmentPresenter.showAppointmentsForDate(getDate());
@@ -179,11 +217,26 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         if(id.size() == 0){
             spinnerAppointment.setVisibility(View.GONE);
             spinnerSport.setVisibility(View.GONE);
+            appointmentLabel.setVisibility(View.GONE);
+            appointmentImage.setVisibility(View.GONE);
+            sportImage.setVisibility(View.GONE);
+            sportImage.setVisibility(View.GONE);
+            playersImage.setVisibility(View.GONE);
+            privateSwitch.setVisibility(View.GONE);
+            setAppointmentButton.setVisibility(View.GONE);
             return;
         }
 
         spinnerAppointment.setVisibility(View.VISIBLE);
         spinnerSport.setVisibility(View.VISIBLE);
+        appointmentLabel.setVisibility(View.VISIBLE);
+        appointmentImage.setVisibility(View.VISIBLE);
+        sportImage.setVisibility(View.VISIBLE);
+        sportImage.setVisibility(View.VISIBLE);
+        playersImage.setVisibility(View.VISIBLE);
+        privateSwitch.setVisibility(View.VISIBLE);
+        setAppointmentButton.setVisibility(View.VISIBLE);
+
         List<String> appointments = new ArrayList<String>();
 
         for (int i = 0; i < start.size(); i++) {
