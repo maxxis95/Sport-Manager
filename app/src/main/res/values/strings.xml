@@ -42,7 +42,7 @@
     <string name="profilePhone">Telefon</string>
     <string name="nav_my_profile">Moj Profil</string>
     <string name="nav_places_list">Popis sportskih objekata</string>
-    <string name="nav_my_reserved">Moji termini</string>
+    <string name="nav_my_places">Moji sportski objekti</string>
     <string name="nav_my_reservations">Moje rezervacije</string>
     <string name="nav_add_new_reservation">Dodavanje termina</string>
     <string name="nav_settings">Postavke</string>

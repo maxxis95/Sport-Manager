@@ -11,17 +11,13 @@
             android:icon="@drawable/ic_menu_places_list"
             android:title="@string/nav_places_list" />
         <item
-            android:id="@+id/nav_my_reserved"
+            android:id="@+id/nav_my_places"
             android:icon="@drawable/ic_menu_my_reserved"
-            android:title="@string/nav_my_reserved" />
+            android:title="@string/nav_my_places" />
         <item
             android:id="@+id/nav_my_reservations"
             android:icon="@drawable/ic_menu_my_reservations"
             android:title="@string/nav_my_reservations" />
-        <item
-            android:id="@+id/nav_add_new_reservation"
-            android:icon="@drawable/ic_menu_add_new_reservation"
-            android:title="@string/nav_add_new_reservation" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"

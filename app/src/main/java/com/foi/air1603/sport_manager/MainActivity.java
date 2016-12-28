@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
     private AllPlacesFragment allPlacesFragment;
+    private MyPlacesFragment myPlacesFragment;
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
@@ -85,11 +87,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setUserView() {
         setAllUsersDataToHeaderView();
         hideUserDrawerActionItems();
+        hideMyPlaces();
         initAllPlacesFragment();
     }
 
-    public void updateHeaderView(){
-        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
+    public void updateHeaderView() {
+        String TAG = new Object() {
+        }.getClass().getEnclosingMethod().getName();
         Log.v(TAG, "Pokušavam refreshat sliku");
 
         user = getIntent().getExtras().getParcelable("User");
@@ -102,8 +106,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
-        String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
-        Log.v(TAG, "Učitavam sve podatke u header, img url je: "+user.img);
+        String TAG = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        Log.v(TAG, "Učitavam sve podatke u header, img url je: " + user.img);
 
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
@@ -130,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
+    private void hideMyPlaces() {
+        Menu navMenu = navigationView.getMenu();
+        navMenu.findItem(R.id.nav_my_places).setVisible(false);
+    }
+
     private void hideUserDrawerActionItems() {
         Menu navMenu = navigationView.getMenu();
         navMenu.findItem(R.id.nav_add_new_reservation).setVisible(false);
@@ -139,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setAdminView() {
         setAllUsersDataToHeaderView();
         initAllPlacesFragment();
+
     }
 
     private void setOwnerView() {
@@ -192,11 +203,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             openProfileFragment();
         } else if (id == R.id.nav_places_list) {
             openAllPlacesFragment();
-        } else if (id == R.id.nav_my_reserved) {
-
+        } else if (id == R.id.nav_my_places) {
+            openMyPlacesFragment();
         } else if (id == R.id.nav_my_reservations) {
-
-        } else if (id == R.id.nav_add_new_reservation) {
 
         } else if (id == R.id.nav_settings) {
 
@@ -224,6 +233,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    private void openMyPlacesFragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new MyPlacesFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     private void logout() {
