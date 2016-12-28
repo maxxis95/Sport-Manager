@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
