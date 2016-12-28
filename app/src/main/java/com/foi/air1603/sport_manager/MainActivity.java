@@ -148,6 +148,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
+
+
     //region Activity methods
     @Override
     public void onBackPressed() {
