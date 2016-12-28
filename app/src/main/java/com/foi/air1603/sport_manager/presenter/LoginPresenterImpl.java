@@ -69,7 +69,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void getResponseData(Object result) {
-        System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->8. LoginPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 

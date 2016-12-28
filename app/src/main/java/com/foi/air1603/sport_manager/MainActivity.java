@@ -50,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static void consoleLog(Method method, String errorMsg) {
         if (debugLog) {
-            String TAG = "[" + method.getDeclaringClass().getSimpleName() + ":" + method.getName() + "]("+(debugCounter+1)+")";
+            String TAG = "[" + method.getDeclaringClass().getSimpleName() + ":" + method.getName() + "]("+(debugCounter)+")";
             Log.v(TAG, errorMsg);
+            debugCounter++;
         }
     }
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void updateHeaderView() {
 
-        consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Pokušavam refreshat sliku");
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Pokušavam refreshat sliku");
 
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
@@ -125,9 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
-        String TAG = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Log.v(TAG, "Učitavam sve podatke u header, img url je: " + user.img);
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Učitavam sve podatke u header, img url je: " + user.img);
 
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {

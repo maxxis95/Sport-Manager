@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,7 +39,7 @@ import java.util.List;
  * Created by Korisnik on 06-Dec-16.
  */
 
-public class PlaceDetails extends Fragment implements PlaceDetailsView {
+public class OldClassForDeletion extends Fragment implements PlaceDetailsView {
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 26;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 28;
@@ -105,7 +106,7 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
                 ft.replace(R.id.fragment_container, newFragment);
                 ft.addToBackStack(null);
                 ft.commit();
-                System.out.println("----------------->RegisterFragment:onClickListener");
+                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->RegisterFragment:onClickListener");
             }
 
         });
@@ -127,7 +128,7 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
             try {
                 mMapView.onDestroy();
             } catch (NullPointerException e) {
-                System.out.println("Error while attempting MapView.onDestroy(), ignoring exception:" + e);
+                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Error while attempting MapView.onDestroy(), ignoring exception:" + e);
             }
         }
         super.onDestroy();
@@ -202,30 +203,30 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
 
-        Geocoder coder = new Geocoder(getActivity());
-        List<Address> address = null;
-        LatLng p1 = null;
-        try {
-            address = coder.getFromLocationName(placeAddress, 5);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                Geocoder coder = new Geocoder(getActivity());
+                List<Address> address = null;
+                LatLng p1 = null;
+                try {
+                    address = coder.getFromLocationName(placeAddress, 5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        Address location = address.get(0);
-        location.getLatitude();
-        location.getLongitude();
+                Address location = address.get(0);
+                location.getLatitude();
+                location.getLongitude();
 
-        p1 = new LatLng(location.getLatitude(), location.getLongitude());
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
-        MapsInitializer.initialize(getActivity());
+                MapsInitializer.initialize(getActivity());
 
-        map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
-        map.addMarker(new MarkerOptions()
-                .position(p1)
-                .title(placeName)
-                .draggable(false).visible(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                map.setMyLocationEnabled(true);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
+                map.addMarker(new MarkerOptions()
+                        .position(p1)
+                        .title(placeName)
+                        .draggable(false).visible(true)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             }
         });
 
@@ -243,7 +244,7 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
                     minimalLocationPermission = true;
                     return;
                 } else {
-                    System.out.println("Couldn't get fine location permission!");
+                    MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Couldn't get fine location permission!");
                 }
                 return;
             }
@@ -257,7 +258,7 @@ public class PlaceDetails extends Fragment implements PlaceDetailsView {
                     if(minimalLocationPermission){
                         configureMap();
                     } else {
-                        System.out.println("Couldn't get COARSE location permission!");
+                        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Couldn't get COARSE location permission!");
                     }
                 }
                 return;

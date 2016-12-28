@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.model.PlaceInteractor;
 import com.foi.air1603.sport_manager.model.PlaceInteractorImpl;
@@ -52,12 +53,12 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     }
 
     public void testGettingSinglePlace(){
-        System.out.println("----------------->2. PlacePresenterImpl:testGettingSinglePlace");
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->2. PlacePresenterImpl:testGettingSinglePlace");
         placeInteractor.getPlaceObject(this, "id", "1");
     }
     public void testGettingMultiplePlaces(){
-        System.out.println("----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
-        System.out.println("places variable: "+this.places);
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
+
         if(this.places == null){
             placeInteractor.getAllPlacesObjects(this);
         } else {
@@ -70,7 +71,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     @Override
     public void getResponseData(Object result) {
 
-        System.out.println("----------------->8. PlacePresenterImpl:getResponseData");
+        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->8. PlacePresenterImpl:getResponseData");
         Boolean placesAlreadyLoaded = false;
 
         if(result.getClass() == ArrayList.class && ((ArrayList) result).size()>1){
@@ -86,7 +87,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
             }
             catch (JsonParseException e) {
-                System.out.println("[ERROR] " + e);
+                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "[ERROR] " + e);
             }
         }
 

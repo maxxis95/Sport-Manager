@@ -9,7 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,25 +16,12 @@ import android.view.ViewGroup;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.PlaceRecycleAdapter;
-import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 import com.foi.air1603.sport_manager.view.PlaceView;
 
-import java.io.ByteArrayOutputStream;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.List;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Created by Karlo on 3.12.2016..
@@ -102,7 +88,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public void changeFragment(Integer place_id, String place_name, String place_address, String place_contact, String place_img, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
 
         // Create new fragment and transaction
-        Fragment newFragment = new PlaceDetails();
+        Fragment newFragment = new PlaceDetailsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
