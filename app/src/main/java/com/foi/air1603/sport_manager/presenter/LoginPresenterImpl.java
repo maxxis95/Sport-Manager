@@ -3,6 +3,7 @@ package com.foi.air1603.sport_manager.presenter;
 
 import com.example.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.BaseActivity;
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
@@ -74,13 +75,14 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         Type collectionType = new TypeToken<List<User>>(){}.getType();
         List<User> users = (List<User>) new Gson().fromJson(response.getData(), collectionType);
-        user = users.get(0);
 
-        System.out.println(user);
 
-        if (user == null) {
+        if (users == null) {
             onUsernameError();
         } else{
+            user = users.get(0);
+            MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), user.toString());
+
             view.removeError(Username);
             String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
             System.out.println(userEnteredPassword);
