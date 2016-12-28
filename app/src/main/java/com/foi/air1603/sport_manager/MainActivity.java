@@ -26,6 +26,8 @@ import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by Karlo on 3.12.2016..
  */
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
     private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
+    public static boolean debugLog = true;
+    public static Integer debugCounter = 0;
     private AllPlacesFragment allPlacesFragment;
     private MyPlacesFragment myPlacesFragment;
     private NavigationView navigationView;
@@ -42,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Rights rights;
 
     private SharedPreferences pref;
+
+    public static void consoleLog(Method method, String errorMsg) {
+        if (debugLog) {
+            String TAG = "[" + method.getDeclaringClass().getSimpleName() + ":" + method.getName() + "]("+(debugCounter+1)+")";
+            Log.v(TAG, errorMsg);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void updateHeaderView() {
-        String TAG = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        Log.v(TAG, "Pokušavam refreshat sliku");
+
+        consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Pokušavam refreshat sliku");
 
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
