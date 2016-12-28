@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setUserView() {
         setAllUsersDataToHeaderView();
-        hideUserDrawerActionItems();
         hideMyPlaces();
         initAllPlacesFragment();
     }
@@ -139,12 +138,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu navMenu = navigationView.getMenu();
         navMenu.findItem(R.id.nav_my_places).setVisible(false);
     }
-
-    private void hideUserDrawerActionItems() {
-        Menu navMenu = navigationView.getMenu();
-        navMenu.findItem(R.id.nav_add_new_reservation).setVisible(false);
-    }
-
 
     private void setAdminView() {
         setAllUsersDataToHeaderView();
