@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String TAG = new Object(){}.getClass().getEnclosingMethod().getName();
         Log.v(TAG, "Učitavam sve podatke u header, img url je: "+user.img);
-       
+
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
             firstLastName.setText(user.firstName + ' ' + user.lastName + ' ');
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (user.img != null && !user.img.isEmpty()) {
             Picasso.with(this).load(user.img).into(userImg);
         } else {
-            userImg.setImageBitmap(null);
+            userImg.setImageResource(R.drawable.profile_stock);
         }
 
     }
