@@ -8,20 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.view.AddAppointmentView;
+import com.foi.air1603.sport_manager.view.PlaceReservationView;
 
 /**
- * Created by Korisnik on 28-Dec-16.
+ * Created by Korisnik on 29-Dec-16.
  */
 
-public class AddAppointmentFragment extends Fragment implements AddAppointmentView{
+public class PlaceReservationFragment extends Fragment implements PlaceReservationView {
 
     private int id_place;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_appointment, null);
+        View v = inflater.inflate(R.layout.fragment_place_reservation, null);
         return v;
     }
     @Override
@@ -30,9 +30,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             id_place = bundle.getInt("place_id");
-            System.out.println("idddddddddddddddddddddddddddddd:  "+ id_place);
+            System.out.println("idd o nplace reservation fragment:  "+ id_place);
         }
     }
-
-
 }

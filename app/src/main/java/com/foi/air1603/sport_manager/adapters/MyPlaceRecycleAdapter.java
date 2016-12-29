@@ -56,11 +56,25 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_name_view.setText(place_name.get(position));
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_address_view.setText(place_address.get(position));
-        ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_add_appointment_btn.setText("Dodaj termin");
+        ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_reserved_appointments_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = place_id.get(position);
+                context.changeFragmentToPlaceReservationFragment(id);
+
+            }
+        });
+        ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_add_appointment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = place_id.get(position);
+                context.changeFragmentToAddAppointmentFragment(id);
+            }
+        });
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_reserved_appointments_btn.setText("Rezervirani termini");
 
         if(!place_img.get(position).isEmpty() ){
@@ -104,9 +118,6 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Override
         public void onClick(View view) {
-            int position  =   getAdapterPosition();
-            int id = place_id.get(position);
-                context.changeFragment(id);
 
 
         }

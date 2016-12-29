@@ -63,8 +63,27 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     }
 
     @Override
-    public void changeFragment(Integer id) {
+    public void changeFragmentToAddAppointmentFragment(Integer id) {
         Fragment newFragment = new AddAppointmentFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("place_id", id);
+        newFragment.setArguments(bundle);
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    @Override
+    public void changeFragmentToPlaceReservationFragment(Integer id) {
+
+        Fragment newFragment = new PlaceReservationFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
