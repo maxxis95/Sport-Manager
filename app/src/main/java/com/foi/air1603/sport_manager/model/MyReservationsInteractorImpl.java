@@ -33,7 +33,7 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
     @Override
     public void getMyReservationsObject(int userId) {
         try{
-            MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "");
+            System.out.println("");
 
             dataLoader.loadData(this, "getData", "Reservations,Sports", null, null, Reservations.class, null);
            // dataLoader.loadData(this, "getData", "Reservations,Sports", "Teams.Users.user_id", userId+"", Reservations.class, null);

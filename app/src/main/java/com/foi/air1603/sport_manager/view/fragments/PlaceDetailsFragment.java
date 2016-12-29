@@ -26,7 +26,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,17 +42,16 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 26;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 28;
+    public GoogleMap map;
+    public String placeName;
+    public String placeAddress;
+    protected MapView mMapView;
     private TextView txtViewName;
     private TextView txtViewRadnoVrijeme;
     private TextView txtViewKontakt;
     private TextView txtViewAdresa;
-    protected MapView mMapView;
     private Button reservation_btn;
     private int id_place;
-
-    public GoogleMap map;
-    public String placeName;
-    public String placeAddress;
     private Boolean minimalLocationPermission = false;
 
     @Nullable
@@ -106,7 +104,7 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                 ft.replace(R.id.fragment_container, newFragment);
                 ft.addToBackStack(null);
                 ft.commit();
-                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->RegisterFragment:onClickListener");
+                System.out.println("----------------->RegisterFragment:onClickListener");
             }
 
         });
@@ -128,7 +126,7 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             try {
                 mMapView.onDestroy();
             } catch (NullPointerException e) {
-                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Error while attempting MapView.onDestroy(), ignoring exception:" + e);
+                System.out.println("Error while attempting MapView.onDestroy(), ignoring exception:" + e);
             }
         }
         super.onDestroy();
@@ -203,30 +201,35 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
 
-        Geocoder coder = new Geocoder(getActivity());
-        List<Address> address = null;
-        LatLng p1 = null;
-        try {
-            address = coder.getFromLocationName(placeAddress, 5);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                Geocoder coder = new Geocoder(getActivity());
+                List<Address> address = null;
+                LatLng p1 = null;
+                try {
+                    address = coder.getFromLocationName(placeAddress, 5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        Address location = address.get(0);
-        location.getLatitude();
-        location.getLongitude();
+                Address location = address.get(0);
+                location.getLatitude();
+                location.getLongitude();
 
-        p1 = new LatLng(location.getLatitude(), location.getLongitude());
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
-        MapsInitializer.initialize(getActivity());
+                MapsInitializer.initialize(getActivity());
 
-        map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
-        map.addMarker(new MarkerOptions()
-                .position(p1)
-                .title(placeName)
-                .draggable(false).visible(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                if (ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                        ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    map.setMyLocationEnabled(true);
+                }
+
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
+                map.addMarker(new MarkerOptions()
+                        .position(p1)
+                        .title(placeName)
+                        .draggable(false).visible(true)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
             }
         });
 
@@ -244,7 +247,8 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                     minimalLocationPermission = true;
                     return;
                 } else {
-                    MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Couldn't get fine location permission!");
+                    System.out.println("Couldn't get fine location permission!");
+                    configureMap();
                 }
                 return;
             }
@@ -255,10 +259,11 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                     configureMap();
 
                 } else {
-                    if(minimalLocationPermission){
+                    if (minimalLocationPermission) {
                         configureMap();
                     } else {
-                        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Couldn't get COARSE location permission!");
+                        System.out.println("Couldn't get COARSE location permission!");
+                        configureMap();
                     }
                 }
                 return;

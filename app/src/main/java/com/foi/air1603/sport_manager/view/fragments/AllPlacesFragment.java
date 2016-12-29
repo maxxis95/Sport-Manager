@@ -80,7 +80,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
     @Override
     public void showTestToast(List<Integer> id, List<String> name, List<String> address, List<String> contact, List<String> img , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "9. AllPlacesFragment:showTestToast");
+        System.out.println("9. AllPlacesFragment:showTestToast");
         recyclerView.setAdapter(new PlaceRecycleAdapter(id, name, address, contact,img, workingHoursFrom,workingHoursTo,lat,lon, this));
     }
 

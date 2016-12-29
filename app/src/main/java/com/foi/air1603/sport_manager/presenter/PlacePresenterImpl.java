@@ -53,11 +53,11 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     }
 
     public void testGettingSinglePlace(){
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->2. PlacePresenterImpl:testGettingSinglePlace");
+        System.out.println("----------------->2. PlacePresenterImpl:testGettingSinglePlace");
         placeInteractor.getPlaceObject(this, "id", "1");
     }
     public void testGettingMultiplePlaces(){
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
+        System.out.println("----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
 
         if(this.places == null){
             placeInteractor.getAllPlacesObjects(this);
@@ -71,7 +71,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
     @Override
     public void getResponseData(Object result) {
 
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->8. PlacePresenterImpl:getResponseData");
+        System.out.println("----------------->8. PlacePresenterImpl:getResponseData");
         Boolean placesAlreadyLoaded = false;
 
         if(result.getClass() == ArrayList.class && ((ArrayList) result).size()>1){
@@ -87,7 +87,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler{
                 places = (List<Place>) new Gson().fromJson( response.getData() , collectionType);
             }
             catch (JsonParseException e) {
-                MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "[ERROR] " + e);
+                System.out.println("[ERROR] " + e);
             }
         }
 

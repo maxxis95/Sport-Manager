@@ -69,7 +69,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void getResponseData(Object result) {
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "----------------->8. LoginPresenterImpl:getResponseData");
+        System.out.println("----------------->8. LoginPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
@@ -81,7 +81,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             onUsernameError();
         } else{
             user = users.get(0);
-            MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), user.toString());
+            System.out.println("LoginPresenterImpl:getResponseData: "+user.toString());
 
             view.removeError(Username);
             String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");

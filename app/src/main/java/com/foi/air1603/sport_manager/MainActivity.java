@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,34 +26,19 @@ import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Method;
-
 /**
  * Created by Karlo on 3.12.2016..
  */
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
-    private static final int PICK_IMAGE_REQUEST = 1;
     public static User user;
-    public static boolean debugLog = true;
-    public static Integer debugCounter = 0;
     private AllPlacesFragment allPlacesFragment;
-    private MyPlacesFragment myPlacesFragment;
     private NavigationView navigationView;
     private FragmentTransaction fragmentTransaction;
     private Rights rights;
 
     private SharedPreferences pref;
-
-    public static void consoleLog(Method method, String errorMsg) {
-        if (debugLog) {
-            String TAG = "[" + method.getDeclaringClass().getSimpleName() + ":" + method.getName() + "]("+(debugCounter)+")";
-            Log.v(TAG, errorMsg);
-            debugCounter++;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hideMyPlaces();
         initAllPlacesFragment();
     }
+
     private void setAdminView() {
         setAllUsersDataToHeaderView();
         initAllPlacesFragment();
@@ -114,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void updateHeaderView() {
 
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Pokušavam refreshat sliku");
+        System.out.println("Pokušavam refreshat sliku");
 
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
@@ -126,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
-        MainActivity.consoleLog(new Object(){}.getClass().getEnclosingMethod(), "Učitavam sve podatke u header, img url je: " + user.img);
+        System.out.println("Učitavam sve podatke u header, img url je: " + user.img);
 
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
@@ -146,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
     private void hideMyPlaces() {
         Menu navMenu = navigationView.getMenu();
         navMenu.findItem(R.id.nav_my_places).setVisible(false);
@@ -156,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.add(R.id.fragment_container, allPlacesFragment, "HELLO");
         fragmentTransaction.commit();
     }
-
 
 
     //region Activity methods
@@ -243,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.commit();
     }
 
-    private void openMyReservationsFragment(){
+    private void openMyReservationsFragment() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new MyReservationsFragment());
         ft.addToBackStack(null);
