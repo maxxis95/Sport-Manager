@@ -8,6 +8,10 @@ public class Sport {
     public Integer id;
     public String name;
 
+    public Sport(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
