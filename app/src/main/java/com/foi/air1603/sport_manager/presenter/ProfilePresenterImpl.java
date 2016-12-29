@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.ProfileView;

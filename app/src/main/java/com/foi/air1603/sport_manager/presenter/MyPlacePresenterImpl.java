@@ -1,6 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractor;

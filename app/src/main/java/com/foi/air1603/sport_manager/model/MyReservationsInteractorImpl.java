@@ -2,7 +2,7 @@ package com.foi.air1603.sport_manager.model;
 
 import android.util.Log;
 
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Reservations;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;

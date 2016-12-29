@@ -1,7 +1,7 @@
 package com.foi.air1603.sport_manager.loaders;
 
 
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 
 /**
  * Listener koji čeka da se učitaju podaci

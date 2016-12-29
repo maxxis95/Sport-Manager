@@ -1,6 +1,6 @@
 package com.foi.air1603.sport_manager.model;
 
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;

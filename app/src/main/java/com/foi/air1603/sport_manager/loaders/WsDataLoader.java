@@ -2,9 +2,9 @@ package com.foi.air1603.sport_manager.loaders;
 
 import android.net.Uri;
 
-import com.example.webservice.AirWebServiceCaller;
-import com.example.webservice.AirWebServiceHandler;
-import com.example.webservice.AirWebServiceResponse;
+import com.foi.air1603.webservice.AirWebServiceCaller;
+import com.foi.air1603.webservice.AirWebServiceHandler;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 
 import java.lang.reflect.Type;
 

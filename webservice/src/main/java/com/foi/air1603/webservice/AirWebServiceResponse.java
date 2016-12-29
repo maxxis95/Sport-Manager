@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.foi.air1603.webservice;
 
 /**
  * Created by Karlo on 9.11.2016..

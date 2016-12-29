@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.foi.air1603.webservice;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.webservice.test", appContext.getPackageName());
+        assertEquals("com.foi.air1603.webservice.test", appContext.getPackageName());
     }
 }

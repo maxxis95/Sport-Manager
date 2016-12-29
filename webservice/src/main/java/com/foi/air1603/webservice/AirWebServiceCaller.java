@@ -1,8 +1,7 @@
-package com.example.webservice;
-
-import android.net.Uri;
+package com.foi.air1603.webservice;
 
 import com.google.gson.Gson;
+
 import java.io.File;
 import java.lang.reflect.Type;
 
@@ -11,7 +10,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
