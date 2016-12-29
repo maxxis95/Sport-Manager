@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import android.util.Patterns;
+
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.entities.User;
@@ -50,9 +52,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
             emailFlag = false;
 
         } else {
-            //TODO: Malo mi se činio zbuganim pa sam ga zakomentirao. Možda bolji regex? Karlo
-            //valid = isValidEmailAddress(view.getEmailFromEditText());
-            valid = true;
+            valid = isValidEmailAddress(view.getEmailFromEditText());
 
             if (valid) {
                 view.removeError(EmailR);
@@ -136,8 +136,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
      * and returns the true or false value depending on the output
      */
     private boolean isValidEmailAddress(String emailFromEditText) {
-        String ePattern = "^[^@]+@[^@]+\\.[^@]+$";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Pattern p = Patterns.EMAIL_ADDRESS;
         java.util.regex.Matcher m = p.matcher(emailFromEditText);
         return m.matches();
     }
