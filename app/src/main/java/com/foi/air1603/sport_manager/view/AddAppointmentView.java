@@ -13,11 +13,11 @@ public interface AddAppointmentView {
 
     String getAppointmentEndFromEditText();
 
+    String getMaxPlayer();
+
     void initializeCalendar();
 
     int getDate();
-
-    String getMaxPlayer();
 
     int getCurrentDate();
 

@@ -47,9 +47,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_add_appointment, null);
-
-
-
         return v;
     }
 
@@ -86,9 +83,9 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
             @Override
             public void onClick(View v) {
 
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                Calendar mCurrentTime = Calendar.getInstance();
+                int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mCurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -111,9 +108,9 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
             @Override
             public void onClick(View v) {
 
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                Calendar mCurrentTime = Calendar.getInstance();
+                int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mCurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -127,12 +124,8 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
-
             }
         });
-
-
-
     }
 
 
@@ -176,12 +169,9 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                     return;
                 }
                 currentPickedDate = getDate();
-
-
             }
 
         });
-
     }
 
 
@@ -221,32 +211,31 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     @Override
     public void displayError(AddAppointmentViewEnums textView, String message) {
 
-       /* final TextInputLayout appointmentStartRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
-        final TextInputLayout appointmentEndRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
+        final TextInputLayout appointmentStartWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
+        final TextInputLayout appointmentEndWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
         final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMaxPlayer);
 
-
-        if(textView == AddAppointmentViewEnums.UsernameR){
-            appointmentStartRWrapper.setError(message);
+        if(textView == AddAppointmentViewEnums.AppointmentTimeStart){
+            appointmentStartWrapper.setError(message);
         }
-        else if(textView == AddAppointmentViewEnums.PasswordR){
-            appointmentEndRWrapper.setError(message);
+        else if(textView == AddAppointmentViewEnums.AppointmentTimeEnd){
+            appointmentEndWrapper.setError(message);
         }
-        else if(textView == AddAppointmentViewEnums.PasswordR1){
+        else if(textView == AddAppointmentViewEnums.MaxPlayers){
             appointmentMaxPlayerWrapper.setError(message);
-        }*/
+        }
     }
 
     @Override
     public void removeError(AddAppointmentViewEnums textView) {
 
-       /* final TextInputLayout appointmentStartRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
-        final TextInputLayout appointmentEndRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
+        final TextInputLayout appointmentStartWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
+        final TextInputLayout appointmentEndWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
         final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMaxPlayer);
 
-        appointmentStartRWrapper.setErrorEnabled(false);
-        appointmentEndRWrapper.setErrorEnabled(false);
-        appointmentMaxPlayerWrapper.setErrorEnabled(false);*/
+        appointmentStartWrapper.setErrorEnabled(false);
+        appointmentEndWrapper.setErrorEnabled(false);
+        appointmentMaxPlayerWrapper.setErrorEnabled(false);
 
     }
 
