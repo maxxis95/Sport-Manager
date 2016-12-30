@@ -6,7 +6,6 @@ import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
@@ -21,10 +20,8 @@ import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.helper.enums.AddAppointmentViewEnums;
-import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenterImpl;
-import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
 
 /**
@@ -33,9 +30,9 @@ import com.foi.air1603.sport_manager.view.AddAppointmentView;
 
 public class AddAppointmentFragment extends Fragment implements AddAppointmentView {
 
-    private int id_place;
     AddAppointmentPresenter addAppointmentPresenter;
     CalendarView calendar;
+    private int id_place;
     private int yearGet;
     private int monthGet;
     private int dayGet;
@@ -57,7 +54,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             id_place = bundle.getInt("place_id");
-
         }
         addAppointmentPresenter = new AddAppointmentPresenterImpl(this);
         this.view = view;
@@ -92,8 +88,8 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         String selH = String.valueOf(selectedHour);
                         String selM = String.valueOf(selectedMinute);
-                        if(selectedHour <10) selH ="0"+ selectedHour;
-                        if(selectedMinute<10)selM="0"+selectedMinute;
+                        if (selectedHour < 10) selH = "0" + selectedHour;
+                        if (selectedMinute < 10) selM = "0" + selectedMinute;
                         appointmentStartInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -117,8 +113,8 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         String selH = String.valueOf(selectedHour);
                         String selM = String.valueOf(selectedMinute);
-                        if(selectedHour <10) selH ="0"+ selectedHour;
-                        if(selectedMinute<10)selM="0"+selectedMinute;
+                        if (selectedHour < 10) selH = "0" + selectedHour;
+                        if (selectedMinute < 10) selM = "0" + selectedMinute;
                         appointmentEndInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -127,7 +123,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
             }
         });
     }
-
 
     @Override
     public String getAppointmentStartFromEditText() {
@@ -174,7 +169,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         });
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public int getDate() {
@@ -211,17 +205,15 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     @Override
     public void displayError(AddAppointmentViewEnums textView, String message) {
 
-        final TextInputLayout appointmentStartWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
-        final TextInputLayout appointmentEndWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
-        final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMaxPlayer);
+        final TextInputLayout appointmentStartWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAppointmentHourStart);
+        final TextInputLayout appointmentEndWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAppointmentHourStop);
+        final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiMaxPlayer);
 
-        if(textView == AddAppointmentViewEnums.AppointmentTimeStart){
+        if (textView == AddAppointmentViewEnums.AppointmentTimeStart) {
             appointmentStartWrapper.setError(message);
-        }
-        else if(textView == AddAppointmentViewEnums.AppointmentTimeEnd){
+        } else if (textView == AddAppointmentViewEnums.AppointmentTimeEnd) {
             appointmentEndWrapper.setError(message);
-        }
-        else if(textView == AddAppointmentViewEnums.MaxPlayers){
+        } else if (textView == AddAppointmentViewEnums.MaxPlayers) {
             appointmentMaxPlayerWrapper.setError(message);
         }
     }
@@ -229,14 +221,13 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     @Override
     public void removeError(AddAppointmentViewEnums textView) {
 
-        final TextInputLayout appointmentStartWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStart);
-        final TextInputLayout appointmentEndWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAppointmentHourStop);
-        final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMaxPlayer);
+        final TextInputLayout appointmentStartWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAppointmentHourStart);
+        final TextInputLayout appointmentEndWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAppointmentHourStop);
+        final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiMaxPlayer);
 
         appointmentStartWrapper.setErrorEnabled(false);
         appointmentEndWrapper.setErrorEnabled(false);
         appointmentMaxPlayerWrapper.setErrorEnabled(false);
-
     }
 
     @Override
@@ -252,7 +243,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
             Toast.makeText(getActivity(),
                     "Dodavanje termina nije uspjelo:" + message, Toast.LENGTH_LONG).show();
         }
-
     }
 
 }

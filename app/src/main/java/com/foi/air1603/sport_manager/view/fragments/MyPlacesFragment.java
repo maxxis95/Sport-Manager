@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyPlaceRecycleAdapter;
-import com.foi.air1603.sport_manager.adapters.PlaceRecycleAdapter;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.presenter.MyPlacePresenter;
 import com.foi.air1603.sport_manager.presenter.MyPlacePresenterImpl;
@@ -28,9 +28,9 @@ import java.util.List;
  */
 
 public class MyPlacesFragment extends Fragment implements MyPlacesView {
-    private RecyclerView recyclerView;
-    MyPlacePresenter presenter;
     public User user;
+    MyPlacePresenter presenter;
+    private RecyclerView recyclerView;
     private MainActivity activity;
 
     @Nullable
@@ -53,13 +53,11 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
         presenter = new MyPlacePresenterImpl(this);
 
         presenter.gettingMultipleMyPlaces(id);
-
-
     }
 
     @Override
-    public void showMyPlaces(List<Integer> id, List<String> name, List<String> address, List<String> contact, List<String> img, List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
-        recyclerView.setAdapter(new MyPlaceRecycleAdapter(id, name, address, contact,img, workingHoursFrom,workingHoursTo,lat,lon, this));
+    public void showMyPlaces(List<Place> places) {
+        recyclerView.setAdapter(new MyPlaceRecycleAdapter(places, this));
     }
 
     @Override

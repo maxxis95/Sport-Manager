@@ -7,9 +7,6 @@ import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 
-import java.sql.Date;
-import java.sql.Time;
-
 /**
  * Created by Korisnik on 30-Dec-16.
  */
@@ -17,10 +14,9 @@ import java.sql.Time;
 public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, PresenterHandler {
 
     private final AddAppointmentView view;
-    Boolean checkTimeStart, checkTimeEnd, checkMaxPlayers, checkPlayersSize = true;
+    Boolean checkTimeStart, checkTimeEnd, checkMaxPlayers, checkPlayersSize;
     Appointment appointmentModel;
     AppointmentInteractor appointmentInteractor;
-
 
     public AddAppointmentPresenterImpl(AddAppointmentView addAppointmentView) {
         this.view = addAppointmentView;
@@ -30,27 +26,39 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
 
     @Override
     public void validateAppointment() {
+        checkTimeStart = checkTimeEnd = checkMaxPlayers = checkPlayersSize = true;
+
         if (view.getAppointmentStartFromEditText().isEmpty()) {
             view.displayError(AddAppointmentViewEnums.AppointmentTimeStart, "Polje je obavezno");
             checkTimeStart = false;
+        } else {
+            view.removeError(AddAppointmentViewEnums.AppointmentTimeStart);
         }
+
         if (view.getAppointmentEndFromEditText().isEmpty()) {
             view.displayError(AddAppointmentViewEnums.AppointmentTimeEnd, "Polje je obavezno");
             checkTimeEnd = false;
+        } else {
+            view.removeError(AddAppointmentViewEnums.AppointmentTimeEnd);
         }
+
         if (view.getMaxPlayer().isEmpty()) {
             view.displayError(AddAppointmentViewEnums.MaxPlayers, "Polje je obavezno");
             checkMaxPlayers = false;
+        } else {
+            view.removeError(AddAppointmentViewEnums.MaxPlayers);
         }
-        if(Integer.parseInt(view.getMaxPlayer()) < 1){
+
+        if (view.getMaxPlayer().isEmpty() || Integer.parseInt(view.getMaxPlayer()) < 1) {
             view.displayError(AddAppointmentViewEnums.MaxPlayers, "Mora biti barem jedan sudionik");
             checkPlayersSize = false;
         }
 
-        if(checkTimeStart && checkTimeEnd && checkMaxPlayers && checkPlayersSize){
+        if (checkTimeStart && checkTimeEnd && checkMaxPlayers && checkPlayersSize) {
             view.removeError(AddAppointmentViewEnums.AppointmentTimeStart);
             view.removeError(AddAppointmentViewEnums.AppointmentTimeEnd);
             view.removeError(AddAppointmentViewEnums.MaxPlayers);
+            appointmentInteractor.setAppointmentObject(createNewAppointmentObject());
         }
     }
 
@@ -62,7 +70,7 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         appointment.date = sqlDate.toString();
-        System.out.println("---------------"+sqlDate.toString());
+        System.out.println("---------------" + sqlDate.toString());
         appointment.start = view.getAppointmentStartFromEditText();
         appointment.end = view.getAppointmentEndFromEditText();
         String maxPly = view.getMaxPlayer();
