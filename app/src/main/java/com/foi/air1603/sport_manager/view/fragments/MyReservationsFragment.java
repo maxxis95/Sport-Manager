@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
-import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.view.MyReservationsView;
 
@@ -59,10 +59,10 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
      public void loadRecycleViewTestData() {
          // test data
-         Reservations res = new Reservations();
-         res.setReservationDate("DATUMMM");
-         res.setPlaceName("Gimnazija");
-         res.setSportPicture("SLIKICAAA");
+         Reservation res = new Reservation();
+         res.setSubmitted("DATUMMM");
+         res.setCreated("Gimnazija");
+         res.setConfirmed("SLIKICAAA");
 
          List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
          reservationsItems.add(new MyReservationsExpandableItem(res));
@@ -75,10 +75,10 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     @Override
-    public void loadRecycleViewData(List<Reservations> reservations) {
+    public void loadRecycleViewData(List<Reservation> reservations) {
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
 
-        for (Reservations res : reservations){
+        for (Reservation res : reservations){
             reservationsItems.add(new MyReservationsExpandableItem(res));
         }
         if (mRecyclerView != null) {

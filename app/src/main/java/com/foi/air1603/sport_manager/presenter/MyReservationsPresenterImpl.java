@@ -1,7 +1,7 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.foi.air1603.sport_manager.MainActivity;
-import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.entities.ReservationsChild;
 import com.foi.air1603.sport_manager.model.MyReservationsInteractor;
 import com.foi.air1603.sport_manager.model.MyReservationsInteractorImpl;
@@ -39,19 +39,19 @@ public class MyReservationsPresenterImpl implements PresenterHandler {
         System.out.println("----------------MyReservationPresenterImpl:getResponseData");
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-        Type collectionType = new TypeToken<List<Reservations>>() {}.getType();
+        Type collectionType = new TypeToken<List<Reservation>>() {}.getType();
         Type collectionTypeChild = new TypeToken<List<ReservationsChild>>() {}.getType();
-        List<Reservations> reservationsList = (List<Reservations>) new Gson().fromJson(response.getData(), collectionType);
+        List<Reservation> reservationsList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionType);
         List<ReservationsChild> reservationsChildList = (List<ReservationsChild>) new Gson().fromJson(response.getData(), collectionTypeChild);
 
 
-        List<Reservations> finishedReservationsList = new ArrayList<>();
+        List<Reservation> finishedReservationsList = new ArrayList<>();
 
 
-        for (Reservations res : reservationsList){
-            Reservations reservations = new Reservations();
-            reservations.setPlaceName(res.getPlaceName());
-            reservations.setReservationDate(res.getReservationDate());
+        for (Reservation res : reservationsList){
+            Reservation reservations = new Reservation();
+            reservations.setCreated(res.created);
+            reservations.setSubmitted(res.submitted);
             for (ReservationsChild rc : reservationsChildList){
                 List<ReservationsChild> rcList = new ArrayList<>();
                 rcList.add(new ReservationsChild(rc.getSportName(), rc.getPlaceAddress(), rc.getTeamName()));

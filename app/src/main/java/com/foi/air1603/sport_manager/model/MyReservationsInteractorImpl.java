@@ -3,8 +3,7 @@ package com.foi.air1603.sport_manager.model;
 import android.util.Log;
 
 import com.foi.air1603.webservice.AirWebServiceResponse;
-import com.foi.air1603.sport_manager.MainActivity;
-import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
@@ -35,7 +34,7 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
         try{
             System.out.println("");
 
-            dataLoader.loadData(this, "getData", "Reservations,Sports", null, null, Reservations.class, null);
+            dataLoader.loadData(this, "getData", "Reservations,Sports", null, null, Reservation.class, null);
            // dataLoader.loadData(this, "getData", "Reservations,Sports", "Teams.Users.user_id", userId+"", Reservations.class, null);
         }catch (Exception ex){
             Log.e("WebService Error: ",ex.getMessage());

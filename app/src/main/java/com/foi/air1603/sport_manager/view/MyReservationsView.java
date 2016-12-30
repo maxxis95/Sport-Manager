@@ -1,6 +1,6 @@
 package com.foi.air1603.sport_manager.view;
 
-import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface MyReservationsView {
-    void loadRecycleViewData(List<Reservations> reservations);
+    void loadRecycleViewData(List<Reservation> reservations);
 }

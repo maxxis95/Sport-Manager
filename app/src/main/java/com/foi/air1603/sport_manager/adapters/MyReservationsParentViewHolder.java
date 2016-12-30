@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +32,9 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
     }
 
     // when the adapter is implemented this method is used to bind list elements with the recycler-view, here, we populate the Views
-    public void bind(Reservations reservations){
-        mReservationPlaceName.setText(reservations.getPlaceName());
-        mReservationTime.setText(reservations.getReservationDate());
+    public void bind(Reservation reservations){
+        mReservationPlaceName.setText(reservations.created);
+        mReservationTime.setText(reservations.submitted);
         //todo: set sport image if you want
     }
 }
