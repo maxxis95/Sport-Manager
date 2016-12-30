@@ -57,7 +57,7 @@
     <string name="PlaceContinue">Nastavak...</string>
     <string name="appointment_hours_start">Početak termina</string>
     <string name="appointment_hours_end">Kraj termina</string>
-    <string name="appointment_max_player">Maksimalan broj igraca</string>
+    <string name="appointment_max_player">Najveći broj sudionika</string>
     <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
 
     <string name="tvPlaceName">Naziv objekta</string>
@@ -82,4 +82,7 @@
     <string name="myAppointmentType">Vrsta sporta</string>
     <string name="myAppointmentPlayers">Broj sudionika</string>
     <string name="myAppointmentID">ID rezervacije</string>
+    <string name="myAppointmentConfirm">Potvrdi dolazak</string>
+    <string name="myAppointmentDelete">Obriši rezervaciju</string>
+    <string name="tvAppointmentLabel">Odaberite datum:</string>
 </resources>
