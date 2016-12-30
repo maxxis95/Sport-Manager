@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:textIsSelectable="false"
-            tools:text="Name"
+            tools:text="@string/placeName"
             android:textColor="#212121"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginTop="11dp"
@@ -43,7 +43,7 @@
             android:layout_below="@+id/place_name"
             android:paddingStart="8dp"
             android:layout_marginBottom="6dp"
-            tools:text="Address"
+            tools:text="@string/placeAddress"
             android:textColor="#757575"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"/>
 
