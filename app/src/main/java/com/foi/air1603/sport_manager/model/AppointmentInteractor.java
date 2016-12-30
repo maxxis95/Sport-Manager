@@ -10,8 +10,7 @@ public interface AppointmentInteractor {
 
     void getAppointmentsObjects(Object listener, String searchBy, String value);
     void setAppointmentObject(Appointment appointment);
-
-    }
+}
 
 
 

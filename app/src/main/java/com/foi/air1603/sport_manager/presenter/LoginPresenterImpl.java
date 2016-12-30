@@ -47,7 +47,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         }
     }
 
-
     @Override
     public void onUsernameError() {
         view.displayError(Username, "Korisničko ime ne postoji");
