@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Place;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.InviteFriendsFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,15 +22,14 @@ import java.util.List;
  * Created by Korisnik on 04-Dec-16.
  */
 
-public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    List<Place> places;
-    AllPlacesFragment context;
+public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    List<User> users;
+    InviteFriendsFragment context;
     Context cont;
 
 
-    public PlaceRecycleAdapter(List<Place> places, AllPlacesFragment context) {
-        this.places = places;
+    public FriendsRecycleAdapter(List<User> users, InviteFriendsFragment context) {
+        this.users = users;
         this.context = context;
     }
 
@@ -43,22 +44,22 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Place place = places.get(position);
+        User user = users.get(position);
 
-        ((PlaceViewHolder) holder).place_name_view.setText(place.name);
-        ((PlaceViewHolder) holder).place_address_view.setText(place.address);
+        ((PlaceViewHolder) holder).place_name_view.setText(user.firstName);
+        /*((PlaceViewHolder) holder).place_address_view.setText(place.address);
 
         if (!place.img.isEmpty()) {
             Uri uri = Uri.parse(place.img);
             Picasso.with(cont).load(uri).into(((PlaceViewHolder) holder).place_img_view);
         } else {
             ((PlaceViewHolder) holder).place_img_view.setImageResource(R.drawable.place_stock);
-        }
+        }*/
     }
 
     @Override
     public int getItemCount() {
-        return places.size();
+        return users.size();
     }
 
 
@@ -80,8 +81,8 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Place place = places.get(position);
-            context.changeFragment(place);
+            User user = users.get(position);
+           // context.changeFragment(user);
         }
     }
 }

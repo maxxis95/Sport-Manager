@@ -1,10 +1,10 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,14 +39,13 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     AppointmentPresenter appointmentPresenter;
     SportPresenter sportPresenter;
     CalendarView calendar;
+    List<String> maxPlayers = new ArrayList<String>();
     private int yearGet;
     private int monthGet;
     private int dayGet;
     private int id_place;
     private int currentPickedDate;
-
     private Place place;
-
     private TextView appointmentLabel;
     private ImageView appointmentImage;
     private ImageView sportImage;
@@ -56,9 +55,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     private Spinner spinnerMaxPlayers;
     private Switch privateSwitch;
     private Button setAppointmentButton;
-
     private View view;
-    List<String> maxPlayers = new ArrayList<String>();
     private Context context;
 
 
@@ -111,6 +108,16 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         privateSwitch.setVisibility(View.GONE);
         setAppointmentButton = (Button) view.findViewById(R.id.buttonSetAppointment);
         setAppointmentButton.setVisibility(View.GONE);
+
+        setAppointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new InviteFriendsFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
 
         spinnerAppointment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -174,7 +181,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 monthGet = month;
                 dayGet = day;
 
-                if(currentPickedDate == getDate()){
+                if (currentPickedDate == getDate()) {
                     return;
                 }
 
@@ -223,7 +230,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end, List<Integer> maxplayers) {
 
-        if(id.size() == 0){
+        if (id.size() == 0) {
             spinnerAppointment.setVisibility(View.GONE);
             spinnerSport.setVisibility(View.GONE);
             appointmentLabel.setVisibility(View.GONE);
@@ -270,7 +277,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSport.setAdapter(dataAdapter);
     }
-
 
 
 }

@@ -1,10 +1,8 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
@@ -57,8 +54,8 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         });
     }
 
-    public void returnResponseCode (int statusCode, String message) {
-        if(statusCode == 200) {
+    public void returnResponseCode(int statusCode, String message) {
+        if (statusCode == 200) {
             Toast.makeText(getActivity(),
                     "Uspješno ste se registrirali!", Toast.LENGTH_LONG).show();
 
@@ -66,7 +63,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
         } else {
             Toast.makeText(getActivity(),
-                    "Registracija nije uspjela:"+message, Toast.LENGTH_LONG).show();
+                    "Registracija nije uspjela:" + message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -90,7 +87,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Email field
      */
     public String getEmailFromEditText() {
-        EditText emailInput = (EditText)getActivity().findViewById(R.id.etMail);
+        EditText emailInput = (EditText) getActivity().findViewById(R.id.etMail);
         return emailInput.getText().toString();
     }
 
@@ -98,7 +95,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Username field
      */
     public String getUsernameFromEditText() {
-        EditText usernameInput = (EditText)getActivity().findViewById(R.id.etUsernameR);
+        EditText usernameInput = (EditText) getActivity().findViewById(R.id.etUsernameR);
         return usernameInput.getText().toString();
     }
 
@@ -106,7 +103,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Password field
      */
     public String getPasswordFromEditText() {
-        EditText passwordInput = (EditText)getActivity().findViewById(R.id.etPasswordR);
+        EditText passwordInput = (EditText) getActivity().findViewById(R.id.etPasswordR);
         return passwordInput.getText().toString();
     }
 
@@ -114,7 +111,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Password matching field
      */
     public String getPassword1FromEditText() {
-        EditText password1Input = (EditText)getActivity().findViewById(R.id.etPasswordR1);
+        EditText password1Input = (EditText) getActivity().findViewById(R.id.etPasswordR1);
         return password1Input.getText().toString();
     }
 
@@ -122,7 +119,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Name field
      */
     public String getNameFromEditText() {
-        EditText nameInput = (EditText)getActivity().findViewById(R.id.etName);
+        EditText nameInput = (EditText) getActivity().findViewById(R.id.etName);
         return nameInput.getText().toString();
     }
 
@@ -130,7 +127,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Last Name field
      */
     public String getLastNameFromEditText() {
-        EditText lastNameInput = (EditText)getActivity().findViewById(R.id.etLastName);
+        EditText lastNameInput = (EditText) getActivity().findViewById(R.id.etLastName);
         return lastNameInput.getText().toString();
     }
 
@@ -138,7 +135,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Address field
      */
     public String getAddressFromEditText() {
-        EditText addressInput = (EditText)getActivity().findViewById(R.id.etAddress);
+        EditText addressInput = (EditText) getActivity().findViewById(R.id.etAddress);
         return addressInput.getText().toString();
     }
 
@@ -146,7 +143,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Returns the entered string from the Phone Number field
      */
     public String getPhoneNumberFromEditText() {
-        EditText phoneNumberInput = (EditText)getActivity().findViewById(R.id.etPhoneNumber);
+        EditText phoneNumberInput = (EditText) getActivity().findViewById(R.id.etPhoneNumber);
         return phoneNumberInput.getText().toString();
     }
 
@@ -154,41 +151,35 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Displays error messages underneath the fields in the Registration window
      * which were caused by a set of incorrectly entered characters or by not
      * entering any of them
+     *
      * @param textView
      */
     @Override
     public void displayError(RegisterViewEnums textView, String message) {
-        final TextInputLayout mailRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMailR);
-        final TextInputLayout usernameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiUsernameR);
-        final TextInputLayout passwordRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPasswordR);
-        final TextInputLayout passwordR1Wrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPasswordR1);
-        final TextInputLayout nameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiImeR);
-        final TextInputLayout lastNameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPrezimeR);
-        final TextInputLayout addressRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAdresaR);
-        final TextInputLayout phoneNumberRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiBrojTelefonaR);
+        final TextInputLayout mailRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiMailR);
+        final TextInputLayout usernameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiUsernameR);
+        final TextInputLayout passwordRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPasswordR);
+        final TextInputLayout passwordR1Wrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPasswordR1);
+        final TextInputLayout nameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiImeR);
+        final TextInputLayout lastNameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPrezimeR);
+        final TextInputLayout addressRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAdresaR);
+        final TextInputLayout phoneNumberRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiBrojTelefonaR);
 
-        if(textView == RegisterViewEnums.UsernameR){
+        if (textView == RegisterViewEnums.UsernameR) {
             usernameRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.PasswordR){
+        } else if (textView == RegisterViewEnums.PasswordR) {
             passwordRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.PasswordR1){
+        } else if (textView == RegisterViewEnums.PasswordR1) {
             passwordR1Wrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.EmailR){
+        } else if (textView == RegisterViewEnums.EmailR) {
             mailRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.NameR){
+        } else if (textView == RegisterViewEnums.NameR) {
             nameRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.LastNameR){
+        } else if (textView == RegisterViewEnums.LastNameR) {
             lastNameRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.AddressR){
+        } else if (textView == RegisterViewEnums.AddressR) {
             addressRWrapper.setError(message);
-        }
-        else if(textView == RegisterViewEnums.PhoneNumberR){
+        } else if (textView == RegisterViewEnums.PhoneNumberR) {
             phoneNumberRWrapper.setError(message);
         }
 
@@ -198,18 +189,19 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
      * Removes error messages underneath the fields in the Registration window
      * which were caused by a set of incorrectly entered characters or by not
      * entering any of them
+     *
      * @param textView
      */
     @Override
     public void removeError(RegisterViewEnums textView) {
-        final TextInputLayout mailRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiMailR);
-        final TextInputLayout usernameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiUsernameR);
-        final TextInputLayout passwordRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPasswordR);
-        final TextInputLayout passwordR1Wrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPasswordR1);
-        final TextInputLayout nameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiImeR);
-        final TextInputLayout lastNameRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiPrezimeR);
-        final TextInputLayout addressRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiAdresaR);
-        final TextInputLayout phoneNumberRWrapper = (TextInputLayout)getActivity().findViewById(R.id.txiBrojTelefonaR);
+        final TextInputLayout mailRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiMailR);
+        final TextInputLayout usernameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiUsernameR);
+        final TextInputLayout passwordRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPasswordR);
+        final TextInputLayout passwordR1Wrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPasswordR1);
+        final TextInputLayout nameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiImeR);
+        final TextInputLayout lastNameRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiPrezimeR);
+        final TextInputLayout addressRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAdresaR);
+        final TextInputLayout phoneNumberRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiBrojTelefonaR);
 
         mailRWrapper.setErrorEnabled(false);
         usernameRWrapper.setErrorEnabled(false);

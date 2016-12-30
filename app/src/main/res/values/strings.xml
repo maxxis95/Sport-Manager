@@ -90,4 +90,5 @@
     <string name="navBarUserName">Korisnik: Ime i prezime</string>
     <string name="navBarUserEmail">sport.manager@email.com</string>
     <string name="placeName">Naziv</string>
+    <string name="friendsName">Friends name</string>
 </resources>

@@ -7,15 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,7 +104,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
         }
     }
 
-    public void openImagePicker(){
+    public void openImagePicker() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -118,7 +115,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             System.out.println("----------------->1. ProfileFragment:onActivityResult");
             presenter.changeProfilePicture(data, user.id, activity);
         }
@@ -128,7 +125,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
         ImageView imageView = (ImageView) getView().findViewById(R.id.profileImage);
 
-        if(imageUrl != null){
+        if (imageUrl != null) {
             imageView.setImageURI(imageUri);
 
             user.img = imageUrl;
