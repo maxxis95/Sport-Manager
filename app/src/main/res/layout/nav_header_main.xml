@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="User: First name and last name"
+        android:text="@string/navBarUserName"
         android:layout_gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:id="@+id/textViewFirstLastName" />
@@ -32,6 +32,6 @@
         android:id="@+id/textViewUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sport.manager@email.com" />
+        android:text="@string/navBarUserEmail" />
 
 </LinearLayout>

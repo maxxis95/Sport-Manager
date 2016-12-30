@@ -30,7 +30,7 @@
             android:textIsSelectable="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            tools:text="Name"
+            tools:text="@string/myPlaceName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_marginTop="5dp"
             android:paddingStart="8dp"
             android:textColor="#757575"
-            tools:text="Address"
+            tools:text="@string/myPlaceAddress"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
             android:layout_below="@+id/my_place_name"
             android:layout_alignParentStart="true" />

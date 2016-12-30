@@ -72,7 +72,7 @@
     <string name="reservationCalendarText">Odaberite datum:</string>
     <string name="reservationAppointmentText">Odaberite termin, sport i broj osoba:</string>
     <string name="appointmentPrivatePublic">Privatni termin</string>
-    <string name="buttonSetAppointment">Rezerviraj termin</string>
+    <string name="buttonSetAppointment">Kreiraj termin</string>
     <string name="buttonAddAppointment">Dodaj novi termin</string>
     <string name="buttonObjectAppointments">Rezervirani termini</string>
     <string name="buttonChangeProfilePicture">Promjeni sliku</string>
@@ -85,4 +85,9 @@
     <string name="myAppointmentConfirm">Potvrdi dolazak</string>
     <string name="myAppointmentDelete">Obriši rezervaciju</string>
     <string name="tvAppointmentLabel">Odaberite datum:</string>
+    <string name="myPlaceName">Naziv</string>
+    <string name="myPlaceAddress">Adresa</string>
+    <string name="navBarUserName">Korisnik: Ime i prezime</string>
+    <string name="navBarUserEmail">sport.manager@email.com</string>
+    <string name="placeName">Naziv</string>
 </resources>

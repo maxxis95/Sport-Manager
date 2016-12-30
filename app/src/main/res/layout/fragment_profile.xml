@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:text="TextView"
+            android:text="@string/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profileImage"
@@ -43,7 +43,7 @@
             android:textColor="#727272"/>
 
         <TextView
-            android:text="TextView"
+            android:text="@string/profileLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profileNameLabel"
@@ -66,7 +66,7 @@
             android:textColor="#727272"/>
 
         <TextView
-            android:text="TextView"
+            android:text="@string/profileEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profileLastNameLabel"
@@ -89,7 +89,7 @@
             android:textColor="#727272"/>
 
         <TextView
-            android:text="TextView"
+            android:text="@string/profileAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profileEmailLabel"
@@ -112,7 +112,7 @@
             android:textColor="#727272"/>
 
         <TextView
-            android:text="TextView"
+            android:text="@string/profilePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profileAddressLabel"
