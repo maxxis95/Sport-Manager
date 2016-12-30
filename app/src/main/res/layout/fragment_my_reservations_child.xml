@@ -8,55 +8,56 @@
     android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="1dp"
-    card_view:cardCornerRadius="0dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:selectableItemBackground">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/reservation_child_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:textIsSelectable="false"
-            tools:text="Demo TextView!"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:text="@string/myAppointmentType"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="1">
+            android:id="@+id/myAppointmentType"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
-            <TextView
-                android:id="@+id/reservation_description"
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
-                android:textIsSelectable="false"
-                android:textStyle="normal|italic"
-                tools:text="A wild RESERVATIONNNNNN"
-                android:layout_weight="0.54"
-                android:textAlignment="textEnd" />
+        <TextView
+            android:text="@string/myAppointmentAddress"
+            android:layout_marginTop="8dp"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/myAppointmentAddress"
+            android:layout_below="@+id/myAppointmentType"
+            android:layout_alignStart="@+id/myAppointmentType" />
 
-            <TextView
-                android:id="@+id/reservation_value"
-                android:layout_height="match_parent"
-                android:text="1337"
-                android:layout_gravity="right"
-                android:layout_width="80dp"
-                android:layout_weight="0.29"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textAlignment="center" />
+        <TextView
+            android:text="@string/myAppointmentPlayers"
+            android:layout_marginTop="8dp"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/myAppointmentPlayers"
+            android:layout_below="@+id/myAppointmentAddress"
+            android:layout_alignStart="@+id/myAppointmentType"
+            android:layout_marginBottom="14dp"/>
 
+        <TextView
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:text="@string/myAppointmentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="19dp"
+            android:textAlignment="center"
+            android:id="@+id/myAppointmentID"
+            android:layout_above="@+id/myAppointmentPlayers"
+            android:layout_alignParentEnd="true" />
 
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
+
 </android.support.v7.widget.CardView>

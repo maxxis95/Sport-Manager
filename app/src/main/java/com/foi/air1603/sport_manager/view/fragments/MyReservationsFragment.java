@@ -60,9 +60,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
      public void testRecyclerView() {
          // test data
          Reservations res = new Reservations();
-         res.setReservationDate("DATUMMM");
-         res.setSportName("NOGOMET");
-         res.setSportPicture("SLIKICAAA");
+         res.setReservationDate("Dan.Mjesec Početak - Kraj");
+         res.setSportName("Prva gimnazija Varaždin");
 
          List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
          reservationsItems.add(new MyReservationsExpandableItem(res));

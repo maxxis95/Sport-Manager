@@ -70,4 +70,13 @@
     <string name="reservationAppointmentText">Odaberite termin, sport i broj osoba:</string>
     <string name="appointmentPrivatePublic">Privatni termin</string>
     <string name="buttonSetAppointment">Rezerviraj termin</string>
+    <string name="buttonAddAppointment">Dodaj novi termin</string>
+    <string name="buttonObjectAppointments">Rezervirani termini</string>
+    <string name="buttonChangeProfilePicture">Promjeni sliku</string>
+    <string name="myAppointmentPlace">Mjesto održavanja</string>
+    <string name="myAppointmentTime">Termin održavanja</string>
+    <string name="myAppointmentAddress">Adresa</string>
+    <string name="myAppointmentType">Vrsta sporta</string>
+    <string name="myAppointmentPlayers">Broj sudionika</string>
+    <string name="myAppointmentID">ID rezervacije</string>
 </resources>
