@@ -1,15 +1,17 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Reservations;
+import com.foi.air1603.sport_manager.entities.ReservationsChild;
 import com.foi.air1603.sport_manager.model.MyReservationsInteractor;
 import com.foi.air1603.sport_manager.model.MyReservationsInteractorImpl;
 import com.foi.air1603.sport_manager.view.MyReservationsView;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,9 +40,29 @@ public class MyReservationsPresenterImpl implements PresenterHandler {
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
         Type collectionType = new TypeToken<List<Reservations>>() {}.getType();
+        Type collectionTypeChild = new TypeToken<List<ReservationsChild>>() {}.getType();
         List<Reservations> reservationsList = (List<Reservations>) new Gson().fromJson(response.getData(), collectionType);
+        List<ReservationsChild> reservationsChildList = (List<ReservationsChild>) new Gson().fromJson(response.getData(), collectionTypeChild);
 
-        Reservations reservations = reservationsList.get(0);
 
+        List<Reservations> finishedReservationsList = new ArrayList<>();
+
+
+        for (Reservations res : reservationsList){
+            Reservations reservations = new Reservations();
+            reservations.setPlaceName(res.getPlaceName());
+            reservations.setReservationDate(res.getReservationDate());
+            for (ReservationsChild rc : reservationsChildList){
+                List<ReservationsChild> rcList = new ArrayList<>();
+                rcList.add(new ReservationsChild(rc.getSportName(), rc.getPlaceAddress(), rc.getTeamName()));
+                reservations.setReservationsChildList(rcList);
+            }
+            finishedReservationsList.add(reservations);
+        }
+
+        //TODO: uncomment when WS data is ready
+//        if(finishedReservationsList != null){
+//            myReservationsView.loadRecycleViewData(finishedReservationsList);
+//        }
     }
 }

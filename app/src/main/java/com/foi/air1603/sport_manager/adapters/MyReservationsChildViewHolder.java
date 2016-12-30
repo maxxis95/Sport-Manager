@@ -39,10 +39,11 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
     }
 
     public void bind(ReservationsChild reservationsChild){
-        mReservationType.setText(reservationsChild.getPlaceName());
+        mReservationType.setText(reservationsChild.getSportName());
         mReservationAddress.setText(reservationsChild.getPlaceAddress());
         mReservationPlayers.setText(reservationsChild.getTeamName());
         mReservationValue.setText("ID");
+
     }
 
 }
