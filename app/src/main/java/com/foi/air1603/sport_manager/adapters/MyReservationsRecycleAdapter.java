@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.entities.ReservationsChild;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Generalko on 28-Dec-16.
  */
 
-public class MyReservationsRecycleAdapter extends ExpandableRecyclerAdapter<MyReservationsExpandableItem, ReservationsChild, MyReservationsParentViewHolder, MyReservationsChildViewHolder> {
+public class MyReservationsRecycleAdapter extends ExpandableRecyclerAdapter<MyReservationsExpandableItem, Reservation, MyReservationsParentViewHolder, MyReservationsChildViewHolder> {
 
     private LayoutInflater mInflator;
 
@@ -47,10 +47,8 @@ public class MyReservationsRecycleAdapter extends ExpandableRecyclerAdapter<MyRe
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull MyReservationsChildViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull ReservationsChild child) {
-        ReservationsChild reservationsChild = child;
-        childViewHolder.bind(reservationsChild);
+    public void onBindChildViewHolder(@NonNull MyReservationsChildViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull Reservation child) {
+        childViewHolder.bind(child);
     }
-
 
 }

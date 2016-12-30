@@ -25,10 +25,9 @@ import java.util.List;
 public class MyReservationsFragment extends android.app.Fragment implements MyReservationsView {
 
     private static final String TAG = "MyReservationsFragment";
-
+    protected RecyclerView mRecyclerView;
     MyReservationsPresenterImpl myReservationsPresenter;
     MyReservationsRecycleAdapter adapter;
-    protected RecyclerView mRecyclerView;
 
 
     public MyReservationsFragment() {
@@ -57,16 +56,16 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
 
-     public void loadRecycleViewTestData() {
-         // test data
+    public void loadRecycleViewTestData() {
+        // test data
 
-         Reservation res = new Reservation();
-         //res.setSubmitted("DATUMMM");
+        Reservation res = new Reservation();
+        //res.setSubmitted("DATUMMM");
         // res.setCreated("Gimnazija");
-         //res.setConfirmed("SLIKICAAA");
+        //res.setConfirmed("SLIKICAAA");
 
-         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
-         reservationsItems.add(new MyReservationsExpandableItem(res));
+        List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
+        reservationsItems.add(new MyReservationsExpandableItem(res));
 
         if (mRecyclerView != null) {
             adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);
@@ -78,21 +77,15 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void loadRecycleViewData(List<Reservation> reservations) {
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
-
         System.out.println("MyReservationsFragment:LoadRecyclerViewData");
 
+        for (Reservation res : reservations) {
 
-
-        for (Reservation res : reservations){
-
-            if(res.appointment == null){
-                return;
+            if (res.appointment == null) {
+                continue;
             }
 
-            System.out.println(res.appointment.id);
-
             MyReservationsExpandableItem tmp = new MyReservationsExpandableItem(res);
-
             reservationsItems.add(tmp);
         }
         if (mRecyclerView != null) {

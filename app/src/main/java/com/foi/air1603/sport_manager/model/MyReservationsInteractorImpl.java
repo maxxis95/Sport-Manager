@@ -34,7 +34,7 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
         try{
             System.out.println("");
 
-            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places", null, null, Reservation.class, null);
+            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", null, null, Reservation.class, null);
            // dataLoader.loadData(this, "getData", "Reservations,Sports", "Teams.Users.user_id", userId+"", Reservations.class, null);
         }catch (Exception ex){
             Log.e("WebService Error: ",ex.getMessage());

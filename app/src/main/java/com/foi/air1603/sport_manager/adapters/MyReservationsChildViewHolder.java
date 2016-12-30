@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.entities.ReservationsChild;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,12 +38,11 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(ReservationsChild reservationsChild){
-        mReservationType.setText(reservationsChild.getSportName());
-        mReservationAddress.setText(reservationsChild.getPlaceAddress());
-        mReservationPlayers.setText(reservationsChild.getTeamName());
-        mReservationValue.setText("ID");
-
+    public void bind(Reservation reservation) {
+        mReservationType.setText(reservation.sport.name);
+        mReservationAddress.setText(reservation.appointment.place.address);
+        mReservationPlayers.setText(reservation.team.name);
+        mReservationValue.setText(reservation.id + "");
     }
 
 }
