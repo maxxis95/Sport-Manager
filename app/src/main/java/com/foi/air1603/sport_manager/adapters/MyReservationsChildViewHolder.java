@@ -18,11 +18,13 @@ import butterknife.ButterKnife;
 
 public class MyReservationsChildViewHolder extends ChildViewHolder {
 
-    @BindView(R.id.reservation_child_name)
-    TextView mReservationName;
-    @BindView(R.id.reservation_description)
-    TextView mReservationDescription;
-    @BindView(R.id.reservation_value)
+    @BindView(R.id.myAppointmentType)
+    TextView mReservationType;
+    @BindView(R.id.myAppointmentAddress)
+    TextView mReservationAddress;
+    @BindView(R.id.myAppointmentPlayers)
+    TextView mReservationPlayers;
+    @BindView(R.id.myAppointmentID)
     TextView mReservationValue;
 
     MyReservationsRecycleAdapter mAdapter;
@@ -37,9 +39,11 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
     }
 
     public void bind(ReservationsChild reservationsChild){
-        mReservationName.setText(reservationsChild.getSportName());
-        mReservationDescription.setText(reservationsChild.getPlaceAddress());
-        mReservationValue.setText("1337");
+        mReservationType.setText(reservationsChild.getSportName());
+        mReservationAddress.setText(reservationsChild.getPlaceAddress());
+        mReservationPlayers.setText(reservationsChild.getTeamName());
+        mReservationValue.setText("ID");
+
     }
 
 }

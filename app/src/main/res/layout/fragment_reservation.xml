@@ -6,7 +6,7 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <CalendarView
             android:id="@+id/calendarViewReservation"
@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvReservationDateLabel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp" />
+            android:layout_marginTop="11dp"
+            />
 
         <TextView
             android:id="@+id/tvReservationDateLabel"
@@ -84,7 +85,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/spinnerAppointments"
             android:layout_alignLeft="@+id/spinnerAppointments"
-            android:layout_alignTop="@+id/reservationSportImage"/>
+            android:layout_alignTop="@+id/reservationSportImage"
+            tools:ignore="RtlHardcoded" />
 
         <Button
             android:id="@+id/buttonSetAppointment"

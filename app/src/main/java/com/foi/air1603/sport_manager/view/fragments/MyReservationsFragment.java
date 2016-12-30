@@ -52,17 +52,18 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         super.onViewCreated(view, savedInstanceState);
 
         myReservationsPresenter = new MyReservationsPresenterImpl(this);
-        loadRecycleViewTestData();
+        //loadRecycleViewTestData();
 
     }
 
 
      public void loadRecycleViewTestData() {
          // test data
+
          Reservation res = new Reservation();
-         res.setSubmitted("DATUMMM");
-         res.setCreated("Gimnazija");
-         res.setConfirmed("SLIKICAAA");
+         //res.setSubmitted("DATUMMM");
+        // res.setCreated("Gimnazija");
+         //res.setConfirmed("SLIKICAAA");
 
          List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
          reservationsItems.add(new MyReservationsExpandableItem(res));
@@ -78,8 +79,21 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     public void loadRecycleViewData(List<Reservation> reservations) {
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
 
+        System.out.println("MyReservationsFragment:LoadRecyclerViewData");
+
+
+
         for (Reservation res : reservations){
-            reservationsItems.add(new MyReservationsExpandableItem(res));
+
+            if(res.appointment == null){
+                return;
+            }
+
+            System.out.println(res.appointment.id);
+
+            MyReservationsExpandableItem tmp = new MyReservationsExpandableItem(res);
+
+            reservationsItems.add(tmp);
         }
         if (mRecyclerView != null) {
             adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);

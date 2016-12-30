@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_main"
     android:layout_width="match_parent"
@@ -14,12 +15,14 @@
         android:background="#ECEFF1"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/ic_add_white_24dp"
-        tools:ignore="RtlHardcoded" />
+        app:backgroundTint="@color/colorChanged"
+        app:useCompatPadding="true"
+        android:id="@+id/fabAdd"/>
 </RelativeLayout>

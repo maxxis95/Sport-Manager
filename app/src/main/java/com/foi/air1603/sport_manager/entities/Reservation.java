@@ -9,65 +9,37 @@ import java.util.List;
 
 public class Reservation {
 
-    int id;
+    public int id;
     public String created;
     public String submitted;
     public String confirmed;
+    public String placeName;
+    public Place place;
+    public Appointment appointment;
+    public Sport sport;
 
 
     public Reservation() {
     }
 
-    public Reservation(Reservation reservations) {
-        id = reservations.id;
-        created = reservations.created;
-        submitted = reservations.submitted;
-        confirmed = reservations.confirmed;
+    public Reservation(Reservation reservation) {
+        id = reservation.id;
+        created = reservation.created;
+       // placeName = reservation.appointment.place.name;
+        place = reservation.appointment.place;
+        submitted = reservation.submitted;
+        confirmed = reservation.confirmed;
+        sport = reservation.sport;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    /* public String getCreated() {
-         return created;
-     }
-
-     public String getSubmitted() {
-         return submitted;
-     }
-
-
-     public String getConfirmed() {
-         return confirmed;
-     }
- */
-     private List<ReservationsChild> reservationsChildList;
+    private List<ReservationsChild> reservationChildList;
 
     public List<ReservationsChild> getReservationsChildList() {
         // test data
-        reservationsChildList = new ArrayList<>();
-        reservationsChildList.add(new ReservationsChild("TERETANA", "Vukovarska 33", "NOGOMETAŠI SA SELA"));
-        return reservationsChildList;
+        reservationChildList = new ArrayList<>();
+        reservationChildList.add(new ReservationsChild("TERETANA", "Vukovarska 33", "NOGOMETAŠI SA SELA"));
+        return reservationChildList;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public void setSubmitted(String submitted) {
-        this.submitted = submitted;
-    }
-
-    public void setReservationsChildList(List<ReservationsChild> reservationsChildList) {
-        this.reservationsChildList = reservationsChildList;
-    }
-
-    public void setConfirmed(String confirmed) {
-        this.confirmed = confirmed;
-    }
 }

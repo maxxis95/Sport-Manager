@@ -11,6 +11,7 @@ public class Appointment {
     public String start;
     public String end;
     public Integer maxplayers;
+    public Place place;
 
 
     public int getId() {

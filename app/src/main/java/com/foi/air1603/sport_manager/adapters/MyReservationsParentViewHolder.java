@@ -33,8 +33,8 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
 
     // when the adapter is implemented this method is used to bind list elements with the recycler-view, here, we populate the Views
     public void bind(Reservation reservations){
-        mReservationPlaceName.setText(reservations.created);
-        mReservationTime.setText(reservations.submitted);
+        mReservationPlaceName.setText(reservations.place.name);
+        mReservationTime.setText(reservations.created);
         //todo: set sport image if you want
     }
 }

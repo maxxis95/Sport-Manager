@@ -13,40 +13,47 @@
     android:focusable="true"
     android:foreground="?android:selectableItemBackground">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/sport_image"
-            android:layout_height="95dp"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
             android:src="@mipmap/ic_launcher"
-            android:layout_width="match_parent" />
-
-        <TextView
-            android:id="@+id/reservation_place_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="0dp"
-            android:textIsSelectable="false"
-            tools:text="Reservation place name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_alignTop="@+id/reservation_place_name"
+            android:layout_marginStart="16dp" />
 
         <TextView
             android:id="@+id/reservation_time"
+            android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="0dp"
             android:textIsSelectable="false"
-            tools:text="This store sells everything you need!"
-            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
+            android:layout_marginEnd="16dp"
+            tools:text="@string/myAppointmentPlace"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:layout_below="@+id/reservation_place_name"
+            android:layout_alignStart="@+id/reservation_place_name" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/reservation_place_name"
+            android:textColor="#212121"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"
+            android:textIsSelectable="false"
+            tools:text="@string/myAppointmentTime"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/sport_image" />
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
