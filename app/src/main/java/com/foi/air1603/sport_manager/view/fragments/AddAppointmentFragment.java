@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.Fragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.R;
@@ -29,7 +31,7 @@ import com.foi.air1603.sport_manager.view.AddAppointmentView;
  * Created by Korisnik on 28-Dec-16.
  */
 
-public class AddAppointmentFragment extends Fragment implements AddAppointmentView{
+public class AddAppointmentFragment extends Fragment implements AddAppointmentView {
 
     private int id_place;
     AddAppointmentPresenter addAppointmentPresenter;
@@ -46,8 +48,11 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_add_appointment, null);
 
+
+
         return v;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -72,6 +77,60 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
             }
 
         });
+        final EditText appointmentEndInput = (EditText) getActivity().findViewById(R.id.etAppointmentHourEnd);
+        final EditText appointmentStartInput = (EditText) getActivity().findViewById(R.id.etAppointmentHourStart);
+        appointmentStartInput.setFocusable(false);
+        appointmentEndInput.setFocusable(false);
+        appointmentStartInput.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String selH = String.valueOf(selectedHour);
+                        String selM = String.valueOf(selectedMinute);
+                        if(selectedHour <10) selH ="0"+ selectedHour;
+                        if(selectedMinute<10)selM="0"+selectedMinute;
+                        appointmentStartInput.setText(selH + ":" + selM);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+        appointmentEndInput.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String selH = String.valueOf(selectedHour);
+                        String selM = String.valueOf(selectedMinute);
+                        if(selectedHour <10) selH ="0"+ selectedHour;
+                        if(selectedMinute<10)selM="0"+selectedMinute;
+                        appointmentEndInput.setText(selH + ":" + selM);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
 
 
     }
@@ -79,13 +138,13 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
 
     @Override
     public String getAppointmentStartFromEditText() {
-        EditText appointmentStartInput = (EditText)getActivity().findViewById(R.id.etAppointmentHourStart);
+        EditText appointmentStartInput = (EditText) getActivity().findViewById(R.id.etAppointmentHourStart);
         return appointmentStartInput.getText().toString();
     }
 
     @Override
     public String getAppointmentEndFromEditText() {
-        EditText appointmentEndInput = (EditText)getActivity().findViewById(R.id.etAppointmentHourEnd);
+        EditText appointmentEndInput = (EditText) getActivity().findViewById(R.id.etAppointmentHourEnd);
         return appointmentEndInput.getText().toString();
     }
 
@@ -103,28 +162,27 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         // sets the first day of week according to Calendar.
         calendar.setFirstDayOfWeek(2);
 
-            calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
 
-                    yearGet = year;
-                    monthGet = month;
-                    dayGet = day;
+                yearGet = year;
+                monthGet = month;
+                dayGet = day;
 
-                    if(currentPickedDate == getDate()){
-                        return;
-                    }
-                    currentPickedDate = getDate();
-
-
+                if (currentPickedDate == getDate()) {
+                    return;
                 }
+                currentPickedDate = getDate();
 
-            });
 
-        }
+            }
 
+        });
+
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -146,7 +204,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
 
     @Override
     public String getMaxPlayer() {
-        EditText maxPlayerInput = (EditText)getActivity().findViewById(R.id.etMaxplayer);
+        EditText maxPlayerInput = (EditText) getActivity().findViewById(R.id.etMaxplayer);
         return maxPlayerInput.getText().toString();
     }
 
@@ -195,7 +253,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     @Override
     public void returnResponseCode(int statusCode, String message) {
 
-        if(statusCode == 200) {
+        if (statusCode == 200) {
             Toast.makeText(getActivity(),
                     "Uspješno ste unijeli termin", Toast.LENGTH_LONG).show();
 
@@ -203,8 +261,9 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
 
         } else {
             Toast.makeText(getActivity(),
-                    "Dodavanje termina nije uspjelo:"+message, Toast.LENGTH_LONG).show();
+                    "Dodavanje termina nije uspjelo:" + message, Toast.LENGTH_LONG).show();
         }
 
     }
+
 }

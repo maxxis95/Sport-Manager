@@ -6,6 +6,8 @@ import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 
+import java.sql.Date;
+
 /**
  * Created by Korisnik on 30-Dec-16.
  */
@@ -68,7 +70,11 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
         Appointment appointment = new Appointment();
         appointment.placeId = view.getIdPlace();
         int dat = view.getCurrentDate();
-        appointment.date = Integer.toString(dat);
+
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        appointment.date = sqlDate.toString();
+        System.out.println("---------------"+sqlDate.toString());
         appointment.start = view.getAppointmentStartFromEditText();
         appointment.end = view.getAppointmentEndFromEditText();
         String maxply;
