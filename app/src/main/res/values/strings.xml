@@ -82,4 +82,6 @@
     <string name="myAppointmentType">Vrsta sporta</string>
     <string name="myAppointmentPlayers">Broj sudionika</string>
     <string name="myAppointmentID">ID rezervacije</string>
+    <string name="myAppointmentConfirm">Potvrdi dolazak</string>
+    <string name="myAppointmentDelete">Obriši rezervaciju</string>
 </resources>

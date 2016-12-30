@@ -14,8 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvReservationDateLabel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
-            />
+            android:layout_marginTop="11dp" />
 
         <TextView
             android:id="@+id/tvReservationDateLabel"
@@ -48,10 +47,10 @@
 
         <Spinner
             android:id="@+id/spinnerAppointments"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/reservationAppointmentImage"
-            android:layout_marginStart="21dp"
+            android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/reservationAppointmentImage" />
 
         <Spinner
@@ -59,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/spinnerAppointments"
-            android:layout_marginStart="245dp"/>
+            android:layout_marginStart="256dp"/>
 
         <ImageView
             android:id="@+id/reservationPlayersImage"
@@ -67,7 +66,7 @@
             android:layout_height="20dp"
             android:layout_below="@+id/tvReservationAppointmentLabel"
             android:layout_alignTop="@+id/reservationAppointmentImage"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="225dp"
             android:src="@drawable/ic_group_black_24dp" />
 
         <ImageView
@@ -81,11 +80,12 @@
 
         <Spinner
             android:id="@+id/spinnerSports"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/spinnerAppointments"
             android:layout_alignLeft="@+id/spinnerAppointments"
             android:layout_alignTop="@+id/reservationSportImage"
+            android:layout_marginTop="-4dp"
             tools:ignore="RtlHardcoded" />
 
         <Button

@@ -66,16 +66,15 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             style="?android:attr/borderlessButtonStyle"
-            android:textColor="#006064"/>
+            android:textColor="#039be5"/>
 
         <Button
             android:text="@string/buttonObjectAppointments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_my_place_reserved"
-            android:layout_marginStart="12dp"
             style="?android:attr/borderlessButtonStyle"
-            android:textColor="#006064"
+            android:textColor="#039be5"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/btn_my_place_add_appointment" />
 
