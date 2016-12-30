@@ -32,6 +32,7 @@ public class Appointment {
     public String getEnd() {
         return end;
     }
+
     public Integer getMaxplayers() {
         return maxplayers;
     }

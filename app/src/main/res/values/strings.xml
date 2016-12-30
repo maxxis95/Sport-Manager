@@ -55,6 +55,9 @@
     <string name="place_image_link">Link na sliku objekta</string>
     <string name="PlaceAdd">Dodaj objekt</string>
     <string name="PlaceContinue">Nastavak...</string>
+    <string name="appointment_hours_start">Početak termina</string>
+    <string name="appointment_hours_end">Kraj termina</string>
+    <string name="appointment_max_player">Maksimalan broj igraca</string>
     <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
 
     <string name="tvPlaceName">Naziv objekta</string>
