@@ -16,10 +16,12 @@ import android.view.ViewGroup;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.PlaceRecycleAdapter;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.presenter.PlacePresenter;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 import com.foi.air1603.sport_manager.view.PlaceView;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -28,11 +30,10 @@ import java.util.List;
  */
 
 public class AllPlacesFragment extends android.app.Fragment implements PlaceView {
-    private RecyclerView recyclerView;
     PlacePresenter presenter;
     FloatingActionButton fabAdd;
     Rights rights;
-
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -53,8 +54,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_container, new AddPlaceFragment());
                 ft.addToBackStack(null);
@@ -70,37 +71,29 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         presenter.testGettingMultiplePlaces();
     }
 
-    private void hideFloatingActionButton(){
+    private void hideFloatingActionButton() {
         rights = rights.getRightFormInt(MainActivity.user.type);
-        switch (rights){
+        switch (rights) {
             case User:
                 fabAdd.hide();
         }
     }
 
     @Override
-    public void showTestToast(List<Integer> id, List<String> name, List<String> address, List<String> contact, List<String> img , List<String> workingHoursFrom, List<String> workingHoursTo, List<String> lat, List<String> lon) {
-        System.out.println("9. AllPlacesFragment:showTestToast");
-        recyclerView.setAdapter(new PlaceRecycleAdapter(id, name, address, contact,img, workingHoursFrom,workingHoursTo,lat,lon, this));
+    public void showAllPlaces(List<Place> places) {
+        System.out.println("9. AllPlacesFragment:showAllPlaces");
+        recyclerView.setAdapter(new PlaceRecycleAdapter(places, this));
+
     }
 
     @Override
-    public void changeFragment(Integer place_id, String place_name, String place_address, String place_contact, String place_img, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
-
+    public void changeFragment(Place place) {
         // Create new fragment and transaction
         Fragment newFragment = new PlaceDetailsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
-        bundle.putInt("place_id", place_id);
-        bundle.putString("place_name", place_name);
-        bundle.putString("place_address", place_address);
-        bundle.putString("place_contact", place_contact);
-        bundle.putString("place_img", place_img);
-        bundle.putString("place_workingHoursFrom", place_workingHoursFrom);
-        bundle.putString("place_workingHoursTo", place_workingHoursTo);
-        bundle.putString("place_lat", place_lat);
-        bundle.putString("place_lon", place_lon);
+        bundle.putSerializable("Place", new Gson().toJson(place));
         newFragment.setArguments(bundle);
 
         // Replace whatever is in the fragment_container view with this fragment,
@@ -110,7 +103,6 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
         // Commit the transaction
         transaction.commit();
+
     }
-
-
 }

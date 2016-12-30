@@ -19,11 +19,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.SportPresenter;
 import com.foi.air1603.sport_manager.presenter.SportPresenterImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     private int dayGet;
     private int id_place;
     private int currentPickedDate;
+
+    private Place place;
 
     private TextView appointmentLabel;
     private ImageView appointmentImage;
@@ -66,7 +70,12 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         View v = inflater.inflate(R.layout.fragment_reservation, null);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            id_place = bundle.getInt("place_id");
+            String place_serialized = bundle.getString("Place");
+            Place place = new Gson().fromJson(place_serialized, Place.class);
+            this.place = place;
+
+            id_place = place.id;
+            //id_place = bundle.getInt("place_id");
         }
         return v;
     }

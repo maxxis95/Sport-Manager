@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,26 +53,16 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     private TextView txtViewAdresa;
     private Button reservation_btn;
     private int id_place;
+    private Place place;
     private Boolean minimalLocationPermission = false;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_details_place, null);
         mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
         mMapView.onCreate(savedInstanceState);
-
-        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(VARAZDIN, 10));
-
-
-        /*if (map != null) {
-                    map.addMarker(new MarkerOptions()
-                    .position(new LatLng(41.40338, 2.17403))
-                    .title("prva gimnazija")
-                    .draggable(false).visible(true));
-        }*/
-
         return v;
     }
 
@@ -79,17 +70,12 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
+
         if (bundle != null) {
-            id_place = bundle.getInt("place_id");
-            String place_name = bundle.getString("place_name", null);
-            String place_address = bundle.getString("place_address", null);
-            String place_contact = bundle.getString("place_contact", null);
-            String place_imgUrl = bundle.getString("place_imgUrl", null);
-            String place_workingHoursFrom = bundle.getString("place_workingHoursFrom", null);
-            String place_workingHoursTo = bundle.getString("place_workingHoursTo", null);
-            String place_lat = bundle.getString("place_lat", null);
-            String place_lon = bundle.getString("place_lon", null);
-            showPlace(place_name, place_address, place_contact, place_imgUrl, place_workingHoursFrom, place_workingHoursTo, place_lat, place_lon);
+            String place_serialized = bundle.getString("Place");
+            Place place = new Gson().fromJson(place_serialized, Place.class);
+            this.place = place;
+            showPlace();
         }
         reservation_btn = (Button) getActivity().findViewById(R.id.buttonPlaceBook);
 
@@ -97,9 +83,11 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             @Override
             public void onClick(View v) {
                 Fragment newFragment = new ReservationFragment();
+
                 Bundle bundle = new Bundle();
-                bundle.putInt("place_id", id_place);
+                bundle.putSerializable("Place", new Gson().toJson(place));
                 newFragment.setArguments(bundle);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_container, newFragment);
                 ft.addToBackStack(null);
@@ -108,8 +96,6 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             }
 
         });
-
-
     }
 
     @Override
@@ -159,18 +145,19 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
-    public void showPlace(String place_name, String place_address, String place_contact, String place_imgUrl, String place_workingHoursFrom, String place_workingHoursTo, String place_lat, String place_lon) {
+    public void showPlace() {
+
         txtViewAdresa = (TextView) getView().findViewById(R.id.tvPlaceAddress);
         txtViewName = (TextView) getView().findViewById(R.id.tvPlaceName);
         txtViewRadnoVrijeme = (TextView) getView().findViewById(R.id.tvPlaceWorkingHours);
         txtViewKontakt = (TextView) getView().findViewById(R.id.tvPlacePhone);
-        txtViewAdresa.setText(place_address);
-        txtViewName.setText(place_name);
-        txtViewRadnoVrijeme.setText(place_workingHoursFrom.substring(0, 5) + " - " + place_workingHoursTo.substring(0, 5));
-        txtViewKontakt.setText(place_contact);
+        txtViewAdresa.setText(place.address);
+        txtViewName.setText(place.name);
+        txtViewRadnoVrijeme.setText(place.workingHoursFrom.substring(0, 5) + " - " + place.workingHoursTo.substring(0, 5));
+        txtViewKontakt.setText(place.contact);
 
-        placeAddress = place_address;
-        placeName = place_name;
+        placeAddress = place.address;
+        placeName = place.name;
 
 
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -189,8 +176,6 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
         } else {
             configureMap();
         }
-
-
     }
 
     @SuppressWarnings({"MissingPermission"})
