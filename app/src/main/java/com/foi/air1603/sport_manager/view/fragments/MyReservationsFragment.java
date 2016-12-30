@@ -52,16 +52,16 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         super.onViewCreated(view, savedInstanceState);
 
         myReservationsPresenter = new MyReservationsPresenterImpl(this);
-        testRecyclerView();
+        loadRecycleViewTestData();
 
     }
 
 
-     public void testRecyclerView() {
+     public void loadRecycleViewTestData() {
          // test data
          Reservations res = new Reservations();
          res.setReservationDate("DATUMMM");
-         res.setSportName("NOGOMET");
+         res.setPlaceName("Gimnazija");
          res.setSportPicture("SLIKICAAA");
 
          List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
@@ -71,10 +71,20 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+    }
 
-            // https://github.com/bignerdranch/expandable-recycler-view/blob/master/expandablerecyclerview/src/main/java/com/bignerdranch/expandablerecyclerview/Adapter/ExpandableRecyclerAdapter.java
-            // store states and reload states
-            adapter.expandParent(0);
+    @Override
+    public void loadRecycleViewData(List<Reservations> reservations) {
+        List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
+
+        for (Reservations res : reservations){
+            reservationsItems.add(new MyReservationsExpandableItem(res));
+        }
+        if (mRecyclerView != null) {
+            adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);
+            mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
 }

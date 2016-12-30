@@ -10,10 +10,9 @@ import java.util.List;
 public class Reservations{
 
     int id;
-    String sportName;
+    String placeName;
     String reservationDate;
     String sportPicture;
-
 
 
     public Reservations() {
@@ -21,7 +20,7 @@ public class Reservations{
 
     public Reservations(Reservations reservations) {
         id = reservations.id;
-        sportName = reservations.sportName;
+        placeName = reservations.placeName;
         reservationDate = reservations.reservationDate;
         sportPicture = reservations.sportPicture;
     }
@@ -30,13 +29,14 @@ public class Reservations{
         return id;
     }
 
-    public String getSportName() {
-        return sportName;
+    public String getPlaceName() {
+        return placeName;
     }
 
     public String getReservationDate() {
         return reservationDate;
     }
+
 
     public String getSportPicture() {
         return sportPicture;
@@ -55,12 +55,16 @@ public class Reservations{
         this.id = id;
     }
 
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public void setReservationDate(String reservationDate) {
         this.reservationDate = reservationDate;
+    }
+
+    public void setReservationsChildList(List<ReservationsChild> reservationsChildList) {
+        this.reservationsChildList = reservationsChildList;
     }
 
     public void setSportPicture(String sportPicture) {
