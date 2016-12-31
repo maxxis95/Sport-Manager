@@ -47,8 +47,8 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
         placeInteractor.getPlaceObject(this, "id", "1");
     }
 
-    public void testGettingMultiplePlaces() {
-        System.out.println("----------------->2. PlacePresenterImpl:testGettingMultiplePlaces");
+    public void getAllPlaces() {
+        System.out.println("----------------->2. PlacePresenterImpl:getAllPlaces");
 
         if (this.places == null) {
             placeInteractor.getAllPlacesObjects(this);

@@ -10,26 +10,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.FriendsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.User;
+import com.foi.air1603.sport_manager.presenter.InviteFriendsPresenter;
+import com.foi.air1603.sport_manager.presenter.InviteFriendsPresenterImpl;
 import com.foi.air1603.sport_manager.view.InviteFriendsView;
 
-import java.net.URI;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Karlo on 30.12.2016..
  */
 
 public class InviteFriendsFragment extends Fragment implements InviteFriendsView {
-
-    private RecyclerView recyclerView;
     List<User> users = new ArrayList<User>();
+    private InviteFriendsPresenter presenter;
+    private View view;
+    private String[] USEREMAILS;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -45,9 +50,25 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_friend_invites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        this.view = view;
+
+        presenter = new InviteFriendsPresenterImpl(this);
+        presenter.loadAllUserEmails();
 
         users.add(MainActivity.user);
         users.add(MainActivity.user);
         recyclerView.setAdapter(new FriendsRecycleAdapter(users, this));
+    }
+
+    @Override
+    public void initializeAutoComplete(Map<Integer, String> userEmails) {
+        USEREMAILS = userEmails.values().toArray(new String[0]);
+
+        //Inicijalizacija autocompleta
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_dropdown_item_1line, USEREMAILS);
+        AutoCompleteTextView textView = (AutoCompleteTextView)
+                view.findViewById(R.id.actvInviteFriends);
+        textView.setAdapter(adapter);
     }
 }

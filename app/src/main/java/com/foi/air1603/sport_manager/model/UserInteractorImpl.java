@@ -26,6 +26,12 @@ public class UserInteractorImpl implements UserInteractor, DataLoadedListener {
     }
 
     @Override
+    public void getUsersEmails() {
+        System.out.println("----------------->3. UserInteractorImpl:getUsersEmails");
+        dataLoader.loadData(this, "getList", "Users", "email", "", User.class, null);
+    }
+
+    @Override
     public void getUserObject(OnLoginFinishedListener listener, String searchBy, String value) {
 
         System.out.println("----------------->3. UserInteractorImpl:getUserObject");

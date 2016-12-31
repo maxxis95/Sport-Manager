@@ -17,7 +17,7 @@ public interface UserInteractor {
         void onWebServiceError(String message);
 
     }
-
+    void getUsersEmails();
     void getUserObject(OnLoginFinishedListener listener, String searchBy, String value);
     void setUserObject(User user);
     void changeUserPicture(String fileUri, Integer user_id);
