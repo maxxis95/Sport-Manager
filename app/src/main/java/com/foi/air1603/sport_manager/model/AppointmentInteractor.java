@@ -8,10 +8,7 @@ import com.foi.air1603.sport_manager.entities.Appointment;
 
 public interface AppointmentInteractor {
 
-    void getAppointmentsObjects(Object listener, String searchBy, String value);
+    void getAppointmentsObjects(String searchBy, String value);
+
     void setAppointmentObject(Appointment appointment);
 }
-
-
-
-

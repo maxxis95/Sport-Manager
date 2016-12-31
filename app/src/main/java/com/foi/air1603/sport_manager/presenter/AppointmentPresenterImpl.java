@@ -1,10 +1,10 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.model.AppointmentInteractor;
 import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,13 +24,8 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
     private static AppointmentPresenterImpl instance;
     AppointmentInteractor appointmentInteractor;
-    List<Integer> id = new ArrayList<Integer>();
-    List<Integer> placeId = new ArrayList<Integer>();
-    List<String> date = new ArrayList<String>();
-    List<String> start = new ArrayList<String>();
-    List<String> end = new ArrayList<String>();
-    List<Integer> maxplayers = new ArrayList<Integer>();
-    List<Appointment> appointments = null;
+    List<Appointment> allAppointments = null;
+    List<Appointment> availableAppointments = new ArrayList<>();
     private ReservationView view;
 
     private AppointmentPresenterImpl() {
@@ -53,56 +48,36 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
     @Override
     public void loadAllAppointments() {
-        int date = view.getDate();
         int id_place = view.getIdPlace();
-        String searchBy = "place_id";
-        String value = id_place + "";
-        appointmentInteractor.getAppointmentsObjects(this, searchBy, value);
-
+        appointmentInteractor.getAppointmentsObjects("place_id", id_place + "");
     }
 
     @Override
     public void showAppointmentsForDate(Integer pickedDate) {
 
-        System.out.println("this.showAppointmentsForDate" + this.appointments);
-
+        System.out.println("this.showAppointmentsForDate" + this.allAppointments);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        if (this.appointments == null) {
+        if (this.allAppointments == null) {
             return;
         }
 
-        for (final Appointment appointment : this.appointments) {
+        for (final Appointment appointment : this.allAppointments) {
             Date dateTmp = null;
+
             try {
                 dateTmp = dateFormat.parse(appointment.date);
-                //System.out.println("pickedDate "+pickedDate+"   === datetmp " + dateTmp);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            long unixTime = (long) dateTmp.getTime() / 1000 + 3600; //3600 timezone fix
 
+            long unixTime = dateTmp.getTime() / 1000 + 3600; //3600 timezone fix
             if (pickedDate != unixTime) {
                 continue;
             }
-
-            id.add(appointment.getId());
-            placeId.add(appointment.getPlaceId());
-            date.add(appointment.getDate());
-            start.add(appointment.getStart());
-            end.add(appointment.getEnd());
-            maxplayers.add((appointment.getMaxplayers()));
-
+            availableAppointments.add(appointment);
         }
-
-        this.view.showAppointments(id, placeId, date, start, end, maxplayers);
-
-        id.clear();
-        placeId.clear();
-        date.clear();
-        start.clear();
-        end.clear();
-        maxplayers.clear();
+        view.showAppointmentsForDate(availableAppointments);
+        availableAppointments.clear();
     }
 
     @Override
@@ -113,7 +88,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         Type collectionType = new TypeToken<List<Appointment>>() {
         }.getType();
 
-        this.appointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
+        this.allAppointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
 
         view.initializeCalendar();
     }

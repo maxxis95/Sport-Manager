@@ -7,5 +7,4 @@ package com.foi.air1603.sport_manager.presenter;
 public interface AppointmentPresenter {
     void loadAllAppointments();
     void showAppointmentsForDate(Integer date);
-
 }

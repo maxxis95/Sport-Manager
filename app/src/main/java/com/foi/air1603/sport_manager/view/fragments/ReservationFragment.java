@@ -19,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
@@ -70,9 +71,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             String place_serialized = bundle.getString("Place");
             Place place = new Gson().fromJson(place_serialized, Place.class);
             this.place = place;
-
             id_place = place.id;
-            //id_place = bundle.getInt("place_id");
         }
         return v;
     }
@@ -227,7 +226,45 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         return id_place;
     }
 
+
     @Override
+    public void showAppointmentsForDate(List<Appointment> appointments) {
+        if (appointments.size() == 0) {
+            spinnerAppointment.setVisibility(View.GONE);
+            spinnerSport.setVisibility(View.GONE);
+            appointmentLabel.setVisibility(View.GONE);
+            appointmentImage.setVisibility(View.GONE);
+            sportImage.setVisibility(View.GONE);
+            sportImage.setVisibility(View.GONE);
+            playersImage.setVisibility(View.GONE);
+            privateSwitch.setVisibility(View.GONE);
+            setAppointmentButton.setVisibility(View.GONE);
+            return;
+        }
+
+        spinnerAppointment.setVisibility(View.VISIBLE);
+        spinnerSport.setVisibility(View.VISIBLE);
+        appointmentLabel.setVisibility(View.VISIBLE);
+        appointmentImage.setVisibility(View.VISIBLE);
+        sportImage.setVisibility(View.VISIBLE);
+        sportImage.setVisibility(View.VISIBLE);
+        playersImage.setVisibility(View.VISIBLE);
+        privateSwitch.setVisibility(View.VISIBLE);
+        setAppointmentButton.setVisibility(View.VISIBLE);
+
+        List<String> spinnerAppointments = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            spinnerAppointments.add(appointment.start + "-" + appointment.end);
+            maxPlayers.add(appointment.maxplayers.toString());
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerAppointments);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAppointment.setAdapter(dataAdapter);
+    }
+
+    /*@Override
     public void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end, List<Integer> maxplayers) {
 
         if (id.size() == 0) {
@@ -253,17 +290,18 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         privateSwitch.setVisibility(View.VISIBLE);
         setAppointmentButton.setVisibility(View.VISIBLE);
 
-        List<String> appointments = new ArrayList<String>();
+        List<String> appointments = new ArrayList<>();
 
         for (int i = 0; i < start.size(); i++) {
             appointments.add(start.get(i) + "-" + end.get(i));
             maxPlayers.add(maxplayers.get(i).toString());
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, appointments);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, appointments);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAppointment.setAdapter(dataAdapter);
     }
+*/
 
     @Override
     public void showSports(List<Integer> id, List<String> name) {
