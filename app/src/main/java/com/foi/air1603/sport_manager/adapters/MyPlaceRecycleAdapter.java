@@ -54,7 +54,7 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_add_appointment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.changeFragmentToAddAppointmentFragment(place.id);
+                context.changeFragmentToAddAppointmentFragment(place);
             }
         });
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_reserved_appointments_btn.setText("Rezervirani termini");
@@ -79,7 +79,6 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ImageView my_place_img_view;
         Button my_place_add_appointment_btn;
         Button my_place_reserved_appointments_btn;
-
 
         public MyPlaceViewHolder(View view) {
             super(view);

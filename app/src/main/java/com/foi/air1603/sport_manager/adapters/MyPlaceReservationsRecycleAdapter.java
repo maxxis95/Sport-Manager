@@ -13,8 +13,6 @@ import com.foi.air1603.sport_manager.view.fragments.MyPlacesReservationFragment;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by Generalko on 31-Dec-16.
  */
@@ -40,7 +38,6 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Appointment appointment = appointmentList.get(position);
-
         ((MyPlaceReservationsViewHolder) holder).place_appointment_date.setText(appointment.date);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
@@ -52,15 +49,15 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
     }
 
     public class MyPlaceReservationsViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.place_appointment_date)
         TextView place_appointment_date;
-        @BindView(R.id.place_appointment_start)
         TextView place_appointment_start;
-        @BindView(R.id.place_appointment_end)
         TextView place_appointment_end;
 
         public MyPlaceReservationsViewHolder(View view) {
             super(view);
+            place_appointment_date = (TextView) view.findViewById(R.id.place_appointment_date);
+            place_appointment_start = (TextView) view.findViewById(R.id.place_appointment_start);
+            place_appointment_end = (TextView) view.findViewById(R.id.place_appointment_end);
         }
     }
 }
