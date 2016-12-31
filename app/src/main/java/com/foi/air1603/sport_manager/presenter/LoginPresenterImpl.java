@@ -1,13 +1,12 @@
 package com.foi.air1603.sport_manager.presenter;
 
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.BaseActivity;
-import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,7 +39,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         if (view.getPasswordFromEditText().isEmpty()) {
             view.displayError(Password, "Unesite vrijednost");
         }
-        if (!view.getUsernameFromEditText().isEmpty() && !view.getPasswordFromEditText().isEmpty()){
+        if (!view.getUsernameFromEditText().isEmpty() && !view.getPasswordFromEditText().isEmpty()) {
             view.removeError(Username);
             view.removeError(Password);
             compareInputTextToData();
@@ -72,22 +71,23 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-        Type collectionType = new TypeToken<List<User>>(){}.getType();
+        Type collectionType = new TypeToken<List<User>>() {
+        }.getType();
         List<User> users = (List<User>) new Gson().fromJson(response.getData(), collectionType);
 
 
         if (users == null) {
             onUsernameError();
-        } else{
+        } else {
             user = users.get(0);
-            System.out.println("LoginPresenterImpl:getResponseData: "+user.toString());
+            System.out.println("LoginPresenterImpl:getResponseData: " + user.toString());
 
             view.removeError(Username);
             String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
             System.out.println(userEnteredPassword);
-            if(!userEnteredPassword.equals(user.password)){
+            if (!userEnteredPassword.equals(user.password)) {
                 onPasswordError();
-            } else{
+            } else {
                 view.removeError(Password);
                 view.loginSuccessful(user);
             }

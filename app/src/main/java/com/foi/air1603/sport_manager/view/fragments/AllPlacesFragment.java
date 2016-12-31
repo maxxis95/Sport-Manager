@@ -40,14 +40,12 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_places, null);
         return v;
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
@@ -67,8 +65,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         //presenter = new PlacePresenterImpl(this);
         presenter = PlacePresenterImpl.getInstance().Init(this);
 
-        //presenter.testGettingSinglePlace();
-        presenter.testGettingMultiplePlaces();
+        presenter.getAllPlaces();
     }
 
     private void hideFloatingActionButton() {
@@ -83,7 +80,6 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public void showAllPlaces(List<Place> places) {
         System.out.println("9. AllPlacesFragment:showAllPlaces");
         recyclerView.setAdapter(new PlaceRecycleAdapter(places, this));
-
     }
 
     @Override
@@ -103,6 +99,5 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
         // Commit the transaction
         transaction.commit();
-
     }
 }

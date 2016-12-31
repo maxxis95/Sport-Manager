@@ -1,7 +1,6 @@
 package com.foi.air1603.sport_manager.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.User;
-import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.InviteFriendsFragment;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -82,7 +78,7 @@ public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void onClick(View view) {
             int position = getAdapterPosition();
             User user = users.get(position);
-           // context.changeFragment(user);
+            // context.changeFragment(user);
         }
     }
 }
