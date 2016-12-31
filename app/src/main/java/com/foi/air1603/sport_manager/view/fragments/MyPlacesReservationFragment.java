@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,16 +42,12 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             searchParameter = bundle.getInt("place_id");
         }
         activity = (MainActivity) getActivity();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_MyplacesReservationList);
-        try{
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }catch (Exception ex){
-            Log.e("ERRROOOOOOOOOORR", ex.getMessage());
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         presenter = new MyPlaceReservationsPresenterImpl(this);
         presenter.getAllAppointmentsByPlaceId(searchParameter);
 
