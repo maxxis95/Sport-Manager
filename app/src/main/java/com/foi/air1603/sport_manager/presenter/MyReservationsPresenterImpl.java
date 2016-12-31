@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Generalko on 28-Dec-16.
  */
 
-public class MyReservationsPresenterImpl implements PresenterHandler {
+public class MyReservationsPresenterImpl implements MyReservationsPresenter, PresenterHandler {
 
     MyReservationsView myReservationsView;
     MyReservationsInteractor myReservationsInteractor;
@@ -24,13 +24,7 @@ public class MyReservationsPresenterImpl implements PresenterHandler {
     public MyReservationsPresenterImpl(MyReservationsView reservationsView) {
         myReservationsView = reservationsView;
         myReservationsInteractor = new MyReservationsInteractorImpl(this);
-        getTestData();
     }
-
-    private void getTestData() {
-        myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
-    }
-
 
     @Override
     public void getResponseData(Object result) {
@@ -42,5 +36,10 @@ public class MyReservationsPresenterImpl implements PresenterHandler {
         List<Reservation> reservationsList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionType);
 
         myReservationsView.loadRecycleViewData(reservationsList);
+    }
+
+    @Override
+    public void getUserReservationsData() {
+        myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
     }
 }

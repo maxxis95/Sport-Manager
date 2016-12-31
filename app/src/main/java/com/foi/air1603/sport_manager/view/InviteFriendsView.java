@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.view;
 
+import com.foi.air1603.sport_manager.entities.User;
+
 import java.util.Map;
 
 /**
@@ -7,4 +9,5 @@ import java.util.Map;
  */
 public interface InviteFriendsView {
     void initializeAutoComplete(Map<Integer, String> userEmails);
+    void addUserToInviteList(User user);
 }

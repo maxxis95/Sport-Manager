@@ -6,4 +6,6 @@ package com.foi.air1603.sport_manager.presenter;
 
 public interface InviteFriendsPresenter {
     void loadAllUserEmails();
+
+    void loadUserByEmail(String userEmail);
 }
