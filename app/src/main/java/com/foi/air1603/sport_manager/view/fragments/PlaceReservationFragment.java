@@ -17,13 +17,11 @@ import com.google.gson.Gson;
  */
 
 public class PlaceReservationFragment extends Fragment implements PlaceReservationView {
-    private Place place;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_place_reservation, null);
-        return v;
+        return inflater.inflate(R.layout.fragment_place_reservation, null);
     }
 
     @Override
@@ -33,9 +31,6 @@ public class PlaceReservationFragment extends Fragment implements PlaceReservati
         if (bundle != null) {
             String place_serialized = bundle.getString("Place");
             Place place = new Gson().fromJson(place_serialized, Place.class);
-            this.place = place;
-
         }
-
     }
 }

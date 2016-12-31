@@ -2,12 +2,12 @@ package com.foi.air1603.sport_manager.model;
 
 import android.util.Log;
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.PresenterHandler;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 
 /**
  * Created by Generalko on 28-Dec-16.
@@ -23,7 +23,6 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
         dataLoader = new WsDataLoader();
     }
 
-
     @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         mPresenterHandler.getResponseData(result);
@@ -31,13 +30,11 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
 
     @Override
     public void getMyReservationsObject(int userId) {
-        try{
-            System.out.println("");
+        try {
+            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", "Teams.Users.id", userId + "", Reservation.class, null);
 
-            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", null, null, Reservation.class, null);
-           // dataLoader.loadData(this, "getData", "Reservations,Sports", "Teams.Users.user_id", userId+"", Reservations.class, null);
-        }catch (Exception ex){
-            Log.e("WebService Error: ",ex.getMessage());
+        } catch (Exception ex) {
+            Log.e("WebService Error: ", ex.getMessage());
         }
     }
 }
