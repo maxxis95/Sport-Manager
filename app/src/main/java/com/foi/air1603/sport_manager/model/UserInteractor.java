@@ -1,7 +1,5 @@
 package com.foi.air1603.sport_manager.model;
 
-import android.net.Uri;
-
 import com.foi.air1603.sport_manager.entities.User;
 
 /**
@@ -9,16 +7,17 @@ import com.foi.air1603.sport_manager.entities.User;
  */
 
 public interface UserInteractor {
+    void getUsersEmails();
+
+    void getUserObject(String searchBy, String value);
+
+    void setUserObject(User user);
+
+    void changeUserPicture(String fileUri, Integer user_id);
+
     interface OnLoginFinishedListener {
         void onUsernameError();
 
         void onPasswordError();
-
-        void onWebServiceError(String message);
-
     }
-    void getUsersEmails();
-    void getUserObject(OnLoginFinishedListener listener, String searchBy, String value);
-    void setUserObject(User user);
-    void changeUserPicture(String fileUri, Integer user_id);
 }

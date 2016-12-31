@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
@@ -32,9 +33,12 @@ import java.util.Map;
 public class InviteFriendsFragment extends Fragment implements InviteFriendsView {
     List<User> users = new ArrayList<User>();
     private InviteFriendsPresenter presenter;
+    private Button btnAdd;
+    private AutoCompleteTextView textView;
     private View view;
     private String[] USEREMAILS;
     private RecyclerView recyclerView;
+    private FriendsRecycleAdapter friendsRecycleAdapter;
 
     @Nullable
     @Override
@@ -51,13 +55,22 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         this.view = view;
+        btnAdd = (Button) view.findViewById(R.id.btnInviteFriends);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loadUserByEmail(textView.getText().toString());
+            }
+        });
 
         presenter = new InviteFriendsPresenterImpl(this);
         presenter.loadAllUserEmails();
 
-        users.add(MainActivity.user);
-        users.add(MainActivity.user);
-        recyclerView.setAdapter(new FriendsRecycleAdapter(users, this));
+        // users.add(MainActivity.user);
+        // users.add(MainActivity.user);
+        friendsRecycleAdapter = new FriendsRecycleAdapter(users, this);
+        recyclerView.setAdapter(friendsRecycleAdapter);
     }
 
     @Override
@@ -67,8 +80,16 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
         //Inicijalizacija autocompleta
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_dropdown_item_1line, USEREMAILS);
-        AutoCompleteTextView textView = (AutoCompleteTextView)
+        textView = (AutoCompleteTextView)
                 view.findViewById(R.id.actvInviteFriends);
         textView.setAdapter(adapter);
+    }
+
+    @Override
+    public void addUserToInviteList(User user) {
+        users.add(user);
+        //friendsRecycleAdapter = new FriendsRecycleAdapter(users, this);
+        //recyclerView.setAdapter(friendsRecycleAdapter);
+        friendsRecycleAdapter.notifyDataSetChanged();
     }
 }

@@ -21,10 +21,10 @@ import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username
  */
 
 public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLoginFinishedListener, PresenterHandler {
+
     private final LoginView view;
     private UserInteractor userInteractor;
     private User user;
-
 
     public LoginPresenterImpl(LoginView loginView) {
         this.view = loginView;
@@ -56,13 +56,8 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         view.displayError(Password, "Unijeli ste krivu lozinku");
     }
 
-    @Override
-    public void onWebServiceError(String message) {
-        view.dataLoadingError(message);
-    }
-
     private void compareInputTextToData() {
-        userInteractor.getUserObject(this, "username", view.getUsernameFromEditText());
+        userInteractor.getUserObject("username", view.getUsernameFromEditText());
     }
 
     @Override
