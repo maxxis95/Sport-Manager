@@ -43,6 +43,7 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Pozivanje prijatelja");
         View v = inflater.inflate(R.layout.fragment_invite_friends, null);
         return v;
     }

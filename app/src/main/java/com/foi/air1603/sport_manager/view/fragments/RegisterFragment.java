@@ -29,7 +29,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /** Inflating the layout for this fragment **/
+        getActivity().setTitle("Registracija");
         View v = inflater.inflate(R.layout.fragment_register, null);
         return v;
     }

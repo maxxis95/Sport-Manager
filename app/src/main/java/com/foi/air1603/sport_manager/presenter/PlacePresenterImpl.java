@@ -59,8 +59,6 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
 
     @Override
     public void getResponseData(Object result) {
-
-        System.out.println("----------------->8. PlacePresenterImpl:getResponseData");
         Boolean placesAlreadyLoaded = false;
 
         if (result.getClass() == ArrayList.class && ((ArrayList) result).size() > 1) {
@@ -71,9 +69,9 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
             AirWebServiceResponse response = (AirWebServiceResponse) result;
 
             System.out.println(((AirWebServiceResponse) result).getData());
+            Type collectionType = new TypeToken<List<Place>>() {
+            }.getType();
             try {
-                Type collectionType = new TypeToken<List<Place>>() {
-                }.getType();
                 places = (List<Place>) new Gson().fromJson(response.getData(), collectionType);
             } catch (JsonParseException e) {
                 System.out.println("[ERROR] " + e);

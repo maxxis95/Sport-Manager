@@ -63,7 +63,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /** Inflating the layout for this fragment **/
+        getActivity().setTitle("Rezervacija termina");
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_reservation, null);
         Bundle bundle = this.getArguments();
@@ -174,7 +174,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-
                 //date in unix
                 yearGet = year;
                 monthGet = month;
@@ -263,46 +262,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAppointment.setAdapter(dataAdapter);
     }
-
-    /*@Override
-    public void showAppointments(List<Integer> id, List<Integer> placeId, List<String> date, List<String> start, List<String> end, List<Integer> maxplayers) {
-
-        if (id.size() == 0) {
-            spinnerAppointment.setVisibility(View.GONE);
-            spinnerSport.setVisibility(View.GONE);
-            appointmentLabel.setVisibility(View.GONE);
-            appointmentImage.setVisibility(View.GONE);
-            sportImage.setVisibility(View.GONE);
-            sportImage.setVisibility(View.GONE);
-            playersImage.setVisibility(View.GONE);
-            privateSwitch.setVisibility(View.GONE);
-            setAppointmentButton.setVisibility(View.GONE);
-            return;
-        }
-
-        spinnerAppointment.setVisibility(View.VISIBLE);
-        spinnerSport.setVisibility(View.VISIBLE);
-        appointmentLabel.setVisibility(View.VISIBLE);
-        appointmentImage.setVisibility(View.VISIBLE);
-        sportImage.setVisibility(View.VISIBLE);
-        sportImage.setVisibility(View.VISIBLE);
-        playersImage.setVisibility(View.VISIBLE);
-        privateSwitch.setVisibility(View.VISIBLE);
-        setAppointmentButton.setVisibility(View.VISIBLE);
-
-        List<String> appointments = new ArrayList<>();
-
-        for (int i = 0; i < start.size(); i++) {
-            appointments.add(start.get(i) + "-" + end.get(i));
-            maxPlayers.add(maxplayers.get(i).toString());
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, appointments);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAppointment.setAdapter(dataAdapter);
-    }
-*/
-
     @Override
     public void showSports(List<Integer> id, List<String> name) {
 

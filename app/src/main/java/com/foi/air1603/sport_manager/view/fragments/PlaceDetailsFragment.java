@@ -60,6 +60,7 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Detalji objekta");
         View v = inflater.inflate(R.layout.fragment_details_place, null);
         mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
         mMapView.onCreate(savedInstanceState);

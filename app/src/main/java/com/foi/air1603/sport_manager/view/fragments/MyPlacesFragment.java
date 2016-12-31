@@ -36,6 +36,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Moji sportski objekti");
         View v = inflater.inflate(R.layout.fragment_my_places, null);
         return v;
     }
@@ -48,11 +49,9 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
         user = activity.getIntent().getExtras().getParcelable("User");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_Myplaces);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //presenter = new MyPlacePresenterImpl(this);
-        int id = user.id;
-        presenter = new MyPlacePresenterImpl(this);
 
-        presenter.gettingMultipleMyPlaces(id);
+        presenter = MyPlacePresenterImpl.getInstance().Init(this);
+        presenter.getAllMyPlaces(user.id);
     }
 
     @Override

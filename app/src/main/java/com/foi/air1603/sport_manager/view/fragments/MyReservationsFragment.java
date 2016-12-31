@@ -29,6 +29,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Moje rezervacije");
         View rootView = inflater.inflate(R.layout.fragment_my_reservations, container, false);
         rootView.setTag(TAG);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);

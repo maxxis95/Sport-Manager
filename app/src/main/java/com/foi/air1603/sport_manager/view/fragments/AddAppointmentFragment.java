@@ -42,6 +42,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     private Button btnAddApointment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Dodaj termin");
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_add_appointment, null);
         return v;
