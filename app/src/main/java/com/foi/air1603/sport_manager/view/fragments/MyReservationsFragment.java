@@ -57,12 +57,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
 
     public void loadRecycleViewTestData() {
-        // test data
 
         Reservation res = new Reservation();
-        //res.setSubmitted("DATUMMM");
-        // res.setCreated("Gimnazija");
-        //res.setConfirmed("SLIKICAAA");
 
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
         reservationsItems.add(new MyReservationsExpandableItem(res));

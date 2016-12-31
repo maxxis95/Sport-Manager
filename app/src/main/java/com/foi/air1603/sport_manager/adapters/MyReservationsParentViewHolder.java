@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.adapters;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
@@ -20,9 +21,9 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
     TextView mReservationPlaceName;
     @BindView(R.id.reservation_time)
     TextView mReservationTime;
-//    @BindView(R.id.sport_image)
-//    TextView mSportImage;
-
+    @BindView(R.id.sport_image)
+    ImageView mReservationSportImage;
+    
     View mItemView;
 
     public MyReservationsParentViewHolder(@NonNull View itemView) {
@@ -35,6 +36,23 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
     public void bind(Reservation reservation) {
         mReservationPlaceName.setText(reservation.appointment.place.name);
         mReservationTime.setText(reservation.created);
-        //todo: set sport image if you want
+
+        switch (reservation.sport.name){
+            case "Košarka":
+                mReservationSportImage.setImageResource(R.drawable.basketball);
+                break;
+            case "Nogomet":
+                mReservationSportImage.setImageResource(R.drawable.football);
+                break;
+            case "Badminton":
+                mReservationSportImage.setImageResource(R.drawable.badminton);
+                break;
+            case "Odbojka":
+                mReservationSportImage.setImageResource(R.drawable.volleyball);
+                break;
+            case "Trčanje":
+                mReservationSportImage.setImageResource(R.drawable.running);
+                break;
+        }
     }
 }
