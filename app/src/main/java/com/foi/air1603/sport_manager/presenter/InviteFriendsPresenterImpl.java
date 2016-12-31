@@ -18,6 +18,9 @@ import java.util.Map;
 
 public class InviteFriendsPresenterImpl implements InviteFriendsPresenter, PresenterHandler {
 
+    //TODO: Dodati validaciju emaila prije searcha, input za naziv tima, counter pozvanih
+    // frendova/max players, dovršiti implementaciju u sljedećem sprintu
+
     private final InviteFriendsView view;
     private final UserInteractor userInteractor;
     private Boolean autoCompleteLoaded = false;
