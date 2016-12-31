@@ -1,6 +1,6 @@
 package com.foi.air1603.sport_manager.model;
 
-import com.foi.air1603.sport_manager.entities.Place;
+import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
@@ -8,30 +8,26 @@ import com.foi.air1603.sport_manager.presenter.PresenterHandler;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 
 /**
- * Created by Korisnik on 28-Dec-16.
+ * Created by Generalko on 31-Dec-16.
  */
 
-public class MyPlaceInteractorImpl implements MyPlaceInteractor, DataLoadedListener {
+public class MyPlaceReservationsInteractorImpl implements MyPlaceReservationsInteractor, DataLoadedListener {
 
     private DataLoader dataLoader;
     private PresenterHandler mPresenterHandler;
-    private MyPlaceInteractor mListener;
 
-    public MyPlaceInteractorImpl(PresenterHandler presenterHandler) {
-        mPresenterHandler = presenterHandler;
+    public MyPlaceReservationsInteractorImpl(PresenterHandler mPresenterHandler) {
+        this.mPresenterHandler = mPresenterHandler;
         this.dataLoader = new WsDataLoader();
     }
 
     @Override
-    public void getAllMyPlacesObjects(Object listner, String searchBy, String value) {
-        dataLoader.loadData(this, "getData", "Places", searchBy, value, Place.class, null);
+    public void getAllMyPlacesReservationsObject(Object listner, String place_id) {
+        dataLoader.loadData(this, "getData", "Appointments", "place_id" , place_id, Appointment.class, null);
     }
-
 
     @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         mPresenterHandler.getResponseData(result);
     }
-
-
 }

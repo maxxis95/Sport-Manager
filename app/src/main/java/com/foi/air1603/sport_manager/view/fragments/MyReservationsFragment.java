@@ -40,6 +40,23 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         super.onViewCreated(view, savedInstanceState);
         myReservationsPresenter = new MyReservationsPresenterImpl(this);
         myReservationsPresenter.getUserReservationsData();
+
+        //loadRecycleViewTestData();
+    }
+
+
+    public void loadRecycleViewTestData() {
+
+        Reservation res = new Reservation();
+
+        List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
+        reservationsItems.add(new MyReservationsExpandableItem(res));
+
+        if (mRecyclerView != null) {
+            adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);
+            mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
     }
 
     @Override

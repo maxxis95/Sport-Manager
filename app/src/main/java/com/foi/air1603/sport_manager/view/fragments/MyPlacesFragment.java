@@ -61,12 +61,12 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     }
 
     @Override
-    public void changeFragmentToAddAppointmentFragment(Integer id) {
+    public void changeFragmentToAddAppointmentFragment(Place place) {
         Fragment newFragment = new AddAppointmentFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
-        bundle.putInt("place_id", id);
+        bundle.putInt("place_id", place.id);
         newFragment.setArguments(bundle);
 
         // Replace whatever is in the fragment_container view with this fragment,
@@ -81,7 +81,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Override
     public void changeFragmentToPlaceReservationFragment(Integer id) {
 
-        Fragment newFragment = new PlaceReservationFragment();
+        Fragment newFragment = new MyPlacesReservationFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();

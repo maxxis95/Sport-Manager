@@ -19,10 +19,11 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
     MyPlaceInteractor myPlaceInteractor;
     List<Place> places = null;
-    private MyPlacesView view;
+    private MyPlacesView myPlacesView;
+
 
     public MyPlacePresenterImpl(MyPlacesView myPlacesView) {
-        this.view = myPlacesView;
+        this.myPlacesView = myPlacesView;
         this.myPlaceInteractor = new MyPlaceInteractorImpl(this);
     }
 
@@ -31,7 +32,6 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
         String searchBy = "user_id";
         String value = id + "";
         myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
-
     }
 
     @Override
@@ -40,10 +40,12 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
         Type collectionType = new TypeToken<List<Place>>() {
         }.getType();
+
         places = (List<Place>) new Gson().fromJson(response.getData(), collectionType);
 
         if (places != null) {
-            this.view.showMyPlaces(places);
+            this.myPlacesView.showMyPlaces(places);
         }
+
     }
 }

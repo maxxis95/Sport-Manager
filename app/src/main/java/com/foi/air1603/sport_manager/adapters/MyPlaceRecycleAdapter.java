@@ -33,7 +33,7 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_place_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_my_places_list_item, parent, false);
         MyPlaceRecycleAdapter.MyPlaceViewHolder item = new MyPlaceRecycleAdapter.MyPlaceViewHolder(view);
         cont = parent.getContext();
         return item;
@@ -54,7 +54,7 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_add_appointment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.changeFragmentToAddAppointmentFragment(place.id);
+                context.changeFragmentToAddAppointmentFragment(place);
             }
         });
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_reserved_appointments_btn.setText("Rezervirani termini");
@@ -79,7 +79,6 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ImageView my_place_img_view;
         Button my_place_add_appointment_btn;
         Button my_place_reserved_appointments_btn;
-
 
         public MyPlaceViewHolder(View view) {
             super(view);
