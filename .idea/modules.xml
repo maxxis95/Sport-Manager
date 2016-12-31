@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Sport-Manager.iml" filepath="$PROJECT_DIR$/Sport-Manager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/webservice/webservice.iml" filepath="$PROJECT_DIR$/webservice/webservice.iml" />
-      <module fileurl="file://$PROJECT_DIR$/webserviceOLD/webserviceOLD.iml" filepath="$PROJECT_DIR$/webserviceOLD/webserviceOLD.iml" />
     </modules>
   </component>
 </project>

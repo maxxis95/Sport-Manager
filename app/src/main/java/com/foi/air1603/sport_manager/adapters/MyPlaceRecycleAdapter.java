@@ -33,7 +33,7 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_place_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_my_places_list_item, parent, false);
         MyPlaceRecycleAdapter.MyPlaceViewHolder item = new MyPlaceRecycleAdapter.MyPlaceViewHolder(view);
         cont = parent.getContext();
         return item;

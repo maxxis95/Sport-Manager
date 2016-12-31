@@ -81,7 +81,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Override
     public void changeFragmentToPlaceReservationFragment(Integer id) {
 
-        Fragment newFragment = new PlaceReservationFragment();
+        Fragment newFragment = new MyPlacesReservationFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();

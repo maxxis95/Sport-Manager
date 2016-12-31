@@ -6,4 +6,5 @@ package com.foi.air1603.sport_manager.model;
 
 public interface MyPlaceInteractor {
     void getAllMyPlacesObjects(Object listner,String searchBy, String value);
+    void getAllMyPlacesReservationsObject(Object listner,String searchBy, String value);
 }

@@ -1,8 +1,10 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractor;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractorImpl;
+import com.foi.air1603.sport_manager.view.MyPlacesReservationView;
 import com.foi.air1603.sport_manager.view.MyPlacesView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
@@ -19,10 +21,16 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
     MyPlaceInteractor myPlaceInteractor;
     List<Place> places = null;
-    private MyPlacesView view;
+    List<Appointment> appointmentList = null;
+    private MyPlacesView myPlacesView;
+    private MyPlacesReservationView myPlacesReservationView;
 
     public MyPlacePresenterImpl(MyPlacesView myPlacesView) {
-        this.view = myPlacesView;
+        this.myPlacesView = myPlacesView;
+        this.myPlaceInteractor = new MyPlaceInteractorImpl(this);
+    }
+    public MyPlacePresenterImpl(MyPlacesReservationView myPlacesReservationView) {
+        this.myPlacesReservationView = myPlacesReservationView;
         this.myPlaceInteractor = new MyPlaceInteractorImpl(this);
     }
 
@@ -31,6 +39,7 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
         String searchBy = "user_id";
         String value = id + "";
         myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
+        myPlaceInteractor.getAllMyPlacesReservationsObject(this, searchBy, value);
 
     }
 
@@ -40,10 +49,16 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
         Type collectionType = new TypeToken<List<Place>>() {
         }.getType();
+        Type collectionTypeAppointments = new TypeToken<List<Appointment>>() {
+        }.getType();
         places = (List<Place>) new Gson().fromJson(response.getData(), collectionType);
-
+        appointmentList = (List<Appointment>) new Gson().fromJson(response.getData(), collectionTypeAppointments);
         if (places != null) {
-            this.view.showMyPlaces(places);
+            this.myPlacesView.showMyPlaces(places);
         }
+        if (appointmentList != null){
+            myPlacesReservationView.showPlaceReservations(appointmentList);
+        }
+
     }
 }

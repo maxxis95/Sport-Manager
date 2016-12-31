@@ -1,12 +1,12 @@
 package com.foi.air1603.sport_manager.model;
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
+import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
-import com.foi.air1603.sport_manager.presenter.MyPlacePresenterImpl;
 import com.foi.air1603.sport_manager.presenter.PresenterHandler;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 
 /**
  * Created by Korisnik on 28-Dec-16.
@@ -26,6 +26,11 @@ public class MyPlaceInteractorImpl implements MyPlaceInteractor, DataLoadedListe
     @Override
     public void getAllMyPlacesObjects(Object listner, String searchBy, String value) {
         dataLoader.loadData(this, "getData", "Places", searchBy, value, Place.class, null);
+    }
+
+    @Override
+    public void getAllMyPlacesReservationsObject(Object listner, String searchBy, String value) {
+        dataLoader.loadData(this, "getData", "Appointments",  searchBy, value, Appointment.class, null);
     }
 
     @Override
