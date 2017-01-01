@@ -30,8 +30,6 @@ public class PlaceInteractorImpl implements PlaceInteractor, DataLoadedListener 
         this.dataLoader = new WsDataLoader();
     }
 
-
-
     @Override
     public void getPlaceObject(Object listener, String searchBy, String value) {
         System.out.println("----------------->3. PlaceInteractorImpl:getPlaceObject");
@@ -44,6 +42,12 @@ public class PlaceInteractorImpl implements PlaceInteractor, DataLoadedListener 
         System.out.println("----------------->3. PlaceInteractorImpl:getAllPlacesObjects");
 
         dataLoader.loadData(this, "getData", "Places", null, null, Place.class, null);
+    }
+
+    @Override
+    public void setPlaceObject(Place place) {
+        System.out.println("----------------->3. PlaceInteractorImpl:setPlaceObject");
+        dataLoader.loadData(this, "setData", "Places", null, null, Place.class, place);
     }
 
     @Override

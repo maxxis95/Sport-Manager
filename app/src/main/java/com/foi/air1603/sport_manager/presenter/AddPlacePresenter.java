@@ -5,4 +5,5 @@ package com.foi.air1603.sport_manager.presenter;
  */
 
 public interface AddPlacePresenter {
+    void checkInputData(Integer userId);
 }

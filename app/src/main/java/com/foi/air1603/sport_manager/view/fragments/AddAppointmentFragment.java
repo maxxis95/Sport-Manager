@@ -39,7 +39,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     private int currentPickedDate;
     private Context context;
     private View view;
-    private Button btnAddApointment;
+    private Button btnAddAppointment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = container.getContext();
@@ -51,16 +51,18 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             id_place = bundle.getInt("place_id");
         }
+
         addAppointmentPresenter = new AddAppointmentPresenterImpl(this);
         this.view = view;
         initializeCalendar();
-        btnAddApointment = (Button) getActivity().findViewById(R.id.buttonSetAppointment);
+        btnAddAppointment = (Button) getActivity().findViewById(R.id.buttonSetAppointment);
 
-        btnAddApointment.setOnClickListener(new View.OnClickListener() {
+        btnAddAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
