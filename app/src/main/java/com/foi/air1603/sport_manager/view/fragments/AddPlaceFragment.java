@@ -41,8 +41,11 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
+        
+        getActivity().setTitle("Dodaj sportski objekt");
 
         View v = inflater.inflate(R.layout.fragment_add_place, null);
         return v;

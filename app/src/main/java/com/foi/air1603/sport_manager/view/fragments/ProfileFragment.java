@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Moj profil");
         activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
 

@@ -33,6 +33,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle("Rezervacije mojih objekata");
         View v = inflater.inflate(R.layout.fragment_my_places_reservations_list, null);
         return v;
     }

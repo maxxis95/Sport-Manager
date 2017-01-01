@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,35 +18,56 @@ import java.util.List;
 
 public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler {
 
+    private static MyPlacePresenterImpl instance;
     MyPlaceInteractor myPlaceInteractor;
-    List<Place> places = null;
+    List<Place> myPlaces = null;
     private MyPlacesView myPlacesView;
 
+    public MyPlacePresenterImpl() {
+    }
 
-    public MyPlacePresenterImpl(MyPlacesView myPlacesView) {
+    public static MyPlacePresenterImpl getInstance() {
+        if (instance == null) {
+            instance = new MyPlacePresenterImpl();
+        }
+        return instance;
+    }
+
+    public MyPlacePresenterImpl Init(MyPlacesView myPlacesView) {
         this.myPlacesView = myPlacesView;
         this.myPlaceInteractor = new MyPlaceInteractorImpl(this);
+        this.instance = this;
+        return this;
     }
 
     @Override
-    public void gettingMultipleMyPlaces(int id) {
-        String searchBy = "user_id";
-        String value = id + "";
-        myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
+    public void getAllMyPlaces(int id) {
+        if (myPlaces == null) {
+            String searchBy = "user_id";
+            String value = id + "";
+            myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
+        } else {
+            getResponseData(myPlaces);
+        }
     }
 
     @Override
     public void getResponseData(Object result) {
-        AirWebServiceResponse response = (AirWebServiceResponse) result;
+        Boolean myPlacesAlreadyLoaded = false;
 
-        Type collectionType = new TypeToken<List<Place>>() {
-        }.getType();
-
-        places = (List<Place>) new Gson().fromJson(response.getData(), collectionType);
-
-        if (places != null) {
-            this.myPlacesView.showMyPlaces(places);
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() > 1) {
+            myPlacesAlreadyLoaded = true;
         }
 
+        if (!myPlacesAlreadyLoaded) {
+            AirWebServiceResponse response = (AirWebServiceResponse) result;
+            Type collectionType = new TypeToken<List<Place>>() {
+            }.getType();
+
+            myPlaces = new Gson().fromJson(response.getData(), collectionType);
+        }
+        if (myPlaces != null) {
+            this.myPlacesView.showMyPlaces(myPlaces);
+        }
     }
 }
