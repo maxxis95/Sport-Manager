@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -33,17 +34,58 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static User user;
+    public static FragmentManager fragmentManager;
+    public static MainActivity activity;
     private AllPlacesFragment allPlacesFragment;
     private NavigationView navigationView;
-    private FragmentTransaction fragmentTransaction;
     private Rights rights;
-
     private SharedPreferences pref;
+
+    public static void replaceFragment(Fragment fragment) {
+        String backStateName = fragment.getClass().getName();
+        boolean popFragments = false;
+        String popTo, lastFragment;
+        popTo = lastFragment = "";
+
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        Integer backstackCount = fragmentManager.getBackStackEntryCount();
+        if (backstackCount != 0) {
+            lastFragment = fragmentManager.getBackStackEntryAt(backstackCount - 1).getName();
+        }
+
+        if (backStateName == lastFragment) {
+            return;
+        }
+
+        if (activity.getClass().getName() == backStateName) {
+            popFragments = true;
+        }
+
+        for (int entry = 0; entry < backstackCount; entry++) {
+            String backStackItemName = fragmentManager.getBackStackEntryAt(entry).getName();
+            if (backStackItemName == backStateName) {
+                popFragments = true;
+                popTo = fragmentManager.getBackStackEntryAt(entry + 1).getName();
+                break;
+            }
+        }
+
+        if (popFragments) {
+            fragmentManager.popBackStackImmediate(popTo, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.addToBackStack(backStateName);
+            fragmentTransaction.commit();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        activity = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,8 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager = getFragmentManager();
 
         user = getIntent().getExtras().getParcelable("User");
         rights = rights.getRightFormInt(user.type);
@@ -63,44 +104,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         setNavigationView();
+        setAllUsersDataToHeaderView();
+        initAllPlacesFragment();
     }
 
     private void setNavigationView() {
         switch (rights) {
             case User:
-                setUserView();
+                hideMyPlaces();
                 break;
             case Admin:
-                setAdminView();
                 break;
             case Owner:
-                setOwnerView();
                 break;
             default:
                 break;
         }
     }
 
-    private void setUserView() {
-        setAllUsersDataToHeaderView();
-        hideMyPlaces();
-        initAllPlacesFragment();
-    }
-
-    private void setAdminView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
-
-    private void setOwnerView() {
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
-    }
-
     public void updateHeaderView() {
-
         System.out.println("Pokušavam refreshat sliku");
-
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
     }
@@ -129,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             userImg.setImageResource(R.drawable.profile_stock);
         }
-
     }
 
     private void hideMyPlaces() {
@@ -139,10 +161,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initAllPlacesFragment() {
         allPlacesFragment = new AllPlacesFragment();
-        fragmentTransaction.add(R.id.fragment_container, allPlacesFragment, "HELLO");
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, allPlacesFragment);
         fragmentTransaction.commit();
     }
-
 
     //region Activity methods
     @Override
@@ -162,7 +184,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -178,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -186,13 +206,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_my_profile) {
-            openProfileFragment();
+            //openProfileFragment();
+            replaceFragment(new ProfileFragment());
         } else if (id == R.id.nav_places_list) {
-            openAllPlacesFragment();
+            //openAllPlacesFragment();
+            replaceFragment(new AllPlacesFragment());
         } else if (id == R.id.nav_my_places) {
-            openMyPlacesFragment();
+            //openMyPlacesFragment();
+            replaceFragment(new MyPlacesFragment());
         } else if (id == R.id.nav_my_reservations) {
-            openMyReservationsFragment();
+            //openMyReservationsFragment();
+            replaceFragment(new MyReservationsFragment());
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
@@ -202,37 +226,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void openProfileFragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new ProfileFragment());
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    private void openAllPlacesFragment() {
-        if (allPlacesFragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, allPlacesFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
-
-    private void openMyPlacesFragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new MyPlacesFragment());
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    private void openMyReservationsFragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new MyReservationsFragment());
-        ft.addToBackStack(null);
-        ft.commit();
     }
 
     private void logout() {
