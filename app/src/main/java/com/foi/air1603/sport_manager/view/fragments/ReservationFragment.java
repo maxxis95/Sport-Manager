@@ -80,13 +80,14 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.view = view;
+        calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
 
         //appointmentPresenter = new AppointmentPresenterImpl(this);
         appointmentPresenter = AppointmentPresenterImpl.getInstance().Init(this);
         appointmentPresenter.loadAllAppointments();
 
-        this.view = view;
-        calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
+
 
         // sets the first day of week according to Calendar.
         calendar.setFirstDayOfWeek(2);
@@ -168,6 +169,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         currentPickedDate = (int) (c.getTimeInMillis() / 1000); //Today
+        calendar.setMinDate((int) (c.getTimeInMillis() / 1000));
+        System.out.println("testtttttttt:vrijeme:"+calendar.getMinDate());
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
