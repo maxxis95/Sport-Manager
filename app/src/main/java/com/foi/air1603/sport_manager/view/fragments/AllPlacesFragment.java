@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Sportski objekti");
+        MainActivity.showProgressDialog("Dohvaćanje podataka");
+
         View v = inflater.inflate(R.layout.fragment_places, null);
         return v;
     }
@@ -48,24 +51,18 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //recycler
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_places);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new AddPlaceFragment());
-                ft.addToBackStack(null);
-                ft.commit();
+                MainActivity.replaceFragment(new AddPlaceFragment());
             }
         });
         hideFloatingActionButton();
 
-        //presenter = new PlacePresenterImpl(this);
         presenter = PlacePresenterImpl.getInstance().Init(this);
-
         presenter.getAllPlaces();
     }
 
@@ -81,24 +78,16 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     public void showAllPlaces(List<Place> places) {
         System.out.println("9. AllPlacesFragment:showAllPlaces");
         recyclerView.setAdapter(new PlaceRecycleAdapter(places, this));
+        MainActivity.dismissProgressDialog();
     }
 
     @Override
     public void changeFragment(Place place) {
-        // Create new fragment and transaction
-        Fragment newFragment = new PlaceDetailsFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("Place", new Gson().toJson(place));
+        Fragment newFragment = new PlaceDetailsFragment();
         newFragment.setArguments(bundle);
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        MainActivity.replaceFragment(newFragment);
     }
 }

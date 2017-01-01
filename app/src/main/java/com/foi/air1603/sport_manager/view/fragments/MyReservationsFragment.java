@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
@@ -27,9 +28,10 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     MyReservationsRecycleAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Moje rezervacije");
+        MainActivity.showProgressDialog("Dohvaćanje podataka");
+
         View rootView = inflater.inflate(R.layout.fragment_my_reservations, container, false);
         rootView.setTag(TAG);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);
@@ -42,24 +44,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         myReservationsPresenter = new MyReservationsPresenterImpl(this);
         myReservationsPresenter.getUserReservationsData();
 
-        //loadRecycleViewTestData();
     }
-
-
-    public void loadRecycleViewTestData() {
-
-        Reservation res = new Reservation();
-
-        List<MyReservationsExpandableItem> reservationsItems = new ArrayList<MyReservationsExpandableItem>();
-        reservationsItems.add(new MyReservationsExpandableItem(res));
-
-        if (mRecyclerView != null) {
-            adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems);
-            mRecyclerView.setAdapter(adapter);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
-    }
-
     @Override
     public void loadRecycleViewData(List<Reservation> reservations) {
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<>();
@@ -78,5 +63,6 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
+        MainActivity.dismissProgressDialog();
     }
 }

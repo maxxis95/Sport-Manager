@@ -3,6 +3,7 @@ package com.foi.air1603.sport_manager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static User user;
     public static FragmentManager fragmentManager;
     public static MainActivity activity;
+    private static ProgressDialog progressDialog;
     private AllPlacesFragment allPlacesFragment;
     private NavigationView navigationView;
     private Rights rights;
@@ -80,12 +82,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public static void showProgressDialog(String message) {
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    public static void dismissProgressDialog() {
+        progressDialog.dismiss();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         activity = this;
+        progressDialog = new ProgressDialog(MainActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

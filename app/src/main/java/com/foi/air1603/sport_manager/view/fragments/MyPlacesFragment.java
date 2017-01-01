@@ -1,7 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +36,8 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Moji sportski objekti");
+        MainActivity.showProgressDialog("Dohvaćanje podataka");
+
         View v = inflater.inflate(R.layout.fragment_my_places, null);
         return v;
     }
@@ -57,42 +58,28 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Override
     public void showMyPlaces(List<Place> places) {
         recyclerView.setAdapter(new MyPlaceRecycleAdapter(places, this));
+        MainActivity.dismissProgressDialog();
     }
 
     @Override
     public void changeFragmentToAddAppointmentFragment(Place place) {
         Fragment newFragment = new AddAppointmentFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
         bundle.putInt("place_id", place.id);
         newFragment.setArguments(bundle);
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        MainActivity.replaceFragment(newFragment);
     }
 
     @Override
     public void changeFragmentToPlaceReservationFragment(Integer id) {
-
         Fragment newFragment = new MyPlacesReservationFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
         bundle.putInt("place_id", id);
         newFragment.setArguments(bundle);
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        MainActivity.replaceFragment(newFragment);
     }
 }

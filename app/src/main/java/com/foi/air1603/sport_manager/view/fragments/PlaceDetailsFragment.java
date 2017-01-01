@@ -3,7 +3,6 @@ package com.foi.air1603.sport_manager.view.fragments;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -18,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
@@ -44,23 +44,19 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 26;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 28;
     public GoogleMap map;
-    public String placeName;
-    public String placeAddress;
     protected MapView mMapView;
-    private TextView txtViewName;
-    private TextView txtViewRadnoVrijeme;
-    private TextView txtViewKontakt;
-    private TextView txtViewAdresa;
+    private TextView txtViewName, txtViewRadnoVrijeme, txtViewKontakt, txtViewAdresa;
     private Button reservation_btn;
     private int id_place;
     private Place place;
     private Boolean minimalLocationPermission = false;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Detalji objekta");
+        MainActivity.showProgressDialog("Učitavanje mape");
+
         View v = inflater.inflate(R.layout.fragment_details_place, null);
         mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
         mMapView.onCreate(savedInstanceState);
@@ -88,11 +84,8 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Place", new Gson().toJson(place));
                 newFragment.setArguments(bundle);
+                MainActivity.replaceFragment(newFragment);
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, newFragment);
-                ft.addToBackStack(null);
-                ft.commit();
                 System.out.println("----------------->RegisterFragment:onClickListener");
             }
 
@@ -157,10 +150,6 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
         txtViewRadnoVrijeme.setText(place.workingHoursFrom.substring(0, 5) + " - " + place.workingHoursTo.substring(0, 5));
         txtViewKontakt.setText(place.contact);
 
-        placeAddress = place.address;
-        placeName = place.name;
-
-
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -189,17 +178,14 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
 
                 Geocoder coder = new Geocoder(getActivity());
                 List<Address> address = null;
-                LatLng p1 = null;
+                LatLng p1;
                 try {
-                    address = coder.getFromLocationName(placeAddress, 5);
+                    address = coder.getFromLocationName(place.address, 5);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 Address location = address.get(0);
-                location.getLatitude();
-                location.getLongitude();
-
                 p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
                 MapsInitializer.initialize(getActivity());
@@ -213,9 +199,11 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(p1, 15));
                 map.addMarker(new MarkerOptions()
                         .position(p1)
-                        .title(placeName)
+                        .title(place.name)
                         .draggable(false).visible(true)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                MainActivity.dismissProgressDialog();
             }
         });
 
@@ -256,5 +244,4 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             }
         }
     }
-
 }
