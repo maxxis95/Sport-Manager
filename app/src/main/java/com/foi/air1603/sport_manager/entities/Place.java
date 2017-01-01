@@ -14,8 +14,6 @@ public class Place {
     public String contact;
     public String workingHoursFrom;
     public String workingHoursTo;
-    public String lat;
-    public String lon;
 
     public int getId() {
         return id;
@@ -47,13 +45,5 @@ public class Place {
 
     public String getWorkingHoursTo() {
         return workingHoursTo;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public String getLon() {
-        return lon;
     }
 }

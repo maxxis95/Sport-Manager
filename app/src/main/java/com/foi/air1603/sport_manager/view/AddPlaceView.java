@@ -7,6 +7,7 @@ import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
  */
 
 public interface AddPlaceView {
+
     String getPlaceNameFromEditText();
 
     String getPlaceAddressFromEditText();

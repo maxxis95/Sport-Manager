@@ -14,15 +14,13 @@ import com.foi.air1603.webservice.AirWebServiceResponse;
 public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, PresenterHandler {
 
     private final AddAppointmentView view;
-    Boolean checkTimeStart, checkTimeEnd, checkMaxPlayers, checkPlayersSize;
-    Appointment appointmentModel;
-    AppointmentInteractor appointmentInteractor;
+    private Boolean checkTimeStart, checkTimeEnd, checkMaxPlayers, checkPlayersSize;
+    private AppointmentInteractor appointmentInteractor;
 
     public AddAppointmentPresenterImpl(AddAppointmentView addAppointmentView) {
         this.view = addAppointmentView;
         this.appointmentInteractor = new AppointmentInteractorImpl(this);
     }
-
 
     @Override
     public void validateAppointment() {
@@ -42,22 +40,14 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
             view.removeError(AddAppointmentViewEnums.AppointmentTimeEnd);
         }
 
-        if (view.getMaxPlayer().isEmpty()) {
-            view.displayError(AddAppointmentViewEnums.MaxPlayers, "Polje je obavezno");
-            checkMaxPlayers = false;
+        if (view.getMaxPlayer().isEmpty() || Integer.parseInt(view.getMaxPlayer()) < 1) {
+            view.displayError(AddAppointmentViewEnums.MaxPlayers, "Mora biti barem jedan sudionik");
+            checkPlayersSize = false;
         } else {
             view.removeError(AddAppointmentViewEnums.MaxPlayers);
         }
 
-        if (view.getMaxPlayer().isEmpty() || Integer.parseInt(view.getMaxPlayer()) < 1) {
-            view.displayError(AddAppointmentViewEnums.MaxPlayers, "Mora biti barem jedan sudionik");
-            checkPlayersSize = false;
-        }
-
-        if (checkTimeStart && checkTimeEnd && checkMaxPlayers && checkPlayersSize) {
-            view.removeError(AddAppointmentViewEnums.AppointmentTimeStart);
-            view.removeError(AddAppointmentViewEnums.AppointmentTimeEnd);
-            view.removeError(AddAppointmentViewEnums.MaxPlayers);
+        if (checkTimeStart && checkTimeEnd && checkPlayersSize) {
             appointmentInteractor.setAppointmentObject(createNewAppointmentObject());
         }
     }
