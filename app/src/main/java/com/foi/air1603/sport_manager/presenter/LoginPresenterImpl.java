@@ -33,6 +33,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void checkInputData() {
+        BaseActivity.showProgressDialog("Provjera podataka");
         if (view.getUsernameFromEditText().isEmpty()) {
             view.displayError(Username, "Unesite vrijednost");
         }
@@ -70,7 +71,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         }.getType();
         List<User> users = (List<User>) new Gson().fromJson(response.getData(), collectionType);
 
-
+        BaseActivity.dismissProgressDialog();
         if (users == null) {
             onUsernameError();
         } else {
