@@ -1,15 +1,20 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +30,6 @@ import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenter;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenterImpl;
-import com.foi.air1603.sport_manager.presenter.MyPlacePresenterImpl;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 import com.foi.air1603.sport_manager.view.AddPlaceView;
 
@@ -38,6 +42,8 @@ import java.util.Map;
 
 public class AddPlaceFragment extends Fragment implements AddPlaceView {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 43;
+    private static final int PICK_IMAGE_REQUEST = 74;
     static Map<String, Integer> inputs = new HashMap<>();
 
     static {
@@ -49,7 +55,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     }
 
     private User user;
-    private AddPlacePresenter addPlacePresenter;
+    private AddPlacePresenter presenter;
 
     @Nullable
     @Override
@@ -58,7 +64,6 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         user = activity.getIntent().getExtras().getParcelable("User");
 
         getActivity().setTitle("Dodaj sportski objekt");
-
         View v = inflater.inflate(R.layout.fragment_add_place, null);
         return v;
     }
@@ -67,18 +72,35 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        addPlacePresenter = new AddPlacePresenterImpl(this);
-        Button btnAddPlace = (Button) getActivity().findViewById(R.id.buttonPlaceAdd);
+        presenter = new AddPlacePresenterImpl(this);
 
+        Button btnAddPlace = (Button) getActivity().findViewById(R.id.buttonPlaceAdd);
         btnAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                addPlacePresenter.checkInputData(user.id);
+                presenter.checkInputData(user.id);
             }
 
+        });
+
+        Button btnAddPlacePicture = (Button) getActivity().findViewById(R.id.PlaceAddPicture);
+        btnAddPlacePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                } else {
+                    openImagePicker();
+                }
+            }
         });
 
         final EditText placeStartInput = (EditText) getActivity().findViewById(R.id.etPlaceWorkingHoursStart);
@@ -137,17 +159,51 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openImagePicker();
+                } else {
+                    System.out.println("Couldn't get read files permission!");
+                }
+            }
+        }
+    }
+
+    public void openImagePicker() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
     public String getInputText(AddPlaceViewEnums textView) {
         TextInputLayout textInputLayout = (TextInputLayout) getActivity().findViewById(inputs.get(textView.toString()));
         EditText editText = textInputLayout.getEditText();
+        assert editText != null;
         return editText.getText().toString();
     }
 
     @Override
-    public String getPlaceImageFromEditText() {
-        return null;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("----------------->1. AddPlaceFragment:onActivityResult");
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            System.out.println("----------------->1. AddPlaceFragment:onActivityResult");
+            presenter.addPlacePicture(data, getActivity());
+        }
     }
 
+    @Override
+    public void showUploadedImageLink(String message) {
+        System.out.println("----------------->9. AddPlaceFragment:showUploadedImageLink "+message);
+    }
 
     @Override
     public void displayError(AddPlaceViewEnums textView, String message) {

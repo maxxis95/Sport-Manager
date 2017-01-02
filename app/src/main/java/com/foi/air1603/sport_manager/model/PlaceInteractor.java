@@ -14,4 +14,6 @@ public interface PlaceInteractor {
     void getAllPlacesObjects(Object listner);
 
     void setPlaceObject(Place place);
+
+    void uploadPlacePicture(String fileUri);
 }

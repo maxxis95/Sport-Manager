@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-
                 // Request permissions if not already set
                 if (ContextCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -79,7 +78,6 @@ public class ProfileFragment extends Fragment implements ProfileView {
                 } else {
                     openImagePicker();
                 }
-
             }
         });
 
@@ -163,5 +161,4 @@ public class ProfileFragment extends Fragment implements ProfileView {
         addressProfile.setText(user.address);
         phoneProfile.setText(user.phone);
     }
-
 }
