@@ -136,7 +136,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     @Override
     public void loginSuccessful(User userObject) {
         createLoginSession(userObject);
-
         Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User", userObject);
         startActivity(intent);
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -16,157 +15,157 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiMailR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/txiMailR">
+            android:layout_marginBottom="17dp"
+            android:layout_marginTop="10dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etMail"
-                android:hint="@string/e_mail" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/e_mail"
+                android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiUsernameR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiMailR"
             android:layout_alignEnd="@+id/txiMailR"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiUsernameR">
+            android:layout_below="@+id/txiMailR"
+            android:layout_marginBottom="17dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etUsernameR"
-                android:hint="@string/korisnicko_imeR" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/korisnicko_imeR"
+                android:inputType="textPersonName" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiPasswordR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiUsernameR"
             android:layout_alignStart="@+id/txiUsernameR"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiPasswordR">
+            android:layout_below="@+id/txiUsernameR"
+            android:layout_marginBottom="17dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etPasswordR"
-                android:hint="@string/lozinkaR" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/lozinkaR"
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiPasswordR1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiPasswordR"
             android:layout_alignStart="@+id/txiPasswordR"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiPasswordR1">
+            android:layout_below="@+id/txiPasswordR"
+            android:layout_marginBottom="17dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etPasswordR1"
-                android:hint="@string/ponovite_lozinkuR" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/ponovite_lozinkuR"
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiImeR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiPasswordR1"
             android:layout_alignStart="@+id/txiPasswordR1"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiImeR">
+            android:layout_below="@+id/txiPasswordR1"
+            android:layout_marginBottom="17dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etName"
-                android:hint="@string/imeR" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/imeR"
+                android:inputType="textPersonName" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiPrezimeR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiImeR"
             android:layout_alignStart="@+id/txiImeR"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiPrezimeR">
+            android:layout_below="@+id/txiImeR"
+            android:layout_marginBottom="17dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etLastName"
-                android:hint="@string/prezimeR" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/prezimeR"
+                android:inputType="textPersonName" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiAdresaR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiPrezimeR"
             android:layout_alignStart="@+id/txiPrezimeR"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/txiAdresaR">
+            android:layout_below="@+id/txiPrezimeR"
+            android:layout_marginBottom="17dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/etAddress"
-                android:hint="@string/adresaR" />
+                android:hint="@string/adresaR"
+                android:inputType="textMultiLine" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiBrojTelefonaR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiAdresaR"
             android:layout_alignStart="@+id/txiAdresaR"
-            android:layout_marginBottom="30dp"
-            android:id="@+id/txiBrojTelefonaR">
+            android:layout_below="@+id/txiAdresaR"
+            android:layout_marginBottom="30dp">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/etPhoneNumber"
-                android:hint="@string/broj_telefonaR" />
+                android:hint="@string/broj_telefonaR"
+                android:inputType="phone" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:text="@string/registracijaR"
+            android:id="@+id/bRegistracija"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bRegistracija"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/txiBrojTelefonaR"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/registracijaR" />
 
     </RelativeLayout>
 </ScrollView>

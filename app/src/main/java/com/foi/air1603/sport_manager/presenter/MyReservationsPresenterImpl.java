@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,28 +19,59 @@ import java.util.List;
 
 public class MyReservationsPresenterImpl implements MyReservationsPresenter, PresenterHandler {
 
+    public static boolean updateData = false;
+    private static MyReservationsPresenterImpl instance;
+    Boolean myReservationAlreadyLoaded = false;
     MyReservationsView myReservationsView;
     MyReservationsInteractor myReservationsInteractor;
+    List<Reservation> reservationsList = null;
 
-    public MyReservationsPresenterImpl(MyReservationsView reservationsView) {
-        myReservationsView = reservationsView;
-        myReservationsInteractor = new MyReservationsInteractorImpl(this);
+    private MyReservationsPresenterImpl() {
     }
+
+
+    public static MyReservationsPresenterImpl getInstance() {
+        if (instance == null) {
+            instance = new MyReservationsPresenterImpl();
+        }
+        return instance;
+    }
+
+    public MyReservationsPresenter Init(MyReservationsView myReservationsView) {
+        this.myReservationsView = myReservationsView;
+        this.myReservationsInteractor = new MyReservationsInteractorImpl(this);
+        this.instance = this;
+        return this;
+    }
+
 
     @Override
     public void getResponseData(Object result) {
+
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
+            myReservationAlreadyLoaded = true;
+        }
+
         System.out.println("----------------MyReservationPresenterImpl:getResponseData");
-        AirWebServiceResponse response = (AirWebServiceResponse) result;
+        if (!myReservationAlreadyLoaded) {
+            AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-        Type collectionType = new TypeToken<List<Reservation>>() {
-        }.getType();
-        List<Reservation> reservationsList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionType);
-
-        myReservationsView.loadRecycleViewData(reservationsList);
+            Type collectionType = new TypeToken<List<Reservation>>() {
+            }.getType();
+            reservationsList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionType);
+        }
+        if (reservationsList != null) {
+            myReservationsView.loadRecycleViewData(reservationsList);
+        }
     }
 
     @Override
     public void getUserReservationsData() {
-        myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
+        if (this.reservationsList == null || updateData) {
+            myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
+        } else {
+            getResponseData(reservationsList);
+        }
+
     }
 }

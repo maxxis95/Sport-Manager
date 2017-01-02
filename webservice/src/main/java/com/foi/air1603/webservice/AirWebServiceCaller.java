@@ -118,6 +118,7 @@ public class AirWebServiceCaller {
             });
         }
     }
+
     /**
      * Metoda koju se poziva nakon što Retrofit vrati inicijalni odgovor
      * @param response tipa AirWebServiceResponse kojeg vraća Retrofit

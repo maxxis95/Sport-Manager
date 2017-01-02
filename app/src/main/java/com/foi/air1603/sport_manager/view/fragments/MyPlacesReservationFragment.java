@@ -34,6 +34,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Rezervacije mojih objekata");
+        MainActivity.showProgressDialog("Dohvaćanje podataka");
         View v = inflater.inflate(R.layout.fragment_my_places_reservations_list, null);
         return v;
     }
@@ -48,7 +49,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
         }
         activity = (MainActivity) getActivity();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_MyplacesReservationList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         presenter = new MyPlaceReservationsPresenterImpl(this);
         presenter.getAllAppointmentsByPlaceId(searchParameter);
 
@@ -57,6 +58,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Override
     public void showPlaceReservations(List<Appointment> appointmentList) {
         recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, appointmentList));
+        MainActivity.dismissProgressDialog();
     }
 
 }

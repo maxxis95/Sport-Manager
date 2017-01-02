@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.FriendsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.User;
@@ -53,7 +52,7 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_friend_invites);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         this.view = view;
         btnAdd = (Button) view.findViewById(R.id.btnInviteFriends);

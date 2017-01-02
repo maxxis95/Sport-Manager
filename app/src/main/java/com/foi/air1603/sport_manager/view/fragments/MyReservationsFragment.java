@@ -41,8 +41,9 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        myReservationsPresenter = new MyReservationsPresenterImpl(this);
+        myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
+
 
     }
     @Override

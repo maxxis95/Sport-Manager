@@ -1,8 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,17 +14,20 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
+import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.SportPresenter;
 import com.foi.air1603.sport_manager.presenter.SportPresenterImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Rezervacija termina");
+        MyReservationsPresenterImpl.updateData = true;
+
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_reservation, null);
         Bundle bundle = this.getArguments();
@@ -116,10 +119,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         setAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new InviteFriendsFragment());
-                ft.addToBackStack(null);
-                ft.commit();
+                MainActivity.replaceFragment(new InviteFriendsFragment());
             }
         });
 

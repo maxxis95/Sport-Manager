@@ -52,13 +52,13 @@
     <string name="place_number">Broj telefona</string>
     <string name="place_working_hours_start">Početak radnog vremena</string>
     <string name="place_working_hours_end">Kraj radnog vremena</string>
-    <string name="place_image_link">Link na sliku objekta</string>
+    <string name="place_image_link">URL slike</string>
     <string name="PlaceAdd">Dodaj objekt</string>
     <string name="PlaceContinue">Nastavak...</string>
     <string name="appointment_hours_start">Početak termina</string>
     <string name="appointment_hours_end">Kraj termina</string>
     <string name="appointment_max_player">Najveći broj sudionika</string>
-    <string name="tvPlacePeriod">U sljedećem prozoru možete dodati termine za dodani objekt.</string>
+    <string name="tvPlacePeriod">Unesite URL željene slike ili dodajte sliku iz memorije uređaja. U sljedećem prozoru možete dodati termine za dodani objekt.</string>
 
     <string name="tvPlaceName">Naziv objekta</string>
     <string name="placeAddress">Adresa</string>
@@ -91,5 +91,5 @@
     <string name="navBarUserEmail">sport.manager@email.com</string>
     <string name="placeName">Naziv</string>
     <string name="friendsName">Friends name</string>
-    <string name="PlaceAddPicture">Dodaj sliku</string>
+    <string name="PlaceAddPicture">Upload slike</string>
 </resources>

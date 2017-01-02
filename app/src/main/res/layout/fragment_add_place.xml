@@ -105,16 +105,23 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:text="@string/PlaceAddPicture"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiPlaceImageUrl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/txiPlaceWorkingHoursStop"
             android:layout_below="@+id/txiPlaceWorkingHoursStop"
-            android:layout_marginStart="35dp"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/PlaceAddPicture"
-            android:layout_marginBottom="20dp"
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            android:layout_marginBottom="17dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etPlaceImageUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/place_image_link"
+                android:inputType="time" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/buttonPlaceAdd"
@@ -134,6 +141,16 @@
             android:layout_below="@id/buttonPlaceAdd"
             android:textAlignment="center"
             android:id="@+id/tvPlacePeriod" />
+
+        <Button
+            android:text="@string/PlaceAddPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/PlaceAddPicture"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_below="@+id/txiPlaceImageUrl"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="17dp"/>
 
     </RelativeLayout>
 

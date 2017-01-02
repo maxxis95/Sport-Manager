@@ -20,6 +20,7 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
     private static MyPlacePresenterImpl instance;
     MyPlaceInteractor myPlaceInteractor;
+    public static boolean updateData = false;
     List<Place> myPlaces = null;
     private MyPlacesView myPlacesView;
 
@@ -42,7 +43,7 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
     @Override
     public void getAllMyPlaces(int id) {
-        if (myPlaces == null) {
+        if (myPlaces == null || updateData) {
             String searchBy = "user_id";
             String value = id + "";
             myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
@@ -55,7 +56,7 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
     public void getResponseData(Object result) {
         Boolean myPlacesAlreadyLoaded = false;
 
-        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() > 1) {
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
             myPlacesAlreadyLoaded = true;
         }
 
