@@ -33,7 +33,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void checkInputData() {
-        BaseActivity.showProgressDialog("Provjera podataka");
         if (view.getUsernameFromEditText().isEmpty()) {
             view.displayError(Username, "Unesite vrijednost");
         }
@@ -43,6 +42,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         if (!view.getUsernameFromEditText().isEmpty() && !view.getPasswordFromEditText().isEmpty()) {
             view.removeError(Username);
             view.removeError(Password);
+            BaseActivity.showProgressDialog("Provjera podataka");
             compareInputTextToData();
         }
     }

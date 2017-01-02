@@ -59,7 +59,7 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         });
         ((MyPlaceRecycleAdapter.MyPlaceViewHolder) holder).my_place_reserved_appointments_btn.setText("Rezervirani termini");
 
-        if (!place.img.isEmpty()) {
+        if (place.img != null && !place.img.isEmpty()) {
             Uri uri = Uri.parse(place.img);
             Picasso.with(cont).load(uri).into(((MyPlaceViewHolder) holder).my_place_img_view);
         } else {

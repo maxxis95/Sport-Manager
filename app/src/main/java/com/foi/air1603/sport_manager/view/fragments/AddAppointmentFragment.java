@@ -19,10 +19,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.AddAppointmentViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
+import com.foi.air1603.sport_manager.view.AddPlaceView;
+import com.google.gson.Gson;
 
 /**
  * Created by Korisnik on 28-Dec-16.
@@ -39,6 +42,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     private int currentPickedDate;
     private Context context;
     private View view;
+    private Place place = null;
     private Button btnAddAppointment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +59,14 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            id_place = bundle.getInt("place_id");
+            if(bundle.containsKey("Place")) {
+                String place_serialized = bundle.getString("Place");
+                Place place = new Gson().fromJson(place_serialized, Place.class);
+                this.place = place;
+            }
+            else if (bundle.containsKey("place_id")) {
+                id_place = bundle.getInt("place_id");
+            }
         }
 
         addAppointmentPresenter = new AddAppointmentPresenterImpl(this);
@@ -69,7 +80,11 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                addAppointmentPresenter.validateAppointment();
+                if(place == null){
+                    addAppointmentPresenter.validateAppointment();
+                } else {
+                    //
+                }
             }
 
         });
@@ -237,7 +252,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         if (statusCode == 200) {
             Toast.makeText(getActivity(),
                     "Uspješno ste unijeli termin", Toast.LENGTH_LONG).show();
-
             getFragmentManager().popBackStack();
 
         } else {

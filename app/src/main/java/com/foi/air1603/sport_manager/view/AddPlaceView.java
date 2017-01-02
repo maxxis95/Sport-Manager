@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view;
 
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
 
 /**
@@ -7,6 +8,9 @@ import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
  */
 
 public interface AddPlaceView {
+    interface AddAppointment{
+        void returnWholePlace(Place place);
+    }
     String getInputText(AddPlaceViewEnums textView);
 
     void showUploadedImageLink(String message);
@@ -16,4 +20,6 @@ public interface AddPlaceView {
     void removeError(AddPlaceViewEnums textView);
 
     void returnResponseCode(int statusCode, String message);
+
+    void checkPlaceResponse(Place place);
 }

@@ -57,8 +57,8 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
 
     @Override
     public void showPlaceReservations(List<Appointment> appointmentList) {
-        recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, appointmentList));
         MainActivity.dismissProgressDialog();
+        recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, appointmentList));
     }
 
 }

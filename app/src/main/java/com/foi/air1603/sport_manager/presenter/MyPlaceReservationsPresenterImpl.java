@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.model.MyPlaceReservationsInteractorImpl;
 import com.foi.air1603.sport_manager.view.MyPlacesReservationView;
@@ -34,6 +35,8 @@ public class MyPlaceReservationsPresenterImpl implements PresenterHandler, MyPla
 
         if (appointmentList != null){
             myPlacesReservationView.showPlaceReservations(appointmentList);
+        } else {
+            MainActivity.dismissProgressDialog();
         }
     }
 

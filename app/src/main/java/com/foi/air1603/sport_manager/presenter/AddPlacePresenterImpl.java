@@ -29,7 +29,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
     private final AddPlaceView view;
     private PlaceInteractor interactor;
     private String filePath = "";
-    private Boolean expectingImageUrl;
+    private static Boolean expectingImageUrl = false;
 
 
     public AddPlacePresenterImpl(AddPlaceView addAppointmentView) {
@@ -69,6 +69,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
 
         if (requiredFieldsNotEmpty && checkWorkingHoursDifference) {
             MainActivity.showProgressDialog("Spremanje objekta");
+            //view.checkPlaceResponse(createNewPlaceObject(userId));
             interactor.setPlaceObject(createNewPlaceObject(userId));
         }
     }
@@ -109,6 +110,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
         AirWebServiceResponse response = (AirWebServiceResponse) result;
         if (expectingImageUrl) {
             if (response.getStatusCode() == 200 && response.getMessage() != null) {
+                expectingImageUrl = false;
                 view.showUploadedImageLink(response.getMessage());
             }
         } else {
@@ -126,6 +128,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
         place.workingHoursFrom = view.getInputText(AddPlaceViewEnums.PlaceWorkingHoursStart);
         place.workingHoursTo = view.getInputText(AddPlaceViewEnums.PlaceWorkingHoursStop);
         place.userId = userId;
+        place.img = view.getInputText(AddPlaceViewEnums.PlaceImage);
 
         return place;
     }

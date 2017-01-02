@@ -45,12 +45,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         pref = this.getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        
-        /*SharedPreferences.Editor editor = pref.edit();
-        editor.clear();
-        editor.commit();*/
 
         if (pref.contains("User")) {
             Intent intent = new Intent(this.getActivity(), MainActivity.class).putExtra("User", retrieveLoginSession());

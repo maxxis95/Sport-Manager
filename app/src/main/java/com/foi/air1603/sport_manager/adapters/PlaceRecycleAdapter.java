@@ -48,7 +48,7 @@ public class PlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ((PlaceViewHolder) holder).place_name_view.setText(place.name);
         ((PlaceViewHolder) holder).place_address_view.setText(place.address);
 
-        if (!place.img.isEmpty()) {
+        if (place.img != null && !place.img.isEmpty()) {
             Uri uri = Uri.parse(place.img);
             Picasso.with(cont).load(uri).into(((PlaceViewHolder) holder).place_img_view);
         } else {

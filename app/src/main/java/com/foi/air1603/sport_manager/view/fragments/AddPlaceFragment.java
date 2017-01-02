@@ -26,12 +26,14 @@ import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenter;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenterImpl;
 import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 import com.foi.air1603.sport_manager.view.AddPlaceView;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -219,14 +221,29 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     }
 
     @Override
+    public void checkPlaceResponse(Place place) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Place", new Gson().toJson(place));
+        Fragment newFragment = new AddAppointmentFragment();
+        newFragment.setArguments(bundle);
+
+        MainActivity.replaceFragment(newFragment);
+    }
+
+    @Override
     public void returnResponseCode(int statusCode, String message) {
+        PlacePresenterImpl.updateData = true;
         if (statusCode == 200) {
-            PlacePresenterImpl.updateData = true;
             Toast.makeText(getActivity(),
                     "Uspješno ste dodali novi objekt", Toast.LENGTH_LONG).show();
+            getFragmentManager().popBackStack();
 
-            MainActivity.replaceFragment(new AddAppointmentFragment());
-            //getFragmentManager().popBackStack();
+            /*Bundle bundle = new Bundle();
+            bundle.putString("place_name", getInputText(AddPlaceViewEnums.PlaceName));
+            Fragment newFragment = new AddAppointmentFragment();
+            newFragment.setArguments(bundle);
+
+            MainActivity.replaceFragment(newFragment);*/
         } else {
             Toast.makeText(getActivity(),
                     "Dodavanje objekta nije uspjelo:" + message, Toast.LENGTH_LONG).show();

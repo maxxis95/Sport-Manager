@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/place_image_link"
-                android:inputType="time" />
+                android:inputType="textWebEditText" />
 
         </android.support.design.widget.TextInputLayout>
 
