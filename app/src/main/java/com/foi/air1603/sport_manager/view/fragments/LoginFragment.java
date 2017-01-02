@@ -66,16 +66,14 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 @Override
                 public void onClick(View v) {
                     presenter.checkInputData();
+                    MainActivity.showProgressDialog("Provjera podataka");
                 }
             });
 
             txtViewRegistration.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_container, new RegisterFragment());
-                    ft.addToBackStack(null);
-                    ft.commit();
+                    MainActivity.replaceFragment(new RegisterFragment());
                 }
             });
         }
@@ -135,8 +133,8 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
     @Override
     public void loginSuccessful(User userObject) {
+        MainActivity.dismissProgressDialog();
         createLoginSession(userObject);
-
         Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User", userObject);
         startActivity(intent);
     }

@@ -67,7 +67,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Rezervacija termina");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_reservation, null);
         Bundle bundle = this.getArguments();
@@ -102,7 +102,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
         calendar.setFirstDayOfWeek(2);
         calendar.setMinDate(System.currentTimeMillis() - 1000);
-        MainActivity.dismissProgressDialog();
 
         appointmentPresenter = AppointmentPresenterImpl.getInstance().Init(this);
         appointmentPresenter.loadAllAppointments();
@@ -119,10 +118,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         setAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new InviteFriendsFragment());
-                ft.addToBackStack(null);
-                ft.commit();
+                MainActivity.replaceFragment(new InviteFriendsFragment());
             }
         });
 
@@ -153,6 +149,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void initializeCalendar() {
+
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);

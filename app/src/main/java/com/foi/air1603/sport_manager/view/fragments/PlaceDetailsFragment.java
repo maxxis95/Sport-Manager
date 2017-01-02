@@ -80,7 +80,6 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
             @Override
             public void onClick(View v) {
                 Fragment newFragment = new ReservationFragment();
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Place", new Gson().toJson(place));
                 newFragment.setArguments(bundle);
