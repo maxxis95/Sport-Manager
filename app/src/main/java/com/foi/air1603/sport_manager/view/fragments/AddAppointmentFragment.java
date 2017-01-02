@@ -148,11 +148,8 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        calendar.setMinDate((int) (c.getTimeInMillis() / 1000));
         currentPickedDate = (int) (c.getTimeInMillis() / 1000);
-        System.out.println("testtttttttt:vrijeme:"+calendar.getMinDate());
-
-        // sets the first day of week according to Calendar.
+        calendar.setMinDate(System.currentTimeMillis() - 1000);
         calendar.setFirstDayOfWeek(2);
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
