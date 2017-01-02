@@ -92,4 +92,13 @@
     <string name="placeName">Naziv</string>
     <string name="friendsName">Friends name</string>
     <string name="PlaceAddPicture">Upload slike</string>
+    <string name="reservationSportName">Naziv sporta</string>
+    <string name="reservationDate">Datum</string>
+    <string name="reservationStart">Početak</string>
+    <string name="place_appointment_date">Datum</string>
+    <string name="place_appointment_sport_name">Sport</string>
+    <string name="placeUser">Rezervirao</string>
+    <string name="placeOtherUsers">Pozvani korisnici</string>
+    <string name="placeAppointmentID">ID rezervacije</string>
+    <string name="appointmentPassword">Kreiraj lozinku</string>
 </resources>
