@@ -9,6 +9,6 @@ public enum AddPlaceViewEnums {
     PlaceAddress,
     PlaceNumber,
     PlaceWorkingHoursStart,
-    PlaceWorkingHoursStop
-    //PlaceImage
+    PlaceWorkingHoursStop,
+    PlaceImage
 }

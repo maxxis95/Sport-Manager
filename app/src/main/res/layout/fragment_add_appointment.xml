@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/calendarViewAppointment"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-20dp">
+            android:layout_marginTop="-5dp">
 
             <EditText
                 android:id="@+id/etAppointmentHourStart"

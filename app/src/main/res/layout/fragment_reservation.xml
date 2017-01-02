@@ -34,7 +34,7 @@
             android:layout_alignStart="@+id/tvReservationAppointmentLabel"
             android:layout_below="@+id/calendarViewReservation"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_schedule_black_24dp" />
+            android:src="@mipmap/ic_schedule_black_48dp" />
 
         <TextView
             android:id="@+id/tvReservationAppointmentLabel"
@@ -67,14 +67,14 @@
             android:layout_below="@+id/tvReservationAppointmentLabel"
             android:layout_alignTop="@+id/reservationAppointmentImage"
             android:layout_marginStart="225dp"
-            android:src="@drawable/ic_group_black_24dp" />
+            android:src="@mipmap/ic_group_black_48dp" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_below="@id/reservationAppointmentImage"
             android:layout_alignStart="@+id/tvReservationAppointmentLabel"
-            android:src="@drawable/ic_casino_black_24dp"
+            android:src="@mipmap/ic_casino_black_48dp"
             android:layout_marginTop="25dp"
             android:id="@+id/reservationSportImage"/>
 

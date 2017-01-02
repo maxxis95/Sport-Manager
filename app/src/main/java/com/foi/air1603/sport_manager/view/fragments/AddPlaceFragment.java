@@ -52,6 +52,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         inputs.put("PlaceNumber", R.id.txiPlaceNumber);
         inputs.put("PlaceWorkingHoursStart", R.id.txiPlaceWorkingHoursStart);
         inputs.put("PlaceWorkingHoursStop", R.id.txiPlaceWorkingHoursStop);
+        inputs.put("PlaceImage", R.id.txiPlaceImageUrl);
     }
 
     private User user;
@@ -83,7 +84,6 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
 
                 presenter.checkInputData(user.id);
             }
-
         });
 
         Button btnAddPlacePicture = (Button) getActivity().findViewById(R.id.PlaceAddPicture);
@@ -195,6 +195,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         System.out.println("----------------->1. AddPlaceFragment:onActivityResult");
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            MainActivity.showProgressDialog("Uploadanje slike");
             System.out.println("----------------->1. AddPlaceFragment:onActivityResult");
             presenter.addPlacePicture(data, getActivity());
         }
@@ -202,7 +203,9 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
 
     @Override
     public void showUploadedImageLink(String message) {
-        System.out.println("----------------->9. AddPlaceFragment:showUploadedImageLink "+message);
+        MainActivity.dismissProgressDialog();
+        System.out.println("----------------->9. AddPlaceFragment:showUploadedImageLink " + message);
+        ((TextInputLayout) getActivity().findViewById(inputs.get(AddPlaceViewEnums.PlaceImage.toString()))).getEditText().setText(message);
     }
 
     @Override
@@ -222,7 +225,8 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
             Toast.makeText(getActivity(),
                     "Uspješno ste dodali novi objekt", Toast.LENGTH_LONG).show();
 
-            getFragmentManager().popBackStack();
+            MainActivity.replaceFragment(new AddAppointmentFragment());
+            //getFragmentManager().popBackStack();
         } else {
             Toast.makeText(getActivity(),
                     "Dodavanje objekta nije uspjelo:" + message, Toast.LENGTH_LONG).show();

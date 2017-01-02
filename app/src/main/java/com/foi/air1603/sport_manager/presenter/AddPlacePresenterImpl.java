@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
 import com.foi.air1603.sport_manager.model.PlaceInteractor;
@@ -30,6 +31,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
     private String filePath = "";
     private Boolean expectingImageUrl;
 
+
     public AddPlacePresenterImpl(AddPlaceView addAppointmentView) {
         this.view = addAppointmentView;
         this.interactor = new PlaceInteractorImpl(this);
@@ -39,6 +41,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
     public void checkInputData(Integer userId) {
         Boolean checkWorkingHoursDifference, requiredFieldsNotEmpty;
         requiredFieldsNotEmpty = checkWorkingHoursDifference = true;
+
 
         for (AddPlaceViewEnums input_id : AddPlaceViewEnums.values()) {
             if (view.getInputText(input_id).isEmpty()) {
@@ -65,6 +68,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
         }
 
         if (requiredFieldsNotEmpty && checkWorkingHoursDifference) {
+            MainActivity.showProgressDialog("Spremanje objekta");
             interactor.setPlaceObject(createNewPlaceObject(userId));
         }
     }
@@ -108,6 +112,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
                 view.showUploadedImageLink(response.getMessage());
             }
         } else {
+            MainActivity.dismissProgressDialog();
             view.returnResponseCode(response.getStatusCode(), response.getMessage());
         }
     }

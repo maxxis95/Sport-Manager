@@ -120,8 +120,6 @@ public class AirWebServiceCaller {
 
             });
         }
-
-
     }
 
     /**
