@@ -1,6 +1,8 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.icu.util.Calendar;
@@ -8,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +77,13 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 addPlacePresenter.checkInputData(user.id);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                AddAppointmentFragment addAppointmentFragment = new AddAppointmentFragment();
+                fragmentTransaction.add(R.id.fragment_container, addAppointmentFragment);
+                fragmentTransaction.commit();
             }
 
         });

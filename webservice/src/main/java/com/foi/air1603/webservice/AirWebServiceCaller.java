@@ -117,8 +117,6 @@ public class AirWebServiceCaller {
 
             });
         }
-
-
     }
     /**
      * Metoda koju se poziva nakon što Retrofit vrati inicijalni odgovor

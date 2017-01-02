@@ -105,23 +105,16 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/txiPlaceImage"
+        <Button
+            android:text="@string/PlaceAddPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/txiPlaceWorkingHoursStop"
             android:layout_below="@+id/txiPlaceWorkingHoursStop"
-            android:layout_marginBottom="30dp">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etPlaceImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/place_image_link"
-                android:inputType="textUri" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_marginStart="35dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/PlaceAddPicture"
+            android:layout_marginBottom="20dp"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
         <Button
             android:id="@+id/buttonPlaceAdd"
@@ -129,8 +122,8 @@
             android:layout_height="wrap_content"
             android:text="@string/PlaceAdd"
             tools:ignore="RtlHardcoded"
-            android:layout_below="@+id/txiPlaceImage"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/PlaceAddPicture"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:text="@string/tvPlacePeriod"

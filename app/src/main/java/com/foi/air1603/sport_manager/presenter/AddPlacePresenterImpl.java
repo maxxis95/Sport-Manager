@@ -20,7 +20,6 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
 
     private final AddPlaceView view;
     private PlaceInteractor placeInteractor;
-    private Boolean checkWorkingHoursStart, checkWorkingHoursStop, checkWorkingHoursDifference, requiredFieldsNotEmpty;
 
     public AddPlacePresenterImpl(AddPlaceView addAppointmentView) {
         this.view = addAppointmentView;
@@ -29,7 +28,10 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
 
     @Override
     public void checkInputData(Integer userId) {
-        requiredFieldsNotEmpty = checkWorkingHoursStart = checkWorkingHoursStop = checkWorkingHoursDifference = true;
+        Boolean checkWorkingHoursStart;
+        Boolean checkWorkingHoursStop;
+        Boolean checkWorkingHoursDifference;
+        Boolean requiredFieldsNotEmpty = checkWorkingHoursStart = checkWorkingHoursStop = checkWorkingHoursDifference = true;
 
         for (AddPlaceViewEnums input_id : AddPlaceViewEnums.values()) {
             if (view.getInputText(input_id).isEmpty()) {
