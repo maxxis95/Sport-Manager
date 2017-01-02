@@ -49,7 +49,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
         activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_Myplaces);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         presenter = MyPlacePresenterImpl.getInstance().Init(this);
         presenter.getAllMyPlaces(user.id);

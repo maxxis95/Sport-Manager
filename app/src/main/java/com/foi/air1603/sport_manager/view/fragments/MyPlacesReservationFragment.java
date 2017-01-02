@@ -49,7 +49,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
         }
         activity = (MainActivity) getActivity();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_MyplacesReservationList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         presenter = new MyPlaceReservationsPresenterImpl(this);
         presenter.getAllAppointmentsByPlaceId(searchParameter);
 
