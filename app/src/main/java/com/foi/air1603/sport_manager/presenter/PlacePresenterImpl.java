@@ -20,8 +20,10 @@ import java.util.List;
 public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
 
     private static PlacePresenterImpl instance;
+    public static boolean updateData = false;
     PlaceInteractor placeInteractor;
     List<Place> places = null;
+
     private PlaceView view; // TODO: Ne znam jel ovo treba uopće
 
     private PlacePresenterImpl() {
@@ -50,7 +52,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
     public void getAllPlaces() {
         System.out.println("----------------->2. PlacePresenterImpl:getAllPlaces");
 
-        if (this.places == null) {
+        if (this.places == null || updateData) {
             placeInteractor.getAllPlacesObjects(this);
         } else {
             getResponseData(places);
@@ -61,7 +63,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
     public void getResponseData(Object result) {
         Boolean placesAlreadyLoaded = false;
 
-        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() > 1) {
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
             placesAlreadyLoaded = true;
         }
 

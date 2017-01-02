@@ -25,6 +25,8 @@ import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.AddPlaceViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenter;
 import com.foi.air1603.sport_manager.presenter.AddPlacePresenterImpl;
+import com.foi.air1603.sport_manager.presenter.MyPlacePresenterImpl;
+import com.foi.air1603.sport_manager.presenter.PlacePresenterImpl;
 import com.foi.air1603.sport_manager.view.AddPlaceView;
 
 import java.util.HashMap;
@@ -65,7 +67,6 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         addPlacePresenter = new AddPlacePresenterImpl(this);
         Button btnAddPlace = (Button) getActivity().findViewById(R.id.buttonPlaceAdd);
 
@@ -161,6 +162,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
     @Override
     public void returnResponseCode(int statusCode, String message) {
         if (statusCode == 200) {
+            PlacePresenterImpl.updateData = true;
             Toast.makeText(getActivity(),
                     "Uspješno ste dodali novi objekt", Toast.LENGTH_LONG).show();
 

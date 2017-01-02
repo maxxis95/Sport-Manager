@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
@@ -23,6 +24,8 @@ import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 import com.google.gson.Gson;
+
+import static com.foi.air1603.sport_manager.BaseActivity.*;
 
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
@@ -66,14 +69,17 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 @Override
                 public void onClick(View v) {
                     presenter.checkInputData();
-                    MainActivity.showProgressDialog("Provjera podataka");
+                    BaseActivity.showProgressDialog("Provjera podataka");
                 }
             });
 
             txtViewRegistration.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity.replaceFragment(new RegisterFragment());
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_container, new RegisterFragment());
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
             });
         }
@@ -133,7 +139,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
     @Override
     public void loginSuccessful(User userObject) {
-        MainActivity.dismissProgressDialog();
+        BaseActivity.dismissProgressDialog();
         createLoginSession(userObject);
         Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User", userObject);
         startActivity(intent);

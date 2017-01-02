@@ -44,7 +44,6 @@ public class SportPresenterImpl implements SportPresenter, PresenterHandler {
         for (final Sport sport : this.sports) {
             id.add(sport.getId());
             name.add(sport.getName());
-            System.out.println("nameeeeeee:"+sport.getName());
 
         }
 

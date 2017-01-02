@@ -22,6 +22,8 @@ import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
+import com.foi.air1603.sport_manager.presenter.MyReservationsPresenter;
+import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.SportPresenter;
 import com.foi.air1603.sport_manager.presenter.SportPresenterImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
@@ -67,6 +69,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Rezervacija termina");
+        MyReservationsPresenterImpl.updateData = true;
 
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_reservation, null);

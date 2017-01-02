@@ -1,7 +1,9 @@
 package com.foi.air1603.sport_manager;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,19 +20,35 @@ import java.security.NoSuchAlgorithmException;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private static ProgressDialog progressDialog;
+    public BaseActivity activity;
+
+    public static void showProgressDialog(String message) {
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    public static void dismissProgressDialog() {
+        progressDialog.dismiss();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        progressDialog = new ProgressDialog(this);
 
         LoginFragment login = new LoginFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
+
     }
 
 

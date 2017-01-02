@@ -127,20 +127,20 @@
             android:id="@+id/buttonPlaceAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/PlaceAdd"
-            tools:ignore="RtlHardcoded"
             android:layout_below="@+id/txiPlaceImage"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:text="@string/PlaceAdd"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
-            android:text="@string/tvPlacePeriod"
-            android:layout_marginTop="30dp"
+            android:id="@+id/tvPlacePeriod"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/buttonPlaceAdd"
-            android:textAlignment="center"
-            android:id="@+id/tvPlacePeriod" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="@string/tvPlacePeriod"
+            android:textAlignment="center" />
 
     </RelativeLayout>
 
