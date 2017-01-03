@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Reservation;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesReservationFragment;
 
 import java.util.List;
@@ -42,12 +43,45 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Appointment appointment = appointmentList.get(position);
-        //final Reservation reservation = reservationList.get(position);
+        Reservation reservation = null;
+        if(!appointment.reservations.isEmpty()){
+            reservation = appointment.reservations.get(0);
+        }
+
 
         ((MyPlaceReservationsViewHolder) holder).place_appointment_date.setText(appointment.date);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
-        //((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(reservation.);
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("Br. Rezerv: "+appointment.id.toString());
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Br. ljudi: "+appointment.maxPlayers.toString());
+        if(reservation != null){
+            User user = null;
+            if(!reservation.team.users.isEmpty()){
+                user = reservation.team.users.get(0);
+            }
+
+            ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_name.setText(reservation.sport.getName());
+            if(user != null){
+                ((MyPlaceReservationsViewHolder) holder).place_appointment_main_user.setText(user.firstName + ' '+ user.lastName);
+            }
+            switch (reservation.sport.name){
+                case "Košarka":
+                    ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.basketball);
+                    break;
+                case "Nogomet":
+                    ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.football);
+                    break;
+                case "Badminton":
+                    ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.badminton);
+                    break;
+                case "Odbojka":
+                    ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.volleyball);
+                    break;
+                case "Trčanje":
+                    ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.running);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -59,27 +93,22 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
         TextView place_appointment_date;
         TextView place_appointment_start;
         TextView place_appointment_end;
-
-        /*
-        ImageView place_appointment_sport_image;
-        TextView place_appointment_sport_name;
-        TextView place_appointment_main_user;
-        TextView place_appointment_other_users;
         TextView place_appointment_id;
-        */
+        TextView place_appointment_other_users;
+        TextView place_appointment_sport_name;
+        ImageView place_appointment_sport_image;
+        TextView place_appointment_main_user;
 
         public MyPlaceReservationsViewHolder(View view) {
             super(view);
             place_appointment_date = (TextView) view.findViewById(R.id.place_appointment_date);
             place_appointment_start = (TextView) view.findViewById(R.id.place_appointment_start);
             place_appointment_end = (TextView) view.findViewById(R.id.place_appointment_end);
-            /*
-            place_appointment_sport_image = (ImageView) view.findViewById(R.id.place_appointment_image);
-            place_appointment_sport_name = (TextView) view.findViewById(R.id.place_appointment_sport_name);
-            place_appointment_main_user = (TextView) view.findViewById(R.id.place_appointment_user_main);
-            place_appointment_other_users = (TextView) view.findViewById(R.id.place_appointment_other_users);
             place_appointment_id = (TextView) view.findViewById(R.id.place_appointment_id);
-            */
+            place_appointment_other_users = (TextView) view.findViewById(R.id.place_appointment_other_users);
+            place_appointment_sport_name = (TextView) view.findViewById(R.id.place_appointment_sport_name);
+            place_appointment_sport_image = (ImageView) view.findViewById(R.id.place_appointment_image);
+            place_appointment_main_user = (TextView) view.findViewById(R.id.place_appointment_user_main);
         }
     }
 }

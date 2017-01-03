@@ -1,5 +1,7 @@
 package com.foi.air1603.sport_manager.entities;
 
+import java.util.List;
+
 /**
  * Created by Korisnik on 26-Dec-16.
  */
@@ -12,7 +14,7 @@ public class Appointment {
     public String end;
     public Integer maxPlayers;
     public Place place;
-
+    public List<Reservation> reservations;
 
     public int getId() {
         return id;
