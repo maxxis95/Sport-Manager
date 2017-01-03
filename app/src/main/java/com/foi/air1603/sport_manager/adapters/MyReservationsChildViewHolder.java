@@ -53,14 +53,14 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
         mReservationType.setText(reservation.sport.name);
         mReservationAddress.setText(reservation.appointment.place.address);
         mReservationPlayers.setText(reservation.team.name);
-        mReservationValue.setText(reservation.id + "");
+        mReservationValue.setText("ID " + reservation.id + "");
         myAppointmentConfirm.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 Toast.makeText(context.getApplicationContext(),
-                        "Ova stvar je trenutno ne implementirana", Toast.LENGTH_LONG).show();
+                        "Ova mogućnost trenutno nije implementirana", Toast.LENGTH_LONG).show();
             }
         });
         myAppointmentDelete.setOnClickListener(new View.OnClickListener(){
@@ -69,7 +69,7 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
             public void onClick(View v) {
                 Context context = v.getContext();
                 Toast.makeText(context.getApplicationContext(),
-                        "Ova stvar je trenutno ne implementirana", Toast.LENGTH_LONG).show();
+                        "Ova mogućnost trenutno nije implementirana", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -42,12 +42,12 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
         String date = reservation.appointment.date;
         String realDate = date.substring(0,10);
         String[] split = realDate.split("-");
-        String formatedDate = split[2]+"."+split[1]+"."+split[0]+".";
+        String formattedDate = split[2]+"."+split[1]+"."+split[0]+".";
 
 
         mReservationPlaceName.setText(reservation.appointment.place.name);
-        mReservationTime.setText("Od: "+reservation.appointment.start+" Do: "+reservation.appointment.end);
-        reservation_date.setText(formatedDate);
+        mReservationTime.setText(reservation.appointment.start + " - " + reservation.appointment.end);
+        reservation_date.setText(formattedDate);
 
         switch (reservation.sport.name){
             case "Košarka":

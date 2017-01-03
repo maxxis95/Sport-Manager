@@ -49,6 +49,7 @@
             android:textIsSelectable="false"
             android:textColor="#757575"
             tools:text="@string/appointment_hours_end"
+            android:layout_marginLeft="-7dp"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
             android:layout_toEndOf="@+id/place_appointment_start"
             android:layout_alignBaseline="@+id/place_appointment_start"/>

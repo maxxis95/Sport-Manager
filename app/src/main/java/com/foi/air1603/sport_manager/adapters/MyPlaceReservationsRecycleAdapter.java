@@ -48,12 +48,17 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
             reservation = appointment.reservations.get(0);
         }
 
+        String date = appointment.date;
+        String realDate = date.substring(0,10);
+        String[] split = realDate.split("-");
+        String formattedDate = split[2]+"."+split[1]+"."+split[0]+".";
 
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_date.setText(appointment.date);
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start);
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_date.setText(formattedDate);
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start + " -");
         ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("Br. Rezerv: "+appointment.id.toString());
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Br. ljudi: "+appointment.maxPlayers.toString());
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("ID "+appointment.id.toString());
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("No. "+appointment.maxPlayers.toString());
+
         if(reservation != null){
             User user = null;
             if(!reservation.team.users.isEmpty()){
