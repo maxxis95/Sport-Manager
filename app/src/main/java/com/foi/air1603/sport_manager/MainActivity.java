@@ -206,9 +206,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -231,9 +231,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_reservations) {
             //openMyReservationsFragment();
             replaceFragment(new MyReservationsFragment());
-        } else if (id == R.id.nav_settings) {
+        } /*else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_logout) {
+        }*/ else if (id == R.id.nav_logout) {
             logout();
         }
 
