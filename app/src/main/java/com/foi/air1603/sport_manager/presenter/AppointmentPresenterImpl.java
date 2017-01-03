@@ -109,7 +109,6 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         }.getType();
         this.allAppointments = new Gson().fromJson(response.getData(), collectionType);
 
-        System.out.println("+++++++++++++++++++ sizee: " + allAppointments.size());
         view.initializeCalendar();
     }
 }
