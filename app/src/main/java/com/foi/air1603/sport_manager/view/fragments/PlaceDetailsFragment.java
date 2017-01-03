@@ -3,6 +3,7 @@ package com.foi.air1603.sport_manager.view.fragments;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,11 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.view.PlaceDetailsView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -56,10 +60,14 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Detalji objekta");
         MainActivity.showProgressDialog("Učitavanje mape");
-
         View v = inflater.inflate(R.layout.fragment_details_place, null);
-        mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
-        mMapView.onCreate(savedInstanceState);
+
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        int code = api.isGooglePlayServicesAvailable(getActivity());
+        if (code == ConnectionResult.SUCCESS) {
+            mMapView = (MapView) v.findViewById(R.id.mapViewPlace);
+            mMapView.onCreate(savedInstanceState);
+        }
         return v;
     }
 
@@ -161,7 +169,6 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 
-            return;
         } else {
             configureMap();
         }
@@ -169,6 +176,12 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
 
     @SuppressWarnings({"MissingPermission"})
     private void configureMap() throws SecurityException {
+        if (mMapView == null) {
+            MainActivity.dismissProgressDialog();
+            Toast.makeText(getActivity(),
+                    "Nije moguće učitati Google mapu!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
