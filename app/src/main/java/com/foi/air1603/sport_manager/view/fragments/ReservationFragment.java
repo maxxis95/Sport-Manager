@@ -21,6 +21,7 @@ import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.entities.Team;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
@@ -133,9 +134,15 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                 userReservation.created = sqlDate.toString();
                 Team team = new Team();
+                team.users = new ArrayList<>();
                 team.name = "Team_" + userReservation.appointmentId + "_" + userReservation.sportId;
                 team.created = sqlDate.toString();
                 team.userId = MainActivity.user.id;
+
+                User ownerUser = new User();
+                ownerUser.id = MainActivity.user.id;
+                team.users.add(ownerUser);
+
                 userReservation.team = team;
 
                 MainActivity.showProgressDialog("Kreiranje rezervacije");
