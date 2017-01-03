@@ -7,7 +7,7 @@ import com.foi.air1603.sport_manager.entities.Reservation;
  */
 
 public interface MyReservationsInteractor {
-    void getMyReservationsObject(int userId);
+    void getMyReservationsObject(int userId, long unixTime);
 
     void setReservationsObject(Reservation reservation);
 }

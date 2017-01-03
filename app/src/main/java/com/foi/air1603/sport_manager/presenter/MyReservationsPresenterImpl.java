@@ -65,7 +65,8 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
     public void getUserReservationsData() {
         if (this.reservationsList == null || updateData) {
             updateData = false;
-            myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
+            long unixTime = System.currentTimeMillis() / 1000L;
+            myReservationsInteractor.getMyReservationsObject(MainActivity.user.id, unixTime);
         } else {
             getResponseData(reservationsList);
         }

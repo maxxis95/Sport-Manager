@@ -24,9 +24,9 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
     }
 
     @Override
-    public void getMyReservationsObject(int userId) {
+    public void getMyReservationsObject(int userId, long unixTime) {
         try {
-            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", "Teams.Users.id", userId + "", Reservation.class, null);
+            dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", "Teams.Users.id;"+"created", userId + ";"+unixTime, Reservation.class, null);
 
         } catch (Exception ex) {
             Log.e("WebService Error: ", ex.getMessage());
