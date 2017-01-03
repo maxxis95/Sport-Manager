@@ -33,6 +33,18 @@
             android:layout_height="wrap_content"
             android:textIsSelectable="false"
             android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:layout_below="@+id/reservation_place_name"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/reservation_date"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="false"
+            android:layout_marginEnd="16dp"
             tools:text="@string/myAppointmentPlace"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
             android:layout_marginTop="14dp"

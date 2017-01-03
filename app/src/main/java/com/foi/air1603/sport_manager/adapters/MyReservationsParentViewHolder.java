@@ -9,6 +9,9 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Reservation;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,6 +26,8 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
     TextView mReservationTime;
     @BindView(R.id.sport_image)
     ImageView mReservationSportImage;
+    @BindView(R.id.reservation_date)
+    TextView reservation_date;
     
     View mItemView;
 
@@ -34,8 +39,15 @@ public class MyReservationsParentViewHolder extends ParentViewHolder {
 
     // when the adapter is implemented this method is used to bind list elements with the recycler-view, here, we populate the Views
     public void bind(Reservation reservation) {
+        String date = reservation.appointment.date;
+        String realDate = date.substring(0,10);
+        String[] split = realDate.split("-");
+        String formatedDate = split[2]+"-"+split[1]+"-"+split[0];
+
+
         mReservationPlaceName.setText(reservation.appointment.place.name);
-        mReservationTime.setText(reservation.created);
+        mReservationTime.setText("Od: "+reservation.appointment.start+" Do: "+reservation.appointment.end);
+        reservation_date.setText(formatedDate);
 
         switch (reservation.sport.name){
             case "Košarka":
