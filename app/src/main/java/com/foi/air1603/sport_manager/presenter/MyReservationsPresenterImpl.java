@@ -21,14 +21,13 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
 
     public static boolean updateData = false;
     private static MyReservationsPresenterImpl instance;
-    Boolean myReservationAlreadyLoaded = false;
-    MyReservationsView myReservationsView;
-    MyReservationsInteractor myReservationsInteractor;
-    List<Reservation> reservationsList = null;
+    private Boolean myReservationAlreadyLoaded = false;
+    private MyReservationsView myReservationsView;
+    private MyReservationsInteractor myReservationsInteractor;
+    private List<Reservation> reservationsList = null;
 
     private MyReservationsPresenterImpl() {
     }
-
 
     public static MyReservationsPresenterImpl getInstance() {
         if (instance == null) {
@@ -40,14 +39,12 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
     public MyReservationsPresenter Init(MyReservationsView myReservationsView) {
         this.myReservationsView = myReservationsView;
         this.myReservationsInteractor = new MyReservationsInteractorImpl(this);
-        this.instance = this;
+        instance = this;
         return this;
     }
 
-
     @Override
     public void getResponseData(Object result) {
-
         if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
             myReservationAlreadyLoaded = true;
         }
@@ -58,20 +55,19 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
 
             Type collectionType = new TypeToken<List<Reservation>>() {
             }.getType();
-            reservationsList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionType);
+            reservationsList = new Gson().fromJson(response.getData(), collectionType);
         }
-        if (reservationsList != null) {
-            myReservationsView.loadRecycleViewData(reservationsList);
-        }
+
+        myReservationsView.loadRecycleViewData(reservationsList);
     }
 
     @Override
     public void getUserReservationsData() {
         if (this.reservationsList == null || updateData) {
+            updateData = false;
             myReservationsInteractor.getMyReservationsObject(MainActivity.user.id);
         } else {
             getResponseData(reservationsList);
         }
-
     }
 }

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
@@ -30,23 +31,21 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     public User user;
     MyPlacePresenter presenter;
     private RecyclerView recyclerView;
-    private MainActivity activity;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Moji sportski objekti");
         MainActivity.showProgressDialog("Dohvaćanje podataka");
-
-        View v = inflater.inflate(R.layout.fragment_my_places, null);
-        return v;
+        return inflater.inflate(R.layout.fragment_my_places, null);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity = (MainActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
+
         user = activity.getIntent().getExtras().getParcelable("User");
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_Myplaces);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -57,6 +56,12 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
 
     @Override
     public void showMyPlaces(List<Place> places) {
+        if (places == null){
+            MainActivity.dismissProgressDialog();
+            Toast.makeText(getActivity(),
+                    "Trenutno nemate svojih sportskih objekata!", Toast.LENGTH_LONG).show();
+            return;
+        }
         recyclerView.setAdapter(new MyPlaceRecycleAdapter(places, this));
         MainActivity.dismissProgressDialog();
     }

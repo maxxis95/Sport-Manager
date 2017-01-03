@@ -80,11 +80,8 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                if(place == null){
-                    addAppointmentPresenter.validateAppointment();
-                } else {
-                    //
-                }
+                addAppointmentPresenter.validateAppointment();
+
             }
 
         });

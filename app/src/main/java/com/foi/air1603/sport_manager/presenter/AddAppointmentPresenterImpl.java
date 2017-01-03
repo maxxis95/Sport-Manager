@@ -4,6 +4,7 @@ import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.helper.enums.AddAppointmentViewEnums;
 import com.foi.air1603.sport_manager.model.AppointmentInteractor;
 import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
+import com.foi.air1603.sport_manager.model.MyReservationsInteractor;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 
@@ -16,6 +17,7 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
     private final AddAppointmentView view;
     private Boolean checkTimeStart, checkTimeEnd, checkMaxPlayers, checkPlayersSize;
     private AppointmentInteractor appointmentInteractor;
+    private MyReservationsInteractor reservationsInteractor;
 
     public AddAppointmentPresenterImpl(AddAppointmentView addAppointmentView) {
         this.view = addAppointmentView;
@@ -48,6 +50,7 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
         }
 
         if (checkTimeStart && checkTimeEnd && checkPlayersSize) {
+           // Appointment app = createNewAppointmentObject();
             appointmentInteractor.setAppointmentObject(createNewAppointmentObject());
         }
     }
@@ -55,26 +58,23 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
     private Appointment createNewAppointmentObject() {
         Appointment appointment = new Appointment();
         appointment.placeId = view.getIdPlace();
-        int dat = view.getCurrentDate();
 
-        java.util.Date utilDate = new java.util.Date();
+        java.util.Date utilDate=new java.util.Date((long)view.getDate()*1000);
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         appointment.date = sqlDate.toString();
         System.out.println("---------------" + sqlDate.toString());
         appointment.start = view.getAppointmentStartFromEditText();
         appointment.end = view.getAppointmentEndFromEditText();
         String maxPly = view.getMaxPlayer();
-        appointment.maxplayers = Integer.parseInt(maxPly);
+        appointment.maxPlayers = Integer.parseInt(maxPly);
 
         return appointment;
     }
 
     @Override
     public void getResponseData(Object result) {
-
         AirWebServiceResponse test = (AirWebServiceResponse) result;
 
         view.returnResponseCode(test.getStatusCode(), test.getMessage());
-
     }
 }

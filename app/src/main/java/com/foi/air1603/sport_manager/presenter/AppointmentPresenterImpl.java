@@ -1,8 +1,11 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.model.AppointmentInteractor;
 import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
+import com.foi.air1603.sport_manager.model.MyReservationsInteractor;
+import com.foi.air1603.sport_manager.model.MyReservationsInteractorImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
@@ -24,6 +27,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
     private static AppointmentPresenterImpl instance;
     AppointmentInteractor appointmentInteractor;
+    MyReservationsInteractor reservationsInteractor;
     List<Appointment> allAppointments = null;
     List<Appointment> availableAppointments = new ArrayList<>();
     private ReservationView view;
@@ -41,7 +45,8 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     public AppointmentPresenter Init(ReservationView reservationView) {
         this.view = reservationView;
         this.appointmentInteractor = new AppointmentInteractorImpl(this);
-        this.instance = this;
+        this.reservationsInteractor = new MyReservationsInteractorImpl(this);
+        instance = this;
         return this;
     }
 
@@ -55,7 +60,6 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     @Override
     public void showAppointmentsForDate(Integer pickedDate) {
 
-        System.out.println("this.showAppointmentsForDate" + this.allAppointments);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (this.allAppointments == null) {
             return;
@@ -70,7 +74,12 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
                 e.printStackTrace();
             }
 
-            long unixTime = dateTmp.getTime() / 1000 + 3600; //3600 timezone fix
+            //long unixTime = dateTmp.getTime() / 1000 + 3600; //3600 timezone fix
+            assert dateTmp != null;
+            long unixTime = dateTmp.getTime() / 1000;
+            //System.out.println("AppDate: " + appointment.date +" --- "+unixTime);
+            //System.out.println("PickedDate:  " +" --- "+pickedDate);
+            //System.out.println("");
             if (pickedDate != unixTime) {
                 continue;
             }
@@ -81,15 +90,25 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     }
 
     @Override
+    public void reservateAppointment(Reservation userReservation) {
+        reservationsInteractor.setReservationsObject(userReservation);
+    }
+
+    @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->8. AppointmentPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
+
+        if(response.data == null && response.statusCode == 200){
+            view.successfulReservation();
+            return;
+        }
+
         Type collectionType = new TypeToken<List<Appointment>>() {
         }.getType();
 
-        this.allAppointments = (List<Appointment>) new Gson().fromJson(response.getData(), collectionType);
-
+        this.allAppointments = new Gson().fromJson(response.getData(), collectionType);
         view.initializeCalendar();
     }
 }

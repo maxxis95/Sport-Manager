@@ -13,11 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
+import com.foi.air1603.sport_manager.entities.Reservation;
+import com.foi.air1603.sport_manager.entities.Team;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
@@ -56,11 +59,14 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     SportPresenter sportPresenter;
     CalendarView calendar;
     List<String> maxPlayers = new ArrayList<>();
+    private Map<String, Integer> sportsMap = new HashMap<>();
+    private Map<String, Integer> appointmentsMap = new HashMap<>();
     private int yearGet, monthGet, dayGet, id_place, currentPickedDate;
     private Place place;
     private Spinner spinnerAppointment, spinnerSport, spinnerMaxPlayers;
     private View view;
     private Context context;
+    private Reservation userReservation;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -105,10 +111,10 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         calendar.setMinDate(System.currentTimeMillis() - 1000);
 
         appointmentPresenter = AppointmentPresenterImpl.getInstance().Init(this);
+        MainActivity.showProgressDialog("Učitavanje termina");
         appointmentPresenter.loadAllAppointments();
 
         sportPresenter = new SportPresenterImpl(this);
-
         showAllViews(false);
 
         spinnerAppointment = (Spinner) view.findViewById(R.id.spinnerAppointments);
@@ -119,7 +125,23 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         setAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.replaceFragment(new InviteFriendsFragment());
+                userReservation = new Reservation();
+                userReservation.sportId = sportsMap.get(spinnerSport.getSelectedItem()).intValue();
+                userReservation.appointmentId = appointmentsMap.get(spinnerAppointment.getSelectedItem()).intValue();
+
+                java.util.Date utilDate = new java.util.Date(System.currentTimeMillis());
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                userReservation.created = sqlDate.toString();
+                Team team = new Team();
+                team.name = "Team_" + userReservation.appointmentId + "_" + userReservation.sportId;
+                team.created = sqlDate.toString();
+                team.userId = MainActivity.user.id;
+                userReservation.team = team;
+
+                MainActivity.showProgressDialog("Kreiranje rezervacije");
+                appointmentPresenter.reservateAppointment(userReservation);
+
+                //MainActivity.replaceFragment(new InviteFriendsFragment());
             }
         });
 
@@ -150,7 +172,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void initializeCalendar() {
-
+        MainActivity.dismissProgressDialog();
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -179,6 +201,14 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             }
         });
         appointmentPresenter.showAppointmentsForDate(currentPickedDate);
+    }
+
+    @Override
+    public void successfulReservation() {
+        MainActivity.dismissProgressDialog();
+        Toast.makeText(getActivity(),
+                "Uspješno ste rezervirali termin!", Toast.LENGTH_LONG).show();
+        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -216,7 +246,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         List<String> spinnerAppointments = new ArrayList<>();
         for (Appointment appointment : appointments) {
             spinnerAppointments.add(appointment.start + "-" + appointment.end);
-            maxPlayers.add(appointment.maxplayers.toString());
+            appointmentsMap.put(appointment.start + "-" + appointment.end, appointment.id);
+            maxPlayers.add(appointment.maxPlayers.toString());
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerAppointments);
@@ -230,6 +261,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         List<String> sports = new ArrayList<>();
         for (int i = 0; i < id.size(); i++) {
             sports.add(name.get(i));
+            sportsMap.put(name.get(i), id.get(i));
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, sports);

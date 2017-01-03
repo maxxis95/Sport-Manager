@@ -10,7 +10,7 @@ public class Appointment {
     public String date;
     public String start;
     public String end;
-    public Integer maxplayers;
+    public Integer maxPlayers;
     public Place place;
 
 
@@ -34,7 +34,7 @@ public class Appointment {
         return end;
     }
 
-    public Integer getMaxplayers() {
-        return maxplayers;
+    public Integer getMaxPlayers() {
+        return maxPlayers;
     }
 }

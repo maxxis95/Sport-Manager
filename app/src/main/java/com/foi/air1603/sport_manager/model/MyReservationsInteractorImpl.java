@@ -24,11 +24,6 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
     }
 
     @Override
-    public void onDataLoaded(AirWebServiceResponse result) {
-        mPresenterHandler.getResponseData(result);
-    }
-
-    @Override
     public void getMyReservationsObject(int userId) {
         try {
             dataLoader.loadData(this, "getData", "Reservations,Sports,Appointments.Places,Teams.Users", "Teams.Users.id", userId + "", Reservation.class, null);
@@ -36,5 +31,15 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
         } catch (Exception ex) {
             Log.e("WebService Error: ", ex.getMessage());
         }
+    }
+
+    @Override
+    public void setReservationsObject(Reservation reservation) {
+        dataLoader.loadData(this, "setData", "Reservations", null, null, Reservation.class, reservation);
+    }
+
+    @Override
+    public void onDataLoaded(AirWebServiceResponse result) {
+        mPresenterHandler.getResponseData(result);
     }
 }

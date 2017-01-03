@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
@@ -51,6 +52,14 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<>();
         System.out.println("MyReservationsFragment:LoadRecyclerViewData");
 
+        if (reservations == null){
+            MainActivity.dismissProgressDialog();
+            Toast.makeText(getActivity(),
+                    "Trenutno nemate svojih rezervacija!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        assert reservations != null;
         for (Reservation res : reservations) {
             if (res.appointment == null) {
                 continue;

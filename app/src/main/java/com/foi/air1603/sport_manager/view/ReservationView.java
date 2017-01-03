@@ -19,4 +19,6 @@ public interface ReservationView {
     void showSports(List<Integer> id, List<String> name);
 
     void initializeCalendar();
+
+    void successfulReservation();
 }

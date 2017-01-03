@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractor;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractorImpl;
@@ -18,13 +19,13 @@ import java.util.List;
 
 public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler {
 
+    private static boolean updateData = false;
     private static MyPlacePresenterImpl instance;
-    MyPlaceInteractor myPlaceInteractor;
-    public static boolean updateData = false;
-    List<Place> myPlaces = null;
+    private MyPlaceInteractor myPlaceInteractor;
+    private List<Place> myPlaces = null;
     private MyPlacesView myPlacesView;
 
-    public MyPlacePresenterImpl() {
+    private MyPlacePresenterImpl() {
     }
 
     public static MyPlacePresenterImpl getInstance() {
@@ -37,13 +38,14 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
     public MyPlacePresenterImpl Init(MyPlacesView myPlacesView) {
         this.myPlacesView = myPlacesView;
         this.myPlaceInteractor = new MyPlaceInteractorImpl(this);
-        this.instance = this;
+        instance = this;
         return this;
     }
 
     @Override
     public void getAllMyPlaces(int id) {
         if (myPlaces == null || updateData) {
+            updateData = false;
             String searchBy = "user_id";
             String value = id + "";
             myPlaceInteractor.getAllMyPlacesObjects(this, searchBy, value);
@@ -67,8 +69,6 @@ public class MyPlacePresenterImpl implements MyPlacePresenter, PresenterHandler 
 
             myPlaces = new Gson().fromJson(response.getData(), collectionType);
         }
-        if (myPlaces != null) {
-            this.myPlacesView.showMyPlaces(myPlaces);
-        }
+        myPlacesView.showMyPlaces(myPlaces);
     }
 }

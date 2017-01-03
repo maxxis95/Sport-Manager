@@ -53,6 +53,7 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
         System.out.println("----------------->2. PlacePresenterImpl:getAllPlaces");
 
         if (this.places == null || updateData) {
+            updateData = false;
             placeInteractor.getAllPlacesObjects(this);
         } else {
             getResponseData(places);

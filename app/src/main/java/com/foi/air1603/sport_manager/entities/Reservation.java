@@ -14,7 +14,9 @@ public class Reservation {
     public String submitted;
     public String confirmed;
     public Appointment appointment;
+    public Integer appointmentId;
     public Sport sport;
+    public Integer sportId;
     public Team team;
     private List<Reservation> reservationChildList;
 

@@ -10,6 +10,6 @@ public class Team {
     public Integer id;
     public String name;
     public String created;
-    public Integer user_id;
+    public Integer userId;
     public List<User> users;
 }
