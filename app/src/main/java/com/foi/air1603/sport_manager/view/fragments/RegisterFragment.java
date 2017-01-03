@@ -75,9 +75,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
