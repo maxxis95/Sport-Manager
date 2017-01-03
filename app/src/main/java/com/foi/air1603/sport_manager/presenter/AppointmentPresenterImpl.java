@@ -55,7 +55,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     public void loadAllAppointments() {
         int id_place = view.getIdPlace();
         long unixTime = System.currentTimeMillis() / 1000L;
-        appointmentInteractor.getAppointmentsObjects("place_id"+";date>=", id_place+";"+unixTime);
+        appointmentInteractor.getAppointmentsObjects("place_id"+";date >=", id_place+";"+unixTime);
     }
 
     @Override
