@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Reservation;
-import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesReservationFragment;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Appointment appointment = appointmentList.get(position);
         Reservation reservation = null;
-        if(!appointment.reservations.isEmpty()){
+        if (!appointment.reservations.isEmpty()) {
             reservation = appointment.reservations.get(0);
         }
 
@@ -57,19 +56,14 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
         ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start + " -");
         ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("ID "+appointment.id.toString());
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("No. "+appointment.maxPlayers.toString());
-
-        if(reservation != null){
-            User user = null;
-            if(!reservation.team.users.isEmpty()){
-                user = reservation.team.users.get(0);
-            }
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Broj osoba - "+appointment.maxPlayers.toString());
+;
+        if (reservation != null) {
 
             ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_name.setText(reservation.sport.getName());
-            if(user != null){
-                ((MyPlaceReservationsViewHolder) holder).place_appointment_main_user.setText(user.firstName + ' '+ user.lastName);
-            }
-            switch (reservation.sport.name){
+            ((MyPlaceReservationsViewHolder) holder).place_appointment_main_user.setText(reservation.team.name);
+
+            switch (reservation.sport.name) {
                 case "Košarka":
                     ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.basketball);
                     break;
