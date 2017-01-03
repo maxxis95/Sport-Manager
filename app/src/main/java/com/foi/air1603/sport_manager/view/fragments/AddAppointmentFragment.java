@@ -23,6 +23,7 @@ import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.helper.enums.AddAppointmentViewEnums;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AddAppointmentPresenterImpl;
+import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.view.AddAppointmentView;
 import com.foi.air1603.sport_manager.view.AddPlaceView;
 import com.google.gson.Gson;
@@ -245,7 +246,6 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
 
     @Override
     public void returnResponseCode(int statusCode, String message) {
-
         if (statusCode == 200) {
             Toast.makeText(getActivity(),
                     "Uspješno ste unijeli termin", Toast.LENGTH_LONG).show();
@@ -256,5 +256,4 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                     "Dodavanje termina nije uspjelo:" + message, Toast.LENGTH_LONG).show();
         }
     }
-
 }

@@ -5,6 +5,5 @@ package com.foi.air1603.sport_manager.presenter;
  */
 
 public interface PlacePresenter {
-    void testGettingSinglePlace();
     void getAllPlaces();
 }

@@ -1,6 +1,5 @@
 package com.foi.air1603.sport_manager.presenter;
 
-import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractor;
 import com.foi.air1603.sport_manager.model.MyPlaceInteractorImpl;

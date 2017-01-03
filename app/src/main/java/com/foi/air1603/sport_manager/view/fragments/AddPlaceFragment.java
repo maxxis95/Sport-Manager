@@ -237,13 +237,6 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
             Toast.makeText(getActivity(),
                     "Uspješno ste dodali novi objekt", Toast.LENGTH_LONG).show();
             getFragmentManager().popBackStack();
-
-            /*Bundle bundle = new Bundle();
-            bundle.putString("place_name", getInputText(AddPlaceViewEnums.PlaceName));
-            Fragment newFragment = new AddAppointmentFragment();
-            newFragment.setArguments(bundle);
-
-            MainActivity.replaceFragment(newFragment);*/
         } else {
             Toast.makeText(getActivity(),
                     "Dodavanje objekta nije uspjelo:" + message, Toast.LENGTH_LONG).show();

@@ -44,6 +44,17 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
     }
 
     @Override
+    public void getUserReservationsData() {
+        if (this.reservationsList == null || updateData) {
+            updateData = false;
+            long unixTime = System.currentTimeMillis() / 1000L;
+            myReservationsInteractor.getMyReservationsObject(MainActivity.user.id, unixTime);
+        } else {
+            getResponseData(reservationsList);
+        }
+    }
+
+    @Override
     public void getResponseData(Object result) {
         if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
             myReservationAlreadyLoaded = true;
@@ -57,18 +68,6 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
             }.getType();
             reservationsList = new Gson().fromJson(response.getData(), collectionType);
         }
-
         myReservationsView.loadRecycleViewData(reservationsList);
-    }
-
-    @Override
-    public void getUserReservationsData() {
-        if (this.reservationsList == null || updateData) {
-            updateData = false;
-            long unixTime = System.currentTimeMillis() / 1000L;
-            myReservationsInteractor.getMyReservationsObject(MainActivity.user.id, unixTime);
-        } else {
-            getResponseData(reservationsList);
-        }
     }
 }

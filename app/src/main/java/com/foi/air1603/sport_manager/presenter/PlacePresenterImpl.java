@@ -19,12 +19,12 @@ import java.util.List;
 
 public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
 
-    private static PlacePresenterImpl instance;
     public static boolean updateData = false;
-    PlaceInteractor placeInteractor;
-    List<Place> places = null;
+    private static PlacePresenterImpl instance;
+    private PlaceInteractor placeInteractor;
+    private List<Place> places = null;
 
-    private PlaceView view; // TODO: Ne znam jel ovo treba uopće
+    private PlaceView view;
 
     private PlacePresenterImpl() {
     }
@@ -40,13 +40,8 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
     public PlacePresenter Init(PlaceView placeView) {
         this.view = placeView;
         this.placeInteractor = new PlaceInteractorImpl(this);
-        this.instance = this;
+        instance = this;
         return this;
-    }
-
-    public void testGettingSinglePlace() {
-        System.out.println("----------------->2. PlacePresenterImpl:testGettingSinglePlace");
-        placeInteractor.getPlaceObject(this, "id", "1");
     }
 
     public void getAllPlaces() {
@@ -71,11 +66,11 @@ public class PlacePresenterImpl implements PlacePresenter, PresenterHandler {
         if (!placesAlreadyLoaded) {
             AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-            System.out.println(((AirWebServiceResponse) result).getData());
+            System.out.println(response.getData());
             Type collectionType = new TypeToken<List<Place>>() {
             }.getType();
             try {
-                places = (List<Place>) new Gson().fromJson(response.getData(), collectionType);
+                places = new Gson().fromJson(response.getData(), collectionType);
             } catch (JsonParseException e) {
                 System.out.println("[ERROR] " + e);
             }

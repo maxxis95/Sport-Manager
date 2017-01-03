@@ -9,7 +9,7 @@ import com.foi.air1603.sport_manager.entities.Reservation;
 public interface AppointmentPresenter {
     void loadAllAppointments();
 
-    void showAppointmentsForDate(Integer date);
+    void getAppointmentsForDate(Integer date);
 
     void reservateAppointment(Reservation userReseravation);
 }

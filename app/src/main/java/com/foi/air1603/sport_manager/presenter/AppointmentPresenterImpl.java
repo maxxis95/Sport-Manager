@@ -25,7 +25,9 @@ import java.util.List;
 
 public class AppointmentPresenterImpl implements AppointmentPresenter, PresenterHandler {
 
+
     private static AppointmentPresenterImpl instance;
+
     AppointmentInteractor appointmentInteractor;
     MyReservationsInteractor reservationsInteractor;
     List<Appointment> allAppointments = null;
@@ -52,14 +54,7 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
 
 
     @Override
-    public void loadAllAppointments() {
-        int id_place = view.getIdPlace();
-        long unixTime = System.currentTimeMillis() / 1000L;
-        appointmentInteractor.getAppointmentsObjects("place_id"+";date >=", id_place+";"+unixTime);
-    }
-
-    @Override
-    public void showAppointmentsForDate(Integer pickedDate) {
+    public void getAppointmentsForDate(Integer pickedDate) {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (this.allAppointments == null) {
@@ -78,9 +73,6 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
             //long unixTime = dateTmp.getTime() / 1000 + 3600; //3600 timezone fix
             assert dateTmp != null;
             long unixTime = dateTmp.getTime() / 1000;
-            //System.out.println("AppDate: " + appointment.date +" --- "+unixTime);
-            //System.out.println("PickedDate:  " +" --- "+pickedDate);
-            //System.out.println("");
             if (pickedDate != unixTime) {
                 continue;
             }
@@ -96,22 +88,28 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     }
 
     @Override
+    public void loadAllAppointments() {
+        int id_place = view.getIdPlace();
+        long unixTime = System.currentTimeMillis() / 1000L;
+        appointmentInteractor.getAppointmentsObjects("place_id" + ";date >=", id_place + ";" + unixTime);
+    }
+
+    @Override
     public void getResponseData(Object result) {
         System.out.println("----------------->8. AppointmentPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
 
-        if(response.data == null && response.statusCode == 200){
+        if (response.data == null && response.statusCode == 200) {
             view.successfulReservation();
             return;
         }
 
         Type collectionType = new TypeToken<List<Appointment>>() {
         }.getType();
-
         this.allAppointments = new Gson().fromJson(response.getData(), collectionType);
+
+        System.out.println("+++++++++++++++++++ sizee: " + allAppointments.size());
         view.initializeCalendar();
     }
 }
-
-

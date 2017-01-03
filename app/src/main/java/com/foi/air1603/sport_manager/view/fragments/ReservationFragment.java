@@ -105,6 +105,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         this.view = view;
 
         calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
@@ -180,6 +181,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void initializeCalendar() {
         MainActivity.dismissProgressDialog();
+
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -204,10 +206,10 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 showAllViews(false);
 
                 currentPickedDate = getDate();
-                appointmentPresenter.showAppointmentsForDate(getDate());
+                appointmentPresenter.getAppointmentsForDate(getDate());
             }
         });
-        appointmentPresenter.showAppointmentsForDate(currentPickedDate);
+        appointmentPresenter.getAppointmentsForDate(currentPickedDate);
     }
 
     @Override
