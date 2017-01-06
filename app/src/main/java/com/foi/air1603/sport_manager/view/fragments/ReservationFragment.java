@@ -142,6 +142,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
 
                 User ownerUser = new User();
                 ownerUser.id = MainActivity.user.id;
+                ownerUser.type = MainActivity.user.type;
                 team.users.add(ownerUser);
 
                 userReservation.team = team;

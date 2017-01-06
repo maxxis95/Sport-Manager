@@ -23,7 +23,7 @@ public class MyPlaceReservationsInteractorImpl implements MyPlaceReservationsInt
 
     @Override
     public void getAllMyPlacesReservationsObject(Object listner, String place_id) {
-        dataLoader.loadData(this, "getData", "Appointments,Reservations.Sports,Reservations.Teams.Users", "place_id" , place_id, Appointment.class, null);
+        dataLoader.loadData(this, "getData", "Appointments,Reservations.Sports,Reservations.Teams.Users", "place_id;Appointments.date >=" , place_id + ";" +System.currentTimeMillis()/1000, Appointment.class, null);
     }
 
     @Override
