@@ -8,40 +8,51 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
+import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
+import com.foi.air1603.sport_manager.loaders.DataLoader;
+import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
+import com.foi.air1603.webservice.AirWebServiceResponse;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by Karlo on 3.12.2016..
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener {
 
     public static User user;
     public static FragmentManager fragmentManager;
     public static MainActivity activity;
+    public static boolean tokenNeedsUpdating;
     private static ProgressDialog progressDialog;
     private AllPlacesFragment allPlacesFragment;
     private NavigationView navigationView;
     private Rights rights;
     private SharedPreferences pref;
+    private DataLoader dataLoader;
+    private String TAG = "MainActivity";
 
     public static void replaceFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
@@ -93,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         progressDialog.dismiss();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,14 +124,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fragmentManager = getFragmentManager();
 
-        user = getIntent().getExtras().getParcelable("User");
+        if (user == null) {
+            user = getIntent().getExtras().getParcelable("User");
+        }
         rights = rights.getRightFormInt(user.type);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Namjerno dodan false dok se ne implementira sve na ws-u
+        if (getIntent().getExtras() != null && false) {
+            handleSystemTrayNotification(getIntent().getExtras());
+        }
+
+        if (tokenNeedsUpdating) {
+            // [START get_token]
+            String token = FirebaseInstanceId.getInstance().getToken();
+            Log.d(TAG, token);
+            Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+            // [END get_token]
+            String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+            this.dataLoader = new WsDataLoader();
+            dataLoader.loadData(this, "updateToken", android_id, MainActivity.user.id + "", token, User.class, null);
+        }
+
         setNavigationView();
         setAllUsersDataToHeaderView();
         initAllPlacesFragment();
+    }
+
+    /***
+     * Kada je aplikacija u pozadini i stisne se na notifikaciju gore u notification baru ovdje se dolazi
+     *
+     * @param extras
+     */
+    private void handleSystemTrayNotification(Bundle extras) {
+        for (String key : extras.keySet()) {
+            Object value = extras.get(key);
+            Log.d(TAG, "Key: " + key + " Value: " + value);
+        }
     }
 
     private void setNavigationView() {
@@ -137,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void updateHeaderView() {
-        System.out.println("Pokušavam refreshat sliku");
+        //System.out.println("Pokušavam refreshat sliku");
         user = getIntent().getExtras().getParcelable("User");
         setAllUsersDataToHeaderView();
     }
@@ -148,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) header.findViewById(R.id.textViewUserEmail);
         ImageView userImg = (ImageView) header.findViewById(R.id.imageViewUserPicture);
 
-        System.out.println("Učitavam sve podatke u header, img url je: " + user.img);
+        //System.out.println("Učitavam sve podatke u header, img url je: " + user.img);
 
         if (!user.firstName.isEmpty()
                 && !user.lastName.isEmpty()) {
@@ -256,4 +298,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    @Override
+    public void onDataLoaded(AirWebServiceResponse result) {
+        System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
+        System.out.println(result);
+    }
 }

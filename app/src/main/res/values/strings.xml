@@ -102,4 +102,5 @@
     <string name="placeAppointmentID">ID rezervacije</string>
     <string name="appointmentPassword">Kreiraj lozinku</string>
     <string name="reservationPlaceName">Naziv objekta</string>
+
 </resources>
