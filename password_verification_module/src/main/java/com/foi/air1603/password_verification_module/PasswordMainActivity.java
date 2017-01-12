@@ -43,7 +43,6 @@ public class PasswordMainActivity extends AppCompatActivity implements PasswordV
                     Toast.makeText(getApplicationContext(),
                             "Lozinka nije točna", Toast.LENGTH_LONG).show();
                 } else {
-                    ver
 
                 }
 
