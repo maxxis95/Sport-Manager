@@ -12,7 +12,7 @@ public class Reservation {
     public int id;
     public String created;
     public String submitted;
-    public String confirmed;
+    public int confirmed;
     public Appointment appointment;
     public Integer appointmentId;
     public Sport sport;

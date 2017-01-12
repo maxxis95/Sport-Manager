@@ -14,6 +14,8 @@ public interface AddAppointmentView {
 
     String getMaxPlayer();
 
+    String getPass();
+
     void initializeCalendar();
 
     int getDate();

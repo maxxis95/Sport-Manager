@@ -68,6 +68,7 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
             }.getType();
             reservationsList = new Gson().fromJson(response.getData(), collectionType);
         }
+        int id = MainActivity.user.id;
         myReservationsView.loadRecycleViewData(reservationsList);
     }
 }

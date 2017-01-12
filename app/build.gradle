@@ -36,6 +36,7 @@ dependencies {
     })
 
     compile project(path: ':webservice')
+    compile project(path: ':password_verification_module')
     // expandable recycler
     // recycle
     //for image in recyclerview-u

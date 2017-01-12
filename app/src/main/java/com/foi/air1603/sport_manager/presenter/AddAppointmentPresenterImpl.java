@@ -67,6 +67,7 @@ public class AddAppointmentPresenterImpl implements AddAppointmentPresenter, Pre
         appointment.end = view.getAppointmentEndFromEditText();
         String maxPly = view.getMaxPlayer();
         appointment.maxPlayers = Integer.parseInt(maxPly);
+        appointment.password = view.getPass();
 
         return appointment;
     }

@@ -28,6 +28,7 @@ import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
+import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
@@ -290,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.clear();
         editor.commit();
         user = null;
+        MyReservationsPresenterImpl.updateData = true;
 
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

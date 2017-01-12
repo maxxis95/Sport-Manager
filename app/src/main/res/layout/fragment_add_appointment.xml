@@ -84,11 +84,31 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txiPaswordA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/txiMaxPlayer"
+            android:layout_below="@+id/txiMaxPlayer"
+            android:layout_marginBottom="25dp">
+
+            <EditText
+                android:id="@+id/etPasswordA"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etMaxplayer"
+                android:ems="10"
+                android:hint="@string/appointment_pass"
+                android:inputType="textPassword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/buttonSetAppointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txiMaxPlayer"
+            android:layout_below="@+id/txiPaswordA"
             android:text="@string/buttonSetAppointment"
             android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true" />

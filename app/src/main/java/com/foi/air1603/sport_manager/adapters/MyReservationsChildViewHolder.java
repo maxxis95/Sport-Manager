@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
@@ -40,13 +41,15 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
     MyReservationsRecycleAdapter mAdapter;
     View mItemView;
     Activity mActivity;
+    MyReservationsFragment co;
+    public String pass;
 
-
-    public MyReservationsChildViewHolder(@NonNull View itemView, MyReservationsRecycleAdapter adapter) {
+    public MyReservationsChildViewHolder(@NonNull View itemView, MyReservationsRecycleAdapter adapter, MyReservationsFragment con) {
         super(itemView);
         mAdapter = adapter;
         mItemView = itemView;
         ButterKnife.bind(this, itemView);
+        this.co = con;
     }
 
     public void bind(Reservation reservation) {
@@ -54,13 +57,20 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
         mReservationAddress.setText(reservation.appointment.place.address);
         mReservationPlayers.setText(reservation.team.name);
         mReservationValue.setText("ID " + reservation.id + "");
+        if(reservation.team.userId != MainActivity.user.id || reservation.confirmed != 0){
+            myAppointmentConfirm.setVisibility(View.INVISIBLE);
+            myAppointmentDelete.setVisibility(View.INVISIBLE);
+
+        } else {
+           this.pass = reservation.appointment.password;
+        }
         myAppointmentConfirm.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Toast.makeText(context.getApplicationContext(),
-                        "Ova mogućnost trenutno nije implementirana", Toast.LENGTH_LONG).show();
+
+                co.changeActivitiyToPasswordActivitiy(pass);
             }
         });
         myAppointmentDelete.setOnClickListener(new View.OnClickListener(){

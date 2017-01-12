@@ -15,6 +15,7 @@ public class Appointment {
     public Integer maxPlayers;
     public Place place;
     public List<Reservation> reservations;
+    public String password;
 
     public int getId() {
         return id;
@@ -39,4 +40,6 @@ public class Appointment {
     public Integer getMaxPlayers() {
         return maxPlayers;
     }
+
+    public String getPassword() { return password;}
 }

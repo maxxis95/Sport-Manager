@@ -58,6 +58,7 @@
     <string name="appointment_hours_start">Početak termina</string>
     <string name="appointment_hours_end">Kraj termina</string>
     <string name="appointment_max_player">Najveći broj sudionika</string>
+    <string name="appointment_pass">Lozinka za potvrdu</string>
     <string name="tvPlacePeriod">Unesite URL željene slike ili dodajte sliku iz memorije uređaja. U sljedećem prozoru možete dodati termine za dodani objekt.</string>
 
     <string name="tvPlaceName">Naziv objekta</string>

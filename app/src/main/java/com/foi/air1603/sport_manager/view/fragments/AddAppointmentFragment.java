@@ -207,6 +207,12 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     }
 
     @Override
+    public String getPass() {
+        EditText passInput = (EditText) getActivity().findViewById(R.id.etPasswordA);
+        return passInput.getText().toString();
+    }
+
+    @Override
     public int getCurrentDate() {
         return currentPickedDate;
     }
