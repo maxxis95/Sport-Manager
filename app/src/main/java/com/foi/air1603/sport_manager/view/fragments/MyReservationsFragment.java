@@ -1,6 +1,5 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.foi.air1603.password_verification_module.PasswordMainActivity;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Reservation;
-import com.foi.air1603.sport_manager.loaders.PasswordVerification;
-import com.foi.air1603.sport_manager.loaders.Verification;
-import com.foi.air1603.sport_manager.loaders.VerificationListener;
+import com.foi.air1603.sport_manager.verifications.PasswordVerification;
+import com.foi.air1603.sport_manager.verifications.Verification;
+import com.foi.air1603.sport_manager.verifications.VerificationListener;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenter;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.view.MyReservationsView;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyReservationsFragment extends android.app.Fragment implements MyReservationsView,VerificationListener {
+public class MyReservationsFragment extends android.app.Fragment implements MyReservationsView, VerificationListener {
 
     private static final String TAG = "MyReservationsFragment";
     protected RecyclerView mRecyclerView;
@@ -49,33 +47,30 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         super.onViewCreated(view, savedInstanceState);
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
-
-
     }
+
     @Override
     public void loadRecycleViewData(List<Reservation> reservations) {
         List<MyReservationsExpandableItem> reservationsItems = new ArrayList<>();
         System.out.println("MyReservationsFragment:LoadRecyclerViewData");
 
-        if (reservations == null){
+        if (reservations == null) {
             MainActivity.dismissProgressDialog();
             Toast.makeText(getActivity(),
                     "Trenutno nemate svojih rezervacija!", Toast.LENGTH_LONG).show();
             return;
         }
 
-        assert reservations != null;
         for (Reservation res : reservations) {
             if (res.appointment == null) {
                 continue;
             }
 
-
             MyReservationsExpandableItem tmp = new MyReservationsExpandableItem(res);
             reservationsItems.add(tmp);
         }
         if (mRecyclerView != null) {
-            adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems,this);
+            adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems, this);
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
@@ -83,39 +78,20 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     @Override
-    public void changeActivitiyToPasswordActivitiy(String pass) {
-        /*Fragment newFragment = new AddAppointmentFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("place_id", 2);
-        newFragment.setArguments(bundle);
-
-        MainActivity.replaceFragment(newFragment);*/
-
+    public void verifyByPassword(String pass) {
+        String demoPassword = "12345";
         Verification passwordVerification = new PasswordVerification();
-        Intent intent = new Intent();
-        intent.putExtra("pass",pass);
-        intent.setClass(getActivity(), PasswordMainActivity.class);
-        getActivity().startActivity(intent);
-    }
-
-    @Override
-    public void answerFromPassModule(Boolean flag) {
-        if (flag) {
-
-
-        } else {
-            Toast.makeText(getActivity(),
-                    "Lozinka nije tocna", Toast.LENGTH_LONG).show();
-        }
-
+        passwordVerification.VerifyApp(this, getActivity(), demoPassword);
     }
 
     @Override
     public void onVerificationResult(Boolean result) {
-        if(result){
-            System.out.println("eeeeeeeeeeeeeeeeeeeeeeefdfdasfsa   radiii++");
-        }
+        System.out.println("MyReservationsFragment:onVerificationResult ---- result is -- " + result);
 
+        if(result){
+            Toast.makeText(getActivity(), "Uspješno potvrđen termin!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), "Greška!", Toast.LENGTH_LONG).show();
+        }
     }
 }

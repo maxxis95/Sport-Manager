@@ -11,8 +11,5 @@ import java.util.List;
 public interface MyReservationsView {
     void loadRecycleViewData(List<Reservation> reservations);
 
-    void changeActivitiyToPasswordActivitiy(String pass);
-
-    void answerFromPassModule(Boolean flag);
-
+    void verifyByPassword(String pass);
 }
