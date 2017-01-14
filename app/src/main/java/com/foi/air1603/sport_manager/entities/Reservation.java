@@ -18,7 +18,7 @@ public class Reservation {
     public Sport sport;
     public Integer sportId;
     public Team team;
-    private List<Reservation> reservationChildList;
+    private transient List<Reservation> reservationChildList;
 
     public Reservation() {
     }

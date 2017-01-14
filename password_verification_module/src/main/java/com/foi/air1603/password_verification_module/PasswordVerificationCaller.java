@@ -41,8 +41,4 @@ public class PasswordVerificationCaller {
 
     }
 
-    public void returnResult(Boolean result) {
-
-        mPasswordVerificationHandler.onResultArrived(result);
-    }
 }

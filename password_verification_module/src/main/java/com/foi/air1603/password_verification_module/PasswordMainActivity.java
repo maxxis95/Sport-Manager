@@ -39,11 +39,7 @@ public class PasswordMainActivity extends AppCompatActivity implements PasswordV
             @Override
             public void onClick(View v) {
                 Boolean flag = presenter.checkInputPass();
-                if (!flag) {
-                    passwordVerificationCaller.mPasswordVerificationHandler.onResultArrived(false);
-                } else {
-                    passwordVerificationCaller.mPasswordVerificationHandler.onResultArrived(true);
-                }
+                passwordVerificationCaller.mPasswordVerificationHandler.onResultArrived(flag);
                 finish();
             }
         });

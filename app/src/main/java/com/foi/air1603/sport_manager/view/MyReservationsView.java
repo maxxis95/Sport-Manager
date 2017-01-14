@@ -12,4 +12,8 @@ public interface MyReservationsView {
     void loadRecycleViewData(List<Reservation> reservations);
 
     void verifyByPassword(String pass);
+
+    void setObject(Reservation reservation);
+
+    Reservation getObject();
 }

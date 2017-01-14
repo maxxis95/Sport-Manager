@@ -55,7 +55,15 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
     }
 
     @Override
+    public void updateReservation(Reservation reservation) {
+        reservation.confirmed = 1;
+        myReservationsInteractor.setReservationsObject(reservation);
+
+    }
+
+    @Override
     public void getResponseData(Object result) {
+
         if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
             myReservationAlreadyLoaded = true;
         }

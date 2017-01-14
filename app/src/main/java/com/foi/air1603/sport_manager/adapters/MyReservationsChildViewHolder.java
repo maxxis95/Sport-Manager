@@ -51,7 +51,7 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
         this.co = con;
     }
 
-    public void bind(Reservation reservation) {
+    public void bind(final Reservation reservation) {
         mReservationType.setText(reservation.sport.name);
         mReservationAddress.setText(reservation.appointment.place.address);
         mReservationPlayers.setText(reservation.team.name);
@@ -67,7 +67,7 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
 
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
+                co.setObject(reservation);
 
                 co.verifyByPassword(pass);
             }

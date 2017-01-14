@@ -1,6 +1,9 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import com.foi.air1603.sport_manager.verifications.VerificationListener;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenter;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.view.MyReservationsView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     protected RecyclerView mRecyclerView;
     MyReservationsPresenter myReservationsPresenter;
     MyReservationsRecycleAdapter adapter;
+    public Reservation reservation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,17 +84,30 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public void verifyByPassword(String pass) {
-        String demoPassword = "12345";
         Verification passwordVerification = new PasswordVerification();
-        passwordVerification.VerifyApp(this, getActivity(), demoPassword);
+        passwordVerification.VerifyApp(this, getActivity(), pass);
     }
 
+    @Override
+    public void setObject(Reservation reservation) {
+         this.reservation = reservation;
+    }
+
+    @Override
+    public Reservation getObject() {
+        return this.reservation;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onVerificationResult(Boolean result) {
         System.out.println("MyReservationsFragment:onVerificationResult ---- result is -- " + result);
 
         if(result){
             Toast.makeText(getActivity(), "Uspješno potvrđen termin!", Toast.LENGTH_LONG).show();
+            myReservationsPresenter.updateReservation(getObject());
+
         } else {
             Toast.makeText(getActivity(), "Greška!", Toast.LENGTH_LONG).show();
         }

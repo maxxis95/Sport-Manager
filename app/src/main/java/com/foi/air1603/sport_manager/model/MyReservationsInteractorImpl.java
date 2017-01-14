@@ -43,6 +43,13 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
 
     @Override
     public void onDataLoaded(AirWebServiceResponse result) {
-        mPresenterHandler.getResponseData(result);
+        if(result.getData() == null) {
+            System.out.println("praznoooo");
+            return;
+        }
+        else {
+            mPresenterHandler.getResponseData(result);
+
+        }
     }
 }
