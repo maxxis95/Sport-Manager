@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -45,14 +46,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static User user;
     public static FragmentManager fragmentManager;
-    public static MainActivity activity;
+    public static Activity activity;
     public static boolean tokenNeedsUpdating;
     private static ProgressDialog progressDialog;
-    private AllPlacesFragment allPlacesFragment;
     private NavigationView navigationView;
     private Rights rights;
     private SharedPreferences pref;
-    private DataLoader dataLoader;
     private String TAG = "MainActivity";
 
     public static void replaceFragment(Fragment fragment) {
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         // Namjerno dodan false dok se ne implementira sve na ws-u
-        if (getIntent().getExtras() != null && false) {
+        if (getIntent().getExtras() != null) {
             handleSystemTrayNotification(getIntent().getExtras());
         }
 
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
             // [END get_token]
             String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            this.dataLoader = new WsDataLoader();
+            DataLoader dataLoader = new WsDataLoader();
             dataLoader.loadData(this, "updateToken", android_id, MainActivity.user.id + "", token, User.class, null);
         }
 
@@ -217,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initAllPlacesFragment() {
-        allPlacesFragment = new AllPlacesFragment();
+        AllPlacesFragment allPlacesFragment = new AllPlacesFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, allPlacesFragment);
         fragmentTransaction.commit();
@@ -289,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pref = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         user = null;
         MyReservationsPresenterImpl.updateData = true;
 

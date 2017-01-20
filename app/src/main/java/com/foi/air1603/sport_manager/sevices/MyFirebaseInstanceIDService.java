@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.sevices;
 
 import android.util.Log;
 
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
@@ -21,7 +22,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
-
+        BaseActivity.unlinkDevice();
         MainActivity.tokenNeedsUpdating = true;
     }
     // [END refresh_token]
