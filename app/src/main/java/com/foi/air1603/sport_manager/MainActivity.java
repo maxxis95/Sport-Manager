@@ -30,6 +30,9 @@ import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
+import com.foi.air1603.sport_manager.verifications.NfcVerification;
+import com.foi.air1603.sport_manager.verifications.Verification;
+import com.foi.air1603.sport_manager.verifications.VerificationListener;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
@@ -42,7 +45,7 @@ import com.squareup.picasso.Picasso;
  * Created by Karlo on 3.12.2016..
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener, VerificationListener {
 
     public static User user;
     public static FragmentManager fragmentManager;
@@ -150,6 +153,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setNavigationView();
         setAllUsersDataToHeaderView();
         initAllPlacesFragment();
+
+        // ovdje radi lakšeg testanja
+        Verification nfcVerification = new NfcVerification();
+        nfcVerification.VerifyApp(this, this, "12345");
     }
 
     /***
@@ -303,5 +310,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onDataLoaded(AirWebServiceResponse result) {
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
+    }
+
+    @Override
+    public void onVerificationResult(Boolean result) {
+        // ovdje radi lakšeg testanja
     }
 }
