@@ -56,8 +56,12 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
 
     @Override
     public void updateReservation(Reservation reservation) {
-        reservation.confirmed = 1;
-        myReservationsInteractor.setReservationsObject(reservation);
+
+        Reservation temp = new Reservation();
+        temp.id = reservation.id;
+        temp.confirmed = 1;
+
+        myReservationsInteractor.setReservationsObject(temp);
 
     }
 

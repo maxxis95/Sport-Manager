@@ -24,6 +24,9 @@ public class NfcMainActivity extends Activity implements
 
     NfcAdapter nfcAdapter;
 
+    //DEMO EXAMPLE
+    //https://www.sitepoint.com/learn-android-nfc-basics-building-a-simple-messenger/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

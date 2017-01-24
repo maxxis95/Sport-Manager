@@ -128,8 +128,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             @Override
             public void onClick(View v) {
                 userReservation = new Reservation();
-                userReservation.sportId = sportsMap.get(spinnerSport.getSelectedItem()).intValue();
-                userReservation.appointmentId = appointmentsMap.get(spinnerAppointment.getSelectedItem()).intValue();
+                userReservation.sportId = sportsMap.get(spinnerSport.getSelectedItem());
+                userReservation.appointmentId = appointmentsMap.get(spinnerAppointment.getSelectedItem());
 
                 java.util.Date utilDate = new java.util.Date(System.currentTimeMillis());
                 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -147,10 +147,10 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
 
                 userReservation.team = team;
 
-                MainActivity.showProgressDialog("Kreiranje rezervacije");
-                appointmentPresenter.reservateAppointment(userReservation);
+                //MainActivity.showProgressDialog("Kreiranje rezervacije");
+                //appointmentPresenter.reservateAppointment(userReservation);
 
-                //MainActivity.replaceFragment(new InviteFriendsFragment());
+                MainActivity.replaceFragment(new InviteFriendsFragment());
             }
         });
 

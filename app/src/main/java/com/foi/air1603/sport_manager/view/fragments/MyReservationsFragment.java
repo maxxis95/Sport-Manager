@@ -93,10 +93,6 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
          this.reservation = reservation;
     }
 
-    @Override
-    public Reservation getObject() {
-        return this.reservation;
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -106,7 +102,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
         if(result){
             Toast.makeText(getActivity(), "Uspješno potvrđen termin!", Toast.LENGTH_LONG).show();
-            myReservationsPresenter.updateReservation(getObject());
+
+            myReservationsPresenter.updateReservation(reservation);
 
         } else {
             Toast.makeText(getActivity(), "Greška!", Toast.LENGTH_LONG).show();

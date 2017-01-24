@@ -15,5 +15,5 @@ public interface MyReservationsView {
 
     void setObject(Reservation reservation);
 
-    Reservation getObject();
+    //Reservation getObject();
 }
