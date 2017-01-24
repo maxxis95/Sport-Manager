@@ -155,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initAllPlacesFragment();
 
         // ovdje radi lakšeg testanja
-        Verification nfcVerification = new NfcVerification();
-        nfcVerification.VerifyApp(this, this, "12345");
+        //Verification nfcVerification = new NfcVerification();
+        //nfcVerification.VerifyApp(this, this, "12345");
     }
 
     /***
