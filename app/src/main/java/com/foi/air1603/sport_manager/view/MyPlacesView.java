@@ -14,5 +14,7 @@ public interface MyPlacesView {
 
     void changeFragmentToPlaceReservationFragment(Integer id);
 
+    void changeFragmentToAllAppointmentPlacesFragment(Integer id);
+
     void showMyPlaces(List<Place> places);
 }

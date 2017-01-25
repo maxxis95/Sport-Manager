@@ -87,4 +87,16 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
 
         MainActivity.replaceFragment(newFragment);
     }
+
+    @Override
+    public void changeFragmentToAllAppointmentPlacesFragment(Integer id) {
+        Fragment newFragment = new MyPlacesAppointmentFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("place_id", id);
+        newFragment.setArguments(bundle);
+
+        MainActivity.replaceFragment(newFragment);
+
+    }
 }

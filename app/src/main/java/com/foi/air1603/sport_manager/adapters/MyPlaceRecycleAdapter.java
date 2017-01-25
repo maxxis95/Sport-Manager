@@ -92,6 +92,10 @@ public class MyPlaceRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Override
         public void onClick(View view) {
+            int position = getAdapterPosition();
+            Place place = places.get(position);
+            context.changeFragmentToAllAppointmentPlacesFragment(place.id);
+
         }
     }
 }

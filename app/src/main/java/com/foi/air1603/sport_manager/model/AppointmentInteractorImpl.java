@@ -28,12 +28,22 @@ public class AppointmentInteractorImpl implements AppointmentInteractor, DataLoa
     }
 
     @Override
+    public void getAllAppointmentsByPlaceObjects(String searchBy, String value) {
+        dataLoader.loadData(this, "getData", "Appointments", searchBy, value, Appointment.class, null);
+    }
+
+    @Override
     public void setAppointmentObject(Appointment appointment) {
         try {
             dataLoader.loadData(this, "setData", "Appointments", null, null, Appointment.class, appointment);
         } catch (Exception ex) {
             //  mListener.onWebServiceError(ex.getMessage());
         }
+    }
+
+    @Override
+    public void deleteAppointmentObjectById(Integer id) {
+        dataLoader.loadData(this, "deleteData", "Appointments", "id", id+"", Appointment.class, null);
     }
 
     @Override
