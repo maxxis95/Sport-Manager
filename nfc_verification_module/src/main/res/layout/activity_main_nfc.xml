@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context=".NfcMainActivity">
+    android:layout_height="match_parent"  tools:context=".NfcMainActivity">
 
 
     <TextView
+        android:text="UPUTE: Prislonite uređaj vlasniku sportskog objekta te kada se smanji prikaz zaslona pritisnite na umanjenu sliku kako bi ste poslali poruku"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:autoLink="web"
-        android:text="http://android-er.blogspot.com/"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/textout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/textView"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+        android:text="Prislonite uređaj k uređaju vlasnika termina kako bi verificirali vaš dolazak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginTop="206dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

@@ -23,7 +23,7 @@ public class PasswordVerification extends Verification implements PasswordVerifi
 
     @Override
     public void onResultArrived(boolean result) {
-        System.out.println("----------------->7. PasswordVerification:responseHandler");
+        System.out.println("----------------->7. PasswordVerification:onResultArrived");
         mVerificationListener.onVerificationResult(result);
     }
 }

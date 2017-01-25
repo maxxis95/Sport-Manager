@@ -16,6 +16,7 @@ import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Reservation;
+import com.foi.air1603.sport_manager.verifications.NfcVerification;
 import com.foi.air1603.sport_manager.verifications.PasswordVerification;
 import com.foi.air1603.sport_manager.verifications.Verification;
 import com.foi.air1603.sport_manager.verifications.VerificationListener;
@@ -84,8 +85,9 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public void verifyByPassword(String pass) {
-        Verification passwordVerification = new PasswordVerification();
-        passwordVerification.VerifyApp(this, getActivity(), pass);
+        //Verification verification = new PasswordVerification();
+        Verification verification = new NfcVerification();
+        verification.VerifyApp(this, getActivity(), pass);
     }
 
     @Override

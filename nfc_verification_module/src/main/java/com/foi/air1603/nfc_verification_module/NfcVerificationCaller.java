@@ -9,6 +9,26 @@ import android.content.Intent;
 
 public class NfcVerificationCaller {
 
+    public NfcVerificationHandler mNfcVerificationHandler;
+    private static NfcVerificationCaller instance;
+
+    public NfcVerificationCaller() {
+    }
+
+    public static NfcVerificationCaller getInstance() {
+        if (instance == null) {
+            instance = new NfcVerificationCaller();
+        }
+        return instance;
+    }
+
+    public NfcVerificationCaller Init(NfcVerificationHandler nfcVerificationHandler) {
+        mNfcVerificationHandler = nfcVerificationHandler;
+
+        instance = this;
+        return this;
+    }
+
     static public void startActivity(Activity activity, String pass) {
 
         System.out.println("----------------->5. NfcVerificationCaller:startActivity");

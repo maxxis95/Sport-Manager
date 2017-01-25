@@ -5,9 +5,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foi.air1603.nfc_verification_module.NfcVerificationCaller;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
@@ -154,9 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setAllUsersDataToHeaderView();
         initAllPlacesFragment();
 
-        // ovdje radi lakšeg testanja
-        //Verification nfcVerification = new NfcVerification();
-        //nfcVerification.VerifyApp(this, this, "12345");
     }
 
     /***
@@ -317,3 +317,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ovdje radi lakšeg testanja
     }
 }
+
+/*
+sample kod za disableanje modula
+
+PackageManager pm  = getApplicationContext().getPackageManager();
+        ComponentName componentName = new ComponentName("com.foi.air1603.sport_manager",
+                "com.foi.air1603.nfc_verification_module.NfcMainActivity");
+        pm.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+ */

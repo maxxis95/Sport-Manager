@@ -5,5 +5,5 @@ package com.foi.air1603.nfc_verification_module;
  */
 
 public interface NfcVerificationHandler {
-    void onResultArrived(boolean result);
+    void onResultArrived(Integer result);
 }
