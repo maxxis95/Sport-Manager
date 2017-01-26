@@ -10,12 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyPlaceReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.presenter.MyPlaceReservationsPresenterImpl;
+import com.foi.air1603.sport_manager.presenter.MyPlacesAppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.view.MyPlacesReservationView;
 
 import java.util.List;
@@ -59,6 +61,21 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     public void showPlaceReservations(List<Appointment> appointmentList) {
         MainActivity.dismissProgressDialog();
         recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, appointmentList));
+    }
+
+    @Override
+    public void deleteReservation(Integer id) {
+        presenter.deleteReservationById(id);
+
+    }
+
+    @Override
+    public void successfulDeletedReservation() {
+        Toast.makeText(getActivity(),
+                "Uspješno ste izbrisali rezervaciju", Toast.LENGTH_LONG).show();
+        MyPlacesAppointmentPresenterImpl.updateAppointments = true;
+        presenter.getAllAppointmentsByPlaceId(searchParameter);
+
     }
 
 }

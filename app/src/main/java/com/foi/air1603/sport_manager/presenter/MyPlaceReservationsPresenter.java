@@ -6,4 +6,5 @@ package com.foi.air1603.sport_manager.presenter;
 
 public interface MyPlaceReservationsPresenter {
     void getAllAppointmentsByPlaceId(int placeId);
+    void deleteReservationById(int reservationId);
 }

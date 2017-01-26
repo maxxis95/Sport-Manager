@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface MyPlacesReservationView {
     void showPlaceReservations(List<Appointment> appointmentList);
+    void deleteReservation(Integer id);
+    void successfulDeletedReservation();
 }

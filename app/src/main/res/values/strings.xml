@@ -101,7 +101,7 @@
     <string name="placeUser">Rezervirao</string>
     <string name="placeOtherUsers">Pozvani korisnici</string>
     <string name="placeAppointmentID">ID rezervacije</string>
-    <string name="appointmentDelete">Izbriši termin</string>
+    <string name="appointmentDelete">Izbriši rezervaciju</string>
     <string name="reservationPlaceName">Naziv objekta</string>
 
 </resources>

@@ -28,6 +28,10 @@ public class MyPlaceReservationsPresenterImpl implements PresenterHandler, MyPla
     @Override
     public void getResponseData(Object result) {
         AirWebServiceResponse response = (AirWebServiceResponse) result;
+        if (response.data == null && response.statusCode == 200) {
+            myPlacesReservationView.successfulDeletedReservation();
+            return;
+        }
 
         Type collectionTypeAppointments = new TypeToken<List<Appointment>>() {
         }.getType();
@@ -44,5 +48,10 @@ public class MyPlaceReservationsPresenterImpl implements PresenterHandler, MyPla
     public void getAllAppointmentsByPlaceId(int placeId) {
         String placeID = placeId+"";
         myPlaceReservationInteractor.getAllMyPlacesReservationsObject(this, placeID);
+    }
+
+    @Override
+    public void deleteReservationById(int reservationId) {
+        myPlaceReservationInteractor.deleteReservationObjectById(reservationId);
     }
 }

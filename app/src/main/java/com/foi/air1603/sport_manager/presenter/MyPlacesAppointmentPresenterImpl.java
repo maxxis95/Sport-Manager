@@ -65,19 +65,19 @@ public class MyPlacesAppointmentPresenterImpl implements MyPlacesAppointmentPres
 
     @Override
     public void getResponseData(Object result) {
-        AirWebServiceResponse response = (AirWebServiceResponse) result;
-        if (response.data == null && response.statusCode == 200) {
-            view.successfulDeletedAppointment();
-            return;
-        }
+
         Boolean placesAlreadyLoaded = false;
 
-        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 0) {
             placesAlreadyLoaded = true;
         }
 
         if (!placesAlreadyLoaded) {
-
+            AirWebServiceResponse response = (AirWebServiceResponse) result;
+            if (response.data == null && response.statusCode == 200) {
+                view.successfulDeletedAppointment();
+                return;
+            }
             System.out.println(response.getData());
             Type collectionType = new TypeToken<List<Appointment>>() {
             }.getType();
@@ -87,6 +87,7 @@ public class MyPlacesAppointmentPresenterImpl implements MyPlacesAppointmentPres
                 System.out.println("[ERROR] " + e);
             }
         }
+
         if (appointments != null) {
             view.showAllAppointment(appointments);
         }

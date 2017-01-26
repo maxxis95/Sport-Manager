@@ -27,6 +27,11 @@ public class MyPlaceReservationsInteractorImpl implements MyPlaceReservationsInt
     }
 
     @Override
+    public void deleteReservationObjectById(Integer id) {
+        dataLoader.loadData(this, "deleteData", "Reservations", "id", id+"", null, null);
+    }
+
+    @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         mPresenterHandler.getResponseData(result);
     }

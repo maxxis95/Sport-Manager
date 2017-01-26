@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
@@ -56,8 +58,17 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
         ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start + " -");
         ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
         ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("ID "+appointment.id.toString());
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Broj osoba - "+appointment.maxPlayers.toString());
-;
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Broj osoba : "+appointment.maxPlayers.toString());
+        final Reservation finalReservation = reservation;
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_delete.setOnClickListener(new View.OnClickListener(){
+
+
+            @Override
+            public void onClick(View v) {
+               myPlacesReservationFragment.deleteReservation(finalReservation.id);
+
+            }
+        });
         if (reservation != null) {
 
             ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_name.setText(reservation.sport.getName());
@@ -81,6 +92,7 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
                     break;
             }
         }
+
     }
 
     @Override
@@ -97,6 +109,7 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
         TextView place_appointment_sport_name;
         ImageView place_appointment_sport_image;
         TextView place_appointment_main_user;
+        Button place_appointment_delete;
 
         public MyPlaceReservationsViewHolder(View view) {
             super(view);
@@ -108,6 +121,7 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
             place_appointment_sport_name = (TextView) view.findViewById(R.id.place_appointment_sport_name);
             place_appointment_sport_image = (ImageView) view.findViewById(R.id.place_appointment_image);
             place_appointment_main_user = (TextView) view.findViewById(R.id.place_appointment_user_main);
+            place_appointment_delete = (Button) view.findViewById((R.id.place_appointment_delete));
         }
     }
 }
