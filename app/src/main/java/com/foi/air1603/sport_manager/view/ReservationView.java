@@ -20,5 +20,5 @@ public interface ReservationView {
 
     void initializeCalendar();
 
-    void successfulReservation();
+
 }

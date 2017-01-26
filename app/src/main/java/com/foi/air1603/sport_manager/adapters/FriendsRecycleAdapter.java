@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.R;
-import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.User;
-import com.foi.air1603.sport_manager.view.PlaceView;
 import com.foi.air1603.sport_manager.view.fragments.InviteFriendsFragment;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +34,7 @@ public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friends_invite_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_invite_friends_list_item, parent, false);
         FriendsViewHolder item = new FriendsViewHolder(view);
         cont = parent.getContext();
         return item;
@@ -43,18 +42,25 @@ public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        User user = users.get(position);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        final User user = users.get(position);
 
-        ((FriendsViewHolder) holder).friendsName.setText(user.firstName+" "+user.lastName);
+        ((FriendsViewHolder) holder).friendsName.setText(user.firstName + " " + user.lastName);
         ((FriendsViewHolder) holder).friendsEmail.setText(user.email);
 
-        if (!user.img.isEmpty()) {
+        if (user.img != null && !user.img.isEmpty()) {
             Uri uri = Uri.parse(user.img);
             Picasso.with(cont).load(uri).into(((FriendsViewHolder) holder).friendsImage);
         } else {
             ((FriendsViewHolder) holder).friendsImage.setImageResource(R.drawable.profile_stock);
         }
+        ((FriendsViewHolder) holder).friendRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                users.remove(holder.getAdapterPosition());
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -68,6 +74,7 @@ public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView friendsName;
         TextView friendsEmail;
         ImageView friendsImage;
+        Button friendRemove;
 
 
         public FriendsViewHolder(View view) {
@@ -76,6 +83,7 @@ public class FriendsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             friendsName = (TextView) view.findViewById(R.id.tvFriendsName);
             friendsEmail = (TextView) view.findViewById(R.id.tvFriendsEmail);
             friendsImage = (ImageView) view.findViewById(R.id.ivFriendsImg);
+            friendRemove = (Button) view.findViewById(R.id.btnRemoveFriend);
         }
 
         @Override

@@ -9,5 +9,8 @@ import java.util.Map;
  */
 public interface InviteFriendsView {
     void initializeAutoComplete(Map<Integer, String> userEmails);
+
     void addUserToInviteList(User user);
+
+    void successfulReservation();
 }

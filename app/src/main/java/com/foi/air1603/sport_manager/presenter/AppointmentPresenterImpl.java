@@ -1,11 +1,9 @@
 package com.foi.air1603.sport_manager.presenter;
 
 import com.foi.air1603.sport_manager.entities.Appointment;
-import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.model.AppointmentInteractor;
 import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
 import com.foi.air1603.sport_manager.model.MyReservationsInteractor;
-import com.foi.air1603.sport_manager.model.MyReservationsInteractorImpl;
 import com.foi.air1603.sport_manager.view.ReservationView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.gson.Gson;
@@ -47,11 +45,10 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     public AppointmentPresenter Init(ReservationView reservationView) {
         this.view = reservationView;
         this.appointmentInteractor = new AppointmentInteractorImpl(this);
-        this.reservationsInteractor = new MyReservationsInteractorImpl(this);
+
         instance = this;
         return this;
     }
-
 
     @Override
     public void getAppointmentsForDate(Integer pickedDate) {
@@ -83,11 +80,6 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
     }
 
     @Override
-    public void reservateAppointment(Reservation userReservation) {
-        reservationsInteractor.setReservationsObject(userReservation);
-    }
-
-    @Override
     public void loadAllAppointments() {
         int id_place = view.getIdPlace();
         long unixTime = System.currentTimeMillis() / 1000L;
@@ -99,11 +91,6 @@ public class AppointmentPresenterImpl implements AppointmentPresenter, Presenter
         System.out.println("----------------->8. AppointmentPresenterImpl:getResponseData");
 
         AirWebServiceResponse response = (AirWebServiceResponse) result;
-
-        if (response.data == null && response.statusCode == 200) {
-            view.successfulReservation();
-            return;
-        }
 
         Type collectionType = new TypeToken<List<Appointment>>() {
         }.getType();

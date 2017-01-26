@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,15 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Place;
 import com.foi.air1603.sport_manager.entities.Reservation;
-import com.foi.air1603.sport_manager.entities.Team;
-import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenter;
 import com.foi.air1603.sport_manager.presenter.AppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
@@ -54,21 +53,24 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         inputs.put("spinnerMaxPlayers", R.id.spinnerPlayers);
         inputs.put("privateSwitch", R.id.switchAppointmentPrivate);
         inputs.put("setAppointmentButton", R.id.buttonSetAppointment);
+        inputs.put("btnAddFriends", R.id.btnAddFriends);
+        inputs.put("tvFriendsNumber", R.id.tvFriendsNumber);
     }
 
     AppointmentPresenter appointmentPresenter;
     SportPresenter sportPresenter;
     CalendarView calendar;
     List<String> maxPlayers = new ArrayList<>();
+    TextView tvFriendsNumber;
     private Map<String, Integer> sportsMap = new HashMap<>();
     private Map<String, Integer> appointmentsMap = new HashMap<>();
-    private int yearGet, monthGet, dayGet, id_place, currentPickedDate;
+    private int yearGet, monthGet, dayGet, id_place, currentPickedDate, appointmentMaxPlayers;
+    private int appointmentPosition, sportsPosition, playersPosition;
     private Place place;
     private Spinner spinnerAppointment, spinnerSport, spinnerMaxPlayers;
     private View view;
     private Context context;
     private Reservation userReservation;
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -105,12 +107,12 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         this.view = view;
 
         calendar = (CalendarView) view.findViewById(R.id.calendarViewReservation);
         calendar.setFirstDayOfWeek(2);
         calendar.setMinDate(System.currentTimeMillis() - 1000);
+        //calendar.setMaxDate(1514761199); //31.12.2017.
 
         appointmentPresenter = AppointmentPresenterImpl.getInstance().Init(this);
         MainActivity.showProgressDialog("Učitavanje termina");
@@ -123,6 +125,9 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         spinnerSport = (Spinner) view.findViewById(R.id.spinnerSports);
         spinnerMaxPlayers = (Spinner) view.findViewById(R.id.spinnerPlayers);
 
+
+        tvFriendsNumber = (TextView) view.findViewById(R.id.tvFriendsNumber);
+
         Button setAppointmentButton = (Button) view.findViewById(R.id.buttonSetAppointment);
         setAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,27 +135,13 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 userReservation = new Reservation();
                 userReservation.sportId = sportsMap.get(spinnerSport.getSelectedItem());
                 userReservation.appointmentId = appointmentsMap.get(spinnerAppointment.getSelectedItem());
+                userReservation.maxPlayers = (Integer) spinnerMaxPlayers.getSelectedItem();
 
-                java.util.Date utilDate = new java.util.Date(System.currentTimeMillis());
-                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                userReservation.created = sqlDate.toString();
-                Team team = new Team();
-                team.users = new ArrayList<>();
-                team.name = "Team_" + userReservation.appointmentId + "_" + userReservation.sportId;
-                team.created = sqlDate.toString();
-                team.userId = MainActivity.user.id;
-
-                User ownerUser = new User();
-                ownerUser.id = MainActivity.user.id;
-                ownerUser.type = MainActivity.user.type;
-                team.users.add(ownerUser);
-
-                userReservation.team = team;
-
-                //MainActivity.showProgressDialog("Kreiranje rezervacije");
-                //appointmentPresenter.reservateAppointment(userReservation);
-
-                MainActivity.replaceFragment(new InviteFriendsFragment());
+                Fragment newFragment = new InviteFriendsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("userReservation", new Gson().toJson(userReservation, Reservation.class));
+                newFragment.setArguments(bundle);
+                MainActivity.replaceFragment(newFragment);
             }
         });
 
@@ -158,10 +149,11 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 showAllViews(true);
+                appointmentPosition = position;
 
-                int max = Integer.parseInt(maxPlayers.get(position));
+                appointmentMaxPlayers = Integer.parseInt(maxPlayers.get(position));
                 List<Integer> maxPly = new ArrayList<>();
-                for (int i = 1; i <= max; i++) {
+                for (int i = 1; i <= appointmentMaxPlayers; i++) {
                     maxPly.add(i);
                 }
 
@@ -203,7 +195,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
                 if (currentPickedDate == getDate()) {
                     return;
                 }
-
                 showAllViews(false);
 
                 currentPickedDate = getDate();
@@ -211,14 +202,6 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
             }
         });
         appointmentPresenter.getAppointmentsForDate(currentPickedDate);
-    }
-
-    @Override
-    public void successfulReservation() {
-        MainActivity.dismissProgressDialog();
-        Toast.makeText(getActivity(),
-                "Uspješno ste rezervirali termin!", Toast.LENGTH_LONG).show();
-        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -277,5 +260,29 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, sports);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSport.setAdapter(dataAdapter);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        // calendar.setDate();
+        /*
+
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR, yearGet);
+        c.set(Calendar.MONTH, monthGet);
+        c.set(Calendar.DAY_OF_MONTH, dayGet);
+        calendar.setDate(c.getTimeInMillis(), true, true);
+        updateSpinners(yearGet, monthGet, dayGet);
+        //calendar.
+
+        tvFriendsNumber.setText("Friends invited " + friendsForInvite.size() + "/" + appointmentMaxPlayers);
+        spinnerAppointment.setSelection(appointmentPosition);
+        spinnerAppointment.dispatchSetSelected(true);
+        spinnerSport.setSelection(sportsPosition);
+        spinnerMaxPlayers.setSelection(playersPosition);
+         */
     }
 }

@@ -11,5 +11,5 @@ public interface AppointmentPresenter {
 
     void getAppointmentsForDate(Integer date);
 
-    void reservateAppointment(Reservation userReseravation);
+
 }

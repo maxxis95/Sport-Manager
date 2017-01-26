@@ -18,7 +18,7 @@ public class Reservation {
     public Sport sport;
     public Integer sportId;
     public Team team;
-    private transient List<Reservation> reservationChildList;
+    public transient Integer maxPlayers;
 
     public Reservation() {
     }
@@ -33,10 +33,8 @@ public class Reservation {
     }
 
     public List<Reservation> getReservationsChildList() {
-        reservationChildList = new ArrayList<>();
+        List<Reservation> reservationChildList = new ArrayList<>();
         reservationChildList.add(this);
         return reservationChildList;
     }
-
-
 }

@@ -88,16 +88,6 @@
             android:layout_marginTop="-4dp"
             tools:ignore="RtlHardcoded" />
 
-        <Button
-            android:id="@+id/buttonSetAppointment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:text="@string/buttonSetAppointment"
-            android:layout_below="@+id/switchAppointmentPrivate"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"/>
-
         <Switch
             android:id="@+id/switchAppointmentPrivate"
             android:layout_width="wrap_content"
@@ -109,6 +99,33 @@
             android:layout_alignStart="@+id/reservationAppointmentImage"
             android:layout_alignEnd="@+id/calendarViewReservation"
             android:layout_marginRight="30dp"/>
+
+        <Button
+            android:id="@+id/buttonSetAppointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="@string/buttonSetAppointment"
+            android:layout_below="@+id/tvFriendsNumber"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFriendsNumber"
+            android:layout_marginTop="26dp"
+            android:layout_below="@+id/switchAppointmentPrivate"
+            android:layout_alignStart="@+id/switchAppointmentPrivate"
+            android:layout_toStartOf="@+id/buttonSetAppointment" />
+
+        <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddFriends"
+            android:layout_alignTop="@+id/tvFriendsNumber"
+            android:layout_alignEnd="@+id/spinnerPlayers" />
 
     </RelativeLayout>
 

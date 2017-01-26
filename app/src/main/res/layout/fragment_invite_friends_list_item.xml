@@ -22,7 +22,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
+            android:id="@+id/btnRemoveFriend"
             style="@style/Widget.AppCompat.Button.Small"
             android:text="x"
             android:layout_alignParentTop="true"
@@ -48,8 +48,8 @@
             tools:text="@string/friendsName"
             android:textColor="#212121"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_toStartOf="@+id/button2"
+            android:layout_alignBottom="@+id/btnRemoveFriend"
+            android:layout_toStartOf="@+id/btnRemoveFriend"
             android:layout_marginEnd="16dp" />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvFriendsEmail"
 
-            android:layout_toLeftOf="@+id/button2"
+            android:layout_toLeftOf="@+id/btnRemoveFriend"
             android:layout_marginRight="32dp" />
 
     </RelativeLayout>
