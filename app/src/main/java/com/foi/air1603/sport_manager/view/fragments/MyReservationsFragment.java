@@ -95,6 +95,26 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
          this.reservation = reservation;
     }
 
+    @Override
+    public void deleteReservation(int id) {
+        myReservationsPresenter.deleteReservationById(id);
+    }
+
+    @Override
+    public void successfulDeletedReservation() {
+        Toast.makeText(getActivity(),
+                "Uspješno ste izbrisali termin!", Toast.LENGTH_LONG).show();
+        MyReservationsPresenterImpl.updateData = true;
+        myReservationsPresenter.getUserReservationsData();
+
+    }
+
+    @Override
+    public void backFragment() {
+        getFragmentManager().popBackStack();
+        Toast.makeText(getActivity(), "Nemate rezervacija", Toast.LENGTH_LONG).show();
+
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)

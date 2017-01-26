@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.model;
 
 import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
@@ -23,7 +24,8 @@ public class MyPlaceReservationsInteractorImpl implements MyPlaceReservationsInt
 
     @Override
     public void getAllMyPlacesReservationsObject(Object listner, String place_id) {
-        dataLoader.loadData(this, "getData", "Appointments,Reservations.Sports,Reservations.Teams.Users", "place_id;Appointments.date >=" , place_id + ";" +System.currentTimeMillis()/1000, Appointment.class, null);
+        //dataLoader.loadData(this, "getData", "Appointments,Reservations.Sports,Reservations.Teams.Users", "place_id;Appointments.date >=" , place_id + ";" +System.currentTimeMillis()/1000, Appointment.class, null);
+        dataLoader.loadData(this, "getData", "Reservations,Appointments.Places,Sports,Teams.Users", "Places.id;Appointments.date >=" , place_id + ";" +System.currentTimeMillis()/1000, Reservation.class, null);
     }
 
     @Override

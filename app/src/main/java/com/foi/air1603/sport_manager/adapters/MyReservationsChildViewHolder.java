@@ -76,9 +76,7 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
 
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Toast.makeText(context.getApplicationContext(),
-                        "Ova mogućnost trenutno nije implementirana", Toast.LENGTH_LONG).show();
+                co.deleteReservation(reservation.id);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.presenter;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.model.AppointmentInteractor;
 import com.foi.air1603.sport_manager.model.AppointmentInteractorImpl;
@@ -90,6 +91,9 @@ public class MyPlacesAppointmentPresenterImpl implements MyPlacesAppointmentPres
 
         if (appointments != null) {
             view.showAllAppointment(appointments);
+        } else {
+            MainActivity.dismissProgressDialog();
+            view.backFragment();
         }
 
     }

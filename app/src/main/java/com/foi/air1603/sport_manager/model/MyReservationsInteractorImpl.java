@@ -42,6 +42,11 @@ public class MyReservationsInteractorImpl implements DataLoadedListener, MyReser
     }
 
     @Override
+    public void deleteReservationObjectById(int id) {
+        dataLoader.loadData(this, "deleteData", "Reservations", "id", id+"", null, null);
+    }
+
+    @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         mPresenterHandler.getResponseData(result);
 

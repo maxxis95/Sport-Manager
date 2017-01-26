@@ -16,6 +16,7 @@ import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyPlaceReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.presenter.MyPlaceReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.presenter.MyPlacesAppointmentPresenterImpl;
 import com.foi.air1603.sport_manager.view.MyPlacesReservationView;
@@ -58,9 +59,9 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     }
 
     @Override
-    public void showPlaceReservations(List<Appointment> appointmentList) {
+    public void showPlaceReservations(List<Reservation> reservationList) {
         MainActivity.dismissProgressDialog();
-        recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, appointmentList));
+        recyclerView.setAdapter(new MyPlaceReservationsRecycleAdapter(this, reservationList));
     }
 
     @Override
@@ -76,6 +77,12 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
         MyPlacesAppointmentPresenterImpl.updateAppointments = true;
         presenter.getAllAppointmentsByPlaceId(searchParameter);
 
+    }
+
+    @Override
+    public void backFragment() {
+        getFragmentManager().popBackStack();
+        Toast.makeText(getActivity(), "Nemate rezervacija", Toast.LENGTH_LONG).show();
     }
 
 }

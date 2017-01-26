@@ -13,5 +13,6 @@ public interface MyPlacesAppointmentView {
     void showAllAppointment(List<Appointment> appointments);
     void deleteAppointment(Integer id);
     void successfulDeletedAppointment();
+    void backFragment();
 
 }

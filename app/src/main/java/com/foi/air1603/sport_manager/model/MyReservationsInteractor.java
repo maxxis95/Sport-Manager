@@ -10,4 +10,6 @@ public interface MyReservationsInteractor {
     void getMyReservationsObject(int userId, long unixTime);
 
     void setReservationsObject(Reservation reservation);
+
+    void deleteReservationObjectById(int id);
 }

@@ -9,4 +9,5 @@ import com.foi.air1603.sport_manager.entities.Reservation;
 public interface MyReservationsPresenter {
     void getUserReservationsData();
     void updateReservation(Reservation reservation);
+    void deleteReservationById(int id);
 }

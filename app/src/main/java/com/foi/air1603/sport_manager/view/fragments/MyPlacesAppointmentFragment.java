@@ -84,4 +84,11 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
         presenter.getAllAppointmentByPlaceID(this.id);
 
     }
+
+    @Override
+    public void backFragment() {
+
+        getFragmentManager().popBackStack();
+        Toast.makeText(getActivity(), "Nemate termina", Toast.LENGTH_LONG).show();
+    }
 }

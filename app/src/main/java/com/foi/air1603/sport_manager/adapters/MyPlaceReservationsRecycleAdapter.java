@@ -24,12 +24,12 @@ import java.util.List;
 public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     MyPlacesReservationFragment myPlacesReservationFragment;
     Context context;
-    List<Appointment> appointmentList;
+    List<Reservation> reservationList;
     //List<Reservation> reservationList;
 
-    public MyPlaceReservationsRecycleAdapter(MyPlacesReservationFragment myPlacesReservationFragment, List<Appointment> appointmentList) {
+    public MyPlaceReservationsRecycleAdapter(MyPlacesReservationFragment myPlacesReservationFragment, List<Reservation> reservationList) {
         this.myPlacesReservationFragment = myPlacesReservationFragment;
-        this.appointmentList = appointmentList;
+        this.reservationList = reservationList;
         //this.reservationList = reservationList;
     }
 
@@ -43,33 +43,29 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Appointment appointment = appointmentList.get(position);
-        Reservation reservation = null;
-        if (!appointment.reservations.isEmpty()) {
-            reservation = appointment.reservations.get(0);
-        }
+        final Reservation reservation = reservationList.get(position);
 
-        String date = appointment.date;
+
+
+        String date = reservation.appointment.date;
         String realDate = date.substring(0,10);
         String[] split = realDate.split("-");
         String formattedDate = split[2]+"."+split[1]+"."+split[0]+".";
 
         ((MyPlaceReservationsViewHolder) holder).place_appointment_date.setText(formattedDate);
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(appointment.start + " -");
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(appointment.end);
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("ID "+appointment.id.toString());
-        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Broj osoba : "+appointment.maxPlayers.toString());
-        final Reservation finalReservation = reservation;
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_start.setText(reservation.appointment.start + " -");
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_end.setText(reservation.appointment.end);
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_id.setText("ID "+reservation.appointment.id.toString());
+        ((MyPlaceReservationsViewHolder) holder).place_appointment_other_users.setText("Broj osoba : "+reservation.appointment.maxPlayers.toString());
         ((MyPlaceReservationsViewHolder) holder).place_appointment_delete.setOnClickListener(new View.OnClickListener(){
 
 
             @Override
             public void onClick(View v) {
-               myPlacesReservationFragment.deleteReservation(finalReservation.id);
+               myPlacesReservationFragment.deleteReservation(reservation.id);
 
             }
         });
-        if (reservation != null) {
 
             ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_name.setText(reservation.sport.getName());
             ((MyPlaceReservationsViewHolder) holder).place_appointment_main_user.setText(reservation.team.name);
@@ -91,13 +87,12 @@ public class MyPlaceReservationsRecycleAdapter extends RecyclerView.Adapter<Recy
                     ((MyPlaceReservationsViewHolder) holder).place_appointment_sport_image.setImageResource(R.drawable.running);
                     break;
             }
-        }
 
     }
 
     @Override
     public int getItemCount() {
-        return appointmentList.size();
+        return reservationList.size();
     }
 
     public class MyPlaceReservationsViewHolder extends RecyclerView.ViewHolder {

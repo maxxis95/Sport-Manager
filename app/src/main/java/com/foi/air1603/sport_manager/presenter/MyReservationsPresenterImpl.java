@@ -66,21 +66,35 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
     }
 
     @Override
+    public void deleteReservationById(int id) {
+        myReservationsInteractor.deleteReservationObjectById(id);
+    }
+
+    @Override
     public void getResponseData(Object result) {
 
-        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 1) {
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() >= 0) {
             myReservationAlreadyLoaded = true;
         }
 
         System.out.println("----------------MyReservationPresenterImpl:getResponseData");
         if (!myReservationAlreadyLoaded) {
             AirWebServiceResponse response = (AirWebServiceResponse) result;
+            if (response.data == null && response.statusCode == 200) {
+                myReservationsView.successfulDeletedReservation();
+                return;
+            }
 
             Type collectionType = new TypeToken<List<Reservation>>() {
             }.getType();
             reservationsList = new Gson().fromJson(response.getData(), collectionType);
         }
         int id = MainActivity.user.id;
-        myReservationsView.loadRecycleViewData(reservationsList);
+        if (reservationsList != null) {
+            myReservationsView.loadRecycleViewData(reservationsList);
+        } else {
+            MainActivity.dismissProgressDialog();
+            myReservationsView.backFragment();
+        }
     }
 }

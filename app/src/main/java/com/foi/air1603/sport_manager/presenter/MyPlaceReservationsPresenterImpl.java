@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.presenter;
 
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.model.MyPlaceReservationsInteractorImpl;
 import com.foi.air1603.sport_manager.view.MyPlacesReservationView;
 import com.foi.air1603.webservice.AirWebServiceResponse;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MyPlaceReservationsPresenterImpl implements PresenterHandler, MyPlaceReservationsPresenter {
     private MyPlacesReservationView myPlacesReservationView;
     private MyPlaceReservationsInteractorImpl myPlaceReservationInteractor;
-    List<Appointment> appointmentList = null;
+    List<Reservation> reservationList = null;
 
     public MyPlaceReservationsPresenterImpl(MyPlacesReservationView myPlacesReservationView) {
         this.myPlacesReservationView = myPlacesReservationView;
@@ -33,14 +34,16 @@ public class MyPlaceReservationsPresenterImpl implements PresenterHandler, MyPla
             return;
         }
 
-        Type collectionTypeAppointments = new TypeToken<List<Appointment>>() {
+        Type collectionTypeAppointments = new TypeToken<List<Reservation>>() {
         }.getType();
-        appointmentList = (List<Appointment>) new Gson().fromJson(response.getData(), collectionTypeAppointments);
+        reservationList = (List<Reservation>) new Gson().fromJson(response.getData(), collectionTypeAppointments);
 
-        if (appointmentList != null){
-            myPlacesReservationView.showPlaceReservations(appointmentList);
+        if (reservationList != null){
+            myPlacesReservationView.showPlaceReservations(reservationList);
         } else {
             MainActivity.dismissProgressDialog();
+            System.out.println("nema vise reza");
+            myPlacesReservationView.backFragment();
         }
     }
 

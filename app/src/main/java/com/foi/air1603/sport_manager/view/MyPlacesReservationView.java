@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.view;
 
 import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  */
 
 public interface MyPlacesReservationView {
-    void showPlaceReservations(List<Appointment> appointmentList);
+    void showPlaceReservations(List<Reservation> reservationList);
     void deleteReservation(Integer id);
     void successfulDeletedReservation();
+    void backFragment();
 }

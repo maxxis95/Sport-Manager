@@ -15,5 +15,10 @@ public interface MyReservationsView {
 
     void setObject(Reservation reservation);
 
+    void deleteReservation(int id);
+
+    void successfulDeletedReservation();
+
+    void backFragment();
     //Reservation getObject();
 }
