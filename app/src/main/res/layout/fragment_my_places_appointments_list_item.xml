@@ -68,8 +68,7 @@
             tools:text="@string/reservationStart"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info"
             android:layout_below="@+id/appointment_date"
-            android:layout_alignStart="@+id/appointment_date"
-            />
+            android:layout_alignStart="@+id/appointment_date" />
 
         <TextView
             android:text="max igraca:"

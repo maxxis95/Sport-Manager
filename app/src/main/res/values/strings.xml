@@ -103,5 +103,9 @@
     <string name="placeAppointmentID">ID rezervacije</string>
     <string name="appointmentDelete">Izbriši rezervaciju</string>
     <string name="reservationPlaceName">Naziv objekta</string>
+    <string name="autoCompleteFriendsName">Upišite e-mail korisnika</string>
+    <string name="edInviteTeamName">Naziv tima</string>
+    <string name="btnInviteFriendAdd">Dodaj</string>
+    <string name="btnInviteFriendsFinish">Završi rezervaciju</string>
 
 </resources>

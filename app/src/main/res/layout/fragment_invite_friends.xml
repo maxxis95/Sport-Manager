@@ -2,49 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_main"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/recycler_friend_invites"
-    android:scrollbars="vertical"
-    android:background="#ECEFF1"
-    tools:layout_marginTop="100dp" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
     <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:hint="@string/autoCompleteFriendsName"
+        android:inputType="textEmailAddress"
+        android:layout_width="210dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="65dp"
         android:id="@+id/actvInviteFriends"
-        android:layout_below="@+id/btnInviteFriends"
-        android:layout_alignParentStart="true"
-        android:hint="Start typing your friends name" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:hint="@string/edInviteTeamName"
         android:ems="10"
-        android:id="@+id/tvTeamName"
-        android:layout_above="@+id/actvInviteFriends"
-        android:layout_alignParentStart="true"
-        android:hint="Team name" />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/actvInviteFriends"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvTeamName" />
 
     <Button
-        android:text="Search"
-        android:id="@+id/btnInviteFriends"
-        android:layout_height="wrap_content"
+        android:text="@string/btnInviteFriendAdd"
         android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="45dp"
+        android:layout_alignTop="@+id/actvInviteFriends"
+        android:layout_alignEnd="@+id/tvTeamName"
+        android:id="@+id/btnInviteFriends" />
 
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/btnSubmit"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:scrollbars="vertical"
+        android:layout_height="330dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/btnInviteFriends"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/recycler_friend_invites"/>
+
+    <Button
+        android:text="@string/btnInviteFriendsFinish"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_friend_invites"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnSubmit" />
 
 </RelativeLayout>

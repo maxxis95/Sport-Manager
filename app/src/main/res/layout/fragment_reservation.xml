@@ -13,8 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvReservationDateLabel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/tvReservationDateLabel"
@@ -33,16 +32,17 @@
             android:layout_height="20dp"
             android:layout_alignStart="@+id/tvReservationAppointmentLabel"
             android:layout_below="@+id/calendarViewReservation"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="55dp"
             android:src="@mipmap/ic_schedule_black_48dp" />
 
         <TextView
             android:id="@+id/tvReservationAppointmentLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/calendarViewReservation"
+            android:layout_below="@+id/calendarViewReservation"
             android:layout_alignStart="@+id/tvReservationDateLabel"
             android:text="@string/reservationAppointmentText"
+            android:layout_marginTop="10dp"
             android:textSize="15sp" />
 
         <Spinner
@@ -104,28 +104,11 @@
             android:id="@+id/buttonSetAppointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/buttonSetAppointment"
-            android:layout_below="@+id/tvFriendsNumber"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvFriendsNumber"
-            android:layout_marginTop="26dp"
             android:layout_below="@+id/switchAppointmentPrivate"
-            android:layout_alignStart="@+id/switchAppointmentPrivate"
-            android:layout_toStartOf="@+id/buttonSetAppointment" />
-
-        <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnAddFriends"
-            android:layout_alignTop="@+id/tvFriendsNumber"
-            android:layout_alignEnd="@+id/spinnerPlayers" />
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

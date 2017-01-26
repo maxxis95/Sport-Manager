@@ -53,8 +53,8 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         inputs.put("spinnerMaxPlayers", R.id.spinnerPlayers);
         inputs.put("privateSwitch", R.id.switchAppointmentPrivate);
         inputs.put("setAppointmentButton", R.id.buttonSetAppointment);
-        inputs.put("btnAddFriends", R.id.btnAddFriends);
-        inputs.put("tvFriendsNumber", R.id.tvFriendsNumber);
+        //inputs.put("btnAddFriends", R.id.btnAddFriends);
+        //inputs.put("tvFriendsNumber", R.id.tvFriendsNumber);
     }
 
     AppointmentPresenter appointmentPresenter;
@@ -125,8 +125,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         spinnerSport = (Spinner) view.findViewById(R.id.spinnerSports);
         spinnerMaxPlayers = (Spinner) view.findViewById(R.id.spinnerPlayers);
 
-
-        tvFriendsNumber = (TextView) view.findViewById(R.id.tvFriendsNumber);
+        //tvFriendsNumber = (TextView) view.findViewById(R.id.tvFriendsNumber);
 
         Button setAppointmentButton = (Button) view.findViewById(R.id.buttonSetAppointment);
         setAppointmentButton.setOnClickListener(new View.OnClickListener() {
