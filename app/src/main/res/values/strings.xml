@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Sport-Manager</string>
+    <string name="facebook_app_id">263220337444149</string>
+    <string name="fb_login_protocol_scheme">fb263220337444149</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

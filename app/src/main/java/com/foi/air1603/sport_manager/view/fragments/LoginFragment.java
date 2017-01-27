@@ -15,6 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
@@ -32,8 +39,50 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private EditText usernameInput;
     private EditText passwordInput;
     private User user;
-
     private SharedPreferences pref;
+
+    public static final String PARCEL_KEY = "parcel_key";
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+
+    FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            Profile profile = Profile.getCurrentProfile();
+            openAllPlacesFragment(profile);
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+
+        }
+    };
+
+    private void openAllPlacesFragment(Profile profile) {
+        if (profile != null) {
+//            Bundle mBundle = new Bundle();
+//            mBundle.putParcelable(PARCEL_KEY, profile);
+            User faceUser = new User();
+            faceUser.firstName = profile.getFirstName();
+            faceUser.lastName = profile.getLastName();
+            faceUser.img = "https://graph.facebook.com/" + profile.getId() + "/picture?type=large";
+            faceUser.type = 0;
+            Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User",faceUser);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        callbackManager = CallbackManager.Factory.create();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +123,17 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 }
             });
         }
+
+        loginButton = (LoginButton) view.findViewById(R.id.face_login_button);
+        loginButton.setReadPermissions("user_friends");
+        loginButton.setFragment(this);
+        loginButton.registerCallback(callbackManager, callback);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void createLoginSession(User user) {
@@ -155,5 +215,11 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    public static void logOutOfFacebook(){
+        if(LoginManager.getInstance() != null){
+            LoginManager.getInstance().logOut();
+        }
     }
 }

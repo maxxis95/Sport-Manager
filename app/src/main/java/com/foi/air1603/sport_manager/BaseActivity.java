@@ -1,6 +1,5 @@
 package com.foi.air1603.sport_manager;
 
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -9,6 +8,8 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
@@ -28,6 +29,7 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
 
     private static ProgressDialog progressDialog;
     static public BaseActivity activity;
+    private CallbackManager callbackManager;
 
     public static void showProgressDialog(String message) {
         progressDialog.setIndeterminate(true);
@@ -49,9 +51,11 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        callbackManager = CallbackManager.Factory.create();
         progressDialog = new ProgressDialog(this);
         activity = this;
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
         LoginFragment login = new LoginFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();

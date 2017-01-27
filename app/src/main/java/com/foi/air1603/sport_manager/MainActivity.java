@@ -5,11 +5,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
@@ -26,17 +24,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foi.air1603.nfc_verification_module.NfcVerificationCaller;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.Rights;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
-import com.foi.air1603.sport_manager.verifications.NfcVerification;
-import com.foi.air1603.sport_manager.verifications.Verification;
 import com.foi.air1603.sport_manager.verifications.VerificationListener;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
+import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
@@ -133,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (user == null) {
             user = getIntent().getExtras().getParcelable("User");
         }
-        rights = rights.getRightFormInt(user.type);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -142,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handleSystemTrayNotification(getIntent().getExtras());
         }
 
-        if (tokenNeedsUpdating) {
+        if (tokenNeedsUpdating && user != null) {
             // [START get_token]
             String token = FirebaseInstanceId.getInstance().getToken();
             Log.d(TAG, token);
@@ -153,10 +149,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             dataLoader.loadData(this, "updateToken", android_id, MainActivity.user.id + "", token, User.class, null);
         }
 
-        setNavigationView();
-        setAllUsersDataToHeaderView();
-        initAllPlacesFragment();
+        if(user != null){
+            rights = rights.getRightFormInt(user.type);
+            setNavigationView();
+            setAllUsersDataToHeaderView();
+            initAllPlacesFragment();
+        }
 
+        
     }
 
     /***
@@ -187,8 +187,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void updateHeaderView() {
         //System.out.println("Pokušavam refreshat sliku");
-        user = getIntent().getExtras().getParcelable("User");
-        setAllUsersDataToHeaderView();
+        if (user != null){
+            user = getIntent().getExtras().getParcelable("User");
+            setAllUsersDataToHeaderView();
+        }
     }
 
     private void setAllUsersDataToHeaderView() {
@@ -199,13 +201,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //System.out.println("Učitavam sve podatke u header, img url je: " + user.img);
 
-        if (!user.firstName.isEmpty()
-                && !user.lastName.isEmpty()) {
+        if (!user.firstName.isEmpty() && user.firstName != null
+                && !user.lastName.isEmpty() && user.lastName != null) {
             firstLastName.setText(user.firstName + ' ' + user.lastName + ' ');
         } else {
             firstLastName.setText(null);
         }
-        if (!user.email.isEmpty()) {
+        if (user.email != null && !user.email.isEmpty()) {
             email.setText(user.email);
         } else {
             email.setText(null);
@@ -298,7 +300,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
         user = null;
         MyReservationsPresenterImpl.updateData = true;
-
+        
+        LoginFragment.logOutOfFacebook();
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

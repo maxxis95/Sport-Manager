@@ -29,6 +29,10 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -58,6 +62,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile project(path: ':nfc_verification_module')
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
 }
 
 apply plugin: 'com.google.gms.google-services'
