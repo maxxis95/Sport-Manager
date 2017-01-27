@@ -33,7 +33,7 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Moji sportski objekti");
+        getActivity().setTitle("Termini na objektu");
         MainActivity.showProgressDialog("Dohvaćanje podataka");
         View v = inflater.inflate(R.layout.fragment_my_places_appointments, null);
         return v;

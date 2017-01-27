@@ -45,8 +45,12 @@
     <string name="nav_my_places">Moji sportski objekti</string>
     <string name="nav_my_reservations">Moje rezervacije</string>
     <string name="nav_add_new_reservation">Dodavanje termina</string>
+    <string name="nav_about">O nama</string>
     <string name="nav_settings">Postavke</string>
     <string name="nav_logout">Odjava</string>
+    <string name="about">Naš tim sastoji se od 4 člana: Robert Pizek, Karlo Šimunović, Tarek Saghir i Marko Flajšek</string>
+    <string name="phone">Možete nas kontaktirati na broj mobitela: 091/5376464</string>
+    <string name="email">Email kontakt</string>
     <string name="place_name">Naziv objekta</string>
     <string name="place_address">Adresa</string>
     <string name="place_number">Broj telefona</string>

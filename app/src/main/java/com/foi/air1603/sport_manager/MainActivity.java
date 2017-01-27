@@ -36,6 +36,7 @@ import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.verifications.NfcVerification;
 import com.foi.air1603.sport_manager.verifications.Verification;
 import com.foi.air1603.sport_manager.verifications.VerificationListener;
+import com.foi.air1603.sport_manager.view.fragments.AboutFragment;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
@@ -282,7 +283,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragment(new MyReservationsFragment());
         } /*else if (id == R.id.nav_settings) {
 
-        }*/ else if (id == R.id.nav_logout) {
+        }*/ else if (id == R.id.nav_about) {
+            replaceFragment(new AboutFragment());
+        }
+        else if (id == R.id.nav_logout) {
             logout();
         }
 
