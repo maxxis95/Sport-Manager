@@ -47,8 +47,12 @@
     <string name="nav_my_places">Moji sportski objekti</string>
     <string name="nav_my_reservations">Moje rezervacije</string>
     <string name="nav_add_new_reservation">Dodavanje termina</string>
+    <string name="nav_about">O aplikaciji</string>
     <string name="nav_settings">Postavke</string>
     <string name="nav_logout">Odjava</string>
+    <string name="about">Ova aplikacija izrađena kao projektni zadatak u sklopu kolegija Analiza u razvoj programa na Faktultetu organizacije i informatike. &#xA;&#xA;Tim koji je radio na aplikaciji sastoji se od 4 člana: Robert Pizek, Karlo Šimunović, Tarek Saghir i Marko Flajšek</string>
+    <string name="phone">Ukoliko kao registrirani korisnik želite mogućnost dodavanja vlastitiog objekta ili želite prijaviti neke grešku u aplikaciji možete nas kontaktirati putem e-maila.</string>
+    <string name="email">Pošaljite e-mail</string>
     <string name="place_name">Naziv objekta</string>
     <string name="place_address">Adresa</string>
     <string name="place_number">Broj telefona</string>
