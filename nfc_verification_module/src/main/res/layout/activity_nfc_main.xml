@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_nfc_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NfcMainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.foi.air1603.nfc_verification_module.NfcMainActivity">
 
     <TextView
         android:text="@string/nfcInstruction"
@@ -13,16 +17,17 @@
         android:id="@+id/nfcInstructions"
         android:layout_marginBottom="35dp"
         android:layout_alignParentBottom="true"
-        android:textColor="#1a237e"
+        android:layout_centerHorizontal="true"
+        android:textColor="#263238"
         android:layout_marginStart="20dp"
         android:textAlignment="center"/>
 
     <ImageView
         android:layout_width="180dp"
         android:layout_height="180dp"
-        app:srcCompat="@drawable/nfc"
+        android:src="@drawable/nfc_logo"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="125dp"
         android:id="@+id/nfcImage" />
 
 </RelativeLayout>

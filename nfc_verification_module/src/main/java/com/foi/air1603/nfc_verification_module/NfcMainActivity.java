@@ -39,7 +39,7 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
             handleNfcIntent(getIntent());
         }
 
-        setContentView(R.layout.activity_main_nfc);
+        setContentView(R.layout.activity_nfc_main);
 
         //Check if NFC is available on device
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);

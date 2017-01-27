@@ -17,7 +17,7 @@ import com.foi.air1603.password_verification_module.view.PasswordView;
 public class PasswordMainActivity extends AppCompatActivity implements PasswordView {
 
     public PasswordMainActivity activity;
-    private Button bPotvrdi;
+    private Button btnPotvrdi;
     private EditText passInput;
     private PasswordMainActivityPresenter presenter;
     private String pass;
@@ -31,11 +31,11 @@ public class PasswordMainActivity extends AppCompatActivity implements PasswordV
         System.out.println("----------------->6. PasswordMainActivity:onCreate");
 
         pass = getIntent().getStringExtra("pass");
-        setContentView(R.layout.activity_password);
+        setContentView(R.layout.activity_password_main);
         passInput = (EditText) this.findViewById(R.id.etPasswordV);
-        bPotvrdi = (Button) this.findViewById(R.id.bPotvrdi);
+        btnPotvrdi = (Button) this.findViewById(R.id.btnConfirm);
         presenter = new PasswordMainActivityPresenterImpl(this);
-        bPotvrdi.setOnClickListener(new View.OnClickListener() {
+        btnPotvrdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Boolean flag = presenter.checkInputPass();
