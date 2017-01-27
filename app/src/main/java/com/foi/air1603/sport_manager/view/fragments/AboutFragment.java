@@ -51,7 +51,7 @@ public class AboutFragment extends Fragment {
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "rpizek.freeride@yahoo.com","karlo.simunovic@gmail.com", "rpkaccvjezbe@gmail.com", "marko.flajsek@gmail.com"  });
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Sport manager");
 
-                intent.putExtra(Intent.EXTRA_TEXT, "User: " + user.id + ", " + user.email+", " + user.firstName + ", "+ user.lastName + ";\n\n"+"Želim vas kontaktirat ");
+                intent.putExtra(Intent.EXTRA_TEXT, "User: " + user.id + ", " + user.email+", " + user.firstName + ", "+ user.lastName + ";\n\n"+"Želim Vas kontaktirati ");
                 startActivity(Intent.createChooser(intent, ""));
 
 
