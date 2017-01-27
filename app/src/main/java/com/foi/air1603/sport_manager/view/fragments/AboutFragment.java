@@ -27,7 +27,7 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("O nama");
+        getActivity().setTitle("O aplikaciji");
 
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_about, null);
@@ -49,9 +49,8 @@ public class AboutFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "rpizek.freeride@yahoo.com","karlo.simunovic@gmail.com", "rpkaccvjezbe@gmail.com", "marko.flajsek@gmail.com"  });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Sport manager");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sport-Manager");
 
-                intent.putExtra(Intent.EXTRA_TEXT, "User: " + user.id + ", " + user.email+", " + user.firstName + ", "+ user.lastName + ";\n\n"+"Želim Vas kontaktirati ");
                 startActivity(Intent.createChooser(intent, ""));
 
 

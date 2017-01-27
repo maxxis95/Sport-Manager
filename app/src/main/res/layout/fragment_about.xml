@@ -25,19 +25,19 @@
 
     <TextView
         android:text="@string/email"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:id="@+id/about_email"
         android:layout_below="@+id/about_phone"
-        android:layout_alignParentStart="true"
         android:textColor="@android:color/holo_blue_light" />
 
     <TextView
         android:text="@string/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/about_phone"
         android:layout_below="@+id/about_about"
         android:layout_alignParentStart="true" />
