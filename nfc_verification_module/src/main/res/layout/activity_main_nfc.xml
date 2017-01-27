@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"  tools:context=".NfcMainActivity">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NfcMainActivity">
 
     <TextView
-        android:text="UPUTE: Prislonite uređaj vlasniku sportskog objekta te kada se smanji prikaz zaslona pritisnite na umanjenu sliku kako bi ste poslali poruku"
-        android:layout_width="wrap_content"
+        android:text="@string/nfcInstruction"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_marginBottom="15dp"
+        android:id="@+id/nfcInstructions"
+        android:layout_marginBottom="35dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="#1a237e"
+        android:layout_marginStart="20dp"
+        android:textAlignment="center"/>
 
-    <TextView
-        android:text="Prislonite uređaj k uređaju vlasnika termina kako bi verificirali vaš dolazak"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_marginTop="206dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        app:srcCompat="@drawable/nfc"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/nfcImage" />
+
 </RelativeLayout>
