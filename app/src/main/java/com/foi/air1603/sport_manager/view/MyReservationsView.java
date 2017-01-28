@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view;
 
+import com.foi.air1603.sport_manager.entities.Appointment;
 import com.foi.air1603.sport_manager.entities.Reservation;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface MyReservationsView {
     void loadRecycleViewData(List<Reservation> reservations);
 
-    void verifyByPassword(String pass);
+    void verifyAppointment();
 
     void setObject(Reservation reservation);
 

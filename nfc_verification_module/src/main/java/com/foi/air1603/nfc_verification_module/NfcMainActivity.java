@@ -35,7 +35,6 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
 
         // Received NDEF message enters this block (VLASNIK)
         if (getIntent().getAction() != null && getIntent().getAction().equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
-            System.out.println("OVOOO MI TREBA KOD VLASNIKAA");
             handleNfcIntent(getIntent());
         }
 
@@ -101,7 +100,7 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
      */
     @Override
     public void onNdefPushComplete(NfcEvent event) {
-        System.out.println("---------------createNdefMessage:KORISNIK");
+        System.out.println("---------------onNdefPushComplete:KORISNIK");
         // TODO: implemtirati povrat na activity s porukom da provjeri jel sve ok za KORISNIKA
         nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(0);
         finish();
@@ -136,11 +135,10 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
             } else {
                 Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
             }
+            // TODO: vratiti se na verification klasu za VLASNIKA
+            nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(1);
+            finish();
         }
-
-        // TODO: vratiti se na verification klasu za VLASNIKA
-        nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(1);
-        finish();
     }
 
     @Override

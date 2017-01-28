@@ -69,7 +69,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         Type collectionType = new TypeToken<List<User>>() {
         }.getType();
-        List<User> users = (List<User>) new Gson().fromJson(response.getData(), collectionType);
+        List<User> users = new Gson().fromJson(response.getData(), collectionType);
 
         BaseActivity.dismissProgressDialog();
         if (users == null) {
@@ -85,6 +85,11 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
                 onPasswordError();
             } else {
                 view.removeError(Password);
+
+                // Pre-setanje modula na ON na bazi sesije
+                user.nfcModule = 1;
+                user.passwordModule = 1;
+
                 view.loginSuccessful(user);
             }
         }

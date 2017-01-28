@@ -13,10 +13,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Generalko on 28-Dec-16.
- */
-
 public class MyReservationsPresenterImpl implements MyReservationsPresenter, PresenterHandler {
 
     public static boolean updateData = false;
@@ -56,13 +52,11 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
 
     @Override
     public void updateReservation(Reservation reservation) {
-
         Reservation temp = new Reservation();
         temp.id = reservation.id;
         temp.confirmed = 1;
 
         myReservationsInteractor.setReservationsObject(temp);
-
     }
 
     @Override
@@ -89,7 +83,6 @@ public class MyReservationsPresenterImpl implements MyReservationsPresenter, Pre
             }.getType();
             reservationsList = new Gson().fromJson(response.getData(), collectionType);
         }
-        int id = MainActivity.user.id;
         if (reservationsList != null) {
             myReservationsView.loadRecycleViewData(reservationsList);
         } else {
