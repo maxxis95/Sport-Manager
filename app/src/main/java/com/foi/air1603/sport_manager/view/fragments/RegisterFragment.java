@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenter;
 import com.foi.air1603.sport_manager.presenter.RegisterPresenterImpl;
@@ -26,6 +28,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
     private RegisterPresenter presenter;
     private Button btnRegister;
+    private User facebookUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +44,11 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         //instance the presenter class
         presenter = new RegisterPresenterImpl(this);
         btnRegister = (Button) getActivity().findViewById(R.id.bRegistracija);
+        facebookUser = ProfileFragment.user;
 
+        if(facebookUser != null){
+            setFacebookUserTextView();
+        }
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +59,16 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
             }
 
         });
+
+    }
+    private void setFacebookUserTextView(){
+
+        final TextInputEditText firstName = (TextInputEditText) getActivity().findViewById(R.id.etName);
+        final TextInputEditText lastName = (TextInputEditText) getActivity().findViewById(R.id.etLastName);
+
+        firstName.setText(facebookUser.firstName);
+        lastName.setText(facebookUser.lastName);
+
     }
 
     public void returnResponseCode(int statusCode, String message) {

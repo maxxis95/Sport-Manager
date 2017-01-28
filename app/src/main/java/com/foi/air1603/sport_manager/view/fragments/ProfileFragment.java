@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 35;
-    public User user;
+    public static User user;
     private MainActivity activity;
     private Button btnChangeProfilePicture;
     private ProfilePresenter presenter;
@@ -81,44 +83,45 @@ public class ProfileFragment extends Fragment implements ProfileView {
             }
         });
 
+        checkIfUserWantsProfileEdit();
         getImageForImageView(null, null);
         getUserDataForTextView();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openImagePicker();
-                } else {
-                    System.out.println("Couldn't get read files permission!");
-                }
-                return;
-            }
+    private void checkIfUserWantsProfileEdit() {
+        if (user.username == null
+                || user.password == null) {
+            buildAlertDialogMessage();
         }
     }
 
-    public void openImagePicker() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    private void buildAlertDialogMessage() {
+        String message = "Primjetili smo da vam nedostaje nekoliko podataka. Želite li nadopuniti podatke?";
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle("Dopunite podatke!");
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RegisterFragment registerFragment = new RegisterFragment();
+                        activity.getFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, registerFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                })
+                .setNegativeButton("Ne sada", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            System.out.println("----------------->1. ProfileFragment:onActivityResult");
-            presenter.changeProfilePicture(data, user.id, activity);
-        }
-    }
 
     public void getImageForImageView(String imageUrl, Uri imageUri) {
 
@@ -160,5 +163,40 @@ public class ProfileFragment extends Fragment implements ProfileView {
         emailProfile.setText(user.email);
         addressProfile.setText(user.address);
         phoneProfile.setText(user.phone);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openImagePicker();
+                } else {
+                    System.out.println("Couldn't get read files permission!");
+                }
+                return;
+            }
+        }
+    }
+
+    public void openImagePicker() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            System.out.println("----------------->1. ProfileFragment:onActivityResult");
+            presenter.changeProfilePicture(data, user.id, activity);
+        }
     }
 }

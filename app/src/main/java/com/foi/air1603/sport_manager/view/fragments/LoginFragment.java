@@ -72,6 +72,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             faceUser.lastName = profile.getLastName();
             faceUser.img = "https://graph.facebook.com/" + profile.getId() + "/picture?type=large";
             faceUser.type = 0;
+
             Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User",faceUser);
             startActivity(intent);
         }
@@ -123,7 +124,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 }
             });
         }
-
         loginButton = (LoginButton) view.findViewById(R.id.face_login_button);
         loginButton.setReadPermissions("user_friends");
         loginButton.setFragment(this);
