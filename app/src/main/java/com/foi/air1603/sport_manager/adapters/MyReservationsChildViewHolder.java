@@ -1,12 +1,10 @@
 package com.foi.air1603.sport_manager.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.foi.air1603.sport_manager.MainActivity;
@@ -68,8 +66,7 @@ public class MyReservationsChildViewHolder extends ChildViewHolder {
             @Override
             public void onClick(View v) {
                 co.setObject(reservation);
-
-                co.verifyByPassword(pass);
+                co.verifyAppointment();
             }
         });
         myAppointmentDelete.setOnClickListener(new View.OnClickListener(){

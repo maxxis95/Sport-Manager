@@ -29,14 +29,12 @@ public class NfcVerificationCaller {
         return this;
     }
 
-    static public void startActivity(Activity activity, String pass) {
-
+    public void startActivity(Activity activity, String pass) {
         System.out.println("----------------->5. NfcVerificationCaller:startActivity");
 
         Intent intent = new Intent();
         intent.putExtra("pass", pass);
         intent.setClass(activity, NfcMainActivity.class);
         activity.startActivity(intent);
-
     }
 }

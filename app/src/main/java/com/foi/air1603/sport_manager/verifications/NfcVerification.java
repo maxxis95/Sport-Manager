@@ -4,27 +4,28 @@ import android.app.Activity;
 
 import com.foi.air1603.nfc_verification_module.NfcVerificationCaller;
 import com.foi.air1603.nfc_verification_module.NfcVerificationHandler;
-import com.foi.air1603.password_verification_module.PasswordVerificationCaller;
 
 /**
  * Created by Karlo on 20.1.2017..
  */
 
-public class NfcVerification extends Verification implements NfcVerificationHandler{
+class NfcVerification extends Verification implements NfcVerificationHandler {
 
     @Override
     public void VerifyApp(VerificationListener verificationListener, Activity activity, String challengeText) {
-        super.VerifyApp(verificationListener, activity, challengeText);
-        System.out.println("----------------->4. PasswordVerification:VerifyApp");
+        System.out.println("----------------->4. NfcVerification:VerifyApp");
 
-        NfcVerificationCaller call;
-        call = NfcVerificationCaller.getInstance().Init(this);
-        call.startActivity(activity, challengeText);
+        mVerificationListener = verificationListener;
+
+        NfcVerificationCaller call = NfcVerificationCaller.getInstance().Init(this);
+        if(activity != null){
+            call.startActivity(activity, challengeText);
+        }
     }
 
     @Override
     public void onResultArrived(Integer result) {
         System.out.println("----------------->7. NfcVerification:onResultArrived");
-        mVerificationListener.onVerificationResult(result != null);
+      //  mVerificationListener.onVerificationResult(result != null);
     }
 }

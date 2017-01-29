@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,26 +17,23 @@ import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Reservation;
-import com.foi.air1603.sport_manager.verifications.NfcVerification;
-import com.foi.air1603.sport_manager.verifications.PasswordVerification;
-import com.foi.air1603.sport_manager.verifications.Verification;
-import com.foi.air1603.sport_manager.verifications.VerificationListener;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenter;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
+import com.foi.air1603.sport_manager.verifications.VerificationListener;
+import com.foi.air1603.sport_manager.verifications.VerificationLoader;
 import com.foi.air1603.sport_manager.view.MyReservationsView;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MyReservationsFragment extends android.app.Fragment implements MyReservationsView, VerificationListener {
 
     private static final String TAG = "MyReservationsFragment";
+    public Reservation reservation;
     protected RecyclerView mRecyclerView;
     MyReservationsPresenter myReservationsPresenter;
     MyReservationsRecycleAdapter adapter;
-    public Reservation reservation;
+    VerificationLoader verificationLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +49,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        verificationLoader = new VerificationLoader();
+        verificationLoader.initializeNfc(this);
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
     }
@@ -84,15 +84,28 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     @Override
-    public void verifyByPassword(String pass) {
-        //Verification verification = new PasswordVerification();
-        Verification verification = new NfcVerification();
-        verification.VerifyApp(this, getActivity(), pass);
+    public void verifyAppointment() {
+        CharSequence modules[] = VerificationLoader.getEnabledModules();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Verify by");
+        builder.setItems(modules, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                runVerification(which);
+            }
+        });
+        builder.show();
+    }
+
+    void runVerification(int verificationMethod) {
+        verificationLoader.startVerification(this, getActivity(), "12345", verificationMethod);
     }
 
     @Override
     public void setObject(Reservation reservation) {
-         this.reservation = reservation;
+        this.reservation = reservation;
     }
 
     @Override
@@ -106,16 +119,13 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
                 getResources().getString(R.string.toastTermDeletionSuccessful), Toast.LENGTH_LONG).show();
         MyReservationsPresenterImpl.updateData = true;
         myReservationsPresenter.getUserReservationsData();
-
     }
 
     @Override
     public void backFragment() {
         getFragmentManager().popBackStack();
         Toast.makeText(getActivity(), getResources().getString(R.string.toastNoReservation), Toast.LENGTH_LONG).show();
-
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -124,9 +134,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
         if(result){
             Toast.makeText(getActivity(), getResources().getString(R.string.toastAppointmentConfirmation), Toast.LENGTH_LONG).show();
-
             myReservationsPresenter.updateReservation(reservation);
-
         } else {
             Toast.makeText(getActivity(), getResources().getString(R.string.toastError), Toast.LENGTH_LONG).show();
         }

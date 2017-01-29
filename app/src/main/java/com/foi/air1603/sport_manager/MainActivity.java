@@ -31,6 +31,7 @@ import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.verifications.VerificationListener;
+import com.foi.air1603.sport_manager.verifications.VerificationLoader;
 import com.foi.air1603.sport_manager.view.fragments.AboutFragment;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Namjerno dodan false dok se ne implementira sve na ws-u
         if (getIntent().getExtras() != null) {
             handleSystemTrayNotification(getIntent().getExtras());
         }
@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             initAllPlacesFragment();
         }
 
-        
     }
 
     /***
@@ -321,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onVerificationResult(Boolean result) {
-        // ovdje radi lakšeg testanja
+        System.out.println("MainActivity:onVerificationResult ---- result is -- " + result);
     }
 }
 
