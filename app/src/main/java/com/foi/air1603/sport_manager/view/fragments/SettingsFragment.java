@@ -2,19 +2,27 @@ package com.foi.air1603.sport_manager.view.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
-import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
 import com.google.gson.Gson;
+
+import java.util.Locale;
 
 public class SettingsFragment extends android.app.Fragment {
     private User user;
@@ -23,6 +31,9 @@ public class SettingsFragment extends android.app.Fragment {
     private Switch switchPass;
     private Switch switchNfc;
     private SharedPreferences pref;
+
+    private Spinner spinnerctrl;
+    private Locale myLocale;
 
 
     @Nullable
@@ -68,7 +79,24 @@ public class SettingsFragment extends android.app.Fragment {
             }
         });
 
+        spinnerctrl = (Spinner) getActivity().findViewById(R.id.spinner);
+        spinnerctrl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1) {
+                    Toast.makeText(parent.getContext(), "You have selected Croatian", Toast.LENGTH_SHORT).show();
+                    //setLocale("ta");
+                } else if (position == 2) {
+                    Toast.makeText(parent.getContext(), "You have selected English", Toast.LENGTH_SHORT).show();
+                    //setLocale("hi");
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void setSettings() {
@@ -86,6 +114,7 @@ public class SettingsFragment extends android.app.Fragment {
             switchNfc.setChecked(true);
         }
     }
+
     private void updateSession(String item, int value) {
 
         if(item.equals("nfc")){
@@ -101,9 +130,20 @@ public class SettingsFragment extends android.app.Fragment {
         String json = new Gson().toJson(user);
         editor.putString("User", json);
         editor.commit();
-
-
     }
+
+    /*
+    public void setLocale(String lang) {
+        myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, AndroidLocalize.class);
+        startActivity(refresh);
+    }
+    */
 
     private User retrieveLoginSession() {
         Gson gson = new Gson();

@@ -134,7 +134,7 @@
     //various titles
     <string name="titleTimePicker">Odaberi vrijeme</string>
     <string name="toastTermAddedTrue">Uspješno ste unijeli termin</string>
-    <string name="toastNoModule">Nemate uključeni modul,provjerite u postavkama</string>
+    <string name="toastNoModule">Nemate uključeni modul, provjerite u postavkama</string>
     <string name="toastTermAddedFalse">Dodavanje termina nije uspjelo:</string>
     <string name="toastFacilityAddedTrue">Uspješno ste dodali novi objekt</string>
     <string name="toastFacilityAddedFalse">Dodavanje objekta nije uspjelo:</string>
@@ -161,10 +161,17 @@
     <string name="toastRegistrationFailed">Registracija nije uspjela:</string>
     <string name="progressTermsLoading">Učitavanje termina</string>
     <string name="errorFieldNecessary">Polje je obavezno</string>
+    <string name="progressDataCheck">Provjera podataka</string>
 
     <string name="nfcSwitch">NFC modul</string>
     <string name="passwordSwitch">Password modul</string>
     <string name="btnDeactivateUserAccount">Deaktiviraj moj račun</string>
     <string name="tvChooseLanguage">Language</string>
+    <string name="errorUsernameNotFound">Korisničko ime ne postoji</string>
+    <string name="errorWrongPassword">Unijeli ste krivu lozinku</string>
+    <string name="errorMinOneParticipant">Mora biti barem jedan sudionik</string>
+    <string name="errorWorkingHours">Kraj radnog vremena je prije početka</string>
+    <string name="errorEmailInvalid">E-mail nije validan</string>
+    <string name="errorPasswordMatching">Lozinke se ne podudaraju</string>
 
 </resources>

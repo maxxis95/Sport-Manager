@@ -180,6 +180,14 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         final TextInputLayout addressRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAdresaR);
         final TextInputLayout phoneNumberRWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiBrojTelefonaR);
 
+        if (message.equals("Unesite vrijednost")){
+            message = getResources().getString(R.string.errorFieldNecessary);
+        } else if(message.equals("Email nije validan")){
+            message = getResources().getString(R.string.errorEmailInvalid);
+        } else if(message.equals("Lozinke se ne podudaraju")) {
+            message = getResources().getString(R.string.errorPasswordMatching);
+        }
+
         if (textView == RegisterViewEnums.UsernameR) {
             usernameRWrapper.setError(message);
         } else if (textView == RegisterViewEnums.PasswordR) {

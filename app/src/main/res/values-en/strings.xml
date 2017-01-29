@@ -10,7 +10,7 @@
     <string name="korisnicko_ime">Username</string>
     <string name="lozinka">Password</string>
     <string name="nemate_racun">Don\'t Have an Account? Register Here.</string>
-    <string name="prijava">Sign-in</string>
+    <string name="prijava">Sign in</string>
     <string name="e_mail">E-mail</string>
     <string name="korisnicko_imeR">Username</string>
     <string name="adresaR">Address</string>
@@ -150,7 +150,7 @@
     <string name="nfcSwitch">NFC module</string>
     <string name="passwordSwitch">Password module</string>
     <string name="btnDeactivateUserAccount">Deactivate my account</string>
-    <string name="tvChooseLanguage">Jezik aplikacije</string>
+    <string name="tvChooseLanguage">Language</string>
     <string name="nav_about">About us</string>
     <string name="titleAboutActivity">About us</string>
     <string name="titleAddAppointmentActivity">Add a term</string>
@@ -162,5 +162,13 @@
     <string name="titleMyReservationsActivity">My reservations</string>
     <string name="titlePlaceDetailsActivity">Facility details</string>
     <string name="titleReservationActivity">Term reservations</string>
+    <string name="errorEmailInvalid">E-mail not valid</string>
+    <string name="errorMinOneParticipant">At least one participant is required</string>
+    <string name="errorPasswordMatching">Passwords don\\\'t match</string>
+    <string name="errorUsernameNotFound">Username does not exist</string>
+    <string name="errorWorkingHours">Working hours aren\\\'t valid</string>
+    <string name="errorWrongPassword">Wrong password</string>
+    <string name="progressDataCheck">Checking data</string>
+    <string name="toastNoModule">The module isn\\\'t turned on, check your settings</string>
 
 </resources>

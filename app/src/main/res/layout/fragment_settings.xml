@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nfcSwitch"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="20dp"
         android:layout_alignBaseline="@+id/switchPassword"
         android:layout_alignBottom="@+id/switchPassword"
         android:layout_alignParentStart="true"
@@ -35,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/switchPassword"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
@@ -44,18 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/switchNFC"
         android:layout_alignEnd="@+id/switchNFC" />
-
-    <Button
-        android:text="@string/btnDeactivateUserAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="36dp"
-        android:id="@+id/btnDeactivate" />
 
     <TextView
         android:text="@string/tvChooseLanguage"
@@ -64,5 +55,15 @@
         android:layout_alignTop="@+id/spinner"
         android:layout_alignStart="@+id/tvPasswordSwitch"
         android:id="@+id/tvChooseLanguage" />
+
+    <Button
+        android:text="@string/btnDeactivateUserAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/btnDeactivate"
+        android:layout_below="@id/tvChooseLanguage"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

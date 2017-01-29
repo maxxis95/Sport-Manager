@@ -42,7 +42,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         if (!view.getUsernameFromEditText().isEmpty() && !view.getPasswordFromEditText().isEmpty()) {
             view.removeError(Username);
             view.removeError(Password);
-            BaseActivity.showProgressDialog("Provjera podataka");
+            //BaseActivity.showProgressDialog("Provjera podataka");
             compareInputTextToData();
         }
     }
@@ -73,7 +73,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         BaseActivity.dismissProgressDialog();
         if (users == null) {
-            view.onUsernameError();
+            onUsernameError();
         } else {
             user = users.get(0);
             System.out.println("LoginPresenterImpl:getResponseData: " + user.toString());
@@ -82,7 +82,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
             System.out.println(userEnteredPassword);
             if (!userEnteredPassword.equals(user.password)) {
-                view.onPasswordError();
+                onPasswordError();
             } else {
                 view.removeError(Password);
 

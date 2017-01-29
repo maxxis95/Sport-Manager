@@ -74,6 +74,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:id="@+id/myAppointmentID"
+            android:layout_marginRight="20dp"
             android:layout_alignBaseline="@+id/myAppointmentAddress"
             android:layout_alignBottom="@+id/myAppointmentAddress"
             android:layout_alignEnd="@+id/myAppointmentDelete" />

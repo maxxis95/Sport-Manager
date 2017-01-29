@@ -20,9 +20,4 @@ public interface LoginView {
     void removeError(LoginViewEnums textView);
 
     void loginSuccessful(User userObject);
-
-    void onUsernameError();
-
-    void onPasswordError();
-
 }

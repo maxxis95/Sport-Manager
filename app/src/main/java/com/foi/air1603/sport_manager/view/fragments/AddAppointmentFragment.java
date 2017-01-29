@@ -230,6 +230,12 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
         final TextInputLayout appointmentEndWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiAppointmentHourStop);
         final TextInputLayout appointmentMaxPlayerWrapper = (TextInputLayout) getActivity().findViewById(R.id.txiMaxPlayer);
 
+        if (message.equals("Polje je obavezno")){
+            message = getResources().getString(R.string.errorFieldNecessary);
+        } else if (message.equals("Mora biti barem jedan sudionik")){
+            message = getResources().getString(R.string.errorMinOneParticipant);
+        }
+
         if (textView == AddAppointmentViewEnums.AppointmentTimeStart) {
             appointmentStartWrapper.setError(message);
         } else if (textView == AddAppointmentViewEnums.AppointmentTimeEnd) {

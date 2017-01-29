@@ -173,6 +173,14 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         final TextInputLayout usernameWrapper = (TextInputLayout) getView().findViewById(R.id.txiUsernameL);
         final TextInputLayout passwordWrapper = (TextInputLayout) getView().findViewById(R.id.txiPasswordL);
 
+        if (message.equals("Unesite vrijednost")){
+            message = getResources().getString(R.string.errorFieldNecessary);
+        } else if(message.equals("Korisničko ime ne postoji")){
+            message = getResources().getString(R.string.errorUsernameNotFound);
+        } else if(message.equals("Unijeli ste krivu lozinku")) {
+            message = getResources().getString(R.string.errorWrongPassword);
+        }
+
         if (textView == LoginViewEnums.Username) {
             usernameWrapper.setError(message);
         } else if (textView == LoginViewEnums.Password) {
@@ -192,16 +200,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
         usernameWrapper.setErrorEnabled(false);
         passwordWrapper.setErrorEnabled(false);
-    }
-
-    @Override
-    public void onUsernameError() {
-        displayError(Username, "Korisničko ime ne postoji");
-    }
-
-    @Override
-    public void onPasswordError() {
-        displayError(Password, "Unijeli ste krivu lozinku");
     }
 
 

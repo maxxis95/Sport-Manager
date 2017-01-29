@@ -68,7 +68,7 @@ public class AddPlacePresenterImpl implements AddPlacePresenter, PresenterHandle
         }
 
         if (requiredFieldsNotEmpty && checkWorkingHoursDifference) {
-            MainActivity.showProgressDialog("Spremanje objekta");
+            //MainActivity.showProgressDialog("Spremanje objekta");
             //view.checkPlaceResponse(createNewPlaceObject(userId));
             interactor.setPlaceObject(createNewPlaceObject(userId));
         }

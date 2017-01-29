@@ -212,6 +212,12 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
 
     @Override
     public void displayError(AddPlaceViewEnums textView, String message) {
+        if (message.equals("Polje je obavezno")){
+            message = getResources().getString(R.string.errorFieldNecessary);
+        } else if (message.equals("Kraj radnog vremena je prije početka")){
+            message = getResources().getString(R.string.errorWorkingHours);
+        }
+
         ((TextInputLayout) getActivity().findViewById(inputs.get(textView.toString()))).setError(message);
     }
 
