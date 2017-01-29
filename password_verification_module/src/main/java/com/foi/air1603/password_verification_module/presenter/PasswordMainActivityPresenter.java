@@ -5,5 +5,5 @@ package com.foi.air1603.password_verification_module.presenter;
  */
 
 public interface PasswordMainActivityPresenter {
-    Boolean checkInputPass();
+    Integer checkInputPass();
 }

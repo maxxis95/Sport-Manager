@@ -167,11 +167,14 @@
     <string name="passwordSwitch">Password modul</string>
     <string name="btnDeactivateUserAccount">Deaktiviraj moj račun</string>
     <string name="tvChooseLanguage">Language</string>
+
     <string name="errorUsernameNotFound">Korisničko ime ne postoji</string>
     <string name="errorWrongPassword">Unijeli ste krivu lozinku</string>
     <string name="errorMinOneParticipant">Mora biti barem jedan sudionik</string>
     <string name="errorWorkingHours">Kraj radnog vremena je prije početka</string>
     <string name="errorEmailInvalid">E-mail nije validan</string>
     <string name="errorPasswordMatching">Lozinke se ne podudaraju</string>
+
+    <string name="toastAppointmentCheck">Vlasnik je zabilježio Vaš dolazak. Osvježite pregled rezervacija za provjeru.</string>
 
 </resources>

@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
 import com.google.gson.Gson;
@@ -40,7 +41,7 @@ public class SettingsFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getResources().getString(R.string.titleSettingsActivity));
-        pref = this.getActivity().getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+        pref = this.getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         user = getActivity().getIntent().getExtras().getParcelable("User");
         this.passModul = user.passwordModule;
         this.nfcModul = user.nfcModule;
@@ -57,24 +58,24 @@ public class SettingsFragment extends android.app.Fragment {
             @Override
             public void onClick(View v) {
                 int value;
-                if(user.nfcModule == 0){
+                if (user.nfcModule == 0) {
                     value = 1;
                 } else {
                     value = 0;
                 }
-                updateSession("nfc",value);
+                updateSession("nfc", value);
             }
         });
         switchPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int value;
-                if(user.passwordModule == 0){
+                if (user.passwordModule == 0) {
                     value = 1;
                 } else {
                     value = 0;
                 }
-                updateSession("pass",value);
+                updateSession("pass", value);
                 setSettings();
             }
         });
@@ -100,28 +101,27 @@ public class SettingsFragment extends android.app.Fragment {
     }
 
     private void setSettings() {
-        if(user.passwordModule == 0) {
+        if (user.passwordModule == 0) {
             switchPass.setChecked(false);
-        }
-        else {
+        } else {
             switchPass.setChecked(true);
         }
-        if(user.nfcModule == 0) {
+        if (user.nfcModule == 0) {
             switchNfc.setChecked(false);
 
-        }
-        else {
+        } else {
             switchNfc.setChecked(true);
         }
     }
 
     private void updateSession(String item, int value) {
 
-        if(item.equals("nfc")){
+        if (item.equals("nfc")) {
             user.nfcModule = value;
-        }
-        else if(item.equals("pass")) {
+            MainActivity.user.nfcModule = value;
+        } else if (item.equals("pass")) {
             user.passwordModule = value;
+            MainActivity.user.passwordModule = value;
         }
 
         getActivity().getIntent().putExtra("User", user);

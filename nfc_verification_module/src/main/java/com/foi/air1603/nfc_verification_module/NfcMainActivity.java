@@ -30,7 +30,6 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         nfcVerificationCaller = NfcVerificationCaller.getInstance();
 
         // Received NDEF message enters this block (VLASNIK)
@@ -53,9 +52,8 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
                     Toast.LENGTH_SHORT).show();
         }
 
-
         // TODO: ubaciti informacije o appointmentu koje trebaju ići
-        messageToSend = "testniSingleString123";
+        messageToSend = getIntent().getExtras().getString("pass");
     }
 
 
@@ -101,7 +99,6 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
     @Override
     public void onNdefPushComplete(NfcEvent event) {
         System.out.println("---------------onNdefPushComplete:KORISNIK");
-        // TODO: implemtirati povrat na activity s porukom da provjeri jel sve ok za KORISNIKA
         nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(0);
         finish();
     }
@@ -131,12 +128,17 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
                     newMessage = string;
                 }
 
-                Toast.makeText(this, "Message From User: " + newMessage, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Message From User: " + newMessage, Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "NFC Error", Toast.LENGTH_LONG).show();
             }
-            // TODO: vratiti se na verification klasu za VLASNIKA
-            nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(1);
+            // vracanje na verification klasu za VLASNIKA
+            if(nfcVerificationCaller.mNfcVerificationHandler == null){
+                Toast.makeText(this,
+                        "Neuspjela verifikacija NFC-om. Otvorite 'Moje rezervacije' i pokušajte ponovo", Toast.LENGTH_LONG).show();
+            } else {
+                nfcVerificationCaller.mNfcVerificationHandler.onResultArrived(Integer.parseInt(newMessage));
+            }
             finish();
         }
     }

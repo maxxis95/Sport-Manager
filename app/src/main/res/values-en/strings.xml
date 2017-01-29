@@ -170,5 +170,6 @@
     <string name="errorWrongPassword">Wrong password</string>
     <string name="progressDataCheck">Checking data</string>
     <string name="toastNoModule">The module isn\\\'t turned on, check your settings</string>
+    <string name="toastAppointmentCheck">The owner has noted your arrival. Feel free to refresh your reservation\\\'s window to check.</string>
 
 </resources>

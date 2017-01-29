@@ -1,8 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -55,8 +53,12 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         verificationLoader = new VerificationLoader();
-        verificationLoader.initializeNfc(this);
+        if (MainActivity.user.type > 0) {
+            verificationLoader.initializeNfc(this);
+        }
+
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
     }
@@ -91,14 +93,15 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public void verifyAppointment() {
-        pref = this.getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        this.user = getActivity().getIntent().getExtras().getParcelable("User");
-        if(user.nfcModule == 0 && user.passwordModule == 0) {
+        //  pref = this.getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        //this.user = getActivity().getIntent().getExtras().getParcelable("User");
+
+        CharSequence modules[] = VerificationLoader.getEnabledModules(MainActivity.user);
+        if (modules.length == 0) {
             Toast.makeText(getActivity(),
                     getResources().getString(R.string.toastNoModule), Toast.LENGTH_LONG).show();
             return;
         }
-        CharSequence modules[] = VerificationLoader.getEnabledModules(this.user);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Verify by");
@@ -113,7 +116,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     void runVerification(int verificationMethod) {
-        verificationLoader.startVerification(this, getActivity(), "12345", verificationMethod);
+        verificationLoader.startVerification(this, getActivity(), reservation.appointment, verificationMethod);
     }
 
     @Override
@@ -129,7 +132,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void successfulDeletedReservation() {
         Toast.makeText(getActivity(),
-                getResources().getString(R.string.toastTermDeletionSuccessful), Toast.LENGTH_LONG).show();
+                getResources().getString(R.string.toastTermDeletionSuccessful), Toast.LENGTH_SHORT).show();
         MyReservationsPresenterImpl.updateData = true;
         myReservationsPresenter.getUserReservationsData();
     }
@@ -137,19 +140,29 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void backFragment() {
         getFragmentManager().popBackStack();
-        Toast.makeText(getActivity(), getResources().getString(R.string.toastNoReservation), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.toastNoReservation), Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onVerificationResult(Boolean result) {
+    public void onVerificationResult(Integer result) {
         System.out.println("MyReservationsFragment:onVerificationResult ---- result is -- " + result);
+        String toastMessage = "";
 
-        if(result){
-            Toast.makeText(getActivity(), getResources().getString(R.string.toastAppointmentConfirmation), Toast.LENGTH_LONG).show();
+        if (result == 1) {
+            toastMessage = getResources().getString(R.string.toastAppointmentConfirmation);
             myReservationsPresenter.updateReservation(reservation);
+        } else if (result == 0) {
+            toastMessage = getResources().getString(R.string.toastAppointmentCheck);
+        } else if (result == -1) {
+            toastMessage = getResources().getString(R.string.toastError);
         } else {
-            Toast.makeText(getActivity(), getResources().getString(R.string.toastError), Toast.LENGTH_LONG).show();
+            Reservation mReservation = new Reservation();
+            mReservation.id = result;
+            mReservation.confirmed = 1;
+            myReservationsPresenter.updateReservation(mReservation);
+            toastMessage = "Uspješno ste verificirali dolazak na termin id"+result;
         }
+        Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
     }
 }

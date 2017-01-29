@@ -38,7 +38,7 @@ public class PasswordMainActivity extends AppCompatActivity implements PasswordV
         btnPotvrdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean flag = presenter.checkInputPass();
+                Integer flag = presenter.checkInputPass();
                 passwordVerificationCaller.mPasswordVerificationHandler.onResultArrived(flag);
                 finish();
             }
