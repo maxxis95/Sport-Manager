@@ -49,8 +49,12 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        verificationLoader = new VerificationLoader();
-        verificationLoader.initializeNfc(this);
+
+        if(MainActivity.user.type > 1){
+            verificationLoader = new VerificationLoader();
+            verificationLoader.initializeNfc(this);
+        }
+
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
     }
@@ -100,7 +104,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     void runVerification(int verificationMethod) {
-        verificationLoader.startVerification(this, getActivity(), "12345", verificationMethod);
+        verificationLoader.startVerification(this, getActivity(), reservation.appointment, verificationMethod);
     }
 
     @Override

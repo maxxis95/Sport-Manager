@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static boolean tokenNeedsUpdating;
     private static ProgressDialog progressDialog;
     private NavigationView navigationView;
-    private Rights rights;
+    public Rights rights;
     private SharedPreferences pref;
     private String TAG = "MainActivity";
 

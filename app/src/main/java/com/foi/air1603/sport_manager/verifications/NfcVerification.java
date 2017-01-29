@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.foi.air1603.nfc_verification_module.NfcVerificationCaller;
 import com.foi.air1603.nfc_verification_module.NfcVerificationHandler;
+import com.foi.air1603.sport_manager.entities.Appointment;
 
 /**
  * Created by Karlo on 20.1.2017..
@@ -12,14 +13,14 @@ import com.foi.air1603.nfc_verification_module.NfcVerificationHandler;
 class NfcVerification extends Verification implements NfcVerificationHandler {
 
     @Override
-    public void VerifyApp(VerificationListener verificationListener, Activity activity, String challengeText) {
+    public void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment) {
         System.out.println("----------------->4. NfcVerification:VerifyApp");
 
         mVerificationListener = verificationListener;
 
         NfcVerificationCaller call = NfcVerificationCaller.getInstance().Init(this);
         if(activity != null){
-            call.startActivity(activity, challengeText);
+            call.startActivity(activity, appointment.id.toString());
         }
     }
 
