@@ -139,6 +139,8 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private void createLoginSession(User user) {
         SharedPreferences.Editor editor = pref.edit();
         Gson gson = new Gson();
+        user.nfcModule = 0;
+        user.passwordModule = 0;
         String json = gson.toJson(user);
         editor.putString("User", json);
         editor.commit();
