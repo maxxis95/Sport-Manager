@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sport-Manager</string>
-    <string name="facebook_app_id">263220337444149</string>
-    <string name="fb_login_protocol_scheme">fb263220337444149</string>
+    <string name="facebook_app_id" translatable="false">263220337444149</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb263220337444149</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -113,5 +113,57 @@
     <string name="edInviteTeamName">Naziv tima</string>
     <string name="btnInviteFriendAdd">Dodaj</string>
     <string name="btnInviteFriendsFinish">Završi rezervaciju</string>
+    <string name="appointmentPassword">Kreiraj lozinku</string>
+
+    //activity titles
+    <string name="titleRegisterActivity">Registracija</string>
+    <string name="titleReservationActivity">Rezervacija termina</string>
+    <string name="titleProfileActivity">Moj profil</string>
+    <string name="titlePlaceDetailsActivity">Detalji objekta</string>
+    <string name="titleMyReservationsActivity">Moje rezervacije</string>
+    <string name="titleMyPlacesReservationActivity">Rezervacije mojih objekata</string>
+    <string name="titleMyPlacesActivity">Moji sportski objekti</string>
+    <string name="titleMyPlacesAppointmentFragment">Termini u objektu</string>
+    <string name="titleInviteFriendsActivity">Pozivanje prijatelja</string>
+    <string name="titleAllPlacesActivity">Sportski objekti</string>
+    <string name="titleAddPlaceFragment">Dodaj sportski objekt</string>
+    <string name="titleAddAppointmentActivity">Dodaj termin</string>
+    <string name="titleAboutActivity">O aplikaciji</string>
+    <string name="titleSettingsActivity">Postavke</string>
+
+    //various titles
+    <string name="titleTimePicker">Odaberi vrijeme</string>
+    <string name="toastTermAddedTrue">Uspješno ste unijeli termin</string>
+    <string name="toastTermAddedFalse">Dodavanje termina nije uspjelo:</string>
+    <string name="toastFacilityAddedTrue">Uspješno ste dodali novi objekt</string>
+    <string name="toastFacilityAddedFalse">Dodavanje objekta nije uspjelo:</string>
+    <string name="progressDataLoading">Dohvaćanje podataka</string>
+    <string name="toastInviteFriendsAuto">Vi ste automatski dodani u tim!</string>
+    <string name="toastInviteFriendsAdded">Korisnik je već na popisu!</string>
+    <string name="toastInviteFriendsNotFound">Ne postoji traženi korisnik!</string>
+    <string name="progressReservationCreation">Kreiranje rezervacije</string>
+    <string name="toastReservationComplete">Uspješno ste rezervirali termin!</string>
+    <string name="alertLogin">Greška u dohvaćanju podataka!</string>
+    <string name="toastNoTermsForFacility">"Nema unešenih termina za taj objekt"</string>
+    <string name="toastAppointmentDeleted">Uspješno ste izbrisali termin!</string>
+    <string name="toastNoTerm">Nemate termina</string>
+    <string name="toastNoFacilities">Trenutno nemate svojih sportskih objekata!</string>
+    <string name="toastReservationDeleted">Uspješno ste izbrisali rezervaciju</string>
+    <string name="toastNoReservation">Nemate rezervacija</string>
+    <string name="toastNoReservations">Trenutno nemate svojih rezervacija!</string>
+    <string name="toastTermDeletionSuccessful">Uspješno ste izbrisali termin!</string>
+    <string name="toastAppointmentConfirmation">Uspješno potvrđen termin!</string>
+    <string name="toastError">Greška</string>
+    <string name="progressMapLoading">Učitavanje karte</string>
+    <string name="toastMapUnavailable">Nije moguće učitati Google mapu!</string>
+    <string name="toastRegistrationSuccessful">Uspješno ste se registrirali!</string>
+    <string name="toastRegistrationFailed">Registracija nije uspjela:</string>
+    <string name="progressTermsLoading">Učitavanje termina</string>
+    <string name="errorFieldNecessary">Polje je obavezno</string>
+
+    <string name="nfcSwitch">NFC modul</string>
+    <string name="passwordSwitch">Password modul</string>
+    <string name="btnDeactivateUserAccount">Deaktiviraj moj račun</string>
+    <string name="tvChooseLanguage">Language</string>
 
 </resources>

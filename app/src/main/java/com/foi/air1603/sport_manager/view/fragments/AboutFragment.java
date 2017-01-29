@@ -27,7 +27,7 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("O aplikaciji");
+        getActivity().setTitle(getResources().getString(R.string.titleAboutActivity));
 
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_about, null);

@@ -37,8 +37,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Moje rezervacije");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+        getActivity().setTitle(getResources().getString(R.string.titleMyReservationsActivity));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressDataLoading));
 
         View rootView = inflater.inflate(R.layout.fragment_my_reservations, container, false);
         rootView.setTag(TAG);
@@ -67,7 +67,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         if (reservations == null) {
             MainActivity.dismissProgressDialog();
             Toast.makeText(getActivity(),
-                    "Trenutno nemate svojih rezervacija!", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastNoReservations), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -120,7 +120,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void successfulDeletedReservation() {
         Toast.makeText(getActivity(),
-                "Uspješno ste izbrisali termin!", Toast.LENGTH_LONG).show();
+                getResources().getString(R.string.toastTermDeletionSuccessful), Toast.LENGTH_LONG).show();
         MyReservationsPresenterImpl.updateData = true;
         myReservationsPresenter.getUserReservationsData();
     }
@@ -128,7 +128,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     @Override
     public void backFragment() {
         getFragmentManager().popBackStack();
-        Toast.makeText(getActivity(), "Nemate rezervacija", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.toastNoReservation), Toast.LENGTH_LONG).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -136,11 +136,11 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     public void onVerificationResult(Boolean result) {
         System.out.println("MyReservationsFragment:onVerificationResult ---- result is -- " + result);
 
-        if (result) {
-            Toast.makeText(getActivity(), "Uspješno potvrđen termin!", Toast.LENGTH_LONG).show();
+        if(result){
+            Toast.makeText(getActivity(), getResources().getString(R.string.toastAppointmentConfirmation), Toast.LENGTH_LONG).show();
             myReservationsPresenter.updateReservation(reservation);
         } else {
-            Toast.makeText(getActivity(), "Greška!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.toastError), Toast.LENGTH_LONG).show();
         }
     }
 }

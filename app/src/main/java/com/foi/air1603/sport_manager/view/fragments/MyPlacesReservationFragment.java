@@ -36,8 +36,8 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Rezervacije mojih objekata");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+        getActivity().setTitle(getResources().getString(R.string.titleMyPlacesReservationActivity));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressDataLoading));
         View v = inflater.inflate(R.layout.fragment_my_places_reservations_list, null);
         return v;
     }
@@ -73,7 +73,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Override
     public void successfulDeletedReservation() {
         Toast.makeText(getActivity(),
-                "Uspješno ste izbrisali rezervaciju", Toast.LENGTH_LONG).show();
+                getResources().getString(R.string.toastReservationDeleted), Toast.LENGTH_LONG).show();
         MyPlacesAppointmentPresenterImpl.updateAppointments = true;
         presenter.getAllAppointmentsByPlaceId(searchParameter);
 
@@ -82,7 +82,7 @@ public class MyPlacesReservationFragment extends Fragment implements MyPlacesRes
     @Override
     public void backFragment() {
         getFragmentManager().popBackStack();
-        Toast.makeText(getActivity(), "Nemate rezervacija", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.toastNoReservation), Toast.LENGTH_LONG).show();
     }
 
 }

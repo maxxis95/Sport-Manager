@@ -58,8 +58,8 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Detalji objekta");
-        MainActivity.showProgressDialog("Učitavanje mape");
+        getActivity().setTitle(getResources().getString(R.string.titlePlaceDetailsActivity));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressMapLoading));
         View v = inflater.inflate(R.layout.fragment_details_place, null);
 
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
@@ -179,7 +179,7 @@ public class PlaceDetailsFragment extends Fragment implements PlaceDetailsView {
         if (mMapView == null) {
             MainActivity.dismissProgressDialog();
             Toast.makeText(getActivity(),
-                    "Nije moguće učitati Google mapu!", Toast.LENGTH_SHORT).show();
+                    getResources().getString(R.string.toastMapUnavailable), Toast.LENGTH_SHORT).show();
             return;
         }
 

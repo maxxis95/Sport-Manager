@@ -22,6 +22,7 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
@@ -30,6 +31,9 @@ import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 import com.google.gson.Gson;
+
+import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
+import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
@@ -87,7 +91,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Login");
+        getActivity().setTitle("Sport-Mapper");
         View v = inflater.inflate(R.layout.fragment_login, null);
         return v;
     }
@@ -191,6 +195,17 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     }
 
     @Override
+    public void onUsernameError() {
+        displayError(Username, "Korisničko ime ne postoji");
+    }
+
+    @Override
+    public void onPasswordError() {
+        displayError(Password, "Unijeli ste krivu lozinku");
+    }
+
+
+    @Override
     public void loginSuccessful(User userObject) {
         createLoginSession(userObject);
         Intent intent = new Intent(getActivity(), MainActivity.class).putExtra("User", userObject);
@@ -205,7 +220,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
     private void buildAlertDialogForWebServiceError(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setTitle("Greška u dohvaćanju podataka!");
+        alertDialogBuilder.setTitle(getResources().getString(R.string.alertLogin));
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(false)
