@@ -134,6 +134,7 @@
     //various titles
     <string name="titleTimePicker">Odaberi vrijeme</string>
     <string name="toastTermAddedTrue">Uspješno ste unijeli termin</string>
+    <string name="toastNoModule">Nemate uključeni modul,provjerite u postavkama</string>
     <string name="toastTermAddedFalse">Dodavanje termina nije uspjelo:</string>
     <string name="toastFacilityAddedTrue">Uspješno ste dodali novi objekt</string>
     <string name="toastFacilityAddedFalse">Dodavanje objekta nije uspjelo:</string>

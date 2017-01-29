@@ -1,7 +1,10 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -17,6 +20,7 @@ import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.adapters.MyReservationsExpandableItem;
 import com.foi.air1603.sport_manager.adapters.MyReservationsRecycleAdapter;
 import com.foi.air1603.sport_manager.entities.Reservation;
+import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenter;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
 import com.foi.air1603.sport_manager.verifications.VerificationListener;
@@ -34,6 +38,8 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     MyReservationsPresenter myReservationsPresenter;
     MyReservationsRecycleAdapter adapter;
     VerificationLoader verificationLoader;
+    private SharedPreferences pref;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,7 +91,14 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public void verifyAppointment() {
-        CharSequence modules[] = VerificationLoader.getEnabledModules();
+        pref = this.getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        this.user = getActivity().getIntent().getExtras().getParcelable("User");
+        if(user.nfcModule == 0 && user.passwordModule == 0) {
+            Toast.makeText(getActivity(),
+                    getResources().getString(R.string.toastNoModule), Toast.LENGTH_LONG).show();
+            return;
+        }
+        CharSequence modules[] = VerificationLoader.getEnabledModules(this.user);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Verify by");

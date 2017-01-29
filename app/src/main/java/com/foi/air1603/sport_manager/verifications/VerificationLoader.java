@@ -1,8 +1,10 @@
 package com.foi.air1603.sport_manager.verifications;
 
 import android.app.Activity;
+import android.widget.Toast;
 
-import com.foi.air1603.sport_manager.MainActivity;
+import com.foi.air1603.sport_manager.R;
+import com.foi.air1603.sport_manager.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +18,13 @@ public class VerificationLoader {
     private static List<String> modules;
     private Verification verification;
 
-    public static CharSequence[] getEnabledModules() {
+    public static CharSequence[] getEnabledModules(User user) {
         modules = new ArrayList<>();
 
-        if (MainActivity.user.nfcModule == 1) {
+        if (user.nfcModule == 1) {
             modules.add("NFC");
         }
-        if (MainActivity.user.passwordModule == 1) {
+        if (user.passwordModule == 1) {
             modules.add("Password");
         }
         return modules.toArray(new CharSequence[modules.size()]);

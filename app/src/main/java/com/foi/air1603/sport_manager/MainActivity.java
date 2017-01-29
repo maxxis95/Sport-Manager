@@ -38,6 +38,7 @@ import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
+import com.foi.air1603.sport_manager.view.fragments.SettingsFragment;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
@@ -282,9 +283,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_reservations) {
             //openMyReservationsFragment();
             replaceFragment(new MyReservationsFragment());
-        } /*else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
+            replaceFragment(new SettingsFragment());
 
-        }*/ else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_about) {
             replaceFragment(new AboutFragment());
         }
         else if (id == R.id.nav_logout) {

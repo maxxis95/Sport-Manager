@@ -86,9 +86,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             } else {
                 view.removeError(Password);
 
-                // Pre-setanje modula na ON na bazi sesije
-                user.nfcModule = 1;
-                user.passwordModule = 1;
 
                 view.loginSuccessful(user);
             }
