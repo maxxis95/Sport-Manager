@@ -35,8 +35,8 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Moji sportski objekti");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+        getActivity().setTitle(getResources().getString(R.string.titleMyPlacesActivity));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressDataLoading));
         return inflater.inflate(R.layout.fragment_my_places, null);
     }
 
@@ -59,7 +59,7 @@ public class MyPlacesFragment extends Fragment implements MyPlacesView {
         if (places == null){
             MainActivity.dismissProgressDialog();
             Toast.makeText(getActivity(),
-                    "Trenutno nemate svojih sportskih objekata!", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastNoFacilities), Toast.LENGTH_LONG).show();
             return;
         }
         recyclerView.setAdapter(new MyPlaceRecycleAdapter(places, this));

@@ -51,7 +51,7 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Pozivanje prijatelja");
+        getActivity().setTitle(getResources().getString(R.string.titleInviteFriendsActivity));
         return inflater.inflate(R.layout.fragment_invite_friends, null);
     }
 
@@ -99,13 +99,13 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
 
                 if (userAddsSelf) {
                     Toast.makeText(getActivity(),
-                            "Vi ste automatski dodani u tim!", Toast.LENGTH_SHORT).show();
+                            getResources().getString(R.string.toastInviteFriendsAuto), Toast.LENGTH_SHORT).show();
                 } else if (userAlreadyInvited) {
                     Toast.makeText(getActivity(),
-                            "Korisnik je već na popisu za pozivanje!", Toast.LENGTH_SHORT).show();
+                            getResources().getString(R.string.toastInviteFriendsAdded), Toast.LENGTH_SHORT).show();
                 } else if (!emailInDatabase) {
                     Toast.makeText(getActivity(),
-                            "Ne postoji traženi korisnik!", Toast.LENGTH_SHORT).show();
+                            getResources().getString(R.string.toastInviteFriendsNotFound), Toast.LENGTH_SHORT).show();
                 } else {
                     presenter.loadUserByEmail(textView.getText().toString());
                 }
@@ -134,7 +134,7 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
 
                 //System.out.println(1);
 
-                MainActivity.showProgressDialog("Kreiranje rezervacije");
+                MainActivity.showProgressDialog(getResources().getString(R.string.progressReservationCreation));
                 presenter.reservateAppointment(reservation);
             }
         });
@@ -142,7 +142,6 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
         presenter = new InviteFriendsPresenterImpl(this);
         presenter.loadAllUserEmails();
 
-        // friendsForInvite.add(MainActivity.user);
         // friendsForInvite.add(MainActivity.user);
         friendsRecycleAdapter = new FriendsRecycleAdapter(friendsForInvite, this);
         recyclerView.setAdapter(friendsRecycleAdapter);
@@ -152,7 +151,7 @@ public class InviteFriendsFragment extends Fragment implements InviteFriendsView
     public void successfulReservation() {
         MainActivity.dismissProgressDialog();
         Toast.makeText(getActivity(),
-                "Uspješno ste rezervirali termin!", Toast.LENGTH_LONG).show();
+                getResources().getString(R.string.toastReservationComplete), Toast.LENGTH_LONG).show();
         getFragmentManager().popBackStack();
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -54,6 +55,8 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
         callbackManager = CallbackManager.Factory.create();
         progressDialog = new ProgressDialog(this);
         activity = this;
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         LoginFragment login = new LoginFragment();

@@ -33,8 +33,8 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Termini na objektu");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+        getActivity().setTitle(getResources().getString(R.string.titleMyPlacesAppointmentFragment));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressDataLoading));
         View v = inflater.inflate(R.layout.fragment_my_places_appointments, null);
         return v;
     }
@@ -61,7 +61,7 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
         if (appointments == null){
             MainActivity.dismissProgressDialog();
             Toast.makeText(getActivity(),
-                    "Nema unešenih termina za taj objekt", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastNoTermsForFacility), Toast.LENGTH_LONG).show();
             return;
         }
         System.out.println("trebam uci u adapter");
@@ -79,7 +79,7 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
     @Override
     public void successfulDeletedAppointment() {
         Toast.makeText(getActivity(),
-                "Uspješno ste izbrisali termin!", Toast.LENGTH_LONG).show();
+                getResources().getString(R.string.toastAppointmentDeleted), Toast.LENGTH_LONG).show();
         MyPlacesAppointmentPresenterImpl.updateAppointments = true;
         presenter.getAllAppointmentByPlaceID(this.id);
 
@@ -87,8 +87,7 @@ public class MyPlacesAppointmentFragment  extends android.app.Fragment implement
 
     @Override
     public void backFragment() {
-
         getFragmentManager().popBackStack();
-        Toast.makeText(getActivity(), "Nemate termina", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.toastNoTerm), Toast.LENGTH_LONG).show();
     }
 }

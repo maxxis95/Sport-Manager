@@ -30,19 +30,6 @@
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabPlaceFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvPlaceName"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="17dp"
-            android:layout_marginEnd="22dp"
-            android:clickable="true"
-            app:fabSize="mini"
-            app:srcCompat="@mipmap/ic_star_white_48dp"
-            app:backgroundTint="@color/colorChanged" />
-
         <TextView
             android:id="@+id/tvPlaceAddress"
             android:layout_width="180dp"

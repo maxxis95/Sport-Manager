@@ -75,7 +75,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Rezervacija termina");
+        getActivity().setTitle(getResources().getString(R.string.titleReservationActivity));
         MyReservationsPresenterImpl.updateData = true;
 
         context = container.getContext();
@@ -115,7 +115,7 @@ public class ReservationFragment extends android.app.Fragment implements Reserva
         //calendar.setMaxDate(1514761199); //31.12.2017.
 
         appointmentPresenter = AppointmentPresenterImpl.getInstance().Init(this);
-        MainActivity.showProgressDialog("Učitavanje termina");
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressTermsLoading));
         appointmentPresenter.loadAllAppointments();
 
         sportPresenter = new SportPresenterImpl(this);

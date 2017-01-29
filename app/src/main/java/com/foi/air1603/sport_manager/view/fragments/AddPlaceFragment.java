@@ -66,7 +66,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         MainActivity activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
 
-        getActivity().setTitle("Dodaj sportski objekt");
+        getActivity().setTitle(getResources().getString(R.string.titleAddPlaceFragment));
         View v = inflater.inflate(R.layout.fragment_add_place, null);
         return v;
     }
@@ -130,7 +130,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
                         placeStartInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle(getResources().getString(R.string.titleTimePicker));
                 mTimePicker.show();
 
             }
@@ -155,7 +155,7 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
                         placeStopInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle(getResources().getString(R.string.titleTimePicker));
                 mTimePicker.show();
             }
         });
@@ -235,11 +235,11 @@ public class AddPlaceFragment extends Fragment implements AddPlaceView {
         PlacePresenterImpl.updateData = true;
         if (statusCode == 200) {
             Toast.makeText(getActivity(),
-                    "Uspješno ste dodali novi objekt", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastFacilityAddedTrue), Toast.LENGTH_LONG).show();
             getFragmentManager().popBackStack();
         } else {
             Toast.makeText(getActivity(),
-                    "Dodavanje objekta nije uspjelo:" + message, Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastFacilityAddedFalse) + message, Toast.LENGTH_LONG).show();
         }
     }
 }

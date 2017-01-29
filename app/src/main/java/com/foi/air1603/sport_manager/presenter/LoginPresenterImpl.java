@@ -13,8 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
+import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -73,7 +73,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         BaseActivity.dismissProgressDialog();
         if (users == null) {
-            onUsernameError();
+            view.onUsernameError();
         } else {
             user = users.get(0);
             System.out.println("LoginPresenterImpl:getResponseData: " + user.toString());
@@ -82,7 +82,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             String userEnteredPassword = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
             System.out.println(userEnteredPassword);
             if (!userEnteredPassword.equals(user.password)) {
-                onPasswordError();
+                view.onPasswordError();
             } else {
                 view.removeError(Password);
                 view.loginSuccessful(user);

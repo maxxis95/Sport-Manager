@@ -48,7 +48,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     private Button btnAddAppointment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Dodaj termin");
+        getActivity().setTitle(getResources().getString(R.string.titleAddAppointmentActivity));
         context = container.getContext();
         View v = inflater.inflate(R.layout.fragment_add_appointment, null);
         return v;
@@ -110,7 +110,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                         appointmentStartInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle(getResources().getString(R.string.titleTimePicker));
                 mTimePicker.show();
 
             }
@@ -135,7 +135,7 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
                         appointmentEndInput.setText(selH + ":" + selM);
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle(getResources().getString(R.string.titleTimePicker));
                 mTimePicker.show();
             }
         });
@@ -255,13 +255,13 @@ public class AddAppointmentFragment extends Fragment implements AddAppointmentVi
     public void returnResponseCode(int statusCode, String message) {
         if (statusCode == 200) {
             Toast.makeText(getActivity(),
-                    "Uspješno ste unijeli termin", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastTermAddedTrue), Toast.LENGTH_LONG).show();
             MyPlacesAppointmentPresenterImpl.updateAppointments = true;
             getFragmentManager().popBackStack();
 
         } else {
             Toast.makeText(getActivity(),
-                    "Dodavanje termina nije uspjelo:" + message, Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastTermAddedFalse) + message, Toast.LENGTH_LONG).show();
         }
     }
 }

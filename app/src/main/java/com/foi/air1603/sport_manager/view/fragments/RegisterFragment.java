@@ -29,7 +29,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Registracija");
+        getActivity().setTitle(getResources().getString(R.string.titleRegisterActivity));
         View v = inflater.inflate(R.layout.fragment_register, null);
         return v;
     }
@@ -57,13 +57,13 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
     public void returnResponseCode(int statusCode, String message) {
         if (statusCode == 200) {
             Toast.makeText(getActivity(),
-                    "Uspješno ste se registrirali!", Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastRegistrationSuccessful), Toast.LENGTH_LONG).show();
 
             getFragmentManager().popBackStack();
 
         } else {
             Toast.makeText(getActivity(),
-                    "Registracija nije uspjela:" + message, Toast.LENGTH_LONG).show();
+                    getResources().getString(R.string.toastRegistrationFailed) + message, Toast.LENGTH_LONG).show();
         }
     }
 

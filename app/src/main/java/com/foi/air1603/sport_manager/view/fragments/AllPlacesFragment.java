@@ -37,8 +37,8 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Sportski objekti");
-        MainActivity.showProgressDialog("Dohvaćanje podataka");
+        getActivity().setTitle(getResources().getString(R.string.titleAllPlacesActivity));
+        MainActivity.showProgressDialog(getResources().getString(R.string.progressDataLoading));
 
         View v = inflater.inflate(R.layout.fragment_places, null);
         return v;

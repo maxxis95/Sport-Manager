@@ -21,4 +21,8 @@ public interface LoginView {
 
     void loginSuccessful(User userObject);
 
+    void onUsernameError();
+
+    void onPasswordError();
+
 }
