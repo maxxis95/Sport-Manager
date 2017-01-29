@@ -19,7 +19,7 @@ class NfcVerification extends Verification implements NfcVerificationHandler {
         mVerificationListener = verificationListener;
 
         NfcVerificationCaller call = NfcVerificationCaller.getInstance().Init(this);
-        if(activity != null){
+        if (activity != null) {
             call.startActivity(activity, appointment.id.toString());
         }
     }
@@ -27,6 +27,6 @@ class NfcVerification extends Verification implements NfcVerificationHandler {
     @Override
     public void onResultArrived(Integer result) {
         System.out.println("----------------->7. NfcVerification:onResultArrived");
-      //  mVerificationListener.onVerificationResult(result != null);
+        mVerificationListener.onVerificationResult(result);
     }
 }

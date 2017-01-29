@@ -30,14 +30,13 @@ import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
 import com.foi.air1603.sport_manager.loaders.WsDataLoader;
 import com.foi.air1603.sport_manager.presenter.MyReservationsPresenterImpl;
-import com.foi.air1603.sport_manager.verifications.VerificationListener;
-import com.foi.air1603.sport_manager.verifications.VerificationLoader;
 import com.foi.air1603.sport_manager.view.fragments.AboutFragment;
 import com.foi.air1603.sport_manager.view.fragments.AllPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyPlacesFragment;
 import com.foi.air1603.sport_manager.view.fragments.MyReservationsFragment;
 import com.foi.air1603.sport_manager.view.fragments.ProfileFragment;
+import com.foi.air1603.sport_manager.view.fragments.SettingsFragment;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
@@ -46,15 +45,15 @@ import com.squareup.picasso.Picasso;
  * Created by Karlo on 3.12.2016..
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener, VerificationListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DataLoadedListener {
 
     public static User user;
     public static FragmentManager fragmentManager;
     public static Activity activity;
     public static boolean tokenNeedsUpdating;
     private static ProgressDialog progressDialog;
-    private NavigationView navigationView;
     public Rights rights;
+    private NavigationView navigationView;
     private SharedPreferences pref;
     private String TAG = "MainActivity";
 
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             dataLoader.loadData(this, "updateToken", android_id, MainActivity.user.id + "", token, User.class, null);
         }
 
-        if(user != null){
+        if (user != null) {
             rights = rights.getRightFormInt(user.type);
             setNavigationView();
             setAllUsersDataToHeaderView();
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void updateHeaderView() {
         //System.out.println("Pokušavam refreshat sliku");
-        if (user != null){
+        if (user != null) {
             user = getIntent().getExtras().getParcelable("User");
             setAllUsersDataToHeaderView();
         }
@@ -282,12 +281,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_reservations) {
             //openMyReservationsFragment();
             replaceFragment(new MyReservationsFragment());
-        } /*else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
+            replaceFragment(new SettingsFragment());
 
-        }*/ else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_about) {
             replaceFragment(new AboutFragment());
-        }
-        else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             logout();
         }
 
@@ -303,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
         user = null;
         MyReservationsPresenterImpl.updateData = true;
-        
+
         LoginFragment.logOutOfFacebook();
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -317,12 +316,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
     }
-
-    @Override
-    public void onVerificationResult(Boolean result) {
-        System.out.println("MainActivity:onVerificationResult ---- result is -- " + result);
-    }
 }
+
 
 /*
 sample kod za disableanje modula

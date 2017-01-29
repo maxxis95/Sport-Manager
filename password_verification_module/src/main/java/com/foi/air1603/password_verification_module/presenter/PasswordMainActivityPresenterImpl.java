@@ -14,14 +14,11 @@ public class PasswordMainActivityPresenterImpl implements PasswordMainActivityPr
     }
 
     @Override
-    public Boolean checkInputPass() {
+    public Integer checkInputPass() {
         if (view.getPassFromApp().equals(view.getPassFromEditText())) {
-            System.out.println("tocan");
-            return true;
+            return 1;
         } else {
-
-            System.out.println("ne tocan");
-            return false;
+            return -1;
         }
     }
 }

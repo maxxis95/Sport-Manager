@@ -9,10 +9,10 @@ import android.content.Intent;
 
 public class NfcVerificationCaller {
 
-    public NfcVerificationHandler mNfcVerificationHandler;
     private static NfcVerificationCaller instance;
+    NfcVerificationHandler mNfcVerificationHandler;
 
-    public NfcVerificationCaller() {
+    private NfcVerificationCaller() {
     }
 
     public static NfcVerificationCaller getInstance() {
@@ -29,12 +29,12 @@ public class NfcVerificationCaller {
         return this;
     }
 
-    public void startActivity(Activity activity, String challangeText) {
+    public void startActivity(Activity activity, String challengeText) {
 
         System.out.println("----------------->5. NfcVerificationCaller:startActivity");
 
         Intent intent = new Intent();
-        intent.putExtra("pass", challangeText);
+        intent.putExtra("pass", challengeText);
         intent.setClass(activity, NfcMainActivity.class);
         activity.startActivity(intent);
     }
