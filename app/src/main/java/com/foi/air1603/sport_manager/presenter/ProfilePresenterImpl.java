@@ -7,10 +7,10 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.model.UserInteractor;
 import com.foi.air1603.sport_manager.model.UserInteractorImpl;
 import com.foi.air1603.sport_manager.view.ProfileView;
+import com.foi.air1603.webservice.AirWebServiceResponse;
 
 
 /**
@@ -22,6 +22,7 @@ public class ProfilePresenterImpl implements ProfilePresenter, PresenterHandler 
     private ProfileView view;
     private String filePath = "";
     private Uri fileUri;
+
     public ProfilePresenterImpl(ProfileView profileView) {
         this.view = profileView;
     }
