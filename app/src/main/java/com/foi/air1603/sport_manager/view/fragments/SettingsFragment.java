@@ -1,9 +1,11 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -118,6 +120,18 @@ public class SettingsFragment extends android.app.Fragment {
         if (item.equals("nfc")) {
             user.nfcModule = value;
             MainActivity.user.nfcModule = value;
+
+            int option = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+            if(value == 1){
+                option = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+            }
+
+            PackageManager pm  = getActivity().getApplicationContext().getPackageManager();
+            ComponentName componentName = new ComponentName("com.foi.air1603.sport_manager",
+                    "com.foi.air1603.nfc_verification_module.NfcMainActivity");
+            pm.setComponentEnabledSetting(componentName, option,
+                    PackageManager.DONT_KILL_APP);
+
         } else if (item.equals("pass")) {
             user.passwordModule = value;
             MainActivity.user.passwordModule = value;
@@ -150,5 +164,7 @@ public class SettingsFragment extends android.app.Fragment {
         user = gson.fromJson(json, User.class);
         return user;
     }
+
+
 }
 

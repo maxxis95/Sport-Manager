@@ -141,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (tokenNeedsUpdating && user != null) {
             // [START get_token]
             String token = FirebaseInstanceId.getInstance().getToken();
-            Log.d(TAG, token);
-            Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+            //Log.d(TAG, token);
+            //Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
             // [END get_token]
             String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
             DataLoader dataLoader = new WsDataLoader();
@@ -322,10 +322,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 /*
 sample kod za disableanje modula
 
-PackageManager pm  = getApplicationContext().getPackageManager();
-        ComponentName componentName = new ComponentName("com.foi.air1603.sport_manager",
-                "com.foi.air1603.nfc_verification_module.NfcMainActivity");
-        pm.setComponentEnabledSetting(componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
+
  */

@@ -100,5 +100,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+        // PAZI! nisam siguran je li se i MainActivity:handleSystemTrayNotification() koristi
+
     }
 }
