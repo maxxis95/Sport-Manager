@@ -1,6 +1,7 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums;
@@ -44,7 +46,10 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
         //instance the presenter class
         presenter = new RegisterPresenterImpl(this);
         btnRegister = (Button) getActivity().findViewById(R.id.bRegistracija);
-        facebookUser = ProfileFragment.user;
+        if(LoginFragment.facebookLogin){
+            facebookUser = LoginFragment.facebookUser;
+        }
+
 
         if(facebookUser != null){
             setFacebookUserTextView();
@@ -76,7 +81,12 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
             Toast.makeText(getActivity(),
                     getResources().getString(R.string.toastRegistrationSuccessful), Toast.LENGTH_LONG).show();
 
-            getFragmentManager().popBackStack();
+            if(LoginFragment.facebookLogin){
+                Intent intent = new Intent(this.getActivity(), MainActivity.class).putExtra("User", RegisterPresenterImpl.faceBookUser);
+                startActivity(intent);
+            }else {
+                getFragmentManager().popBackStack();
+            }
 
         } else {
             Toast.makeText(getActivity(),

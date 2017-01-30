@@ -97,10 +97,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public static void showProgressDialog(String message) {
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage(message);
-        progressDialog.show();
+        if(progressDialog != null){
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
     }
 
     public static void dismissProgressDialog() {

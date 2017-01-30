@@ -1,11 +1,7 @@
 package com.foi.air1603.sport_manager.entities;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.foi.air1603.sport_manager.MainActivity;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -24,6 +20,7 @@ public class User implements Parcelable {
     public String username;
     public int nfcModule;
     public int passwordModule;
+    public String facebook_id;
 
     @Override
     public int describeContents() {
@@ -44,6 +41,7 @@ public class User implements Parcelable {
         dest.writeString(this.username);
         dest.writeInt(this.nfcModule);
         dest.writeInt(this.passwordModule);
+        dest.writeString(this.facebook_id);
     }
 
     public User() {
@@ -62,6 +60,7 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.passwordModule = in.readInt();
         this.nfcModule = in.readInt();
+        this.facebook_id= in.readString();
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

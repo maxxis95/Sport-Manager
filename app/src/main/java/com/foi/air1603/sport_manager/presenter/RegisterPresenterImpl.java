@@ -2,6 +2,7 @@ package com.foi.air1603.sport_manager.presenter;
 
 import android.util.Patterns;
 
+import com.foi.air1603.sport_manager.view.fragments.LoginFragment;
 import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.entities.User;
@@ -24,6 +25,7 @@ import static com.foi.air1603.sport_manager.helper.enums.RegisterViewEnums.Usern
 
 public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandler {
 
+    public static User faceBookUser = null;
     private final RegisterView view;
     boolean valid = false;
     boolean emailFlag, usernameFlag, passwordFlag, password1Flag, nameFlag, lastNameFlag, addressFlag, phoneNumberFlag = true;
@@ -126,7 +128,12 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
 
         if(emailFlag && usernameFlag && passwordFlag && password1Flag && nameFlag && lastNameFlag && addressFlag && phoneNumberFlag){
             System.out.println("----------------->2. RegisterPresenterImpl:validateUserRegister");
-            userInteractor.setUserObject(createNewUserObject());
+            if(LoginFragment.facebookLogin){
+                userInteractor.setUserObject(createNewFaceUserObject());
+            }else {
+                userInteractor.setUserObject(createNewUserObject());
+            }
+
         }
 
     }
@@ -156,6 +163,25 @@ public class RegisterPresenterImpl implements RegisterPresenter, PresenterHandle
         user.password = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
 
         return user;
+    }
+
+    private User createNewFaceUserObject(){
+        if(LoginFragment.facebookUser != null){
+            User user = new User();
+            user.username = view.getUsernameFromEditText();
+            user.address = view.getAddressFromEditText();
+            user.email = view.getEmailFromEditText();
+            user.firstName = view.getNameFromEditText();
+            user.lastName = view.getLastNameFromEditText();
+            user.phone = view.getPhoneNumberFromEditText();
+            user.password = BaseActivity.get_SHA_512_SecurePassword(view.getPasswordFromEditText(), "");
+            user.facebook_id = LoginFragment.facebookUser.facebook_id;
+            user.img = LoginFragment.facebookUser.img;
+            user.type = LoginFragment.facebookUser.type;
+            faceBookUser = user;
+            return user;
+        }
+       return null;
     }
 
     /**

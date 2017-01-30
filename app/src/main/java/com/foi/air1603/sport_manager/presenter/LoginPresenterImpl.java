@@ -13,8 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
 import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
+import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
 
 /**
  * Created by Generalko on 10.11.2016..
@@ -22,6 +22,7 @@ import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password
 
 public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLoginFinishedListener, PresenterHandler {
 
+    public static User facebookUser = null;
     private final LoginView view;
     private UserInteractor userInteractor;
     private User user;
@@ -79,7 +80,9 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
         if(view.userLoggedInFacebook()){
             if(users == null){
-                // todo: open register fragment
+                view.buildAlertDialogMessage();
+                view.createNewFaceUserObject();
+                view.loginSuccessful(RegisterPresenterImpl.faceBookUser);
             }else{
                 user = users.get(0);
                 view.loginSuccessful(user);
