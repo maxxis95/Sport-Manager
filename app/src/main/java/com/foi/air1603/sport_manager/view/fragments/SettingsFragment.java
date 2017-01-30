@@ -1,9 +1,11 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -21,16 +23,19 @@ import android.widget.Toast;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
+import com.foi.air1603.sport_manager.view.SettingsView;
 import com.google.gson.Gson;
 
 import java.util.Locale;
 
-public class SettingsFragment extends android.app.Fragment {
+public class SettingsFragment extends android.app.Fragment implements SettingsView {
     private User user;
     private int passModul;
     private int nfcModul;
+    private int notification;
     private Switch switchPass;
     private Switch switchNfc;
+    private Switch switchNotifications;
     private SharedPreferences pref;
 
     private Spinner spinnerctrl;
@@ -45,6 +50,7 @@ public class SettingsFragment extends android.app.Fragment {
         user = getActivity().getIntent().getExtras().getParcelable("User");
         this.passModul = user.passwordModule;
         this.nfcModul = user.nfcModule;
+        this.notification = user.hide_notifications;
         View v = inflater.inflate(R.layout.fragment_settings, null);
         return v;
     }
@@ -53,6 +59,7 @@ public class SettingsFragment extends android.app.Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         this.switchPass = (Switch) getActivity().findViewById(R.id.switchPassword);
         this.switchNfc = (Switch) getActivity().findViewById(R.id.switchNFC);
+        this.switchNotifications = (Switch) getActivity().findViewById(R.id.switchNotification);
         setSettings();
         switchNfc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +71,7 @@ public class SettingsFragment extends android.app.Fragment {
                     value = 0;
                 }
                 updateSession("nfc", value);
+                setSettings();
             }
         });
         switchPass.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +84,20 @@ public class SettingsFragment extends android.app.Fragment {
                     value = 0;
                 }
                 updateSession("pass", value);
+                setSettings();
+            }
+        });
+
+        switchNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int value;
+                if (user.hide_notifications == 0) {
+                    value = 1;
+                } else {
+                    value = 0;
+                }
+                updateSession("notification", value);
                 setSettings();
             }
         });
@@ -111,6 +133,11 @@ public class SettingsFragment extends android.app.Fragment {
         } else {
             switchNfc.setChecked(true);
         }
+        if (user.hide_notifications == 0) {
+            switchNotifications.setChecked(false);
+        } else {
+            switchNotifications.setChecked(true);
+        }
     }
 
     private void updateSession(String item, int value) {
@@ -118,9 +145,24 @@ public class SettingsFragment extends android.app.Fragment {
         if (item.equals("nfc")) {
             user.nfcModule = value;
             MainActivity.user.nfcModule = value;
+
+            int option = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+            if(value == 1){
+                option = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+            }
+
+            PackageManager pm  = getActivity().getApplicationContext().getPackageManager();
+            ComponentName componentName = new ComponentName("com.foi.air1603.sport_manager",
+                    "com.foi.air1603.nfc_verification_module.NfcMainActivity");
+            pm.setComponentEnabledSetting(componentName, option,
+                    PackageManager.DONT_KILL_APP);
+
         } else if (item.equals("pass")) {
             user.passwordModule = value;
             MainActivity.user.passwordModule = value;
+        } else if (item.equals("notification")) {
+            user.hide_notifications = value;
+            MainActivity.user.hide_notifications = value;
         }
 
         getActivity().getIntent().putExtra("User", user);
@@ -150,5 +192,8 @@ public class SettingsFragment extends android.app.Fragment {
         user = gson.fromJson(json, User.class);
         return user;
     }
+
+
+
 }
 

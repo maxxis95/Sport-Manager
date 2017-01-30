@@ -95,10 +95,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
+        if(MainActivity.user.hide_notifications == 0) {
+            return;
+        }
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+        // PAZI! nisam siguran je li se i MainActivity:handleSystemTrayNotification() koristi
+
     }
 }

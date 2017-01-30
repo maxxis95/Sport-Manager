@@ -20,7 +20,11 @@ public class User implements Parcelable {
     public String username;
     public int nfcModule;
     public int passwordModule;
+<<<<<<< HEAD
     public String facebook_id;
+=======
+    public int hide_notifications;
+>>>>>>> 70f7731686111a427103b7f30ce1077d12fdb459
 
     @Override
     public int describeContents() {
@@ -41,7 +45,11 @@ public class User implements Parcelable {
         dest.writeString(this.username);
         dest.writeInt(this.nfcModule);
         dest.writeInt(this.passwordModule);
+<<<<<<< HEAD
         dest.writeString(this.facebook_id);
+=======
+        dest.writeInt(this.hide_notifications);
+>>>>>>> 70f7731686111a427103b7f30ce1077d12fdb459
     }
 
     public User() {
@@ -60,7 +68,11 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.passwordModule = in.readInt();
         this.nfcModule = in.readInt();
+<<<<<<< HEAD
         this.facebook_id= in.readString();
+=======
+        this.hide_notifications = in.readInt();
+>>>>>>> 70f7731686111a427103b7f30ce1077d12fdb459
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

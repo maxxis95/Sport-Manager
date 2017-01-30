@@ -5,4 +5,5 @@ package com.foi.air1603.sport_manager.view;
  */
 
 public interface SettingsView {
+
 }

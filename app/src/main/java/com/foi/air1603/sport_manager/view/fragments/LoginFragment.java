@@ -136,6 +136,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         Gson gson = new Gson();
         user.nfcModule = 0;
         user.passwordModule = 0;
+        user.hide_notifications = 0;
         String json = gson.toJson(user);
         editor.putString("User", json);
         editor.commit();
