@@ -23,6 +23,15 @@
         android:layout_alignBottom="@+id/switchPassword"
         android:layout_alignStart="@+id/tvNFCSwitch" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifikacije"
+        android:id="@+id/tvNotificationSwitch"
+        android:layout_alignBaseline="@+id/switchNotification"
+        android:layout_alignBottom="@+id/switchPassword"
+        android:layout_alignStart="@+id/tvPasswordSwitch" />
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,13 +49,21 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchNotification"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/switchNFC"
+        android:layout_alignStart="@+id/switchNFC" />
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/switchNFC"
-        android:layout_alignEnd="@+id/switchNFC" />
+        android:layout_below="@+id/switchNotification"
+        android:layout_alignEnd="@+id/switchNotification" />
 
     <TextView
         android:text="@string/tvChooseLanguage"
@@ -56,14 +73,5 @@
         android:layout_alignStart="@+id/tvPasswordSwitch"
         android:id="@+id/tvChooseLanguage" />
 
-    <Button
-        android:text="@string/btnDeactivateUserAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:id="@+id/btnDeactivate"
-        android:layout_below="@id/tvChooseLanguage"
-        android:layout_marginTop="300dp"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

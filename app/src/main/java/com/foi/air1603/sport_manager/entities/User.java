@@ -24,6 +24,7 @@ public class User implements Parcelable {
     public String username;
     public int nfcModule;
     public int passwordModule;
+    public int hide_notifications;
 
     @Override
     public int describeContents() {
@@ -44,6 +45,7 @@ public class User implements Parcelable {
         dest.writeString(this.username);
         dest.writeInt(this.nfcModule);
         dest.writeInt(this.passwordModule);
+        dest.writeInt(this.hide_notifications);
     }
 
     public User() {
@@ -62,6 +64,7 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.passwordModule = in.readInt();
         this.nfcModule = in.readInt();
+        this.hide_notifications = in.readInt();
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
