@@ -104,7 +104,7 @@
     <string name="placeAppointmentID">Reservation ID</string>
     <string name="appointmentPassword">Create a password</string>
     <string name="reservationPlaceName">Facility name</string>
-    <string name="about">This application was build as a project within the Software Analysis and Development course on the Faculty of Organization and Informatics. The team that was working on the application consists of four members: Rober Pizek, Karlo Šimunović, Tarek Saghit and Marko Flajšek.</string>
+    <string name="about">This application was built as a project within the Software Analysis and Development course on the Faculty of Organization and Informatics. The team that was working on the application consists of four members: Rober Pizek, Karlo Šimunović, Tarek Saghit and Marko Flajšek.</string>
     <string name="appointmentDelete">Delete the reservation</string>
     <string name="autoCompleteFriendsName">Enter the users e-mail</string>
     <string name="btnInviteFriendAdd">Add</string>
@@ -156,7 +156,7 @@
     <string name="titleAddAppointmentActivity">Add a term</string>
     <string name="titleAddPlaceFragment">Add a sports facility</string>
     <string name="titleInviteFriendsActivity">Invitation of friends</string>
-    <string name="titleMyPlacesActivity">My fports facilities</string>
+    <string name="titleMyPlacesActivity">My Sports facilities</string>
     <string name="titleMyPlacesAppointmentFragment">Terms in a facility</string>
     <string name="titleMyPlacesReservationActivity">My Facility reservations</string>
     <string name="titleMyReservationsActivity">My reservations</string>
@@ -164,12 +164,12 @@
     <string name="titleReservationActivity">Term reservations</string>
     <string name="errorEmailInvalid">E-mail not valid</string>
     <string name="errorMinOneParticipant">At least one participant is required</string>
-    <string name="errorPasswordMatching">Passwords don\\\'t match</string>
+    <string name="errorPasswordMatching">Passwords don\'t match</string>
     <string name="errorUsernameNotFound">Username does not exist</string>
-    <string name="errorWorkingHours">Working hours aren\\\'t valid</string>
+    <string name="errorWorkingHours">Working hours aren\'t valid</string>
     <string name="errorWrongPassword">Wrong password</string>
     <string name="progressDataCheck">Checking data</string>
-    <string name="toastNoModule">The module isn\\\'t turned on, check your settings</string>
+    <string name="toastNoModule">The module isn\'t turned on, check your settings</string>
     <string name="toastAppointmentCheck">The owner has noted your arrival. Feel free to refresh your reservation\\\'s window to check.</string>
 
 </resources>

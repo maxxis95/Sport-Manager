@@ -2,17 +2,14 @@ package com.foi.air1603.sport_manager.verifications;
 
 import android.app.Activity;
 
-import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 /**
  * Created by Korisnik on 12-Jan-17.
  */
 
-abstract class Verification {
+interface Verification {
 
-    VerificationListener mVerificationListener;
+    void VerifyApp(VerificationListener verificationListener, Activity activity, Reservation reservation);
 
-    public void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment) {
-        mVerificationListener = verificationListener;
-    }
 }
