@@ -134,9 +134,9 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
             switchNfc.setChecked(true);
         }
         if (user.hide_notifications == 0) {
-            switchNotifications.setChecked(true);
-        } else {
             switchNotifications.setChecked(false);
+        } else {
+            switchNotifications.setChecked(true);
         }
     }
 
