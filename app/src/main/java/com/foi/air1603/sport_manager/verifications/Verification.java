@@ -2,7 +2,7 @@ package com.foi.air1603.sport_manager.verifications;
 
 import android.app.Activity;
 
-import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 
 /**
  * Created by Korisnik on 12-Jan-17.
@@ -10,6 +10,6 @@ import com.foi.air1603.sport_manager.entities.Appointment;
 
 interface Verification {
 
-    void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment);
+    void VerifyApp(VerificationListener verificationListener, Activity activity, Reservation reservation);
 
 }

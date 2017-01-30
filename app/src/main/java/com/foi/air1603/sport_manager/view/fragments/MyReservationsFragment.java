@@ -1,5 +1,6 @@
 package com.foi.air1603.sport_manager.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     MyReservationsPresenter myReservationsPresenter;
     MyReservationsRecycleAdapter adapter;
     VerificationLoader verificationLoader;
+    private Activity activity;
     private SharedPreferences pref;
     private User user;
 
@@ -59,6 +61,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             verificationLoader.initializeNfc(this);
         }
 
+        activity = getActivity();
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
     }
@@ -70,7 +73,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
         if (reservations == null) {
             MainActivity.dismissProgressDialog();
-            Toast.makeText(getActivity(),
+            Toast.makeText(activity,
                     getResources().getString(R.string.toastNoReservations), Toast.LENGTH_LONG).show();
             return;
         }
@@ -98,7 +101,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
         CharSequence modules[] = VerificationLoader.getEnabledModules(MainActivity.user);
         if (modules.length == 0) {
-            Toast.makeText(getActivity(),
+            Toast.makeText(activity,
                     getResources().getString(R.string.toastNoModule), Toast.LENGTH_LONG).show();
             return;
         }
@@ -116,7 +119,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     }
 
     void runVerification(int verificationMethod) {
-        verificationLoader.startVerification(this, getActivity(), reservation.appointment, verificationMethod);
+        verificationLoader.startVerification(this, getActivity(), reservation, verificationMethod);
     }
 
     @Override
@@ -131,7 +134,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
     @Override
     public void successfulDeletedReservation() {
-        Toast.makeText(getActivity(),
+        Toast.makeText(activity,
                 getResources().getString(R.string.toastTermDeletionSuccessful), Toast.LENGTH_SHORT).show();
         MyReservationsPresenterImpl.updateData = true;
         myReservationsPresenter.getUserReservationsData();
@@ -161,8 +164,14 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             mReservation.id = result;
             mReservation.confirmed = 1;
             myReservationsPresenter.updateReservation(mReservation);
-            toastMessage = "Uspješno ste verificirali dolazak na termin id"+result;
+            toastMessage = "Uspješno ste verificirali dolazak na termin id " + result;
         }
-        Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
+
+        final String finalToastMessage = toastMessage;
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(activity, finalToastMessage, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

@@ -68,7 +68,7 @@ public class NfcMainActivity extends Activity implements NfcAdapter.OnNdefPushCo
         records[0] = record;
         records[1] = NdefRecord.createApplicationRecord(getPackageName());
 
-        System.out.println("Record " + record);
+        System.out.println("messageToSend " + messageToSend);
         return records;
     }
 

@@ -2,7 +2,7 @@ package com.foi.air1603.sport_manager.verifications;
 
 import android.app.Activity;
 
-import com.foi.air1603.sport_manager.entities.Appointment;
+import com.foi.air1603.sport_manager.entities.Reservation;
 import com.foi.air1603.sport_manager.entities.User;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class VerificationLoader {
         return modules.toArray(new CharSequence[modules.size()]);
     }
 
-    public void startVerification(VerificationListener verificationListener, Activity activity, Appointment appointment, int verificationMethod) {
+    public void startVerification(VerificationListener verificationListener, Activity activity, Reservation reservation, int verificationMethod) {
         if (modules == null) {
             return;
         }
@@ -40,7 +40,7 @@ public class VerificationLoader {
         } else if (Objects.equals(module, "Password")) {
             verification = new PasswordVerification();
         }
-        verification.VerifyApp(verificationListener, activity, appointment);
+        verification.VerifyApp(verificationListener, activity, reservation);
     }
 
     public void initializeNfc(VerificationListener verificationListener) {
