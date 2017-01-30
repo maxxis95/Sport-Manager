@@ -10,7 +10,8 @@ import com.foi.air1603.sport_manager.entities.Appointment;
  * Created by Karlo on 20.1.2017..
  */
 
-class NfcVerification extends Verification implements NfcVerificationHandler {
+class NfcVerification implements Verification, NfcVerificationHandler {
+    private VerificationListener mVerificationListener;
 
     @Override
     public void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment) {

@@ -10,7 +10,8 @@ import com.foi.air1603.sport_manager.entities.Appointment;
  * Created by Korisnik on 12-Jan-17.
  */
 
-class PasswordVerification extends Verification implements PasswordVerificationHandler {
+class PasswordVerification implements Verification, PasswordVerificationHandler {
+    private VerificationListener mVerificationListener;
 
     @Override
     public void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment) {

@@ -8,11 +8,8 @@ import com.foi.air1603.sport_manager.entities.Appointment;
  * Created by Korisnik on 12-Jan-17.
  */
 
-abstract class Verification {
+interface Verification {
 
-    VerificationListener mVerificationListener;
+    void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment);
 
-    public void VerifyApp(VerificationListener verificationListener, Activity activity, Appointment appointment) {
-        mVerificationListener = verificationListener;
-    }
 }

@@ -108,7 +108,6 @@ public class SettingsFragment extends android.app.Fragment {
         }
         if (user.nfcModule == 0) {
             switchNfc.setChecked(false);
-
         } else {
             switchNfc.setChecked(true);
         }
