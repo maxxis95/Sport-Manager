@@ -10,5 +10,4 @@ public interface LoginPresenter {
      */
     void checkInputData();
     void checkFacebookUserInDb(String FacebookId);
-
 }

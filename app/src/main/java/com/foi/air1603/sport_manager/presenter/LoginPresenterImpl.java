@@ -52,7 +52,7 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
 
     @Override
     public void checkFacebookUserInDb(String FacebookId) {
-        userInteractor.getUserObject("first_name", "Sportski");
+        userInteractor.getUserObject("facebook_id", FacebookId);
     }
 
     @Override
@@ -76,6 +76,16 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
         List<User> users = new Gson().fromJson(response.getData(), collectionType);
 
         BaseActivity.dismissProgressDialog();
+
+        if(view.userLoggedInFacebook()){
+            if(users == null){
+                // todo: open register fragment
+            }else{
+                user = users.get(0);
+                view.loginSuccessful(user);
+            }
+        }
+
         if (users == null) {
             onUsernameError();
         } else {

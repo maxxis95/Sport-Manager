@@ -12,6 +12,7 @@ public interface LoginView {
     String getUsernameFromEditText();
 
     String getPasswordFromEditText();
+    Boolean userLoggedInFacebook();
 
     void displayError(LoginViewEnums textView, String message);
 

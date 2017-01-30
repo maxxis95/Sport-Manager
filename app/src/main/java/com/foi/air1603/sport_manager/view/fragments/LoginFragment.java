@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
+    private Boolean facebookLogin = false;
     private LoginPresenter presenter;
     private Button btnLogin;
     private TextView txtViewRegistration;
@@ -40,6 +41,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private EditText passwordInput;
     private User user;
     private SharedPreferences pref;
+    private Profile profile;
 
     private CallbackManager callbackManager;
     private LoginButton loginButton;
@@ -47,8 +49,9 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-            Profile profile = Profile.getCurrentProfile();
-            //presenter.checkFacebookUserInDb(profile.getId());
+            profile = Profile.getCurrentProfile();
+            facebookLogin = true;
+            presenter.checkFacebookUserInDb(profile.getId());
             openAllPlacesFragment(profile);
         }
 
@@ -160,6 +163,11 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     @Override
     public String getPasswordFromEditText() {
         return passwordInput.getText().toString();
+    }
+
+    @Override
+    public Boolean userLoggedInFacebook() {
+        return facebookLogin;
     }
 
     @Override
