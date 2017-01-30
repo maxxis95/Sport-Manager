@@ -9,5 +9,6 @@ public interface LoginPresenter {
      * Validate user login
      */
     void checkInputData();
+    void checkFacebookUserInDb(String FacebookId);
 
 }

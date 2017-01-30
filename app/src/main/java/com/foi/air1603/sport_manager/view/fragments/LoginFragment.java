@@ -22,7 +22,6 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.foi.air1603.sport_manager.BaseActivity;
 import com.foi.air1603.sport_manager.MainActivity;
 import com.foi.air1603.sport_manager.R;
 import com.foi.air1603.sport_manager.entities.User;
@@ -31,9 +30,6 @@ import com.foi.air1603.sport_manager.presenter.LoginPresenter;
 import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 import com.google.gson.Gson;
-
-import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Username;
-import static com.foi.air1603.sport_manager.helper.enums.LoginViewEnums.Password;
 
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
@@ -45,7 +41,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private User user;
     private SharedPreferences pref;
 
-    public static final String PARCEL_KEY = "parcel_key";
     private CallbackManager callbackManager;
     private LoginButton loginButton;
 
@@ -53,6 +48,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         @Override
         public void onSuccess(LoginResult loginResult) {
             Profile profile = Profile.getCurrentProfile();
+            //presenter.checkFacebookUserInDb(profile.getId());
             openAllPlacesFragment(profile);
         }
 
@@ -69,8 +65,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
 
     private void openAllPlacesFragment(Profile profile) {
         if (profile != null) {
-//            Bundle mBundle = new Bundle();
-//            mBundle.putParcelable(PARCEL_KEY, profile);
             User faceUser = new User();
             faceUser.firstName = profile.getFirstName();
             faceUser.lastName = profile.getLastName();

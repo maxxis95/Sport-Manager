@@ -46,6 +46,14 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
             compareInputTextToData();
         }
     }
+    private void compareInputTextToData() {
+        userInteractor.getUserObject("username", view.getUsernameFromEditText());
+    }
+
+    @Override
+    public void checkFacebookUserInDb(String FacebookId) {
+        userInteractor.getUserObject("first_name", "Sportski");
+    }
 
     @Override
     public void onUsernameError() {
@@ -55,10 +63,6 @@ public class LoginPresenterImpl implements LoginPresenter, UserInteractor.OnLogi
     @Override
     public void onPasswordError() {
         view.displayError(Password, "Unijeli ste krivu lozinku");
-    }
-
-    private void compareInputTextToData() {
-        userInteractor.getUserObject("username", view.getUsernameFromEditText());
     }
 
     @Override

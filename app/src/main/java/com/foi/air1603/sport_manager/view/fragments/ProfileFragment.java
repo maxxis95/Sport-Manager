@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
         activity = (MainActivity) getActivity();
         user = activity.getIntent().getExtras().getParcelable("User");
 
+
         View v = inflater.inflate(R.layout.fragment_profile, null);
         return v;
     }
@@ -63,6 +64,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
         super.onViewCreated(view, savedInstanceState);
 
         presenter = new ProfilePresenterImpl(this);
+
         btnChangeProfilePicture = (Button) getView().findViewById(R.id.btnChangePicture);
 
         btnChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +151,11 @@ public class ProfileFragment extends Fragment implements ProfileView {
         } else {
             imageView.setImageResource(R.drawable.profile_stock);
         }
+    }
+
+    @Override
+    public User getProfileUser() {
+        return user;
     }
 
     private void getUserDataForTextView() {
