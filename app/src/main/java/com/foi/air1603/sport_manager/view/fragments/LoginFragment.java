@@ -43,49 +43,6 @@ import java.util.Arrays;
 
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
-    public static Boolean facebookLogin = false;
-    public static User facebookUser = null;
-    FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            GraphRequest request = GraphRequest.newMeRequest(
-                    loginResult.getAccessToken(),
-                    new GraphRequest.GraphJSONObjectCallback() {
-                        @Override
-                        public void onCompleted(JSONObject object, GraphResponse response) {
-                            Log.v("LoginActivity", response.toString());
-
-                            // Application code
-                            String email = null;
-                            try {
-                                email = object.getString("email");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            //String birthday = object.getString("birthday"); // 01/31/1980 format
-
-                            /*profile = Profile.getCurrentProfile();
-                            facebookLogin = true;
-                            presenter.checkFacebookUserInDb(profile.getId());*/
-                            System.out.println("!!!!!!!!!!!FACEBOOK " + email);
-                        }
-                    });
-            Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,email,gender,birthday");
-            request.setParameters(parameters);
-            request.executeAsync();
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException error) {
-            Log.e("Facebook Error: ", error.getMessage());
-        }
-    };
     private LoginPresenter presenter;
     private Button btnLogin;
     private TextView txtViewRegistration;
@@ -98,6 +55,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private FragmentManager fragmentManager;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    private String fEmail = null;
 
     public static void logOutOfFacebook() {
         if (LoginManager.getInstance() != null) {
@@ -105,6 +63,52 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             facebookLogin = false;
         }
     }
+
+    public static Boolean facebookLogin = false;
+    public static User facebookUser = null;
+    FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            profile = Profile.getCurrentProfile();
+            facebookLogin = true;
+            presenter.checkFacebookUserInDb(profile.getId());
+
+            GraphRequest request = GraphRequest.newMeRequest(
+                    loginResult.getAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            Log.v("LoginActivity", response.toString());
+
+                            // Application code
+
+                            try {
+                                fEmail = object.getString("email");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //String birthday = object.getString("birthday"); // 01/31/1980 format
+                            System.out.println("!!!!!!!!!!!FACEBOOK " + fEmail);
+                        }
+                    });
+
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email,gender,birthday");
+            request.setParameters(parameters);
+            request.executeAsync();
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+            Log.e("Facebook Error: ", error.getMessage());
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,7 +158,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             });
         }
         loginButton = (LoginButton) view.findViewById(R.id.face_login_button);
-        //loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions(Arrays.asList(
                 "public_profile", "email", "user_birthday", "user_friends"));
         loginButton.setFragment(this);
@@ -251,6 +255,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             faceUser.img = "https://graph.facebook.com/" + profile.getId() + "/picture?type=large";
             faceUser.type = 0;
             faceUser.facebook_id = profile.getId();
+            faceUser.email = fEmail;
             facebookUser = faceUser;
             initRegisterProfileFragment();
         }
