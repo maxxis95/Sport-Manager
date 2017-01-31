@@ -3,7 +3,10 @@ package com.foi.air1603.sport_manager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +24,7 @@ import com.foi.air1603.webservice.AirWebServiceResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 /**
  * Created by Karlo on 3.12.2016..
@@ -71,6 +75,21 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences prefs = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String language = prefs.getString("Language", "");
+
+        //defaultni jezik
+        if (language.isEmpty()) {
+            language = "hr";
+        }
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -105,7 +124,7 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(LoginFragment.facebookLogin){
+        if (LoginFragment.facebookLogin) {
             LoginFragment.logOutOfFacebook();
             getFragmentManager().popBackStack();
         }

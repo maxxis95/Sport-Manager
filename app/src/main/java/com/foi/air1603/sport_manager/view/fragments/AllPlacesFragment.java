@@ -91,8 +91,10 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         recyclerView.setAdapter(new PlaceRecycleAdapter(places, this));
         MainActivity.dismissProgressDialog();
 
-        recyclerView.getAdapter().notifyDataSetChanged();;
-        swipeContainer.setRefreshing(false);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        if(swipeContainer != null){
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     @Override

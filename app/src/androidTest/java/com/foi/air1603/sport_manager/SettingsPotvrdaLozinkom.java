@@ -2,7 +2,9 @@ package com.foi.air1603.sport_manager;
 
 
 import android.os.SystemClock;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -33,6 +35,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)

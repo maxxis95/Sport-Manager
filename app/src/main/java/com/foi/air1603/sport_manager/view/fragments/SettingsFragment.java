@@ -107,19 +107,22 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String currentLanguage = loadLocale();
-        if(currentLanguage.isEmpty()){
-            if(getActivity().getTitle().equals("Settings")){
-                currentLanguage = "en";
-            }
-            if(getActivity().getTitle().equals("Postavke")){
-                currentLanguage = "hr";
-            }
+        String currentLanguage = "";
+        if(getActivity().getTitle().equals("Settings")){
+            currentLanguage = "en";
         }
+        if(getActivity().getTitle().equals("Postavke")){
+            currentLanguage = "hr";
+        }
+
         if (Objects.equals(currentLanguage, "hr")) {
             spinner.setSelection(0);
         } else {
             spinner.setSelection(1);
+        }
+
+        if(currentLanguage.isEmpty()){
+            currentLanguage = loadLocale();
         }
 
         final String finalCurrentLanguage = currentLanguage;
@@ -138,8 +141,6 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
                     saveLocale(newLanguage);
                     changeLanguage(newLanguage);
                 }
-
-
             }
 
             @Override
