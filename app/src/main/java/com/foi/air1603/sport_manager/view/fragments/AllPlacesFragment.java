@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
     FloatingActionButton fabAdd;
     Rights rights;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeContainer;
 
     @Nullable
     @Override
@@ -63,6 +65,16 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
 
         presenter = PlacePresenterImpl.getInstance().Init(this);
         presenter.getAllPlaces();
+
+        swipeContainer = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefreshAllPlaces);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                PlacePresenterImpl.updateData = true;
+                presenter.getAllPlaces();
+            }
+        });
+
     }
 
     private void hideFloatingActionButton() {
@@ -78,6 +90,9 @@ public class AllPlacesFragment extends android.app.Fragment implements PlaceView
         System.out.println("9. AllPlacesFragment:showAllPlaces");
         recyclerView.setAdapter(new PlaceRecycleAdapter(places, this));
         MainActivity.dismissProgressDialog();
+
+        recyclerView.getAdapter().notifyDataSetChanged();;
+        swipeContainer.setRefreshing(false);
     }
 
     @Override

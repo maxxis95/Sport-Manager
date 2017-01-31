@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
     private Activity activity;
     private SharedPreferences pref;
     private User user;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +66,15 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         activity = getActivity();
         myReservationsPresenter = MyReservationsPresenterImpl.getInstance().Init(this);
         myReservationsPresenter.getUserReservationsData();
+
+        swipeContainer = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefreshMyReservations);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MyReservationsPresenterImpl.updateData = true;
+                myReservationsPresenter.getUserReservationsData();
+            }
+        });
     }
 
     @Override
@@ -105,8 +116,11 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
         if (expandParentPosition != -1) {
             adapter.expandParent(expandParentPosition);
-            System.out.println("EXPNDING PARENT " + expandParentPosition);
+            //System.out.println("EXPNDING PARENT " + expandParentPosition);
         }
+
+        adapter.notifyDataSetChanged();
+        swipeContainer.setRefreshing(false);
     }
 
     @Override

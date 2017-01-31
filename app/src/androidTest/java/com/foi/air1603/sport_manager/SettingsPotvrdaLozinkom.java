@@ -113,7 +113,7 @@ public class SettingsPotvrdaLozinkom {
 
         ViewInteraction recyclerView = onView(
                 allOf(withId(R.id.main_recycler),
-                        withParent(allOf(withId(R.id.swipeRefreshLayout),
+                        withParent(allOf(withId(R.id.swipeRefreshMyReservations),
                                 withParent(withId(R.id.base_main)))),
                         isDisplayed()));
         recyclerView.perform(actionOnItemAtPosition(0, click()));

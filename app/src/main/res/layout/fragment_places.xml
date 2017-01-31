@@ -2,27 +2,34 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshAllPlaces"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_places"
-        android:scrollbars="vertical"
-        android:background="#ECEFF1"/>
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@mipmap/ic_add_white_48dp"
-        app:backgroundTint="@color/colorChanged"
-        app:useCompatPadding="true"
-        android:id="@+id/fabAdd"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_places"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ECEFF1"
+            android:scrollbars="vertical" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/ic_add_white_48dp"
+            app:backgroundTint="@color/colorChanged"
+            app:useCompatPadding="true" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>
