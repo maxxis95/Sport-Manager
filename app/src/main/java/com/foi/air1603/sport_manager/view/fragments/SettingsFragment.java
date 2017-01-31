@@ -113,11 +113,12 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         } else {
             if(getActivity().getTitle().equals("Settings")){
                 currentLanguage = "en";
+                spinner.setSelection(1);
             }
             if(getActivity().getTitle().equals("Postavke")){
                 currentLanguage = "hr";
+                spinner.setSelection(0);
             }
-            spinner.setSelection(0);
         }
 
         if(currentLanguage.isEmpty()){
