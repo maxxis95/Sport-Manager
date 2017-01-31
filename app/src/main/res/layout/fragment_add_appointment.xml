@@ -14,7 +14,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/calendarViewAppointment"
             android:layout_marginStart="31dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="30dp"
             android:text="@string/tvAppointmentLabel"
             android:textSize="15sp" />
 
@@ -69,8 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/txiAppointmentHourStop"
-            android:layout_below="@+id/txiAppointmentHourStop"
-            android:layout_marginBottom="25dp">
+            android:layout_below="@+id/txiAppointmentHourStop">
 
             <EditText
                 android:id="@+id/etMaxplayer"
