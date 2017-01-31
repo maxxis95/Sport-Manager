@@ -76,13 +76,14 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        LoginFragment.logOutOfFacebook();
+
         SharedPreferences prefs = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         String language = prefs.getString("Language", "");
 
         //defaultni jezik
         if (language.isEmpty()) {
-            language = "hr";
-        }
+            language = "hr";       }
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();

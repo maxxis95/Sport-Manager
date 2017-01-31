@@ -120,7 +120,9 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
         }
 
         adapter.notifyDataSetChanged();
-        swipeContainer.setRefreshing(false);
+        if(swipeContainer != null){
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     @Override

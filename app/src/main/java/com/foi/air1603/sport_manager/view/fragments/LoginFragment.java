@@ -158,9 +158,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             });
         }
         loginButton = (LoginButton) view.findViewById(R.id.face_login_button);
-        loginButton.setReadPermissions("user_friends");
-        loginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
+        loginButton.setReadPermissions("public_profile");
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, callback);
     }
