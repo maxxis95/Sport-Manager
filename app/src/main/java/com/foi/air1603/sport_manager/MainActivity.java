@@ -248,6 +248,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if(fragmentManager.getBackStackEntryCount() == 0){
+                finish();
+                logout();
+            }
             super.onBackPressed();
         }
     }
@@ -308,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user = null;
         MyReservationsPresenterImpl.updateData = true;
 
+        BaseActivity.unlinkDevice();
         LoginFragment.logOutOfFacebook();
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -321,5 +326,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
     }
+
+
 
 }

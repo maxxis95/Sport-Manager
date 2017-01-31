@@ -108,17 +108,16 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         spinner.setAdapter(adapter);
 
         String currentLanguage = "";
-        if(getActivity().getTitle().equals("Settings")){
-            currentLanguage = "en";
-        }
-        if(getActivity().getTitle().equals("Postavke")){
-            currentLanguage = "hr";
-        }
-
         if (Objects.equals(currentLanguage, "hr")) {
             spinner.setSelection(0);
         } else {
-            spinner.setSelection(1);
+            if(getActivity().getTitle().equals("Settings")){
+                currentLanguage = "en";
+            }
+            if(getActivity().getTitle().equals("Postavke")){
+                currentLanguage = "hr";
+            }
+            spinner.setSelection(0);
         }
 
         if(currentLanguage.isEmpty()){

@@ -69,6 +69,7 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
             DataLoader dataLoader = new WsDataLoader();
             String android_id = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
             dataLoader.loadData(activity, "updateToken", android_id, "", "", User.class, null);
+            MainActivity.tokenNeedsUpdating = true;
         }
     }
 
