@@ -264,7 +264,7 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
     private void initRegisterProfileFragment() {
         RegisterFragment registerFragment = new RegisterFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, registerFragment);
+        fragmentTransaction.add(R.id.fragment_container, registerFragment).addToBackStack("LoginFragment");
         fragmentTransaction.commit();
     }
 

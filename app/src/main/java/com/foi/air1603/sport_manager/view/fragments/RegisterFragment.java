@@ -220,6 +220,7 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
     }
 
+
     /**
      * Removes error messages underneath the fields in the Registration window
      * which were caused by a set of incorrectly entered characters or by not

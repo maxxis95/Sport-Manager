@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.loaders.DataLoadedListener;
 import com.foi.air1603.sport_manager.loaders.DataLoader;
@@ -101,5 +100,14 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
     public void onDataLoaded(AirWebServiceResponse result) {
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(LoginFragment.facebookLogin){
+            LoginFragment.logOutOfFacebook();
+            getFragmentManager().popBackStack();
+        }
     }
 }
