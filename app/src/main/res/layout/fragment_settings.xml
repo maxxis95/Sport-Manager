@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notifikacije"
+        android:text="@string/tvNotificationsSwitch"
         android:id="@+id/tvNotificationSwitch"
         android:layout_alignBaseline="@+id/switchNotification"
         android:layout_alignBottom="@+id/switchPassword"

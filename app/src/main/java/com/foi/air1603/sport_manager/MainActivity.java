@@ -41,6 +41,9 @@ import com.foi.air1603.webservice.AirWebServiceResponse;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.util.Locale;
+
 /**
  * Created by Karlo on 3.12.2016..
  */
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private SharedPreferences pref;
     private String TAG = "MainActivity";
+    private Locale myLocale;
 
     public static void replaceFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
@@ -114,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        if (pref.contains("langPref")) {
+            loadLocale();
+        }
 
         activity = this;
         progressDialog = new ProgressDialog(MainActivity.this);
@@ -309,6 +318,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user = null;
         MyReservationsPresenterImpl.updateData = true;
 
+        clearApplicationData();
+
         LoginFragment.logOutOfFacebook();
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -322,11 +333,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
     }
+
+    public void clearApplicationData() {
+        File cache = getCacheDir();
+        File appDir = new File(cache.getParent());
+        if(appDir.exists()){
+            String[] children = appDir.list();
+            for(String s : children){
+                if(!s.equals("lib")){
+                    deleteDir(new File(appDir, s));
+                    Log.i("TAG", "File /data/data/APP_PACKAGE/" + s +" DELETED");
+                }
+            }
+        }
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        return dir.delete();
+    }
+
+
+    public void loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        changeLanguage(language);
+    }
+
+    private void changeLanguage(String language) {
+        myLocale = new Locale(language);
+        saveLocale(language);
+        Locale.setDefault(myLocale);
+
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(new Locale(language));
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    public void saveLocale(String lang) {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.apply();
+    }
+
+
+
 }
-
-
-/*
-sample kod za disableanje modula
-
-
- */

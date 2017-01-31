@@ -176,5 +176,11 @@
     <string name="errorPasswordMatching">Lozinke se ne podudaraju</string>
 
     <string name="toastAppointmentCheck">Vlasnik je zabilježio Vaš dolazak. Osvježite pregled rezervacija za provjeru.</string>
+    <string name="tvNotificationsSwitch">Notifikacije</string>
+
+    <string-array name="languages_array">
+        <item>Hrvatski</item>
+        <item>Engleski</item>
+    </string-array>
 
 </resources>

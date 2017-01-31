@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -26,9 +27,11 @@ import com.foi.air1603.sport_manager.entities.User;
 import com.foi.air1603.sport_manager.view.SettingsView;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class SettingsFragment extends android.app.Fragment implements SettingsView {
+public class SettingsFragment extends android.app.Fragment implements SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {
     private User user;
     private int passModul;
     private int nfcModul;
@@ -37,8 +40,6 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
     private Switch switchNfc;
     private Switch switchNotifications;
     private SharedPreferences pref;
-
-    private Spinner spinnerctrl;
     private Locale myLocale;
 
 
@@ -51,6 +52,7 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         this.passModul = user.passwordModule;
         this.nfcModul = user.nfcModule;
         this.notification = user.hide_notifications;
+
         View v = inflater.inflate(R.layout.fragment_settings, null);
         return v;
     }
@@ -61,6 +63,7 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         this.switchNfc = (Switch) getActivity().findViewById(R.id.switchNFC);
         this.switchNotifications = (Switch) getActivity().findViewById(R.id.switchNotification);
         setSettings();
+
         switchNfc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +77,7 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
                 setSettings();
             }
         });
+
         switchPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,17 +106,38 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
             }
         });
 
-        spinnerctrl = (Spinner) getActivity().findViewById(R.id.spinner);
-        spinnerctrl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.languages_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
-                    Toast.makeText(parent.getContext(), "You have selected Croatian", Toast.LENGTH_SHORT).show();
-                    //setLocale("ta");
-                } else if (position == 2) {
-                    Toast.makeText(parent.getContext(), "You have selected English", Toast.LENGTH_SHORT).show();
-                    //setLocale("hi");
+
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
+                pref = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+
+                if (pref.contains("Language")) {
+                    String currentLanguage = pref.getString("Language", null);
+                    Toast.makeText(parent.getContext(), currentLanguage, Toast.LENGTH_LONG).show();
+
+                    if(currentLanguage == "hr"){
+                        //Toast.makeText(parent.getContext(), "Test HR", Toast.LENGTH_LONG).show();
+                    } else if (currentLanguage == "en"){
+                        //Toast.makeText(parent.getContext(), "Test EN", Toast.LENGTH_LONG).show();
+                    }
                 }
+
+                if (position == 0) {
+                    changeLanguage("en");
+                } else if (position == 1) {
+                    changeLanguage("hr");
+                }
+
+                // Showing selected spinner item
+                //Toast.makeText(parent.getContext(), "Selected: " + item + " Position: " + position, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -147,11 +172,11 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
             MainActivity.user.nfcModule = value;
 
             int option = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-            if(value == 1){
+            if (value == 1) {
                 option = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
             }
 
-            PackageManager pm  = getActivity().getApplicationContext().getPackageManager();
+            PackageManager pm = getActivity().getApplicationContext().getPackageManager();
             ComponentName componentName = new ComponentName("com.foi.air1603.sport_manager",
                     "com.foi.air1603.nfc_verification_module.NfcMainActivity");
             pm.setComponentEnabledSetting(componentName, option,
@@ -173,19 +198,6 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
         editor.commit();
     }
 
-    /*
-    public void setLocale(String lang) {
-        myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, AndroidLocalize.class);
-        startActivity(refresh);
-    }
-    */
-
     private User retrieveLoginSession() {
         Gson gson = new Gson();
         String json = pref.getString("User", "");
@@ -194,6 +206,34 @@ public class SettingsFragment extends android.app.Fragment implements SettingsVi
     }
 
 
+    public void loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        changeLanguage(language);
+    }
 
+    public void changeLanguage(String language) {
+        myLocale = new Locale(language);
+        saveLocale(language);
+        Locale.setDefault(myLocale);
+
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(new Locale(language));
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    public void saveLocale(String lang) {
+        String langPref = "Language";
+        SharedPreferences prefs = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.apply();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        getActivity().recreate();
+    }
 }
 
