@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -34,30 +36,44 @@ import com.foi.air1603.sport_manager.presenter.LoginPresenterImpl;
 import com.foi.air1603.sport_manager.view.LoginView;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
 public class LoginFragment extends android.app.Fragment implements LoginView {
 
     public static Boolean facebookLogin = false;
     public static User facebookUser = null;
-    private LoginPresenter presenter;
-    private Button btnLogin;
-    private TextView txtViewRegistration;
-    private EditText usernameInput;
-    private EditText passwordInput;
-    private User user;
-    private SharedPreferences pref;
-    private Profile profile;
-    private BaseActivity activity;
-    private FragmentManager fragmentManager;
-
-    private CallbackManager callbackManager;
-    private LoginButton loginButton;
-
     FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-            profile = Profile.getCurrentProfile();
-            facebookLogin = true;
-            presenter.checkFacebookUserInDb(profile.getId());
+            GraphRequest request = GraphRequest.newMeRequest(
+                    loginResult.getAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            Log.v("LoginActivity", response.toString());
+
+                            // Application code
+                            String email = null;
+                            try {
+                                email = object.getString("email");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //String birthday = object.getString("birthday"); // 01/31/1980 format
+
+                            /*profile = Profile.getCurrentProfile();
+                            facebookLogin = true;
+                            presenter.checkFacebookUserInDb(profile.getId());*/
+                            System.out.println("!!!!!!!!!!!FACEBOOK " + email);
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email,gender,birthday");
+            request.setParameters(parameters);
+            request.executeAsync();
         }
 
         @Override
@@ -70,6 +86,25 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             Log.e("Facebook Error: ", error.getMessage());
         }
     };
+    private LoginPresenter presenter;
+    private Button btnLogin;
+    private TextView txtViewRegistration;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private User user;
+    private SharedPreferences pref;
+    private Profile profile;
+    private BaseActivity activity;
+    private FragmentManager fragmentManager;
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+
+    public static void logOutOfFacebook() {
+        if (LoginManager.getInstance() != null) {
+            LoginManager.getInstance().logOut();
+            facebookLogin = false;
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +112,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         callbackManager = CallbackManager.Factory.create();
         fragmentManager = getFragmentManager();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,7 +154,9 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             });
         }
         loginButton = (LoginButton) view.findViewById(R.id.face_login_button);
-        loginButton.setReadPermissions("user_friends");
+        //loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, callback);
     }
@@ -149,7 +185,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         return user;
     }
 
-
     @Override
     public String getUsernameFromEditText() {
         return usernameInput.getText().toString();
@@ -170,11 +205,11 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         final TextInputLayout usernameWrapper = (TextInputLayout) getView().findViewById(R.id.txiUsernameL);
         final TextInputLayout passwordWrapper = (TextInputLayout) getView().findViewById(R.id.txiPasswordL);
 
-        if (message.equals("Unesite vrijednost")){
+        if (message.equals("Unesite vrijednost")) {
             message = getResources().getString(R.string.errorFieldNecessary);
-        } else if(message.equals("Korisničko ime ne postoji")){
+        } else if (message.equals("Korisničko ime ne postoji")) {
             message = getResources().getString(R.string.errorUsernameNotFound);
-        } else if(message.equals("Unijeli ste krivu lozinku")) {
+        } else if (message.equals("Unijeli ste krivu lozinku")) {
             message = getResources().getString(R.string.errorWrongPassword);
         }
 
@@ -199,7 +234,6 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
         passwordWrapper.setErrorEnabled(false);
     }
 
-
     @Override
     public void loginSuccessful(User userObject) {
         createLoginSession(userObject);
@@ -220,7 +254,8 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
             initRegisterProfileFragment();
         }
     }
-    private void initRegisterProfileFragment(){
+
+    private void initRegisterProfileFragment() {
         RegisterFragment registerFragment = new RegisterFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, registerFragment);
@@ -269,12 +304,5 @@ public class LoginFragment extends android.app.Fragment implements LoginView {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-    }
-
-    public static void logOutOfFacebook(){
-        if(LoginManager.getInstance() != null){
-            LoginManager.getInstance().logOut();
-            facebookLogin = false;
-        }
     }
 }

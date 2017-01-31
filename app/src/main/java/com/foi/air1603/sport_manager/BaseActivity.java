@@ -3,6 +3,7 @@ package com.foi.air1603.sport_manager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +29,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class BaseActivity extends AppCompatActivity implements DataLoadedListener {
 
-    private static ProgressDialog progressDialog;
     static public BaseActivity activity;
+    private static ProgressDialog progressDialog;
     private CallbackManager callbackManager;
 
     public static void showProgressDialog(String message) {
@@ -41,6 +42,31 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
 
     public static void dismissProgressDialog() {
         progressDialog.dismiss();
+    }
+
+    public static String get_SHA_512_SecurePassword(String passwordToHash, String salt) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes("UTF-8"));
+            byte[] bytes = md.digest(passwordToHash.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
+
+    static public void unlinkDevice() {
+        if (activity != null) {
+            DataLoader dataLoader = new WsDataLoader();
+            String android_id = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
+            dataLoader.loadData(activity, "updateToken", android_id, "", "", User.class, null);
+        }
     }
 
     @Override
@@ -58,38 +84,17 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
         LoginFragment login = new LoginFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
     }
 
-
-    public static String get_SHA_512_SecurePassword(String passwordToHash, String salt){
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt.getBytes("UTF-8"));
-            byte[] bytes = md.digest(passwordToHash.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException | UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
-        return generatedPassword;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    static public void unlinkDevice(){
-        if(activity != null){
-            DataLoader dataLoader = new WsDataLoader();
-            String android_id = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-            dataLoader.loadData(activity, "updateToken", android_id, "", "", User.class, null);
-        }
-    }
     @Override
     public void onDataLoaded(AirWebServiceResponse result) {
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
