@@ -78,6 +78,12 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             return;
         }
 
+        int expandParentPosition = -1, reservationId = -1;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            reservationId = Integer.parseInt(bundle.get("reservation_id").toString());
+        }
+
         for (Reservation res : reservations) {
             if (res.appointment == null) {
                 continue;
@@ -85,6 +91,10 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
 
             MyReservationsExpandableItem tmp = new MyReservationsExpandableItem(res);
             reservationsItems.add(tmp);
+
+            if (bundle != null && res.id == reservationId) {
+                expandParentPosition = reservationsItems.size() - 1;
+            }
         }
         if (mRecyclerView != null) {
             adapter = new MyReservationsRecycleAdapter(getActivity(), reservationsItems, this);
@@ -92,6 +102,11 @@ public class MyReservationsFragment extends android.app.Fragment implements MyRe
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         MainActivity.dismissProgressDialog();
+
+        if (expandParentPosition != -1) {
+            adapter.expandParent(expandParentPosition);
+            System.out.println("EXPNDING PARENT " + expandParentPosition);
+        }
     }
 
     @Override

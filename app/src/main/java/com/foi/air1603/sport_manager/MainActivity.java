@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("reservation_id")) {
             handleSystemTrayNotification(getIntent().getExtras());
         }
 
@@ -163,14 +163,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /***
      * Kada je aplikacija u pozadini i stisne se na notifikaciju gore u notification baru ovdje se dolazi
      *
-     * @param extras
+     * @param extras se sastoji od: user, reservation_id
      */
     private void handleSystemTrayNotification(Bundle extras) {
-        for (String key : extras.keySet()) {
-            Object value = extras.get(key);
-            Log.d(TAG, "Key: " + key + " Value: " + value);
-        }
+        Fragment newFragment = new MyReservationsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("reservation_id", extras.get("reservation_id").toString());
+        newFragment.setArguments(bundle);
+
+        replaceFragment(newFragment);
     }
+
 
     private void setNavigationView() {
         switch (rights) {
