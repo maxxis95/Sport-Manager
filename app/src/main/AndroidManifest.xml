@@ -88,7 +88,7 @@
              See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_event_black_48dp" />
+            android:resource="@mipmap/ic_event_white_48dp" />
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
