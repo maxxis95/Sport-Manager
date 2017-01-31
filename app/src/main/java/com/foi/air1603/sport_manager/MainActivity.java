@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private SharedPreferences pref;
     private String TAG = "MainActivity";
-    private Locale myLocale;
 
     public static void replaceFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
@@ -120,9 +120,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         pref = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        if (pref.contains("langPref")) {
-            loadLocale();
-        }
 
         activity = this;
         progressDialog = new ProgressDialog(MainActivity.this);
@@ -161,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (user != null) {
-            rights = rights.getRightFormInt(user.type);
+            rights = Rights.getRightFormInt(user.type);
             setNavigationView();
             setAllUsersDataToHeaderView();
             initAllPlacesFragment();
@@ -280,25 +277,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_my_profile) {
-            //openProfileFragment();
             replaceFragment(new ProfileFragment());
         } else if (id == R.id.nav_places_list) {
-            //openAllPlacesFragment();
             replaceFragment(new AllPlacesFragment());
         } else if (id == R.id.nav_my_places) {
-            //openMyPlacesFragment();
             replaceFragment(new MyPlacesFragment());
         } else if (id == R.id.nav_my_reservations) {
-            //openMyReservationsFragment();
             replaceFragment(new MyReservationsFragment());
         } else if (id == R.id.nav_settings) {
             replaceFragment(new SettingsFragment());
-
         } else if (id == R.id.nav_about) {
             replaceFragment(new AboutFragment());
         } else if (id == R.id.nav_logout) {
@@ -318,8 +309,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user = null;
         MyReservationsPresenterImpl.updateData = true;
 
-        clearApplicationData();
-
         LoginFragment.logOutOfFacebook();
         Intent intent = new Intent(MainActivity.this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -333,61 +322,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("MyFirebaseInstanceIDService:onDataLoaded");
         System.out.println(result);
     }
-
-    public void clearApplicationData() {
-        File cache = getCacheDir();
-        File appDir = new File(cache.getParent());
-        if(appDir.exists()){
-            String[] children = appDir.list();
-            for(String s : children){
-                if(!s.equals("lib")){
-                    deleteDir(new File(appDir, s));
-                    Log.i("TAG", "File /data/data/APP_PACKAGE/" + s +" DELETED");
-                }
-            }
-        }
-    }
-
-    public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-
-        return dir.delete();
-    }
-
-
-    public void loadLocale() {
-        String langPref = "Language";
-        SharedPreferences prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        String language = prefs.getString(langPref, "");
-        changeLanguage(language);
-    }
-
-    private void changeLanguage(String language) {
-        myLocale = new Locale(language);
-        saveLocale(language);
-        Locale.setDefault(myLocale);
-
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.setLocale(new Locale(language));
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-    }
-
-    public void saveLocale(String lang) {
-        String langPref = "Language";
-        SharedPreferences prefs = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(langPref, lang);
-        editor.apply();
-    }
-
-
 
 }

@@ -87,6 +87,8 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
         LoginFragment login = new LoginFragment();
         fragmentTransaction.add(R.id.fragment_container, login, "HELLO");
         fragmentTransaction.commit();
+
+        unlinkDevice();
     }
 
     @Override
