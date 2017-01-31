@@ -70,9 +70,11 @@ public class RegisterFragment extends android.app.Fragment implements RegisterVi
 
         final TextInputEditText firstName = (TextInputEditText) getActivity().findViewById(R.id.etName);
         final TextInputEditText lastName = (TextInputEditText) getActivity().findViewById(R.id.etLastName);
+        final TextInputEditText email = (TextInputEditText) getActivity().findViewById(R.id.etMail);
 
         firstName.setText(facebookUser.firstName);
         lastName.setText(facebookUser.lastName);
+        email.setText(facebookUser.email);
 
     }
 
