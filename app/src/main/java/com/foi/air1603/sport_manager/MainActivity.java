@@ -171,13 +171,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * @param extras se sastoji od: user, reservation_id
      */
     private void handleSystemTrayNotification(Bundle extras) {
-        Fragment newFragment = new MyReservationsFragment();
+        Intent intent = new Intent(this, MainActivity.class).putExtra("User", MainActivity.user);
+        finish();
+        startActivity(intent);
 
+       /*initAllPlacesFragment();
+        Fragment newFragment = new MyReservationsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("reservation_id", extras.get("reservation_id").toString());
         newFragment.setArguments(bundle);
-
-        replaceFragment(newFragment);
+        replaceFragment(newFragment);*/
     }
 
 

@@ -84,7 +84,8 @@ public class BaseActivity extends AppCompatActivity implements DataLoadedListene
 
         //defaultni jezik
         if (language.isEmpty()) {
-            language = "hr";       }
+            language = "hr";
+        }
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
