@@ -28,7 +28,7 @@
             android:layout_alignTop="@+id/appointment_date"/>
 
         <TextView
-            android:text="Datum:"
+            android:text="@string/tvDateTerm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/appointment_date"
@@ -71,7 +71,7 @@
             android:layout_alignStart="@+id/appointment_date" />
 
         <TextView
-            android:text="max igraca:"
+            android:text="@string/tvMaxPlayers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/appointment_image"
@@ -80,7 +80,7 @@
             android:id="@+id/appointment_max_players" />
 
         <TextView
-            android:text="lozinka:"
+            android:text="@string/tvPasswordAppointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/appointment_max_players"
@@ -100,7 +100,7 @@
             android:layout_marginEnd="40dp"/>
 
         <Button
-            android:text="Izbriši termin"
+            android:text="@string/btnDeleteReservation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

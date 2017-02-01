@@ -177,5 +177,9 @@
         <item>Croatian</item>
         <item>English</item>
     </string-array>
+    <string name="btnDeleteReservation">Delete term</string>
+    <string name="tvMaxPlayers">Maximum No. of participants</string>
+    <string name="tvPasswordAppointment">Term password</string>
+    <string name="tvDateTerm">Date</string>
 
 </resources>

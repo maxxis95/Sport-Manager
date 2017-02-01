@@ -65,7 +65,6 @@
             android:id="@+id/btn_my_place_add_appointment"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="#039be5"/>
 
@@ -77,8 +76,7 @@
             style="?android:attr/borderlessButtonStyle"
             android:textColor="#039be5"
             android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/my_place_image"
-            android:layout_marginEnd="20dp" />
+            android:layout_toEndOf="@+id/btn_my_place_add_appointment" />
 
     </RelativeLayout>
 

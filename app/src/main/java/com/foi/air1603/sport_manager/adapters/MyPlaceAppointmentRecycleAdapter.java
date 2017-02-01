@@ -47,13 +47,13 @@ public class MyPlaceAppointmentRecycleAdapter extends RecyclerView.Adapter<Recyc
         string = string.substring(0, string.indexOf(" "));
         String[] parts = string.split("-");
         String date = parts[2]+"."+parts[1]+"."+parts[0]+".";
-        ((AppointmentViewHolder) holder).appointment_date_view.setText("Datum: " + date);
-        ((AppointmentViewHolder) holder).appointment_id_view.setText("ID: " + appointment.id);
+        ((AppointmentViewHolder) holder).appointment_date_view.setText(date);
+        ((AppointmentViewHolder) holder).appointment_id_view.setText("ID " + appointment.id);
         ((AppointmentViewHolder) holder).appointment_start_view.setText(appointment.start+" -");
         ((AppointmentViewHolder) holder).appointment_end_view.setText(appointment.end);
-        ((AppointmentViewHolder) holder).appointment_maxPlayers_view.setText("max igrača: " + appointment.maxPlayers);
+        ((AppointmentViewHolder) holder).appointment_maxPlayers_view.setText("No.: " + appointment.maxPlayers);
         if(appointment.password != null) {
-            ((AppointmentViewHolder) holder).appointment_password_view.setText("lozinka: " + appointment.password);
+            ((AppointmentViewHolder) holder).appointment_password_view.setText("Password: " + appointment.password);
         } else {
             ((AppointmentViewHolder) holder).appointment_password_view.setText("");
         }

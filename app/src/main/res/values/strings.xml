@@ -177,6 +177,10 @@
 
     <string name="toastAppointmentCheck">Vlasnik je zabilježio Vaš dolazak. Osvježite pregled rezervacija za provjeru.</string>
     <string name="tvNotificationsSwitch">Notifikacije</string>
+    <string name="btnDeleteReservation">Obriši termin</string>
+    <string name="tvPasswordAppointment">Lozinka termina</string>
+    <string name="tvMaxPlayers">Maksimalan broj sudionika</string>
+    <string name="tvDateTerm">Datum</string>
 
     <string-array name="languages_array">
         <item>Hrvatski</item>
